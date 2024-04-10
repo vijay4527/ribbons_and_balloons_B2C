@@ -25,7 +25,7 @@ const optionsMedia = {
     '<span className="arrow-next-icon"><span className="arrow-top-part"></span><span className="arrow-bottom-part"></span></span>',
   ],
 };
-const mediaCollaborators = () => {
+const MediaCollaborators = () => {
   const [isMounted, setIsMounted] = useState(false);
   const { data: session, status } = useSession();
   useEffect(() => {
@@ -106,4 +106,4 @@ const mediaCollaborators = () => {
   );
 };
 
-export default mediaCollaborators;
+export default MediaCollaborators;
