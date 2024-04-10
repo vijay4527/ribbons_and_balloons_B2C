@@ -24,7 +24,7 @@ const options = {
     '<span className="arrow-next-icon"><span className="arrow-top-part"></span><span className="arrow-bottom-part"></span></span>',
   ],
 };
-const testimonial = () => {
+const Testimonial = () => {
   const [isMounted, setIsMounted] = useState(false);
   const { data: session, status } = useSession();
   useEffect(() => {
@@ -36,7 +36,6 @@ const testimonial = () => {
   return (
     <>
       <Head>
-        {" "}
         <link
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/css/bootstrap.min.css"
           rel="stylesheet"
@@ -108,4 +107,4 @@ const testimonial = () => {
   );
 };
 
-export default testimonial;
+export default Testimonial;

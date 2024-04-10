@@ -24,7 +24,7 @@ const optionsNewLunched = {
   ],
 };
 
-const newLaunched = () => {
+const NewLaunched = () => {
   const [isMounted, setIsMounted] = useState(false);
   const { data: session, status } = useSession();
   useEffect(() => {
@@ -111,4 +111,4 @@ const newLaunched = () => {
   );
 };
 
-export default newLaunched;
+export default NewLaunched;
