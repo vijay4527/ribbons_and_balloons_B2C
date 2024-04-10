@@ -1,3 +1,4 @@
+"use client"
 import { useEffect } from 'react';
 import Navbar from "@/components/nav";
 import "./globals.css";
