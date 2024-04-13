@@ -1,5 +1,4 @@
-"use client"
-import Navbar from "@/components/nav";
+import Navbar from "@/components/navbar/Navbar";
 import "./globals.css";
 import { Inter, Roboto, Poppins } from "next/font/google";
 import Footer from "@/components/footer/Footer";
@@ -13,26 +12,16 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
- 
-
   return (
     <html lang="en">
-      <head>
-        <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-        />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        ></link>
-      </head>
       <body className={inter.className}>
-        <AuthProvider>
-          <Navbar />
-          {children}
-          <Footer />
-        </AuthProvider>
+          <AuthProvider>
+            <div className="container">
+              <Navbar />
+              {children}
+              <Footer />
+            </div>
+          </AuthProvider>
       </body>
     </html>
   );
