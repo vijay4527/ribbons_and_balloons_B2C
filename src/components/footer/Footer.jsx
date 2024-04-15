@@ -18,7 +18,15 @@ const validationSchema = yup.object().shape({
 export default function Footer() {
   const [errors, setErrors] = useState({});
   const [email, setEmail] = useState("");
-  var city = typeof window !== "undeifned" ? window.location.pathname.split("/")[1] : ""; 
+  const [city,setCity] = useState("")
+
+
+  useEffect(()=>{
+    var city = typeof window !== "undeifned" ? window.location.pathname.split("/")[1] : ""; 
+      if(city){
+        setCity(city)
+      }
+  },[])
   console.log("city in footer",city)
   const [status, setStatus] = useState(false);
   const saveNewsLetter = async () => {
