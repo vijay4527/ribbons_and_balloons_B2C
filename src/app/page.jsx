@@ -1,41 +1,19 @@
-
-import React from 'react';
 import { redirect } from 'next/navigation'
-
-const Page = (city) => {
-
-  if (city !== "") {
-    return {
-      redirect: {
-        destination: `/${city}`,
-        permanent: false,
-      },
-    };
-  } else {
-    return {
-      redirect: {
-        destination: "/mumbai",
-        permanent: false,
-      },
-    };
-  }
-};
-
-const page = async({params})=>{
-  const city = params.city || ""; 
-
-  const  data = await Page(city)
-  if(data){
-    redirect("/mumbai")
-  }else{
-    redirect("/mumbai")
-
-  }
-  return (
-    <></>
-  )
+ 
+async function fetchTeam(city) {
+     console.log("city",city)
+     if(city !==""){
+      return city
+     }
 }
+ 
+export default async function Profile({ params }) {
+  const city = await fetchTeam(params.city)
+  if (!city) {
+    redirect('/mumbai')
+  }else{
+    redirect('/'+city)
 
-export default page;
+  }
 
-
+}
