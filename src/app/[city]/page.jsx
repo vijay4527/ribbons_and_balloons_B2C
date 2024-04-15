@@ -1,18 +1,17 @@
-
-import React from 'react'
-import Banner from '@/components/banner';
-import Testimonials from "@/components/testimonial"
-import InstaPosts from '@/components/InstaPosts';
-import NewLaunches from "@/components/newLaunched"
-import MediaCollaborators from '@/components/mediaCollaborators';
+import React from "react";
+import Banner from "@/components/banner";
+import Testimonials from "@/components/testimonial";
+import InstaPosts from "@/components/InstaPosts";
+import NewLaunches from "@/components/newLaunched";
+import MediaCollaborators from "@/components/mediaCollaborators";
 const page = () => {
   return (
     <>
-    <Banner />
-     <Testimonials />
-     <InstaPosts />
-     <NewLaunches />
-     <div className="cakeOfMonthWrap">
+      <Banner />
+      <Testimonials />
+      <InstaPosts />
+      <NewLaunches />
+      <div className="cakeOfMonthWrap">
         <div className="headerTitle">
           <h2>Cake of the month</h2>
           <div className="testimonialUnderLine">
@@ -36,7 +35,7 @@ const page = () => {
       </div>
       <MediaCollaborators />
     </>
-  )
-}
+  );
+};
 
-export default page
+export default page;

@@ -1,10 +1,7 @@
 "use client";
 import Container from "react-bootstrap/Container";
-import Head from "next/head";
-import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel/dist/assets/owl.theme.default.css";
+
 const Banner = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
 

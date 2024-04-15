@@ -1,15 +1,21 @@
-"use client";
+"use client"
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import initAOS from "@/components/initAOS";
 import { useSession } from "next-auth/react";
 import Container from "react-bootstrap/Container";
 import Head from "next/head";
+
+// Import Bootstrap CSS
+import "bootstrap/dist/css/bootstrap.min.css";
+
+// Import Owl Carousel CSS
+import "owl.carousel/dist/assets/owl.carousel.css";
+import "owl.carousel/dist/assets/owl.theme.default.css";
+
 const OwlCarousel = dynamic(() => import("react-owl-carousel"), {
   ssr: false,
 });
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel/dist/assets/owl.theme.default.css";
 
 const optionsNewLunched = {
   items: 4,
@@ -27,28 +33,36 @@ const optionsNewLunched = {
 const NewLaunched = () => {
   const [isMounted, setIsMounted] = useState(false);
   const { data: session, status } = useSession();
+  
   useEffect(() => {
     if (typeof window !== "undefined") {
+      // Initialize AOS
       initAOS();
+      
+      // Load jQuery and Bootstrap JavaScript
+      const jqueryScript = document.createElement("script");
+      jqueryScript.src = "https://code.jquery.com/jquery-3.4.1.min.js";
+      jqueryScript.async = true;
+      jqueryScript.onload = () => {
+        const bootstrapScript = document.createElement("script");
+        bootstrapScript.src = "https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/js/bootstrap.bundle.min.js";
+        bootstrapScript.async = true;
+        document.body.appendChild(bootstrapScript);
+      };
+      document.body.appendChild(jqueryScript);
+      
       setIsMounted(true);
     }
   }, [session, isMounted]);
 
   return (
     <>
-    <Head>
-    <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-        />
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
-
+      <Head>
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        ></link>
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    </Head>
+        />
+      </Head>
       <div className="newLaunchWrap">
         <div className="lte-background-overlay"></div>
         <Container fluid>

@@ -3,7 +3,6 @@ import https from "https";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// Initialize toast
 const httpsAgent = new https.Agent({
   rejectUnauthorized: false,
 });
