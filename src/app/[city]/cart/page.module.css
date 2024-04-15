@@ -1,0 +1,163 @@
+.cartMainWrap {
+    background-image: url(https://fama.b-cdn.net/Stripes.jpg);
+    background-attachment: fixed !important;
+    transition: background 0s !important;
+    background-size: 100%;
+  }
+  .cartHeading{
+    font-size: 2.4rem;
+    font-family: var(--font-family);
+  }
+  .cartHrDivider{
+    background-color: #C8C9C6;
+    border: none;
+    height: 1px;
+    margin: 1rem 0px;
+  }
+  .cartTotalCount{
+    font-size: 1.6rem;
+    margin: 0;
+    font-family: var(--font-family);
+    margin-bottom: 1rem;
+  }
+  .cartBoxItems{
+  }
+  .cartBoxItem{
+    /* border: 1px solid #ecedeb; */
+    padding: 16px ;
+    font-family: var(--font-family);
+    margin-bottom: 1.6rem;
+    background-color: #25130f;
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  }
+  .cartMainBody{
+    display: grid;
+    grid-template-columns: calc(66.666667% - 2.6rem) 33.333333%;
+    grid-column-gap: 2.6rem;
+  }
+  .cartBoxContent{
+    display: flex;
+  }
+  .cartBoxImg{
+    width: 115px;
+    border: 0;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    text-decoration: none;
+  }
+  .cartBoxImg img{ 
+    width: 100%;
+  }
+  .cartBoxInfo{
+    padding-left: 32px;
+  }
+  .cartBoxInfo h4{
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+  .cartBoxInfo h5{
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .cartBoxInfo p{
+    cursor: pointer;
+    padding: 4px 8px;
+    background: #ecedeb;
+    border-radius: var(--border-radius);
+    color: #000;
+    font-size: 14px;
+    line-height: 20px;
+    width: fit-content;
+  }
+  .cartBoxDiscount{
+    color: #929391;
+    text-decoration: line-through;
+  }
+  .cartBoxChkButton{
+    text-align: right;
+    margin: 30px 0px 30px;
+  }
+  .cartBoxPrice{
+    font-weight: 600;
+    /* margin: 0px 1rem; */
+  }
+  .cartBoxSaveAmt{
+    color: #46b275;
+    font-weight: 600;
+  }
+  .cartBoxAction{
+    border-top: 1px solid #ecedeb;
+    padding-top: 1.6rem;
+    margin-top: 1.6rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cartBoxButtonAction{
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+  }
+  .cartBoxButtonAction:not(:last-child){
+    border-right: 1px solid #ecedeb;
+  }
+  .cartPriceBox{
+    /* border: 1px solid #ecedeb; */
+    padding: 1.6rem;
+    font-family: var(--font-family);
+    background-color: #25130f;
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  }
+  .cartPriceAmt{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  .cartPriceAmt li{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  
+  .cartPriceAmt li h4 span{
+    font-size: 1.4rem;
+      margin-left: 0.5rem;
+      color: var(--theme-primary);
+  }
+  .cartPriceAmt li h4,
+  .cartPriceAmt li h5{
+    margin: 0;
+    font-size: 1.6rem;
+  }
+  .cartPriceTotalAmt{
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0px 16px 0px;
+    border-top: 1px solid #ecedeb;
+  }
+  .cartPriceTotalAmt h4,
+  .cartPriceTotalAmt h5{
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+  }
+  .cartPriceBox button{
+    width: 100%;
+  }
+  .cartOrderSummary{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.6rem;
+  }
+  .cartOrderSummary h4{
+    font-size: 2rem;
+      text-align: center;
+      color: var(--theme-primary);
+      text-transform: uppercase;
+  }
+  

@@ -1,0 +1,125 @@
+.CheckOutQct{
+    background-image: url(https://fama.b-cdn.net/Stripes.jpg);
+  background-attachment: fixed !important;
+  transition: background 0s !important;
+  background-size: 100%;
+  font-family: var(--font-family);
+}
+.checkOutQctWrap{
+    padding: 1.6rem 0px 2.5rem;
+}
+.checkoutQctTitle{
+    color: #fff;
+    width: 100%;
+    padding: 16px 0;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 28px;
+    border-bottom: 1px solid #c8c9c6;
+    margin-bottom: 16px;
+}
+.checkoutQctBody{
+    width: 100%;
+    display: flex;
+    margin-top: 8px;
+    flex-direction: row;
+}
+.checkoutQctShipping{
+    width: calc(65% - 1.6rem);
+    margin-right: 1.6rem;
+    border: 1px solid #ecedeb;
+}
+.checkoutQctOrderSummary{
+    width: 35%;
+}
+
+.cartBoxItems{
+}
+.cartBoxItem{
+  padding: 16px ;
+  font-family: var(--font-family);
+  margin-bottom: 1.6rem;
+}
+.orderHistoryWrap{
+  display: flex;
+  flex-wrap: wrap;
+}
+.orderHistoryFilter{
+  flex-grow: 0;
+  max-width: 16.666667%;
+  flex-basis: 16.666667%;
+  display: none;
+}
+.orderHistoryTitle{
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+.orderHistoryBody{
+  flex-grow: 0;
+  /* max-width: 83.333333%;
+  flex-basis: 83.333333%; */
+  max-width: 100%;
+  flex-basis: 100%;
+}
+.orderHistoryItems{
+  border: 1px solid #ecedeb;
+  max-height: calc(100vh - 200px);
+    overflow: hidden;
+    overflow-y: auto;
+}
+.orderHistoryItem{
+  padding: 1.6rem;
+}
+.orderHistoryItem:not(:last-child){
+  border-bottom: 1px solid #ecedeb;
+}
+.orderHistoryNo{
+  display: flex;
+  align-items: center;
+  padding-bottom: 1.6rem 
+}
+.orderHistoryNo h4{
+  font-size: 1.6rem;
+  flex-grow: 0;
+    max-width: 8.333333%;
+    flex-basis: 8.333333%;
+    margin: 0;
+    color: #929391;
+}
+.orderHistoryNo h5{
+  font-size: 1.6rem;
+  flex-grow: 0;
+    max-width: 91.666667%;
+    flex-basis: 91.666667%;
+  margin: 0;
+  }
+.orderHistoryCard{
+  display: flex;
+}
+.orderHistoryCard img{
+  width: 130px;
+}
+.orderHistoryCardInfo{
+  margin-left: 1.6rem;
+}
+.orderHistoryCardInfo a,
+.orderHistoryCardInfo a:hover{
+  text-decoration: none;
+  color: #fff;
+}
+.orderHistoryCardInfo h4{
+  font-size: 1.6rem;
+}
+
+.cartBoxMsg{
+  color: #929391;
+}
+.orderHistoryCardInfo h5{
+  font-size: 1.6rem;
+}
+.orderStatus{
+
+}
+.orderStatus span{
+  margin-right: 0.5rem;
+}

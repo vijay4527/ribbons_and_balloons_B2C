@@ -1,0 +1,291 @@
+.CheckOutQct{
+    background-image: url(https://fama.b-cdn.net/Stripes.jpg);
+  background-attachment: fixed !important;
+  transition: background 0s !important;
+  background-size: 100%;
+  font-family: var(--font-family);
+}
+.checkOutQctWrap{
+    padding: 1.6rem 0px 2.5rem;
+}
+.checkoutQctTitle{
+    color: #fff;
+    width: 100%;
+    padding: 16px 0;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 28px;
+    border-bottom: 1px solid #c8c9c6;
+    margin-bottom: 16px;
+}
+.checkoutQctBody{
+    width: 100%;
+    display: flex;
+    margin-top: 8px;
+    flex-direction: row;
+}
+.checkoutQctShipping{
+    width: calc(65% - 2.6rem);
+    margin-right: 2.6rem;
+    /* border: 1px solid #ecedeb; */
+    background-color: #25130f;
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+.checkoutQctOrderSummary{
+    width: 35%;
+}
+.checkoutQctShippingMethod{}
+.checkoutQctShippingHeader{}
+.checkoutQctShippingTitle{
+    padding: 24px 15px 24px 16px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 28px;
+    color: var(--theme-primary);
+    text-transform: uppercase;
+}
+.checkoutQctShippingTabs{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+    border-bottom: 1px solid #ecedeb;
+}
+.checkoutQctShippingTabs li{
+    height: 70px;
+    cursor: pointer;
+    position: relative;
+}
+.checkoutQctShippingTabs li.active{
+    bottom: -1.1px;
+    border-bottom: 5px solid var(--theme-primary);
+}
+.checkoutQctShippingTabs h4{
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.6;
+}
+.checkoutQctShippingTabs p{
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.43;
+}
+.checkoutQctShippingContents{
+    padding: 24px 15px 24px 16px;
+}
+.checkoutQctShippingContent {
+    display: none;
+}
+.checkoutQctShippingContent.active{
+    display: block;
+}
+.checkoutQctShippingContentTitle{
+    padding-bottom: 1.6rem;
+    font-weight: 600;
+    margin: 0;
+}
+.checkoutQctShippingContentTitle:hover{
+    cursor: pointer;
+}
+.checkoutQctShippingAddress{
+    padding: 1.6rem 0;
+}
+.checkoutQctShippingAddress button {
+    width: 100%;
+}
+.checkoutQctShippingForm{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 1.6rem;
+    grid-row-gap: 1.6rem 
+}
+.pickUpImpNote{
+    color: #ff7d49;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+}
+.pickUpSearch{
+    width: 65%;
+}
+.pickUpSearchResult{
+    margin: 1.6rem 0;
+}
+.pickUpSearchResultItem{
+    border-top: 1px solid #ecedeb;
+    border-left: 5px solid transparent;
+    padding: 1rem 1.6rem 1rem 0px;
+    width: 100%;
+    display: flex;
+    font-size: 14px;
+    font-style: normal;
+    align-items: flex-start;
+    font-weight: normal;
+    line-height: 20px;
+    margin: 0;
+    position: relative;
+}
+.pickUpSearchResultItem.active{
+    border-left: 5px solid #faa619;
+}
+
+.pickUpSearchResultItem.active .roundedIcon,
+.pickUpSearchResultItem.active .solidIcon{
+    color: #faa619;
+}
+.pickUpSearchResultItem.active .solidIcon{
+    opacity: 1;
+    top: 1px;
+    left: 0;
+    position: absolute;
+    transform: scale(1);
+    transition: transform 150ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+}
+.pickUpSearchResultItem .solidIcon{
+    opacity: 0;
+}
+
+.pickUpFranchiseInput{
+    display: flex;
+    align-items: inherit;
+    justify-content: inherit;
+    padding: 0 1rem 0 1rem;
+}
+.pickUpFranchiseInput input{
+    top: 0;
+    left: 0;
+    cursor: inherit;
+    margin: 0;
+    opacity: 0;
+    padding: 0;
+    z-index: 1;
+}
+.pickUpFranchiseInputIcon {
+    position: relative;
+}
+.pickUpFranchiseInputIcon svg{
+    fill: currentColor;
+    width: 2rem;
+    height: 2rem;
+    display: inline-block;
+    font-size: 1.5rem;
+    transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    flex-shrink: 0;
+    user-select: none;
+}
+.pickUpFranchiseDetails{
+
+}
+.pickUpFranchiseInfo{
+    display: grid;
+    grid-template-columns: 1fr 0.5fr;
+    justify-content: space-between;
+}
+.pickUpFranchiseInfo h4{
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin: 0;
+    margin-bottom: 0.75rem;
+}
+.pickUpFranchiseInfo h5{
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin: 0;
+}
+.pickUpFranchiseInfo p{
+    font-size: 1.4rem;
+    color: #faa619;
+    font-weight: 400;
+    text-align: right;
+    margin: 0;
+}
+.pickUpFranchiseAddress{
+
+}
+.cartPriceBox{
+    /* border: 1px solid #ecedeb; */
+    padding: 1.6rem;
+    font-family: var(--font-family);
+    background-color: #25130f;
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  }
+  .cartPriceAmt{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  .cartPriceAmt li{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  
+  .cartPriceAmt li h4 span{
+    font-size: 1.4rem;
+      margin-left: 0.5rem;
+      color: var(--theme-primary);
+  }
+  .cartPriceAmt li h4,
+  .cartPriceAmt li h5{
+    margin: 0;
+    font-size: 1.6rem;
+  }
+  .cartPriceTotalAmt{
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0px 16px 0px;
+    border-top: 1px solid #ecedeb;
+  }
+  .cartPriceTotalAmt h4,
+  .cartPriceTotalAmt h5{
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+  }
+  .cartPriceBox button{
+    width: 100%;
+  }
+
+  .address-container {
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+  }
+  
+  .address-container input {
+    margin-right: 10px; /* Adjust the margin as needed */
+  }
+
+
+  .addressInfo p{
+    font-size: 1.4rem;
+    color: #faa619;
+    font-weight: 400;
+    margin: 0;
+}
+  
+  
+  .cartOrderSummary{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.6rem;
+  }
+.cartOrderSummary h4{
+    font-size: 2rem;
+      text-align: center;
+      color: var(--theme-primary);
+      text-transform: uppercase;
+  }
+
+
+  .newAddress{
+    display: flex !important;
+  }
+
+  .closeButton {
+    margin-left: auto;
+  }
