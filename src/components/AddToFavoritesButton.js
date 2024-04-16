@@ -10,6 +10,7 @@
 
   export default function AddToFavoritesButton({ productData,city }) {
     const { Variable, Variety, Unit, Value, Message } = useSharedStore(); 
+    
     const addToFavourite = async (data) => {
       const cartId =
         typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";

@@ -44,15 +44,12 @@ export const axiosGetAll = async (url, config = {}) => {
 
 const handleAxiosError = (error) => {
   if (error.response) {
-    // Request made and server responded with a status code
-    // that falls out of the range of 2xx
+   
     const { status, data } = error.response;
     toast.error(`Error: ${status} - ${data.message}`);
   } else if (error.request) {
-    // The request was made but no response was received
     toast.error("Network Error");
   } else {
-    // Something happened in setting up the request that triggered an Error
     toast.error("An error occurred while processing your request");
   }
 };

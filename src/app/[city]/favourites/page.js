@@ -18,6 +18,7 @@ const page = ({ params }) => {
   const router = useRouter();
   const city = params.city;
   const [grandTotal, setGrandTotal] = useState(0);
+  const [isUserLoggedIn,setIsUserLoggedIn] =useState(null)
 
   var userInfo =
     typeof window !== "undefined"

@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react';
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -166,11 +167,6 @@ function EnquiryModal() {
               </div>
             </div>
         </Modal.Body>
-        {/* <Modal.Footer>
-          <button variant="secondary" onClick={handleClose}>
-            Close
-          </button>
-        </Modal.Footer> */}
       </Modal>
     </>
   );

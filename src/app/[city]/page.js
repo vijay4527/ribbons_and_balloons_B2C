@@ -4,6 +4,8 @@ import Testimonials from "@/components/testimonial";
 import InstaPosts from "@/components/InstaPosts";
 import NewLaunches from "@/components/newLaunched";
 import MediaCollaborators from "@/components/mediaCollaborators";
+import EnquiryModal from "@/components/EnquiryModal";
+
 const page = () => {
   return (
     <>
@@ -34,6 +36,9 @@ const page = () => {
         </div>
       </div>
       <MediaCollaborators />
+      <div className="enquiryWrapper">
+        <EnquiryModal />
+      </div>
     </>
   );
 };

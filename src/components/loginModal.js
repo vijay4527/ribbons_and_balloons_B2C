@@ -190,6 +190,9 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal,}) => {
           toast("You have logged in successfully", {
             autoClose: 3000,
             closeButton: true,
+            onClose: () => {
+              window.location.reload(); 
+            }
           });
           setShowOtpSection(false);
           setModalIsOpen(false);

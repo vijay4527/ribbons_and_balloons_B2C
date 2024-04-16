@@ -515,7 +515,7 @@ export default function Header(otpVerified) {
                                   My Account
                                 </Dropdown.Item>
                                 <Dropdown.Item
-                                  href={`/${city}/orders/orderHistory`}
+                                  href={`/${city}/orders`}
                                 >
                                   Order History
                                 </Dropdown.Item>
