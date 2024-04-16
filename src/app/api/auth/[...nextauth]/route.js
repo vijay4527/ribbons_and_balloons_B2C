@@ -63,7 +63,6 @@ const handler = NextAuth({
           console.error("Error checking login:", error);
         }
       }
-      console.log("token after", token);
       return token;
     },
     async session({ session, token }) {
