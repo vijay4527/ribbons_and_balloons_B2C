@@ -89,7 +89,7 @@ export default function Header(otpVerified) {
   useEffect(() => {
     getCategory();
     getCities();
-  }, []);
+  }, [city]);
 
   const getCities = async () => {
     const cityResponse = await axiosGet("RNBCity/GetAllRNBCity");

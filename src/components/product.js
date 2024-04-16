@@ -14,36 +14,7 @@ import AddToFavoritesButton from "@/components/AddToFavoritesButton";
 import ShowCaseSlider from "@/components/ShowCaseSlider";
 import { useSession } from "next-auth/react";
 import { useState,useEffect } from 'react';
-const RecentlyViewed = [
-    {
-      cost: 500,
-      description: "Red velvet cake is a true classic in the world of desserts, celebrated for its eye-catching deep red hue and its delightful blend of flavors. This cake boasts a subtle cocoa flavor, a hint of tanginess, and a moist, tender crumb that makes it stand out among other cakes.`",
-      product_id: "2310251249526037055",
-      product_image: "20240120084802366.jpeg,20240120084835622.jpeg,20240120090211247.jpeg",
-      product_name: "Red Velvet Strawberry Cake"
-    },
-    {
-      cost: 500,
-      description: "Red velvet cake is a true classic in the world of desserts, celebrated for its eye-catching deep red hue and its delightful blend of flavors. This cake boasts a subtle cocoa flavor, a hint of tanginess, and a moist, tender crumb that makes it stand out among other cakes.`",
-      product_id: "2310251249526037056",
-      product_image: "20240120084802366.jpeg,20240120084835622.jpeg,20240120090211247.jpeg",
-      product_name: "Red Velvet Strawberry Cake"
-    },
-    {
-      cost: 500,
-      description: "Red velvet cake is a true classic in the world of desserts, celebrated for its eye-catching deep red hue and its delightful blend of flavors. This cake boasts a subtle cocoa flavor, a hint of tanginess, and a moist, tender crumb that makes it stand out among other cakes.`",
-      product_id: "2310251249526037057",
-      product_image: "20240120084802366.jpeg,20240120084835622.jpeg,20240120090211247.jpeg",
-      product_name: "Red Velvet Strawberry Cake"
-    },
-    {
-      cost: 500,
-      description: "Red velvet cake is a true classic in the world of desserts, celebrated for its eye-catching deep red hue and its delightful blend of flavors. This cake boasts a subtle cocoa flavor, a hint of tanginess, and a moist, tender crumb that makes it stand out among other cakes.`",
-      product_id: "2310251249526037058",
-      product_image: "20240120084802366.jpeg,20240120084835622.jpeg,20240120090211247.jpeg",
-      product_name: "Red Velvet Strawberry Cake"
-    },
-  ];
+
 const product = ({data,city}) => {
     const [activeIndex, setActiveIndex] = useState(0);
     let image = data.product_image.split(",");
@@ -150,19 +121,20 @@ const product = ({data,city}) => {
             </div>
           </div>
           <div className={styles.pdp_otherContent}>
-            <div className={homeStyles["container_fluid"]}>
+            {/* <div className={homeStyles["container_fluid"]}>
               <div className={styles.reviewSection}>
                 <ShowCaseSlider
                   sliderName="Showcase"
                   sliderData={RecentlyViewed}
                 />
               </div>
-            </div>
+            </div> */}
             <div className={homeStyles["container_fluid"]}>
               <div className={styles.reviewSection}>
                 <ShowCaseSlider
                   sliderName="You may also like"
-                  sliderData={RecentlyViewed}
+                  sliderData={data}
+                  city={city}
                 />
               </div>
             </div>

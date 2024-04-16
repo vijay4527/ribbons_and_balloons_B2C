@@ -9,6 +9,7 @@ import AppConfig from "@/AppConfig";
 const OwlCarousel = dynamic(() => import("react-owl-carousel"), {
   ssr: false,
 });
+import { axiosGet,axiosPost } from "@/api";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import AddToFavoritesButton from "./AddToFavoritesButton";
@@ -26,13 +27,34 @@ const OptionsShowCaseSlider = {
   ],
 };
 
-const ShowCaseSlider =  ({ sliderName, sliderData }) => {
+const ShowCaseSlider =  ({ sliderName, sliderData,city }) => {
   const [isMounted, setIsMounted] = useState(false);
   const {data,status} = useSession();
   useEffect(() => {
     setIsMounted(true);
-  }, [data]); 
+    fetchAllRelatedProducts()
+  }, [data,sliderData?.product_name]); 
+  const [categoryProduct,setCategoryProduct] = useState([])
 
+
+  const fetchAllRelatedProducts = async()=>{
+    try{
+     
+        if(sliderData.category_name){
+          const obj = {
+            category_name: sliderData.category_name || "",
+            sub_category_name: "",
+            city_name: city,
+          };
+            const getData = await axiosPost("/ProductMaster/GetB2CProducts",obj)
+            if(getData){
+              setCategoryProduct(getData)
+            }
+        }
+    }catch(error){
+       console.log(error)
+    }
+  }
   return (
     <>
       <Head>
@@ -53,7 +75,7 @@ const ShowCaseSlider =  ({ sliderName, sliderData }) => {
                   </div>
                 </div>
               </div> */}
-              {sliderData.map((item,index) => {
+              {categoryProduct.map((item,index) => {
                 const productName = item.product_name.split(" ").join("-");
                 var image = item.product_image.split(",");
                 return (

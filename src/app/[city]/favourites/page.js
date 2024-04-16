@@ -1,23 +1,25 @@
-"use client"
-import React from 'react'
+"use client";
+import React from "react";
 import { useEffect, useState } from "react";
 import styles from "@/app/[city]/cart/page.module.css";
 import homeStyles from "@/app/home.module.css";
 import { useRouter } from "next/navigation";
-import { useSession} from "next-auth/react";
-import {  axiosPost } from "@/api";
+import { useSession } from "next-auth/react";
+import { axiosGet, axiosPost } from "@/api";
 import AppConfig from "@/AppConfig";
 import Head from "next/head";
 import ServingInfo from "@/components/ServingInfo";
 import OrderSummary from "@/components/OrderSummary";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const page = ({params}) => {
-    const { data: session, status } = useSession();
-    const [cart, setCart] = useState([]);
-    const router = useRouter();
-    const  city  = params.city;
-    var userInfo =
+const page = ({ params }) => {
+  const { data: session, status } = useSession();
+  const [cart, setCart] = useState([]);
+  const router = useRouter();
+  const city = params.city;
+  const [grandTotal, setGrandTotal] = useState(0);
+
+  var userInfo =
     typeof window !== "undefined"
       ? JSON.parse(sessionStorage.getItem("userData"))
       : "";
@@ -46,6 +48,7 @@ const page = ({params}) => {
           city_name: city ? city : "",
           type: "WL",
         };
+
         const response = await axiosPost("/CartMaster/GetCartDetails", obj);
         if (response) {
           setCart(response);
@@ -56,35 +59,36 @@ const page = ({params}) => {
     }
   };
 
-
-
-  const addToCart = async(item)=>{
+  const addToCart = async (item) => {
     try {
-        const cartItem = {
-          user_id: userObject ? userObject.user_id : "",
-          cart_id: cartId ? cartId : "",
-          product_id: item.product_id,
-          variety_id: item.variety_id,
-          city: city,
-          unit: item.unit,
-          value: item.value.toString(),
-          msg_cake: item.msg_cake,
-          type: "AC",
-        };
-        const response = await axiosPost(`/CartMaster/SaveCartDetails`, cartItem);
-        if (response.resp == true) {
-          if (!cartId) {
-            sessionStorage.setItem("cartId", response.respObj.cart_id);
-          }
-          setTimeout(() => {
-            router.push(`/${city}/cart`);
-          }, 3000);
+      const cartItem = {
+        user_id: userObject ? userObject.user_id : "",
+        cart_id: cartId ? cartId : "",
+        product_id: item.product_id,
+        variety_id: item.variety_id,
+        city: city,
+        unit: item.unit,
+        value: item.value.toString(),
+        msg_cake: item.msg_cake,
+        type: "AC",
+      };
+      const response = await axiosPost(`/CartMaster/SaveCartDetails`, cartItem);
+      if (response.resp == true) {
+        if (!cartId) {
+          sessionStorage.setItem("cartId", response.respObj.cart_id);
         }
-      } catch (error) {
-       
-        console.error("Error storing cartId in session storage:", error);
+        toast("Product added to favourites", {
+          autoClose: 3000,
+          closeButton: true,
+          onClose: () => {
+            router.push(`/${city}/cart`);
+          },
+        });
       }
-  }
+    } catch (error) {
+      console.error("Error storing cartId in session storage:", error);
+    }
+  };
 
   const removeFromCart = async (cpId, itemCost) => {
     const response = await axiosGet(`/CartMaster/RemoveCart/${cpId}`);
@@ -104,98 +108,100 @@ const page = ({params}) => {
   };
   return (
     <div className={styles.cartMainWrap} id={styles.title}>
-        <div className={homeStyles["container_fluid"]}>
-          <div>
-            <div className={styles.cartHeading}>Your Favourites</div>
-            <hr className={styles.cartHrDivider}></hr>
-            <div className={styles.cartTotalCount}>{cart.length} Products in Your Favourites List</div>
-            <div className={styles.cartMainBody}>
-              <div>
-                <div className={styles.cartBoxItems}>
-                  {cart.length > 0 ? (
-                    <>
-                      {cart.map((item) => (
-                        <div className={styles.cartBoxItem} key={item.cp_id}>
-                          <div className={styles.cartBoxContent}>
-                            <div className={styles.cartBoxImg}>
-                              <img
-                                src={
-                                  AppConfig.cdn +
-                                  "products/" +
-                                  item.image.split(",")[0]
-                                }
-                                alt={item.product_name}
-                              />
-                            </div>
-                            <div className={styles.cartBoxInfo}>
-                              <h4>{item.product_name}</h4>
-                              <h4>Message on Cake : {item.msg_cake}</h4>
-                              <h5>
-                                <span className={styles.cartBoxPrice}>
-                                  ₹{item.cost}
-                                </span>
-                              </h5>
-                              <h4>
-                                {item.product_type == 3 ? (
-                                  <>{item.value}</>
-                                ) : (
-                                  <>{item.value + " " + item.unit}</>
-                                )}
-                              </h4>
-                            </div>
-                          </div>
-                          <div className={styles.cartBoxAction}>
-                            <div
-                              className={styles.cartBoxButtonAction}
-                              onClick={() =>
-                                removeFromCart(item.cp_id, item.cost)
+      <div className={homeStyles["container_fluid"]}>
+        <div>
+          <div className={styles.cartHeading}>Your Favourites</div>
+          <hr className={styles.cartHrDivider}></hr>
+          <div className={styles.cartTotalCount}>
+            {cart.length} Products in Your Favourites List
+          </div>
+          <div className={styles.cartMainBody}>
+            <div>
+              <div className={styles.cartBoxItems}>
+                {cart.length > 0 ? (
+                  <>
+                    {cart.map((item) => (
+                      <div className={styles.cartBoxItem} key={item.cp_id}>
+                        <div className={styles.cartBoxContent}>
+                          <div className={styles.cartBoxImg}>
+                            <img
+                              src={
+                                AppConfig.cdn +
+                                "products/" +
+                                item.image.split(",")[0]
                               }
-                            >
-                              Remove
-                            </div>
-                            <div
-                              className={styles.cartBoxButtonAction}
-                              onClick={() => addToCart(item)}
-                            >
-                              Add To Cart
-                            </div>
+                              alt={item.product_name}
+                            />
+                          </div>
+                          <div className={styles.cartBoxInfo}>
+                            <h4>{item.product_name}</h4>
+                            <h4>Message on Cake : {item.msg_cake}</h4>
+                            <h5>
+                              <span className={styles.cartBoxPrice}>
+                                ₹{item.cost}
+                              </span>
+                            </h5>
+                            <h4>
+                              {item.product_type == 3 ? (
+                                <>{item.value}</>
+                              ) : (
+                                <>{item.value + " " + item.unit}</>
+                              )}
+                            </h4>
                           </div>
                         </div>
-                      ))}
-                    </>
-                  ) : (
-                    <h1>You have no Products in your Favourite</h1>
-                  )}
-                </div>
+                        <div className={styles.cartBoxAction}>
+                          <div
+                            className={styles.cartBoxButtonAction}
+                            onClick={() =>
+                              removeFromCart(item.cp_id, item.cost)
+                            }
+                          >
+                            Remove
+                          </div>
+                          <div
+                            className={styles.cartBoxButtonAction}
+                            onClick={() => addToCart(item)}
+                          >
+                            Add To Cart
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </>
+                ) : (
+                  <h1>You have no Products in your Favourite</h1>
+                )}
               </div>
-              <div>
-                <div className={styles.cartPriceBox}>
-                  <div className={styles.cartOrderSummary}>
-                    <h4>Order summary</h4>
-                    <ServingInfo />
-                  </div>
-
-                  <OrderSummary data={cart} />
-                  <button
-                    className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`}
-                  >
-                    <span>Checkout</span>
-                  </button>
+            </div>
+            <div>
+              <div className={styles.cartPriceBox}>
+                <div className={styles.cartOrderSummary}>
+                  <h4>Order summary</h4>
+                  <ServingInfo />
                 </div>
+
+                <OrderSummary data={cart} />
+                <button
+                  className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`}
+                >
+                  <span>Checkout</span>
+                </button>
               </div>
             </div>
           </div>
         </div>
-        {/* {!isUserLoggedIn && (
+      </div>
+      {/* {!isUserLoggedIn && (
           <LoginModal
             isOpen={isCityModalOpen}
             onRequestClose={closeCityModal}
             closeLoginModal={closeCityModal}
           />
         )} */}
-        <ToastContainer />
-      </div>
-  )
-}
+      <ToastContainer />
+    </div>
+  );
+};
 
-export default page
+export default page;

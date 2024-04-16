@@ -34,6 +34,9 @@
           obj
         );
         if (favouriteData.resp == true) {
+          if (!cartId) {
+            sessionStorage.setItem("cartId", favouriteData.respObj.cart_id);
+          }
           toast("Product added to favourites", {
             autoClose: 3000,
             closeButton: true,
