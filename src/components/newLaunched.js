@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import initAOS from "@/components/initAOS";
@@ -33,24 +33,22 @@ const optionsNewLunched = {
 const NewLaunched = () => {
   const [isMounted, setIsMounted] = useState(false);
   const { data: session, status } = useSession();
-  
+
   useEffect(() => {
     if (typeof window !== "undefined") {
-      // Initialize AOS
       initAOS();
-      
-      // Load jQuery and Bootstrap JavaScript
       const jqueryScript = document.createElement("script");
       jqueryScript.src = "https://code.jquery.com/jquery-3.4.1.min.js";
       jqueryScript.async = true;
       jqueryScript.onload = () => {
         const bootstrapScript = document.createElement("script");
-        bootstrapScript.src = "https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/js/bootstrap.bundle.min.js";
+        bootstrapScript.src =
+          "https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/js/bootstrap.bundle.min.js";
         bootstrapScript.async = true;
         document.body.appendChild(bootstrapScript);
       };
       document.body.appendChild(jqueryScript);
-      
+
       setIsMounted(true);
     }
   }, [session, isMounted]);
