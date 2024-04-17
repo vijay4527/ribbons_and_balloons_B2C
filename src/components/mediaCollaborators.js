@@ -38,11 +38,8 @@ const MediaCollaborators = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      // Initialize AOS
       initAOS();
       setIsMounted(true);
-
-      // Load jQuery and Bootstrap JavaScript
       const script1 = document.createElement("script");
       script1.src = "https://code.jquery.com/jquery-3.4.1.min.js";
       script1.async = true;
