@@ -1,4 +1,3 @@
-"use client"
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { useSession } from "next-auth/react";
@@ -6,20 +5,21 @@ import Head from "next/head";
 import styles from "@/app/[city]/l/[category]/page.module.css";
 import Link from "next/link";
 import AppConfig from "@/AppConfig";
-const OwlCarousel = dynamic(() => import("react-owl-carousel"), {
-  ssr: false,
-});
-import { axiosGet,axiosPost } from "@/api";
+import { axiosPost } from "@/api";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import AddToFavoritesButton from "./AddToFavoritesButton";
 
+const OwlCarousel = dynamic(() => import("react-owl-carousel"), {
+  ssr: false,
+});
+
 const OptionsShowCaseSlider = {
   items: 5,
-  loop: true,
+  loop: false,
   margin: 10,
-  autoplay: false,
-  nav: false, 
+  autoplay: true,
+  nav: false,
   dots: false,
   navText: [
     '<span className="arrow-prev-icon"><span className="arrow-top-part"></span><span className="arrow-bottom-part"></span></span>',
@@ -27,45 +27,45 @@ const OptionsShowCaseSlider = {
   ],
 };
 
-const ShowCaseSlider =  ({ sliderName, sliderData,city }) => {
+const ShowCaseSlider = ({ sliderName, sliderData, city }) => {
   const [isMounted, setIsMounted] = useState(false);
-  const {data,status} = useSession();
-  const [categoryProduct,setCategoryProduct] = useState([])
+  const { data, status } = useSession();
+  const [categoryProduct, setCategoryProduct] = useState([]);
 
   useEffect(() => {
-    fetchAllRelatedProducts()
-  }, [sliderData?.product_name]); 
+    fetchAllRelatedProducts();
+  }, [sliderData?.product_name]);
 
-  const fetchAllRelatedProducts = async()=>{
-    try{
-     
-        if(sliderData.category_name){
-          const obj = {
-            category_name: sliderData.category_name || "",
-            sub_category_name: "",
-            city_name: city,
-          };
-            const getData = await axiosPost("/ProductMaster/GetB2CProducts",obj)
-            if(getData){
-              setIsMounted(true)
-              setCategoryProduct(getData)
-            }
+  const fetchAllRelatedProducts = async () => {
+    try {
+      if (sliderData.category_name) {
+        const obj = {
+          category_name: sliderData.category_name || "",
+          sub_category_name: "",
+          city_name: city,
+        };
+        const getData = await axiosPost("/ProductMaster/GetB2CProducts", obj);
+        if (getData) {
+          setIsMounted(true);
+          setCategoryProduct(getData);
         }
-    }catch(error){
-       console.log(error)
+      }
+    } catch (error) {
+      console.log(error);
     }
-  }
+  };
+
   return (
     <>
       <Head>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
       </Head>
-      <div className='ShowCaseSliderWrap'>
+      <div className="ShowCaseSliderWrap">
         <div className="ShowCaseSliderTitle">{sliderName}</div>
         <div className="ShowCaseSliderBody">
-          {isMounted &&   (
+          {isMounted && categoryProduct.length > 0 ? (
             <OwlCarousel className="owl-theme" {...OptionsShowCaseSlider}>
-              {categoryProduct.map((item,index) => {
+              {categoryProduct.map((item, index) => {
                 const productName = item.product_name.split(" ").join("-");
                 var image = item.product_image.split(",");
                 return (
@@ -77,13 +77,15 @@ const ShowCaseSlider =  ({ sliderName, sliderData,city }) => {
                   >
                     <div className={styles.item}>
                       <div className={styles.itemInfo}>
-                        <AddToFavoritesButton  productData={item}/>
-                        <div className={`${styles.imgHvr}`}>
-                          <img className={styles.plpProdctImg}
+                        <AddToFavoritesButton productData={item} />
+                        <div className={styles.imgHvr}>
+                          <img
+                            className={styles.plpProdctImg}
                             src={`${AppConfig.cdn}products/${image[0]}`}
-                            alt="No image found"/>
+                            alt="No image found"
+                          />
                         </div>
-                        <div className={`${styles["itemDesc"]}`}>
+                        <div className={styles.itemDesc}>
                           <h1>{item.product_name}</h1>
                           <h4>Sinful Collections</h4>
                           <p>₹ {item.cost}</p>
@@ -94,11 +96,13 @@ const ShowCaseSlider =  ({ sliderName, sliderData,city }) => {
                 );
               })}
             </OwlCarousel>
+          ) : (
+            <p>No data available</p>
           )}
         </div>
       </div>
     </>
   );
-}
+};
 
 export default ShowCaseSlider;
