@@ -15,7 +15,7 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 import AddToFavoritesButton from "./AddToFavoritesButton";
 
 const OptionsShowCaseSlider = {
-  items: 4,
+  items: 5,
   loop: true,
   margin: 10,
   autoplay: false,
@@ -30,12 +30,11 @@ const OptionsShowCaseSlider = {
 const ShowCaseSlider =  ({ sliderName, sliderData,city }) => {
   const [isMounted, setIsMounted] = useState(false);
   const {data,status} = useSession();
-  useEffect(() => {
-    setIsMounted(true);
-    fetchAllRelatedProducts()
-  }, [data,sliderData?.product_name]); 
   const [categoryProduct,setCategoryProduct] = useState([])
 
+  useEffect(() => {
+    fetchAllRelatedProducts()
+  }, [sliderData?.product_name]); 
 
   const fetchAllRelatedProducts = async()=>{
     try{
@@ -48,6 +47,7 @@ const ShowCaseSlider =  ({ sliderName, sliderData,city }) => {
           };
             const getData = await axiosPost("/ProductMaster/GetB2CProducts",obj)
             if(getData){
+              setIsMounted(true)
               setCategoryProduct(getData)
             }
         }
@@ -63,18 +63,8 @@ const ShowCaseSlider =  ({ sliderName, sliderData,city }) => {
       <div className='ShowCaseSliderWrap'>
         <div className="ShowCaseSliderTitle">{sliderName}</div>
         <div className="ShowCaseSliderBody">
-          {isMounted && (
+          {isMounted &&   (
             <OwlCarousel className="owl-theme" {...OptionsShowCaseSlider}>
-              {/* <div className="item">
-                <div className="itemNewLunch">
-                  <div className="itemNewLunchImg">
-                    <img
-                      src="https://fama.b-cdn.net/RnB/Ln1.jpg"
-                      alt="No image found"
-                    />
-                  </div>
-                </div>
-              </div> */}
               {categoryProduct.map((item,index) => {
                 const productName = item.product_name.split(" ").join("-");
                 var image = item.product_image.split(",");

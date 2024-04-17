@@ -1,7 +1,6 @@
 "use client"
 import React from "react";
 import axios from "axios";
-import AddToCart from "@/components/addToCartButton";
 import { useState, useEffect } from "react";
 import styles from "@/app/[city]/p/[productbyname]/page.module.css";
 import https from "https";
@@ -111,7 +110,6 @@ function getProductDetails({ data }) {
             }
           case 5:
             if (productData.type_id == 5) {
-              // setUnit("PCS");
               updateUnit("PCS");
               setValues("1");
               updateValue("1");
@@ -119,7 +117,6 @@ function getProductDetails({ data }) {
             }
           case 6:
             if (productData.type_id == 6) {
-              // setUnit("PCS");
               updateUnit("PCS");
               setValues("1");
               updateValue("1");
@@ -144,7 +141,6 @@ function getProductDetails({ data }) {
   };
   const handleProductTypeChange = (event) => {
     const selectedType = event;
-    // setVariety(selectedType);
     updateVariety(selectedType);
     setSelectedProductType(selectedType);
     const selectProduct = product.productTypeData.find(
@@ -155,26 +151,19 @@ function getProductDetails({ data }) {
 
     if (selectProduct) {
       if (product.type_id == 3) {
-        // setProductPrice(selectProduct.cost);
         updateVariable(selectProduct.cost);
 
         setActiveWeight(selectProduct.variety_name);
         if (selectProduct.variety_name == "Small") {
-          // setUnit("S");
           updateUnit("S");
-          // setValues(selectProduct.variety_name);
           updateValue(selectProduct.variety_name);
         } else {
-          // setUnit("L");
           updateUnit("L");
-          // setValues(selectProduct.variety_name);
           updateValue(selectProduct.variety_name);
         }
       } else if (product.type_id == 6) {
-        // setProductPrice(selectProduct.cost * quantity);
         updateVariable(selectProduct.cost * quantity);
       } else {
-        // setProductPrice(selectProduct.cost * 2 * quantity);
         updateVariable(selectProduct.cost * 2 * quantity);
       }
     }
@@ -188,7 +177,6 @@ function getProductDetails({ data }) {
         updateValue("0.5");
         setUnit("gram");
         updateUnit("gram");
-        // setProductPrice(product.productTypeData[0].cost);
         updateVariable(product.productTypeData[0].cost);
       } else {
         setValues("1");
@@ -384,24 +372,7 @@ function getProductDetails({ data }) {
             <div className={styles.pdp_shortInfo}>
                 <h4 className={styles.pdp_DetailInfoTitle}>Select Weight</h4>
                 <ServingInfo/>
-                {/* <div className={styles.pdp_shortInfo_Box}>
-                  <h5 className={styles.pdp_shortInfo_Icon}>
-                    Serving info
-                    <span>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16"><g stroke="#888" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" clipPath="url(#clip0_4555_10382)"><path d="M8 14.667A6.667 6.667 0 1 0 8 1.334a6.667 6.667 0 0 0 0 13.333ZM8 10.667V8M8 5.333h.006"/></g><defs><clipPath id="clip0_4555_10382"><path fill="#fff" d="M0 0h16v16H0z"/></clipPath></defs></svg>
-                    </span>
-                  </h5>
-              
-                  <div className={styles.pdp_shortInfo_BoxItem}>
-                    <h5>Serving Information</h5>
-                    <ul>
-                      <li><h4>0.5Kg</h4><p>4 - 6 Persons</p></li>
-                      <li><h4>1Kg</h4><p>10 - 12 Persons</p></li>
-                      <li><h4>1.5Kg</h4><p>14 - 16 Persons</p></li>
-                      <li><h4>2Kg</h4><p>20 - 22 Persons</p></li>
-                    </ul>
-                  </div>
-                </div> */}
+               
               </div>
               <div className={styles.pdp_SelectFlavour}>
                 <ul>
@@ -437,15 +408,7 @@ function getProductDetails({ data }) {
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16"><g stroke="#888" stroke-linecap="round" strokeLinejoin="round" strokeWidth="1.2" clipPath="url(#clip0_4555_10382)"><path d="M8 14.667A6.667 6.667 0 1 0 8 1.334a6.667 6.667 0 0 0 0 13.333ZM8 10.667V8M8 5.333h.006"/></g><defs><clipPath id="clip0_4555_10382"><path fill="#fff" d="M0 0h16v16H0z"/></clipPath></defs></svg>
                     </span>
                   </h5>
-                  {/* <div className={styles.pdp_shortInfo_BoxItem}>
-                    <h5>Serving Information</h5>
-                    <ul>
-                      <li><h4>0.5Kg</h4><p>4 - 6 Persons</p></li>
-                      <li><h4>1Kg</h4><p>10 - 12 Persons</p></li>
-                      <li><h4>1.5Kg</h4><p>14 - 16 Persons</p></li>
-                      <li><h4>2Kg</h4><p>20 - 22 Persons</p></li>
-                    </ul>
-                  </div> */}
+                 
                 </div>
               </div>
               <div className={styles.pdp_SelectFlavour}>
@@ -673,15 +636,7 @@ function getProductDetails({ data }) {
               <li>
                 <span>{product.description}</span>
               </li>
-              {/* <li>
-                <span>Filling: </span>Layered with white ganache,
-                coconut crunchy & french vanilla custard.
-              </li>
-              <li>
-                <span>Topping: </span>Coated with rich cream mixed with
-                french vanilla custard & Garnished with french vanilla
-                custard glaze and rich dark ganache.
-              </li> */}
+            
             </ul>
           </div>
         </div>

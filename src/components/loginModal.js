@@ -188,7 +188,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal,}) => {
           sessionStorage.setItem("isLoggedIn", "true");
           setHitApi(true)
           toast("You have logged in successfully", {
-            autoClose: 3000,
+            autoClose: 1000,
             closeButton: true,
             onClose: () => {
               window.location.reload(); 

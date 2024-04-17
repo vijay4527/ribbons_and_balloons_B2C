@@ -15,6 +15,8 @@ import ServingInfo from "@/components/ServingInfo";
 import OrderSummary from "@/components/OrderSummary";
 import MapModal from "@/components/googleMapModal";
 
+
+
 const validationSchema = yup.object().shape({
     firstName: yup.string().required("First Name is required"),
     lastName: yup.string().required("Last Name is required"),
@@ -66,11 +68,6 @@ const page = ({params}) => {
     country: "",
   });
 
-  // useEffect(()=>{
-  //   if(data){
-  //      setSessionData(data)
-  //   }
-  // },[])
   const router = useRouter();
   const  city  = params.city;
   useEffect(() => {
@@ -103,12 +100,6 @@ const page = ({params}) => {
   useEffect(() => {
     countSubTotalAmount();
   }, [products]);
-
-//   useEffect(() => {
-//     if (subTotalAmount) {
-//       setTotalAmount(subTotalAmount + shippingCharges);
-//     }
-//   }, [subTotalAmount]);
 
 
   const GetAllCart = async () => {
@@ -224,7 +215,6 @@ const page = ({params}) => {
     if(products.length> 0 ){
       const order = await axiosPost("Order/SaveOrder", orderobj);
       if (order.resp == true) {
-  
         toast("Your Order has been placed", {
           autoClose: 3000,
           closeButton: true,
@@ -237,19 +227,18 @@ const page = ({params}) => {
       } else {
         console.log("Order not placed");
         toast("Something went wrong! Your Order has not been placed",{autoClose : 3000,closeButton: true})
-  
       }
     }else{
       toast("Please add product to your cart", {
         autoClose: 3000,
         closeButton: true,    
       });
-    }
-   
+    } 
   };
 
-  const frachiseSelection = (storeid) => {
-    setSelectedFranchise(storeid);
+  const frachiseSelection = (store) => {
+    console.log("storeDetails",store)
+    setSelectedFranchise(store.store_id);
   };
 
   const addressSelection = (shippingId) => {
@@ -689,7 +678,7 @@ const page = ({params}) => {
                                       selectedFranchise === res.store_id
                                     }
                                     onChange={() => {
-                                      frachiseSelection(res.store_id);
+                                      frachiseSelection(res);
                                     }}
                                   />
                                   <div

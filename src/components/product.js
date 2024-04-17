@@ -7,18 +7,13 @@ import ProducDetails from "@/components/productDetails";
 import ProductImageZoom from "@/components/productImageZoom";
 import AppConfig from "@/AppConfig";
 import Link from "next/link";
-import { axiosGet, axiosPost, axiosGetAll } from "@/api";
-import { useRouter } from "next/router";
-import Head from "next/head";
 import AddToFavoritesButton from "@/components/AddToFavoritesButton";
 import ShowCaseSlider from "@/components/ShowCaseSlider";
-import { useSession } from "next-auth/react";
 import { useState,useEffect } from 'react';
 
 const product = ({data,city}) => {
     const [activeIndex, setActiveIndex] = useState(0);
-    let image = data.product_image.split(",");
-  
+    let image = data.product_image.split(","); 
     const handleThumbnailClick = (index) => {
       setActiveIndex(index);
     };
@@ -110,32 +105,37 @@ const product = ({data,city}) => {
                         {data.product_name}
                       </h2>
                       <div className={styles.underLineSeperator}></div>
+                      <AddToCart data={data} city={city}></AddToCart>
                     </>
                   ) : (
                     ""
                   )}
-                  <AddToCart data={data} city={city}></AddToCart>
+                 
                 </div>
-                <ProducDetails data={data}></ProducDetails>
+                {
+                  data && (
+                    <ProducDetails data={data}></ProducDetails>
+
+                  )
+                }
               </div>
             </div>
           </div>
           <div className={styles.pdp_otherContent}>
-            {/* <div className={homeStyles["container_fluid"]}>
-              <div className={styles.reviewSection}>
-                <ShowCaseSlider
-                  sliderName="Showcase"
-                  sliderData={RecentlyViewed}
-                />
-              </div>
-            </div> */}
             <div className={homeStyles["container_fluid"]}>
               <div className={styles.reviewSection}>
-                <ShowCaseSlider
-                  sliderName="You may also like"
-                  sliderData={data}
-                  city={city}
-                />
+                {
+                  data ? (
+                    <ShowCaseSlider
+                    sliderName="You may also like"
+                    sliderData={data}
+                    city={city}
+                  />
+                  ) : (
+                    ""
+                  )
+                }
+               
               </div>
             </div>
           </div>
