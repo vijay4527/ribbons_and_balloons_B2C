@@ -511,16 +511,14 @@ export default function Header(otpVerified) {
                           <Dropdown.Menu align={{ lg: "end" }}>
                             {isLoggedIn == true && (
                               <>
-                                <Dropdown.Item >
+                                <Dropdown.Item>
                                   <Link className="drpItemProfile" href={`/${city}/profile`}>
-                                  My Account
+                                    My Account
                                   </Link>
                                 </Dropdown.Item>
-                                <Dropdown.Item
-                               
-                                >
+                                <Dropdown.Item>
                                   <Link className="drpItemProfile" href={`/${city}/orders`}>
-                                  Order History
+                                    Order History
                                   </Link>
                                 </Dropdown.Item>
                                 <Dropdown.Divider />
