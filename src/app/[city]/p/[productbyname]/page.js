@@ -1,6 +1,7 @@
 import React from "react";
 import { axiosGet, axiosPost, axiosGetAll } from "@/api";
 import Product from "@/components/product";
+import AppConfig from "@/AppConfig";
 export async function generateMetadata({ params }) {
   const  data = await  GetProductData(params.productbyname,params.city);
   if (data ) {
@@ -11,7 +12,7 @@ export async function generateMetadata({ params }) {
       openGraph: {
         images: [
           {
-            url: data.image,
+            url: AppConfig.cdn + "products/" +data.product_image,
             height: 1200,
             width: 600,
             alt: "Alt",
