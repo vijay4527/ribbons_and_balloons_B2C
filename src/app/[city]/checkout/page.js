@@ -828,14 +828,7 @@ const page = ({ params }) => {
         </div>
       </section>
       <ToastContainer />
-      {location && (
-        <GoogleMapModal
-          show={showMapModal}
-          handleClose={handleCloseMapModal}
-          latitude={location?.latitude}
-          longitude={location?.longitude}
-        />
-      )}
+      
     </>
   );
 };
