@@ -12,7 +12,7 @@ export async function generateMetadata({ params }) {
       openGraph: {
         images: [
           {
-            url: AppConfig.cdn + "products/" +data.product_image,
+            url: AppConfig.cdn + "products/" +data.product_image.split(",")[0],
             height: 1200,
             width: 600,
             alt: "Alt",
