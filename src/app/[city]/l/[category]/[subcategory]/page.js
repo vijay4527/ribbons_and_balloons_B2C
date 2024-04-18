@@ -1,6 +1,32 @@
 import React from 'react'
 import { axiosPost } from '@/api';
 import CategoryComponent from "@/components/CategoryandSubcategory"
+
+
+export async function generateMetadata({ params }) {
+    return {
+      title: params.subcategory  + " | Ribbons and balloons",
+      description:"Welcome to AshGamewitted, your ultimate destination for immersive gaming and captivating anime content! Dive into a world where pixels meet passion, as we bring you the latest updates, reviews, and insights from the gaming and anime realms.",
+      openGraph: {
+        images: [
+          {
+            url: "https://fama.b-cdn.net/gw/gamewittedlogo.jpg",
+            height: 1200,
+            width: 600,
+            alt: "Alt",
+          },
+        ],
+        icons:{
+          icon:[
+            "/favicon/favicon.ico"
+          ],
+          shortcut:[
+            "/favicon/favicon.ico"
+          ],
+        }
+      },
+    };
+}
 async function getCategoryData(categoryName,subcategory,city) {
     const subcatgoryName = subcategory.split("-").join(" ")
     try {
