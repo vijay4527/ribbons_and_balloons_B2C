@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import Modal from "react-bootstrap/Modal";
 import { useRouter } from "next/navigation";
 import { useSession, signIn, signOut } from "next-auth/react";
@@ -10,6 +10,7 @@ import homeStyles from "@/app/home.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Head from "next/head";
+import {AuthOtpContext} from "@/components/authContext"
 const LoginModal = ({ isOpen, onRequestClose, closeLoginModal,}) => {
   const { data: session, status } = useSession();
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -24,13 +25,10 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal,}) => {
   const cartId =typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
   const router = useRouter();
   const currentPath = router.asPath;
-  const { city } = "mumbai";
   const [hitApi, setHitApi] = useState(false);
-  // const { otpVerified } = useUserData(hitApi);
+  const {isLogged,setIsLogged}=useContext(AuthOtpContext)
   const [userObject, setUserObject] = useState({});
-  const user = typeof window !== "undefined" ? sessionStorage.getItem("userData") : ""
-
-  
+  const user = typeof window !== "undefined" ? sessionStorage.getItem("userData") : "" 
   useEffect(() => {
     if (isOpen) {
       setModalIsOpen(true);
@@ -50,7 +48,6 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal,}) => {
   };
 
   const submitHandler = async (type) => {
-
     try {
       var loginData = {
         mobile: mobile,
@@ -69,7 +66,6 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal,}) => {
       const response = await axiosPost("/User/LoginCheck", loginData);
       if (response.resp === true) {
         sessionStorage.removeItem("userData");
-        console.log("API Response:", response);
         setLoginError("")
         setUserObject(response.respObj);
         setShowLoginInput(false);
@@ -149,7 +145,6 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal,}) => {
     input.addEventListener("keyup", function (event) {
       const code = parseInt(input.value);
       if (code >= 0 && code <= 9) {
-        // setErrors({otp:""})
         const nextIndex = index + 1;
         const nextInput = document.getElementById(inputs[nextIndex]);
         if (nextInput) nextInput.focus();
@@ -186,16 +181,15 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal,}) => {
         if (data.resp == true) {
           sessionStorage.setItem("userData", JSON.stringify(data.respObj));
           sessionStorage.setItem("isLoggedIn", "true");
-          setHitApi(true)
           toast("You have logged in successfully", {
-            autoClose: 1000,
+            autoClose: 3000,
             closeButton: true,
-            onClose: () => {
-              window.location.reload(); 
-            }
-          });
-          setShowOtpSection(false);
-          setModalIsOpen(false);
+             onClose: () => {
+              setIsLogged(true);
+              setShowOtpSection(false);
+              setModalIsOpen(false);
+             }
+          });  
         }
         else if(data.resp== false){
           setLoginError(data.respMsg)
@@ -219,114 +213,42 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal,}) => {
   return (
     <div>
       <Head>
-        <link
-          href="https://fonts.googleapis.com/css?family=Roboto"
-          rel="stylesheet"
-          type="text/css"
-        />
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css" />
         <script src="https://apis.google.com/js/api:client.js"></script>
       </Head>
-      <Modal
-        show={modalIsOpen}
-        onHide={closeModal}
-        className={homeStyles["loginModal"]}
-        centered
-      >
+      <Modal show={modalIsOpen} onHide={closeModal} className={homeStyles["loginModal"]} centered >
         <div className="container container-fluid">
           {showloginInput && !user ? (
             <form className="p-4 m-4">
-              <h1 className="loginTitle">
-                {session ? "Phone Number" : "Login / Sign Up"}
-              </h1>
-              <div className="form_group mb-3">
-                <input
-                  type="text"
-                  className="form_control"
-                  value={mobile}
-                  placeholder="Phone No"
-                  onChange={(e) => setMobile(e.target.value)}
-                />
-              </div>
-
-              {loginError && (
-                <p className="" style={{ color: "red" }}>
-                  {loginError}
-                </p>
-              )}
-              <button
-                type="button"
-                className="loginButtons"
-                onClick={() => submitHandler("login")}
-              >
-                Proceed
-              </button>
+              <h1 className="loginTitle">{session ? "Phone Number" : "Login / Sign Up"}</h1>
+              <div className="form_group mb-3"><input  type="text"  className="form_control"  value={mobile}  placeholder="Phone No"  onChange={(e) => setMobile(e.target.value)}/></div>
+              {loginError && (<p className="" style={{ color: "red" }}>{loginError}</p>)}
+              <button type="button" className="loginButtons" onClick={() => submitHandler("login")} >Proceed</button>
               {!session && (
-                <div className="text-center">
-                 
+                <div className="text-center"> 
                   <p>Or Sign In with</p>
                   <div className="socialLogin">
-                    <button
-                      type="button"
-                      className="btn googleLogin"
-                      id="btnGoogle"
-                      onClick={googleLogin}
-                    >
-                      <i className="fa fa-google"></i>
-                    </button>
-                    <button
-                      type="button"
-                      className="btn facebookLogin"
-                      onClick={() => signIn("facebook")}
-                    >
-                      <i className="fa fa-facebook"></i>
-                    </button>
+                    <button type="button" className="btn googleLogin" id="btnGoogle" onClick={googleLogin} ><i className="fa fa-google"></i></button>
+                    <button type="button" className="btn facebookLogin" onClick={() => signIn("facebook")} ><i className="fa fa-facebook"></i></button>
                   </div>
                 </div>
               )}
             </form>
-          ) : (
-            ""
-          )}
+          ) : ("")}
           {showOtpSection && (
             <div className={`${homeStyles["form-group"]} text-center p-4 `}>
               <label className="mb-4 mt-5">Verify Your OTP</label>
               <div className={`${homeStyles["otp-input"]} mb-4`}>
-                {inputs.map((id) => (
-                  <input
-                    className={`${homeStyles.input} `}
-                    key={id}
-                    id={id}
-                    type="text"
-                    maxLength="1"
-                  />
-                ))}
-                
-              {loginError && (
-                <p className="mt-3" style={{ color: "red" }}>
-                  {loginError}
-                </p>
-              )}
+                {inputs.map((id) => ( <input className={`${homeStyles.input} `} key={id} id={id} type="text" maxLength="1" />))}   
+              {loginError && (<p className="mt-3" style={{ color: "red" }}>{loginError}</p>)}
               </div>
-              <button
-                className="btn btn-primary mt-2"
-                onClick={verifyOTP}
-                id="btnVerifyOtp"
-              >
-                verify
-              </button>
-              <p
-                onClick={handleOTpNotRecieved}
-                className="text-center mt-5"
-                style={{ cursor: "pointer" }}
-              >
-                Didnt Recieved Otp ? Click here to check Mobile Number{" "}
-              </p>
+              <button className="btn btn-primary mt-2" onClick={verifyOTP} id="btnVerifyOtp" >verify</button>
+              <p onClick={handleOTpNotRecieved} className="text-center mt-5" style={{ cursor: "pointer" }} > Didnt Recieved Otp ? Click here to check Mobile Number{" "}</p>
             </div>
           )}
         </div>
       </Modal>
       <ToastContainer />
-
     </div>
   );
 };

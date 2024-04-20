@@ -4,42 +4,69 @@ import { Inter } from "next/font/google";
 import Footer from "@/components/Footer";
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
 const inter = Inter({ subsets: ["latin"] });
-
+import AuthOtpContext  from "@/components/authContext";
 export const metadata = {
   title: "Ribbons and Balloons",
   description:
     "Welcome to Gamewitted, your ultimate destination for immersive gaming and captivating anime content! Dive into a world where pixels meet passion, as we bring you the latest updates, reviews, and insights from the gaming and anime realms.",
-    openGraph: {
-  images: [
-    {
-      url: "https://fama.b-cdn.net/gw/gamewittedlogo.jpg",
-      height: 1200,
-      width: 600,
-      alt: "Alt",
+  openGraph: {
+    images: [
+      {
+        url: "https://fama.b-cdn.net/gw/gamewittedlogo.jpg",
+        height: 1200,
+        width: 600,
+        alt: "Alt",
+      },
+    ],
+    icons: {
+      icon: ["https://ribbonsandballoons.com/frontassets/images/fav.png"],
+      shortcut: ["https://ribbonsandballoons.com/frontassets/images/fav.png"],
     },
-  ],
-  icons:{
-    icon:[
-      "https://ribbonsandballoons.com/frontassets/images/fav.png"
-    ],
-    shortcut:[
-      "https://ribbonsandballoons.com/frontassets/images/fav.png"
-    ],
-  }
-}
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-      <link rel="apple-touch-icon" sizes="180x180" href="https://ribbonsandballoons.com/frontassets/images/fav.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="https://ribbonsandballoons.com/frontassets/images/fav.png" />
-        <link rel="icon" type="image/png" sizes="194x194" href="https://ribbonsandballoons.com/frontassets/images/fav.png" />
-        <link rel="icon" type="image/png" sizes="192x192" href="https://ribbonsandballoons.com/frontassets/images/fav.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
-        <link rel="manifest" href="https://ribbonsandballoons.com/frontassets/images/fav.png" />
-        <link rel="mask-icon" href="https://ribbonsandballoons.com/frontassets/images/fav.png" color="#000000" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="https://ribbonsandballoons.com/frontassets/images/fav.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="https://ribbonsandballoons.com/frontassets/images/fav.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="194x194"
+          href="https://ribbonsandballoons.com/frontassets/images/fav.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="192x192"
+          href="https://ribbonsandballoons.com/frontassets/images/fav.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon/favicon-16x16.png"
+        />
+        <link
+          rel="manifest"
+          href="https://ribbonsandballoons.com/frontassets/images/fav.png"
+        />
+        <link
+          rel="mask-icon"
+          href="https://ribbonsandballoons.com/frontassets/images/fav.png"
+          color="#000000"
+        />
         <meta name="msapplication-TileColor" content="#000000" />
         <meta name="msapplication-TileImage" content="/mstile-144x144.png" />
         <meta name="theme-color" content="#ffffff" />
@@ -61,9 +88,12 @@ export default function RootLayout({ children }) {
       </head>
       <body className={inter.className}>
         <AuthProvider>
+          <AuthOtpContext>
           <Navbar />
-          {children}
-          <Footer />
+            {children}
+            <Footer />
+          </AuthOtpContext>
+            
         </AuthProvider>
       </body>
     </html>
