@@ -1,6 +1,6 @@
 "use client"
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import styles from "@/app/[city]/cart/page.module.css";
 import homeStyles from "@/app/home.module.css";
 import { useRouter } from "next/navigation";
@@ -13,7 +13,7 @@ import ServingInfo from "@/components/ServingInfo";
 import OrderSummary from "@/components/OrderSummary";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { AuthOtpContext } from "@/components/authContext";
 const page = ({params}) => {
   const { data: session, status } = useSession();
   const [cart, setCart] = useState([]);
@@ -21,33 +21,33 @@ const page = ({params}) => {
   const router = useRouter();
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [isCityModalOpen, setCityModalOpen] = useState(false);
+  const [user,setUser] = useState(null)
+  const {isLogged} = useContext(AuthOtpContext)
   const  city  = params.city;
-  var userInfo =
+  
+  useEffect(() => {
+      var userInfo =
     typeof window !== "undefined"
       ? JSON.parse(sessionStorage.getItem("userData"))
       : "";
-  useEffect(() => {
-    if (userInfo) {
-      setIsUserLoggedIn(true);
-    }
-  }, [userInfo]);
+      if(userInfo){
+        setIsUserLoggedIn(true);
+        setUser(userInfo)
+      }
+ 
+  }, [isLogged]);
   let cartId =
     typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
-  const userObject =
-    typeof window !== "undefined"
-      ? JSON.parse(sessionStorage.getItem("userData"))
-      : "";
-
   useEffect(() => {
     GetAllCart();
-  }, [city, cartId, userObject?.user_id]);
+  }, [city, cartId, user?.user_id]);
 
   const GetAllCart = async () => {
     try {
       if (city) {
         var obj = {
           cart_id: cartId ? cartId : "",
-          user_id: userObject ? userObject.user_id : "",
+          user_id: user ? user.user_id : "",
           city_name: city ? city : "",
           type: "AC",
         };
@@ -89,9 +89,9 @@ const page = ({params}) => {
 
 
   const handleProducts = () => {
-    if (!isUserLoggedIn || !userInfo) {
+    if (!isUserLoggedIn || !user) {
       setCityModalOpen(true);
-    } else if (userInfo && cart.length > 0) {
+    } else if (user && cart.length > 0) {
       router.push(`/${city}/checkout`);
     } else if (cart.length === 0) {
       toast(

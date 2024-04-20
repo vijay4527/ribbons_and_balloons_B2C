@@ -8,9 +8,7 @@ import { axiosGet, axiosPost, axiosGetAll } from "@/api";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-
- const page = ({params}) => {
-   
+ const page = ({params}) => {   
     const router = useRouter()
     const city = params.city
     const [user, setUser] = useState({});

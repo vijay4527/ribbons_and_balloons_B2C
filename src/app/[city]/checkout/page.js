@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import { useSession } from "next-auth/react";
 import styles from "@/app/[city]/checkout/page.module.css";
 import homeStyles from "@/app/home.module.css";
@@ -15,7 +15,7 @@ import ServingInfo from "@/components/ServingInfo";
 import OrderSummary from "@/components/OrderSummary";
 import axios from "axios";
 import GoogleMapModal from "@/components/googleMapModal";
-
+import { AuthOtpContext } from "@/components/authContext";
 
 const validationSchema = yup.object().shape({
   firstName: yup.string().required("First Name is required"),
@@ -49,12 +49,8 @@ const page = ({ params }) => {
   const [user, setUser] = useState({});
   const [enableAddress, setEnableAddress] = useState(false);
   const [showMapModal, setShowMapModal] = useState(false);
-
+  const { isLogged } = useContext(AuthOtpContext);
   const handleCloseMapModal = () => setShowMapModal(false);
-  const userObject =
-    typeof window !== "undefined"
-      ? JSON.parse(sessionStorage.getItem("userData"))
-      : "";
   const [formValues, setFormValues] = useState({
     firstName: "",
     lastName: "",
@@ -79,32 +75,27 @@ const page = ({ params }) => {
         setUser(userObject);
       }
     };
-
     fetchUser();
-  }, []);
+  }, [isLogged]);
 
   const cartId =
     typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
 
   useEffect(() => {
     GetAllCart();
-  }, [city]);
+    GetAddress();
+  }, [city,user]);
 
-  useEffect(() => {
-    if (userObject) {
-      GetAddress();
-    }
-  }, [userObject?.user_id]);
 
   useEffect(() => {
     countSubTotalAmount();
   }, [products]);
 
   const GetAllCart = async () => {
-    if (userObject && userObject.user_id && city) {
+    if (user && user.user_id && city) {
       var obj = {
         cart_id: cartId ? cartId : "",
-        user_id: userObject ? userObject.user_id : "",
+        user_id: user ? user.user_id : "",
         city_name: city,
         type: "AC",
       };
@@ -163,9 +154,9 @@ const page = ({ params }) => {
 
   const GetAddress = async () => {
     try {
-      if (userObject.user_id) {
+      if (user.user_id) {
         const addressData = await axiosGet(
-          `ShippingAddress/GetShippingAddressByUserId/${userObject.user_id}`
+          `ShippingAddress/GetShippingAddressByUserId/${user.user_id}`
         );
         if (addressData) {
           setUserAddress(addressData);
@@ -215,7 +206,7 @@ const page = ({ params }) => {
       shipping_address_id: selectedAddress ? selectedAddress : "",
       coupon_code: couponCode ? couponCode : null,
       city: city,
-      user_id: userObject.user_id,
+      user_id: user.user_id,
       order_status: null,
     };
     if (products.length > 0) {
@@ -260,7 +251,7 @@ const page = ({ params }) => {
       await validationSchema.validate(formValues, { abortEarly: false });
       var obj = {
         shipping_address_id: "",
-        user_id: userObject.user_id,
+        user_id: user.user_id,
         first_name: formValues.firstName,
         last_name: formValues.lastName,
         email_address: formValues.email,
