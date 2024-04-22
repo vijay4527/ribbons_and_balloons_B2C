@@ -5,7 +5,6 @@ import AppConfig from "@/AppConfig";
 export async function generateMetadata({ params }) {
   const  data = await  GetProductData(params.productbyname,params.city);
   if (data ) {
-    console.log("data ", data)
     return {
       title: data.product_name,
       description:"Buy & Order Cakes Online and Send Cakes anywhere in Mumbai. Ribbons & Balloons is an Online Cakes Shop in Mumbai, we make your Occasions special for your friends, family and you. Order Best Quality cakes online and we deliver it on your doorsteps.",

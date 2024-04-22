@@ -10,7 +10,7 @@ export async function generateMetadata({ params }) {
       openGraph: {
         images: [
           {
-            url: "https://fama.b-cdn.net/gw/gamewittedlogo.jpg",
+            url: "https://ribbonsandballoons.com/frontassets/images/fav.png",
             height: 1200,
             width: 600,
             alt: "Alt",
