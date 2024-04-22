@@ -80,7 +80,7 @@ function EnquiryModal() {
                     <Form.Group controlId="formemail">
                       <Form.Control
                         type="email"
-                        placeholder="Enter email"
+                        placeholder="Enter emai"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                       />
