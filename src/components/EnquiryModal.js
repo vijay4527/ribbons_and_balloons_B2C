@@ -46,8 +46,12 @@ function EnquiryModal() {
         Enquiry Now
       </div>
       {/*  size="lg" */}
-      <Modal show={show} onHide={handleClose} centered>
-        <Modal.Body className="enquiryBody">
+      <Modal id='enquiry-modal-dialog' show={show} onHide={handleClose} centered>
+        <div className='modal-flex-div'>
+          <div className='modal-img-div'>
+            <img src='https://img.freepik.com/free-photo/front-view-delicious-chocolate-cake-concept_23-2148769269.jpg?t=st=1713784946~exp=1713788546~hmac=08aa9294847931729fd314e2a57a262d0978f8b438dd42adf2313a6425085b42&w=360' className=''></img>
+          </div>
+          <Modal.Body className="enquiryBody">
             <div className="headerTitle">
               <h2>Enquiry Now</h2>
               <div className="testimonialUnderLine">
@@ -69,6 +73,7 @@ function EnquiryModal() {
                         onChange={(e) => setFirstName(e.target.value)}
                       />
                     </Form.Group>
+                    
                     <Form.Group controlId="formlastname">
                       <Form.Control
                         type="text"
@@ -80,7 +85,7 @@ function EnquiryModal() {
                     <Form.Group controlId="formemail">
                       <Form.Control
                         type="email"
-                        placeholder="Enter email"
+                        placeholder="Enter emai"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                       />
@@ -103,25 +108,25 @@ function EnquiryModal() {
                       Submit
                     </Button>
                   </Form>
-                  
-                    <div className='enquiryLinks'>
-                        <a>
-                            <img
-                            src="https://fama.b-cdn.net/RnB/call.png"
-                            alt=""
-                            className="icon-image"
-                            />
-                            <span>1234567890</span>
-                        </a>
-                        <a>
-                            <img
-                            src="https://fama.b-cdn.net/RnB/email.png"
-                            alt=""
-                            className="icon-image"
-                            />
-                            <span>abc@gmail.com</span>
-                        </a>
-                    </div>
+
+                  <div className='enquiryLinks'>
+                    <a>
+                      <img
+                        src="https://fama.b-cdn.net/RnB/call.png"
+                        alt=""
+                        className="icon-image"
+                      />
+                      <span>1234567890</span>
+                    </a>
+                    <a>
+                      <img
+                        src="https://fama.b-cdn.net/RnB/email.png"
+                        alt=""
+                        className="icon-image"
+                      />
+                      <span>abc@gmail.com</span>
+                    </a>
+                  </div>
                 </div>
               </div>
               <div className="enquiryContact">
@@ -166,7 +171,8 @@ function EnquiryModal() {
                 </ul>
               </div>
             </div>
-        </Modal.Body>
+          </Modal.Body>
+        </div>
       </Modal>
     </>
   );

@@ -1107,7 +1107,7 @@ ul.selectLocationOption a {
   margin-left: auto;
   padding: 35px 35px 16px;
   border-radius: var(--border-radius);
-  background-color: var(--theme-primary);
+  background-color: #301a0f;
   margin: auto;
 }
 .enquiryFormData .form-control{
@@ -1119,6 +1119,8 @@ ul.selectLocationOption a {
     height: 45px;
     font-family: var(--font-family);
     font-size: 1.4rem;
+    background: transparent;
+    border-bottom: 1px solid gray;
 }
 .enquiryFormData button{
   width: 100%;
@@ -1127,7 +1129,7 @@ ul.selectLocationOption a {
     display: block;
     padding: 10px 25px;
     border-radius: var(--border-radius);
-    background-color: var(--theme-seconary) !important;
+    background-color: var(--theme-btn-bg) !important;
     box-shadow: 0 0 4px #25130f4a !important;
     font-family: var(--font-family);
     font-size: 1.6rem;
@@ -1200,7 +1202,7 @@ ul.selectLocationOption a {
   transform: translate(-50%,-50%) rotate(45deg);
 }
 .enquiryBody .headerTitle h2{
-  color: #000;
+  color: var(--theme-btn-bg);
   padding-top: 1.6rem;
   font-size: 2.2rem;
 }
@@ -1953,7 +1955,7 @@ overflow: visible;
 .loginButtons{
   height: 50px;
   font-size: 16.5px;
-  background: #4596f3;
+  background: var(--theme-primary);
   color: #ffffff;
   border-radius: 5px;
   -webkit-box-shadow: none;
@@ -2026,4 +2028,147 @@ overflow: visible;
 
 .drpItemProfile{
   text-decoration: none;
+}
+
+/* as css */
+
+.modal-img-div img {
+  height: 100%;
+  width: 100%;
+}
+.modal-img-div {
+  width: 35rem;
+}
+.modal-flex-div {
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 576px) {
+  #enquiry-modal-dialog {
+      max-width: 75rem !important;
+      margin: 1.75rem auto;
+  }
+  #login-modal-dialog {
+    max-width: 75rem !important;
+    margin: 1.75rem auto;
+}
+}
+.headerTitle {
+  background-color: #301a0f;
+  border: none;
+  padding: 1rem 0;
+}
+
+.enquiryBody .headerTitle .testimonialUnderLine {
+  margin: 0 !important;
+}
+.enquiryFormData span {
+  color: white;
+}
+
+.enquiryFormData .form-control:hover {
+  outline: -webkit-focus-ring-color auto 0px !important;
+  outline-offset: unset !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+.enquiryFormData .form-control:active {
+  outline: -webkit-focus-ring-color auto 0px !important;
+  outline-offset: unset !important;
+  border-bottom: 1px solid var(--theme-primary) !important;
+}
+.enquiryFormData .form-control:focus {
+  background: transparent;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: 1px solid var(--theme-btn-bg) !important;
+  border-color: var(--theme-btn-bg) !important ;
+}
+.enquiryFormData .form-control::placeholder {
+  color: white;
+}
+.login-modal-flex {
+  display: flex;
+  justify-content: center;
+}
+.login-modal-img-div {
+  width: 65rem;
+}
+.login-modal-img-div img {
+  width: 100%;
+  height: 100%;
+}
+.login-container {
+  background-image: url('https://fama.b-cdn.net/Stripes.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loginTitle {
+  color: var(--theme-btn-bg);
+}
+.login-container .testimonialUnderLine {
+  display: flex;
+  justify-content: center;
+}
+.login-form .form_control {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid gray;
+}
+.login-form .form_control::placeholder {
+  color: white;
+}
+.login-form .form_control:hover {
+  outline: -webkit-focus-ring-color auto 0px !important;
+  outline-offset: unset !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+.login-form p {
+  color: white;
+}
+.login-form {
+  width: 100%;
+}
+.enquiryFormData button {
+  position: relative;
+  color: #25130f !important;
+  z-index: 3;
+  background-image: url('https://img.freepik.com/premium-vector/gold-metal-backgrounds-metal-texture_508524-33.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+
+}
+.enquiryFormData button::after {
+  content:'';
+  top:0;
+	left: 10.3rem;
+
+	width:11rem;
+	height:46px;
+	position: absolute;
+	animation: slide 3s infinite;
+	 
+  /* 
+  CSS Gradient - complete browser support from http://www.colorzilla.com/gradient-editor/ 
+  */
+  background: -moz-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 50%, rgba(128,186,232,0) 99%, rgba(125,185,232,0) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,0)), color-stop(50%,rgba(255,255,255,0.8)), color-stop(99%,rgba(128,186,232,0)), color-stop(100%,rgba(125,185,232,0))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%,rgba(255,255,255,0.8) 50%,rgba(128,186,232,0) 99%,rgba(125,185,232,0) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left, rgba(255,255,255,0) 0%,rgba(255,255,255,0.8) 50%,rgba(128,186,232,0) 99%,rgba(125,185,232,0) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left, rgba(255,255,255,0) 0%,rgba(255,255,255,0.8) 50%,rgba(128,186,232,0) 99%,rgba(125,185,232,0) 100%); /* IE10+ */
+	background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,0.8) 50%,rgba(128,186,232,0) 99%,rgba(125,185,232,0) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#007db9e8',GradientType=1 );
+}
+@keyframes slide {
+	0% {transform:translateX(-100%);}
+	100% {transform:translateX(100%);}
 }
