@@ -216,11 +216,21 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal,}) => {
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css" />
         <script src="https://apis.google.com/js/api:client.js"></script>
       </Head>
-      <Modal show={modalIsOpen} onHide={closeModal} className={homeStyles["loginModal"]} centered >
-        <div className="container container-fluid">
+      <Modal id='login-modal-dialog' show={modalIsOpen} onHide={closeModal} className={homeStyles["loginModal"]} centered >
+        <div className="login-modal-flex">
+            <div className="login-modal-img-div">
+              <img src="https://img.freepik.com/free-photo/front-view-cake-with-slice-cut-out_23-2148485343.jpg?t=st=1713786533~exp=1713790133~hmac=79ef04caa8f89924e1ae13d93f572083f1c1d58d1da15c1bc857d64dc0a5d211&w=360"></img>
+            </div>
+            <div className="container login-container container-fluid">
           {showloginInput && !user ? (
-            <form className="p-4 m-4">
+            <form className="p-4 m-4 login-form">
               <h1 className="loginTitle">{session ? "Phone Number" : "Login / Sign Up"}</h1>
+              <div className="testimonialUnderLine">
+                <div className="testimonialUnder">
+                  <div className="underLine"></div>
+                  <div className="shapLine"></div>
+                </div>
+              </div>
               <div className="form_group mb-3"><input  type="text"  className="form_control"  value={mobile}  placeholder="Phone No"  onChange={(e) => setMobile(e.target.value)}/></div>
               {loginError && (<p className="" style={{ color: "red" }}>{loginError}</p>)}
               <button type="button" className="loginButtons" onClick={() => submitHandler("login")} >Proceed</button>
@@ -246,7 +256,9 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal,}) => {
               <p onClick={handleOTpNotRecieved} className="text-center mt-5" style={{ cursor: "pointer" }} > Didnt Recieved Otp ? Click here to check Mobile Number{" "}</p>
             </div>
           )}
+        </div>    
         </div>
+        
       </Modal>
       <ToastContainer />
     </div>
