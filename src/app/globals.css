@@ -294,7 +294,8 @@ img{
     margin-right: 5px;
   font-family: var(--font-family);
 }
-.selectLocation {
+.selectLocation,
+.selectSearchItem {
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -303,10 +304,12 @@ img{
   border-radius: var(--border-radius);
   transition: all 100ms ease;
 }
-.selectLocationWrap.activeClass{
+.selectLocationWrap.activeClass,
+.selectSearchItemWrap.activeClass{
   display: block;
 }
-.selectLocationWrap{
+.selectLocationWrap,
+.selectSearchItemWrap{
   display: none;
   position: absolute;
     right: 15%;
@@ -401,7 +404,8 @@ ul.selectLocationOption a {
     width: 15px;
     cursor: pointer;
 }
-.backdropLoaction{
+.backdropLoaction,
+.backdropSearchItem{
   position: fixed;
     top: 0;
     left: 0;
@@ -415,9 +419,35 @@ ul.selectLocationOption a {
     background: rgb(255 255 255 / 0%);
     transition: opacity 0.15s linear;
 }
-.backdropLoaction.activeClass{
+.backdropLoaction.activeClass,
+.backdropSearchItem.activeClass{
   display: block;
   opacity: 0.6;
+}
+.headerSearchIcon{
+  background-image: url(https://bkmedia.bakingo.com/ssr-static/search.svg);
+    margin-left: 10px;
+    width: 32px;
+    height: 32px;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    cursor: pointer;
+    position: absolute;
+    top: 9px;
+}
+.selectSearchBody{
+ position: relative;
+}
+.selectSearchBody input{
+  border: 1px solid rgb(235, 235, 235);
+  display: flex;
+    width: 27vw;
+    padding: 10px 10px 10px 52px;
+    align-items: center;
+    border-radius: 6px;
+    background: #f4f4f4;
+    height: 50px;
+    font-size: 1.4rem;
 }
 .myProfileItems {
 

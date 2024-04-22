@@ -84,6 +84,22 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
         />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Agbalumo&family=Handjet&family=Kenia&family=Nabla&family=Poppins:ital,wght@1,700&family=Whisper&display=swap"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Cormorant&display=swap"
+        />
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
       </head>
       <body className={inter.className}>
