@@ -52,7 +52,7 @@ function EnquiryModal() {
             <img src='https://img.freepik.com/free-photo/front-view-delicious-chocolate-cake-concept_23-2148769269.jpg?t=st=1713784946~exp=1713788546~hmac=08aa9294847931729fd314e2a57a262d0978f8b438dd42adf2313a6425085b42&w=360' className=''></img>
           </div>
           <Modal.Body className="enquiryBody">
-            <div className="headerTitle">
+            <div className="headerTitle headerTitle-Enquiry">
               <h2>Enquiry Now</h2>
               <div className="testimonialUnderLine">
                 <div className="testimonialUnder">
