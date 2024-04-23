@@ -23,7 +23,6 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city }) => {
     const data = await axiosPost("AddonMaster/GetAddonByCityName", obj);
     if (data) {
       setAddOns(data);
-      // Initialize quantities array with default values
       setQuantities(new Array(data.length).fill(1));
     }
   };
@@ -36,15 +35,30 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city }) => {
       updatedIndexes.push(index);
     }
     setSelectedIndexes(updatedIndexes);
+  
+    if (quantities[index] < 1) {
+      setQuantities((prevQuantities) => {
+        const newQuantities = [...prevQuantities];
+        newQuantities[index] = 1;
+        return newQuantities;
+      });
+    }
   };
+  
 
   const decrementQuantity = (index) => {
     if (quantities[index] > 0) {
       const newQuantities = [...quantities];
       newQuantities[index] -= 1;
       setQuantities(newQuantities);
+      if (newQuantities[index] < 1) {
+        const updatedIndexes = [...selectedIndexes];
+        updatedIndexes.splice(updatedIndexes.indexOf(index), 1);
+        setSelectedIndexes(updatedIndexes);
+      }
     }
   };
+  
 
   const incrementQuantity = (index) => {
     if (quantities[index] < 10) {
