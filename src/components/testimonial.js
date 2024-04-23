@@ -73,7 +73,7 @@ const Testimonial = () => {
       </Head>
 
       <div className="testimonialsWrap">
-        <Container fluid>
+        <Container fluid className="testimonial-container">
           <div className="testimonialsBody">
             <div className="headerTitle">
               <p className=""> you said about us </p>

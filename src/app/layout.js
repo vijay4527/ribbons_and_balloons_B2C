@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import Footer from "@/components/Footer";
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
 const inter = Inter({ subsets: ["latin"] });
-import AuthOtpContext  from "@/components/authContext";
+import AuthOtpContext from "@/components/authContext";
 export const metadata = {
   title: "Ribbons and Balloons",
   description:
@@ -105,11 +105,11 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <AuthProvider>
           <AuthOtpContext>
-          <Navbar />
+            <Navbar />
             {children}
             <Footer />
           </AuthOtpContext>
-            
+
         </AuthProvider>
       </body>
     </html>
