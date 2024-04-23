@@ -167,12 +167,13 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal}) => {
   }
 
   const verifyOTP = async () => {
-    await otpSchema.validate({
-      otp1: otp[0],
-      otp2: otp[1],
-      otp3: otp[2],
-      otp4: otp[3]
-    }, { abortEarly: false }); 
+    // await otpSchema.validate({
+    //   otp1: otp[0],
+    //   otp2: otp[1],
+    //   otp3: otp[2],
+    //   otp4: otp[3]
+    // }, { abortEarly: false }); 
+    
        const otpValue = inputs
       .map((id) => document.getElementById(id).value)
       .join("");
