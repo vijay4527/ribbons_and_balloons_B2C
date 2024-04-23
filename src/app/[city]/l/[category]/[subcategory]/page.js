@@ -29,9 +29,10 @@ export async function generateMetadata({ params }) {
 }
 async function getCategoryData(categoryName,subcategory,city) {
     const subcatgoryName = subcategory.split("-").join(" ")
+    const categoryStr = categoryName.split("-").join(" ")
     try {
         const obj = {
-          category_name: categoryName || "",
+          category_name: categoryStr || "",
           sub_category_name: subcatgoryName || "",
           city_name: city,
         };
