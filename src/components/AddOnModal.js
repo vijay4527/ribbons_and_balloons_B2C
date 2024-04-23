@@ -9,7 +9,7 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city }) => {
   const [modalIsOpen, setModalIsOpen] = useState(isOpen);
   const [addOns, setAddOns] = useState([]);
   const [selectedIndexes, setSelectedIndexes] = useState([]);
-  const [quantity, setQuantity] = useState(1);
+  const [quantities, setQuantities] = useState([]);
 
   useEffect(() => {
     setModalIsOpen(true);
@@ -23,6 +23,8 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city }) => {
     const data = await axiosPost("AddonMaster/GetAddonByCityName", obj);
     if (data) {
       setAddOns(data);
+      // Initialize quantities array with default values
+      setQuantities(new Array(data.length).fill(1));
     }
   };
 
@@ -36,19 +38,19 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city }) => {
     setSelectedIndexes(updatedIndexes);
   };
 
-  const decrementQuantity = () => {
-    if (quantity > 0) {
-      setQuantity((prevQuantity) => prevQuantity - 1);
-    }
-    if (quantity < 1) {
-        setQuantity(1)
-      setSelectedIndexes([]);
+  const decrementQuantity = (index) => {
+    if (quantities[index] > 0) {
+      const newQuantities = [...quantities];
+      newQuantities[index] -= 1;
+      setQuantities(newQuantities);
     }
   };
 
-  const incrementQuantity = () => {
-    if (quantity < 10) {
-      setQuantity((prevQuantity) => prevQuantity + 1);
+  const incrementQuantity = (index) => {
+    if (quantities[index] < 10) {
+      const newQuantities = [...quantities];
+      newQuantities[index] += 1;
+      setQuantities(newQuantities);
     }
   };
 
@@ -101,11 +103,17 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city }) => {
                       )}
                       {selectedIndexes.includes(index) && (
                         <div class="addon-quantity-show">
-                          <span class="addon-sub" onClick={decrementQuantity}>
+                          <span
+                            class="addon-sub"
+                            onClick={() => decrementQuantity(index)}
+                          >
                             -{" "}
                           </span>
-                          <span class="addon-add-sub">{quantity}</span>
-                          <span class="addon-add" onClick={incrementQuantity}>
+                          <span class="addon-add-sub">{quantities[index]}</span>
+                          <span
+                            class="addon-add"
+                            onClick={() => incrementQuantity(index)}
+                          >
                             +{" "}
                           </span>
                         </div>
