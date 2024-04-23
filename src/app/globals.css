@@ -2264,6 +2264,8 @@ overflow: visible;
   align-items: center;
 }
 
+
+
 .addon-quantity-show {
   margin-top: 10px;
 }
@@ -2278,4 +2280,57 @@ overflow: visible;
   margin-right: 6px;
   opacity: .8;
   font-size: 12px;
+}
+
+.skip_button {
+  font-family: Poppins, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.71;
+  letter-spacing: normal;
+  text-align: left;
+  color: #000;
+  text-decoration: underline;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+
+.proceed-buy, .proceed-buy-mob {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.proceed-buy, .proceed-buy-mob {
+  width: 137px;
+  height: 48px;
+  background-color: #ff5f5d;
+  color: #fff;
+  font-weight: 600;
+  font-size: 18px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.proceed-buy {
+  border-radius: 6px;
+  font-family: Poppins, sans-serif;
+} 
+
+.addOn-strip {
+  height: 80px;
+  position: absolute;
+  bottom: 0;
+  background-color: #fff;
+  width: 100%;
+  z-index: 10;
+  padding-right: 5%;
+}
+
+.addOn-strip, .addOn-strip-mob, .proceed-buy, .proceed-buy-mob {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

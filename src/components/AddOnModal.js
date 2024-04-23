@@ -28,13 +28,16 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city }) => {
   };
 
   const decrementQuantity = () => {
-    if (quantity >= 0) {
+    if (quantity > 0) {
       setQuantity((prevQuantity) => prevQuantity - 1);
+    
     }
-    if (quantity == 0 ){
-        setIsSelected(false)
-    }
+    if (quantity < 1) {
+        setIsSelected(false);
+      }
   };
+  
+  
   
   const incrementQuantity = () => {
     if (quantity < 10) {
@@ -59,22 +62,24 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city }) => {
                   <div class="addon-card">
                     <div class="addon-image">
                       <img
-                        src="https://media.bakingo.com/magic-candles.jpg?tr=h-160,w-185"
+                        src={AppConfig.cdn + "products/" + item.addon_image}
                         alt="Magic Candles Set"
                         class="img-fluid v-align-bottom ls-is-cached lazyloaded"
                         title="Magic Candles Set"
                       />
                     </div>
-                    <div class="title-price-icon">
+                    <div class="title-price-icon mt-2">
                       <div class="title-price">
-                        <span class="addon-title">{item.addon_name}</span>
+                        <span class="addon-title" title={item.addon_name}>{item.addon_name}</span>
                         <span class="addon-price">
                           <img
                             src="https://media.bakingo.com/bakingo-ssr/static/media/rupees.ac282a46.svg"
                             width="0"
                             height="0"
                           />
-                          79
+                          {" "}
+                          {item.cost}
+                          {" "}
                         </span>
                       </div>
                       {!isSelected && (
@@ -99,7 +104,13 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city }) => {
               : ""}
           </div>
         </div>
+
       </div>
+      <div class="text-center">
+        <Link href={`/${city}/cart`}> <div class="btn btn-secondary mb-4">Skip</div></Link>
+       
+        {" "}{" "}<div class="btn btn-primary mb-4">Continue</div></div>
+
     </Modal>
   );
 };

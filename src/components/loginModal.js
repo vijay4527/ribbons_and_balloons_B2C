@@ -6,12 +6,14 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { axiosPost } from "@/api";
 import * as yup from "yup";
 import { loginSchema } from "./validation";
+import { otpSchema } from "./validation";
 import homeStyles from "@/app/home.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Head from "next/head";
 import {AuthOtpContext} from "@/components/authContext"
-const LoginModal = ({ isOpen, onRequestClose, closeLoginModal,}) => {
+const LoginModal = ({ isOpen, onRequestClose, closeLoginModal}) => {
+ 
   const { data: session, status } = useSession();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [mobile, setMobile] = useState("");
@@ -28,6 +30,8 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal,}) => {
   const [hitApi, setHitApi] = useState(false);
   const {isLogged,setIsLogged}=useContext(AuthOtpContext)
   const [userObject, setUserObject] = useState({});
+  const [userSubmitted, setUserSubmitted] = useState(false); // State to track whether the form has been submitted
+
   const user = typeof window !== "undefined" ? sessionStorage.getItem("userData") : "" 
   useEffect(() => {
     if (isOpen) {
@@ -48,6 +52,8 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal,}) => {
   };
 
   const submitHandler = async (type) => {
+    setUserSubmitted(true); // Set form submitted state to true
+
     try {
       var loginData = {
         mobile: mobile,
@@ -161,10 +167,16 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal,}) => {
   }
 
   const verifyOTP = async () => {
-    const otpValue = inputs
+    await otpSchema.validate({
+      otp1: otp[0],
+      otp2: otp[1],
+      otp3: otp[2],
+      otp4: otp[3]
+    }, { abortEarly: false }); 
+       const otpValue = inputs
       .map((id) => document.getElementById(id).value)
       .join("");
-
+    
     if (userObject) {
       console.log(userObject)
       try{
@@ -191,13 +203,17 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal,}) => {
              }
           });  
         }
-        else if(data.resp== false){
+        else if(data.resp== false){   
           setLoginError(data.respMsg)
         }
       }
-      catch(error){
-        setLoginError(error)
-      }  
+      catch (validationError) {
+        if (validationError instanceof yup.ValidationError) {
+          setLoginError(validationError.message);
+        } else {
+          console.log(validationError);
+        }
+      } 
     }
   };
 
@@ -250,7 +266,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal,}) => {
               <label className="mb-4 mt-5">Verify Your OTP</label>
               <div className={`${homeStyles["otp-input"]} mb-4`}>
                 {inputs.map((id) => ( <input className={`${homeStyles.input} `} key={id} id={id} type="text" maxLength="1" />))}   
-              {loginError && (<p className="mt-3" style={{ color: "red" }}>{loginError}</p>)}
+                {loginError && (<p className="" style={{ color: "red" }}>{loginError}</p>)}
               </div>
               <button className="btn btn-primary mt-2" onClick={verifyOTP} id="btnVerifyOtp" >verify</button>
               <p onClick={handleOTpNotRecieved} className="text-center mt-5" style={{ cursor: "pointer" }} > Didnt Recieved Otp ? Click here to check Mobile Number{" "}</p>
@@ -258,7 +274,6 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal,}) => {
           )}
         </div>    
         </div>
-        
       </Modal>
       <ToastContainer />
     </div>
