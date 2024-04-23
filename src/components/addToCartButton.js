@@ -1,29 +1,31 @@
-"use client"
+"use client";
 import React from "react";
 import styles from "@/app/[city]/p/[productbyname]/page.module.css";
-import { useState,useEffect,useContext} from "react";
+import { useState, useEffect, useContext } from "react";
 import useSharedStore from "@/components/calculatedPrice";
 import { useRouter } from "next/navigation";
-import {  axiosPost } from "@/api";
+import { axiosPost } from "@/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {AuthOtpContext} from "@/components/authContext"
-const addToCartButton = ({ data,city }) => {
+import { AuthOtpContext } from "@/components/authContext";
+import AddOnModal from "@/components/AddOnModal";
+const addToCartButton = ({ data, city }) => {
   const { Variable, Variety, Unit, Value, Message } = useSharedStore();
   const router = useRouter();
-  const [user , setUser] = useState({})
+  const [user, setUser] = useState({});
   const [isLoading, setLoading] = useState(false);
-  const {isLogged} = useContext(AuthOtpContext)
+  const [openModal, setOpenModal] = useState(false);
+  const { isLogged } = useContext(AuthOtpContext);
   const cartId =
     typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
-    useEffect(()=>{
-      const userObject =
+  useEffect(() => {
+    const userObject =
       typeof window !== "undefined"
         ? JSON.parse(sessionStorage.getItem("userData"))
         : "";
-        setUser(userObject)
-    },[isLogged])
- 
+    setUser(userObject);
+  }, [isLogged]);
+
   const handleAddToCart = async () => {
     if (!isLoading) {
       setLoading(true);
@@ -31,7 +33,7 @@ const addToCartButton = ({ data,city }) => {
     }
     try {
       const cartItem = {
-        user_id: user? user?.user_id : "",
+        user_id: user ? user?.user_id : "",
         cart_id: cartId ? cartId : "",
         product_id: data.product_id,
         variety_id: Variety,
@@ -46,12 +48,12 @@ const addToCartButton = ({ data,city }) => {
         if (!cartId) {
           sessionStorage.setItem("cartId", response.respObj.cart_id);
         }
-        setTimeout(() => {
-          router.push(`/${city}/cart`);
-        }, 3000);
+        setOpenModal(true);
+        // setTimeout(() => {
+        //   router.push(`/${city}/cart`);
+        // }, 3000);
       }
     } catch (error) {
-     
       console.error("Error storing cartId in session storage:", error);
     }
   };
@@ -76,6 +78,15 @@ const addToCartButton = ({ data,city }) => {
           </div>
         </button>
       </div>
+      {openModal && (
+        <AddOnModal
+          isOpen={openModal}
+          onRequestClose={() => setOpenModal(false)}
+          closeModal={() => setOpenModal(false)}
+          city={city}
+        />
+      )}
+
       <ToastContainer />
     </div>
   );
