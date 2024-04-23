@@ -2539,7 +2539,6 @@ ul.selectLocationOption a {
 }
 
 @keyframes slide {
-<<<<<<< HEAD
 	0% {transform:translateX(-100%);}
 	100% {transform:translateX(100%);}
 }
@@ -2674,14 +2673,8 @@ ul.selectLocationOption a {
   display: flex;
   justify-content: center;
   align-items: center;
-=======
-  0% {
-    transform: translateX(-100%);
-  }
 
-  100% {
-    transform: translateX(100%);
-  }
+ 
 }
 
 .testimonial-container {
@@ -2717,5 +2710,4 @@ ul.selectLocationOption a {
 }
 .form_control {
   color: white;
->>>>>>> samad
 }
