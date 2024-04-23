@@ -4,7 +4,7 @@ import { axiosPost } from "@/api";
 import homeStyles from "@/app/home.module.css";
 import Modal from "react-bootstrap/Modal";
 import { useState, useEffect } from "react";
-import styles from "@/app/[city]/l/[category]/page.module.css";
+import styles from "@/app/[city]/l/[category]/search.module.css";
 import Link from "next/link";
 import AppConfig from "@/AppConfig";
 const productFilterModal = ({ isOpen, onRequestClose, closeModal,city,searchTerm, data }) => {
@@ -18,16 +18,17 @@ const productFilterModal = ({ isOpen, onRequestClose, closeModal,city,searchTerm
     <Modal
       show={modalIsOpen}
       onHide={closeModal}
-      className={homeStyles["loginModal"]}
+      className={homeStyles["productsSearchModal"]}
       centered
     >
+      <div className={styles.productsSearchHead}>Products</div>
       <div className={styles.plpTiles}>
         {data && data.length > 0 ? (
           data.map((item) => {
             const productName = item.product_name.split(" ").join("-");
             var image = item.product_image.split(",");
             return (
-              <div className={styles.item} key={item.product_id}>
+              <div className={styles.searchItem} key={item.product_id}>
                 <div className={styles.itemInfo}>
                   <Link
                     key={item.product_id}

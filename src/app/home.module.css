@@ -390,3 +390,7 @@
   border: 0 !important;
   border-bottom: 1px solid var(--theme-primary) !important;
 }
+
+.productsSearchModal .modal-content{
+  padding: 10px;
+}

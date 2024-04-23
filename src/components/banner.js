@@ -26,7 +26,7 @@ const Banner = () => {
               <div
                 className="banner-img banner-img1"
                 id="animatedImage"
-                style={{ transform: `translateY(-${scrollPosition * 1}px)` }}
+                style={{ transform: `translateY(-${scrollPosition * 0.5}px)` }}
               >
                 <img
                   src="https://swissdelight.qodeinteractive.com/wp-content/uploads/2021/02/h2-img-7.jpg"
@@ -36,7 +36,7 @@ const Banner = () => {
               <div
                 className="banner-img banner-img2"
                 id="animatedImage"
-                style={{ transform: `translateY(-${scrollPosition * 1}px)` }}
+                style={{ transform: `translateY(-${scrollPosition * 0.5}px)` }}
               >
                 <img
                   src="https://swissdelight.qodeinteractive.com/wp-content/uploads/2021/02/h2-img-1-729x1024.png"
@@ -48,7 +48,7 @@ const Banner = () => {
               <div
                 className="banner-img banner-img-center"
                 id="animatedImage"
-                style={{ transform: `translateY(-${scrollPosition * 0.5}px)` }}
+                style={{ transform: `translateY(-${scrollPosition * 0}px)` }}
               >
                 <img
                   src="https://swissdelight.qodeinteractive.com/wp-content/uploads/2021/02/h2-img-8.jpg"
@@ -60,7 +60,7 @@ const Banner = () => {
               <div
                 className="banner-img banner-img3"
                 id="animatedImage"
-                style={{ transform: `translateY(-${scrollPosition * 1}px)` }}
+                style={{ transform: `translateY(-${scrollPosition * 0.5}px)` }}
               >
                 <img
                   src="https://swissdelight.qodeinteractive.com/wp-content/uploads/2021/02/h2-img-10.jpg"
@@ -70,7 +70,7 @@ const Banner = () => {
               <div
                 className="banner-img banner-img4"
                 id="animatedImage"
-                style={{ transform: `translateY(-${scrollPosition * 1}px)` }}
+                style={{ transform: `translateY(-${scrollPosition * 0.5}px)` }}
               >
                 <img
                   src="https://swissdelight.qodeinteractive.com/wp-content/uploads/2021/02/h2-img-9.jpg"
