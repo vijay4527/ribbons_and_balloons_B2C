@@ -2892,3 +2892,6 @@ ul.selectLocationOption a {
 .login-form .form_control {
   color: white !important;
 }
+.login-container input {
+  color: white;
+}
