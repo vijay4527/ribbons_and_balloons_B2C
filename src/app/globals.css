@@ -1365,6 +1365,7 @@ ul.selectLocationOption a {
   background-size: 100%;
   /* Fallback for browsers that don't support gradients */
 }
+
 .headerTitle {
   text-align: center;
 }
@@ -2287,6 +2288,7 @@ ul.selectLocationOption a {
   background-position: center;
   background-repeat: no-repeat;
 }
+
 .loginButtons::after {
   content: '';
   top: 0;
@@ -2297,6 +2299,7 @@ ul.selectLocationOption a {
   animation: slide 3s infinite;
   background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(128, 186, 232, 0) 99%, rgba(125, 185, 232, 0) 100%);
 }
+
 .form_control {
   margin: 0rem 0 1rem;
   position: relative;
@@ -2437,10 +2440,6 @@ ul.selectLocationOption a {
 .enquiryFormData .form-control::placeholder {
   color: white;
 }
-.form-control {
-  color: white !important;
-}
-
 .login-modal-flex {
   display: flex;
   justify-content: center;
@@ -2514,7 +2513,6 @@ ul.selectLocationOption a {
   content: '';
   top: 0;
   left: 10.3rem;
-
   width: 11rem;
   height: 46px;
   position: absolute;
@@ -2539,8 +2537,13 @@ ul.selectLocationOption a {
 }
 
 @keyframes slide {
-	0% {transform:translateX(-100%);}
-	100% {transform:translateX(100%);}
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 
@@ -2554,62 +2557,103 @@ ul.selectLocationOption a {
   color: var(--body-bg-color);
   margin-bottom: 20px;
   text-align: center;
-  margin: 1rem ;
+  margin: 1rem;
 }
-.addon-description, .addon-description-mob {
+
+.addon-description,
+.addon-description-mob {
   flex-wrap: wrap;
   padding-bottom: 20px;
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  row-gap: 1.5rem;
+  gap: 1.3rem;
 }
 
 .addon-details {
   flex-direction: column;
   display: flex;
   position: relative;
+  padding-top: 10px;
 }
 
 .addon-details {
   width: 100%;
 }
-
-.addon-card,.addon-card-green  {
-  padding: 10px;
-  box-shadow: 0 12px 23px 0 rgba(0, 0, 0, .06);
-  background-color: #fff;
-  margin: 2% 1% 0;
-  cursor: pointer;
-  min-width: 170px;
+.addon-image img {
+  width: 100%;
+  height: 100%;
+  border-radius: 7px;
 }
+
+.addon-card,
+.addon-card-green {
+  padding: 10px;
+ 
+  background-color: transparent;
+  cursor: pointer;
+  width: 23rem;
+}
+
 .addon-card-green {
   border-radius: 4px;
-  border: 1px solid var(--body-bg-color);;
+  border: 1px solid var(--body-bg-color);
+  ;
 }
 
 .addon-card {
   border-radius: 4px;
-  border: 1px solid #fff;
 }
 
 .addon-image {
-  width: 185px;
-  height: 185px;
+  height: 175px;
   border-radius: 6px;
   overflow: hidden;
+  padding: 0.8rem;
+  position: relative;
 }
 
 .title-price-icon {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
 }
+.addon-container {
+  background-image: url(https://fama.b-cdn.net/Stripes.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
-
+.addon-overlap {
+  text-align: center;
+  border: 2px solid #c19f5f;
+  border-radius: 10px;
+  position: relative;
+  width: 18rem;
+  bottom: 13%;
+  z-index: 1;
+  background: white;
+  left: 7%;
+  background-color: #301a0f;
+  font-size: 14px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  color: white;
+}
 
 .addon-quantity-show {
   margin-top: 10px;
 }
+.add_icon_image {
+  width: 2rem !important;
+}
 
+.addon-title {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 
 .addon-add-sub {
   border-radius: 2px;
@@ -2638,13 +2682,15 @@ ul.selectLocationOption a {
 }
 
 
-.proceed-buy, .proceed-buy-mob {
+.proceed-buy,
+.proceed-buy-mob {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.proceed-buy, .proceed-buy-mob {
+.proceed-buy,
+.proceed-buy-mob {
   width: 137px;
   height: 48px;
   background-color: #ff5f5d;
@@ -2654,10 +2700,11 @@ ul.selectLocationOption a {
   text-decoration: none;
   cursor: pointer;
 }
+
 .proceed-buy {
   border-radius: 6px;
   font-family: Poppins, sans-serif;
-} 
+}
 
 .addOn-strip {
   height: 80px;
@@ -2669,12 +2716,15 @@ ul.selectLocationOption a {
   padding-right: 5%;
 }
 
-.addOn-strip, .addOn-strip-mob, .proceed-buy, .proceed-buy-mob {
+.addOn-strip,
+.addOn-strip-mob,
+.proceed-buy,
+.proceed-buy-mob {
   display: flex;
   justify-content: center;
   align-items: center;
 
- 
+
 }
 
 .testimonial-container {
@@ -2702,12 +2752,143 @@ ul.selectLocationOption a {
 .testimonial-container .headerTitle {
   position: relative;
 }
+
 .socialLogin .googleLogin:hover {
   background-color: white !important;
 }
+
 .socialLogin .facebookLogin:hover {
   background-color: #3a5898 !important;
 }
-.form_control {
+
+.card-div-flex {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.cart-trash-p {
+  font-size: 1.8rem;
+  margin-bottom: 0 !important;
+}
+
+.otp-p {
   color: white;
+}
+
+#btnVerifyOtp {
+  position: relative;
+  color: #25130f !important;
+  background-image: url('https://img.freepik.com/premium-vector/gold-metal-backgrounds-metal-texture_508524-33.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 11rem;
+  height: 4rem;
+  font-size: 2rem;
+}
+
+#btnVerifyOtp::after {
+  content: '';
+  top: 0;
+  left: 3.2rem;
+  width: 3rem;
+  height: 46px;
+  position: absolute !important;
+  animation: slide 3s infinite;
+  z-index: 3 !important;
+}
+
+.otp-label {
+  font-size: 2rem;
+  color: white;
+}
+
+.otp-inputs {
+  background: transparent;
+  border-bottom: 1px solid #c19d56 !important;
+}
+
+.page_cartBoxInfo__Zdbnj .h4-title {
+  font-size: 2rem !important;
+}
+.page_cartBoxInfo__Zdbnj {
+  width: 100%;
+}
+.cart-title {
+  border-bottom: 1px solid #c19f5f;
+  display: flex;
+  justify-content: space-between;
+}
+.msg-on-cake {
+  padding-top: 8px;
+}
+.cart-title p {
+  background: transparent !important;
+  color: white !important;
+  font-size: 1.9rem !important;
+}
+.page_cartMainBody__UGUPV {
+  padding: 0 5rem;
+}
+.page_cartTotalCount__lj5ss {
+  padding: 0 5rem;
+}
+.price-flex {
+  display: flex;
+  gap: 3rem;
+}
+.cart-msg-info p {
+  background-color: transparent !important;
+  color: white !important;
+}
+.trash-icon-div {
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+}
+.trash-icon-div img {
+  width: 100%;
+  height: 100%;
+}
+.trash-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.page_cartPriceBox__qkwGN button span {
+  position: relative;
+  color: #25130f !important;
+  z-index: 3;
+  background-image: url(https://img.freepik.com/premium-vector/gold-metal-backgrounds-metal-texture_508524-33.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.page_cartPriceBox__qkwGN button span::after {
+  content: '';
+  top: 0;
+  left: 10.3rem;
+  width: 11rem;
+  height: 46px;
+  position: absolute;
+  animation: slide 3s infinite;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(128, 186, 232, 0) 99%, rgba(125, 185, 232, 0) 100%);
+}
+.page_cartBoxItem__JjFQj {
+  border: 1px solid #c19f5f;
+}
+.page_cartPriceBox__qkwGN {
+  border: 1px solid #c19f5f;
+}
+.input-group {
+  width: 14rem !important;
+}
+.favBtn-heart {
+  color: #da4b4b;
+  cursor: pointer;
+}
+.enquiryFormData .form-control {
+  color: white !important;
+}
+.login-form .form_control {
+  color: white !important;
 }

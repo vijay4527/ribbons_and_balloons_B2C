@@ -264,13 +264,13 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal}) => {
           ) : ("")}
           {showOtpSection && (
             <div className={`${homeStyles["form-group"]} text-center p-4 `}>
-              <label className="mb-4 mt-5">Verify Your OTP</label>
+              <label className="mb-4 mt-5 otp-label">Verify Your OTP</label>
               <div className={`${homeStyles["otp-input"]} mb-4`}>
-                {inputs.map((id) => ( <input className={`${homeStyles.input} `} key={id} id={id} type="text" maxLength="1" />))}   
+                {inputs.map((id) => ( <input className={`${homeStyles.input} otp-inputs`} key={id} id={id} type="text" maxLength="1" />))}   
                 {loginError && (<p className="" style={{ color: "red" }}>{loginError}</p>)}
               </div>
               <button className="btn btn-primary mt-2" onClick={verifyOTP} id="btnVerifyOtp" >verify</button>
-              <p onClick={handleOTpNotRecieved} className="text-center mt-5" style={{ cursor: "pointer" }} > Didnt Recieved Otp ? Click here to check Mobile Number{" "}</p>
+              <p onClick={handleOTpNotRecieved} className="text-center mt-5 otp-p" style={{ cursor: "pointer" }} > Didnt Recieved Otp ? Click here to check Mobile Number{" "}</p>
             </div>
           )}
         </div>    

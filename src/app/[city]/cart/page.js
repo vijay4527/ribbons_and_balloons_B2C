@@ -1,6 +1,6 @@
 "use client"
 import React from "react";
-import { useEffect, useState,useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import styles from "@/app/[city]/cart/page.module.css";
 import homeStyles from "@/app/home.module.css";
 import { useRouter } from "next/navigation";
@@ -14,27 +14,27 @@ import OrderSummary from "@/components/OrderSummary";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthOtpContext } from "@/components/authContext";
-const page = ({params}) => {
+const page = ({ params }) => {
   const { data: session, status } = useSession();
   const [cart, setCart] = useState([]);
   const [grandTotal, setGrandTotal] = useState(0);
   const router = useRouter();
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [isCityModalOpen, setCityModalOpen] = useState(false);
-  const [user,setUser] = useState(null)
-  const {isLogged} = useContext(AuthOtpContext)
-  const  city  = params.city;
-  
+  const [user, setUser] = useState(null)
+  const { isLogged } = useContext(AuthOtpContext)
+  const city = params.city;
+
   useEffect(() => {
-      var userInfo =
-    typeof window !== "undefined"
-      ? JSON.parse(sessionStorage.getItem("userData"))
-      : "";
-      if(userInfo){
-        setIsUserLoggedIn(true);
-        setUser(userInfo)
-      }
- 
+    var userInfo =
+      typeof window !== "undefined"
+        ? JSON.parse(sessionStorage.getItem("userData"))
+        : "";
+    if (userInfo) {
+      setIsUserLoggedIn(true);
+      setUser(userInfo)
+    }
+
   }, [isLogged]);
   let cartId =
     typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
@@ -159,24 +159,39 @@ const page = ({params}) => {
                                 alt={item.product_name}
                               />
                             </div>
-                            <div className={styles.cartBoxInfo}>
-                              <h4>{item.product_name}</h4>
-                              <h4>Message on Cake : {item.msg_cake}</h4>
-                              <h5>
-                                <span className={styles.cartBoxPrice}>
-                                  ₹{item.cost}
-                                </span>
-                              </h5>
-                              <h4>
-                                {item.product_type == 3 ? (
-                                  <>{item.value}</>
-                                ) : (
-                                  <>{item.value + " " + item.unit}</>
-                                )}
-                              </h4>
+                            <div className="card-div-flex">
+                              <div className={styles.cartBoxInfo}>
+                                <div className="cart-title">
+                                  <h4 className="h4-title">{item.product_name}</h4>
+                                  <div className="price-flex">
+                                    <p>₹{item.cost}</p>
+                                  </div>
+                                </div>
+                                <div className="cart-msg-info">
+                                  <h4 className="msg-on-cake">Message on Cake : {item.msg_cake}</h4>
+                                  <h5>
+                                    {/* <span className={styles.cartBoxPrice}>
+                                    ₹{item.cost}
+                                  </span> */}
+                                  </h5>
+                                  <div className="trash-flex">
+                                    <h4>
+                                      {item.product_type == 3 ? (
+                                        <>{item.value}</>
+                                      ) : (
+                                        <>{item.value + " " + item.unit}</>
+                                      )}
+                                    </h4>
+                                    <div className="trash-icon-div">
+                                      <img className="" src="https://fama.b-cdn.net/RnB/gold-trash%20(2).png"></img>
+                                    </div>
+                                  </div>
+                                </div>
+
+                              </div>
                             </div>
                           </div>
-                          <div className={styles.cartBoxAction}>
+                          {/* <div className={styles.cartBoxAction}>
                             <div
                               className={styles.cartBoxButtonAction}
                               onClick={() =>
@@ -191,7 +206,7 @@ const page = ({params}) => {
                             >
                               Move to favourites
                             </div>
-                          </div>
+                          </div> */}
                         </div>
                       ))}
                     </>

@@ -136,7 +136,7 @@
   .cartPriceTotalAmt{
     display: flex;
     justify-content: space-between;
-    padding: 8px 0px 16px 0px;
+    padding: 18px 0px 16px 0px;
     border-top: 1px solid #ecedeb;
   }
   .cartPriceTotalAmt h4,
