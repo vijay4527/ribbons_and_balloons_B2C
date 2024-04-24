@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { axiosPost } from "@/api";
 import * as yup from "yup";
-import { loginSchema } from "./validation";
-import { otpSchema } from "./validation";
+import { loginSchema } from "@/components/validation";
+import { otpSchema } from "@/components/validation";
 import homeStyles from "@/app/home.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -52,7 +52,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal}) => {
   };
 
   const submitHandler = async (type) => {
-    setUserSubmitted(true); // Set form submitted state to true
+    setUserSubmitted(true);
 
     try {
       var loginData = {
@@ -167,21 +167,13 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal}) => {
   }
 
   const verifyOTP = async () => {
-    // await otpSchema.validate({
-    //   otp1: otp[0],
-    //   otp2: otp[1],
-    //   otp3: otp[2],
-    //   otp4: otp[3]
-    // }, { abortEarly: false }); 
-    
        const otpValue = inputs
       .map((id) => document.getElementById(id).value)
       .join("");
     
     if (userObject) {
-      console.log(userObject)
       try{
-       
+        await otpSchema.validate({ otp: otpValue }, { abortEarly: false }); 
       var loginData = {
         mobile: mobile,
         fb_id: "",
@@ -209,8 +201,9 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal}) => {
         }
       }
       catch (validationError) {
-        if (validationError instanceof yup.ValidationError) {
-          setLoginError(validationError.message);
+       if (validationError instanceof yup.ValidationError) {
+          const errorMessage = validationError.errors[0];
+          setLoginError(errorMessage);
         } else {
           console.log(validationError);
         }

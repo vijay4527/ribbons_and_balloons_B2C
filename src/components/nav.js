@@ -11,6 +11,7 @@ import LoginModal from "@/components/loginModal";
 import { axiosPost, axiosGet } from "@/api";
 import { AuthOtpContext } from "@/components/authContext";
 import ProductModal from "@/components/productFilterModal";
+import { removeData } from "jquery";
 export default function Header() {
   const router = useRouter();
   const path = usePathname();
@@ -196,8 +197,9 @@ export default function Header() {
     if (event.key === 'Enter' && searchValue.length > 0 && city) {
 try{
   setIsProductModalOpen(true);
-  const data =await axiosGet(`/ProductMaster/GetAllProductByName/${searchValue}/${city}`)
-  if(data.length > 0){
+  var searchedTerm = searchValue.split('/').join('')
+  const data =await axiosGet(`/ProductMaster/GetAllProductByName/${searchedTerm}/${city}`)
+  if(data.length > 0){  
     setFilteredProduct(data)
   }
 }
@@ -306,7 +308,7 @@ console.log(error)
                                 }
                               >
                                 <Link
-                                  href={`/${city}/l/${category.category_name}`}
+                                  href={`/${city}/l/${category.category_name.replaceAll(" ","-")}`}
                                   onClick={toggleClass}
                                   prefetch={true}
                                 >
@@ -396,7 +398,7 @@ console.log(error)
                                         >
                                           <Link
                                             href={`/${city}/l/${
-                                              category.category_name
+                                              category.category_name.replaceAll(" ","-")
                                             }/${
                                               subcategory.sub_category_name
                                                 ? subcategory.sub_category_name.replaceAll(
