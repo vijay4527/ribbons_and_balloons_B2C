@@ -10,7 +10,6 @@
 
   export default function AddToFavoritesButton({ productData,city }) {
     const { Variable, Variety, Unit, Value, Message } = useSharedStore(); 
-    
     const addToFavourite = async (data) => {
       const cartId =
         typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
@@ -18,7 +17,7 @@
         typeof window !== "undefined"
           ? JSON.parse(sessionStorage.getItem("userData"))
           : "";
-      try {
+      try { 
         var obj = {
           user_id: userObject ? userObject.user_id : "",
           cart_id: cartId ? cartId : "",
@@ -42,6 +41,7 @@
             autoClose: 3000,
             closeButton: true,
           });
+          console.log("favourite")
         }
       } catch (error) {
         console.log("error while adding product to favourites", error);

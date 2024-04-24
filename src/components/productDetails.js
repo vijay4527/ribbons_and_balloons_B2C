@@ -254,41 +254,41 @@ function getProductDetails({ data }) {
   const cartId =
     typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
 
-  const handleAddToCartOrWishlist = () => {
-    const cartItem = {
-      user_id: userObject ? userObject?.user_id : "",
-      cart_id: cartId ? cartId : "",
-      product_id: product.product_id,
-      variety_id: variety,
-      city: city,
-      unit: unit,
-      value: values.toString(),
-      msg_cake: messageOnCake,
-    };
+  // const handleAddToCartOrWishlist = () => {
+  //   const cartItem = {
+  //     user_id: userObject ? userObject?.user_id : "",
+  //     cart_id: cartId ? cartId : "",
+  //     product_id: product.product_id,
+  //     variety_id: variety,
+  //     city: city,
+  //     unit: unit,
+  //     value: values.toString(),
+  //     msg_cake: messageOnCake,
+  //   };
 
-    axios
-      .post(`${api_url}/CartMaster/SaveCartDetails`, cartItem)
-      .then((response) => {
-        if (response.data.resp === true) {
-          try {
-            if (!cartId) {
-              sessionStorage.setItem("cartId", response.data.respObj.cart_id);
-            }
-            toastr.options = {
-              positionClass: "toast-top-right",
-              timeOut: 3000,
-              closeButton: true,
-            };
-            toastr.success("Product added to cart successfully :");
-          } catch (error) {
-            console.error("Error storing cartId in session storage:", error);
-          }
-        }
-      })
-      .catch((error) => {
-        console.error("Error adding product to cart:", error);
-      });
-  };
+  //   axios
+  //     .post(`${api_url}/CartMaster/SaveCartDetails`, cartItem)
+  //     .then((response) => {
+  //       if (response.data.resp === true) {
+  //         try {
+  //           if (!cartId) {
+  //             sessionStorage.setItem("cartId", response.data.respObj.cart_id);
+  //           }
+  //           toastr.options = {
+  //             positionClass: "toast-top-right",
+  //             timeOut: 3000,
+  //             closeButton: true,
+  //           };
+  //           toastr.success("Product added to cart successfully :");
+  //         } catch (error) {
+  //           console.error("Error storing cartId in session storage:", error);
+  //         }
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error adding product to cart:", error);
+  //     });
+  // };
   const handleMessage = (e) => {
     updateMessage(e);
     setMessageOnCake(e);

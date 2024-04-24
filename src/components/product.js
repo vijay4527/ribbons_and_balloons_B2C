@@ -83,7 +83,6 @@ const product = ({data,city}) => {
                         </ul>
                       </div>
                       <div className={styles.pdp_ProductImg}>
-                        {/* <AddToFavoritesButton productData={data} city={city}/> */}
                         <ProductImageZoom
                           imageSrc={
                             AppConfig.cdn + "products/" + image[activeIndex]
