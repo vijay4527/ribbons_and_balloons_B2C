@@ -186,15 +186,19 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal}) => {
         if (data.resp == true) {
           sessionStorage.setItem("userData", JSON.stringify(data.respObj));
           sessionStorage.setItem("isLoggedIn", "true");
-          toast("You have logged in successfully", {
-            autoClose: 3000,
-            closeButton: true,
-             onClose: () => {
-              setIsLogged(true);
-              setShowOtpSection(false);
-              setModalIsOpen(false);
-             }
-          });  
+          window.Toastify({
+            text: "You have logged in successfully!",
+            duration: 3000, // Close automatically after 3 seconds
+            newWindow: true,
+            close: true,
+            gravity: "top",
+            position: 'right', 
+            backgroundColor: "#47cf73",
+            onclose: 
+            stopOnFocus: true,  
+            progressBar: true ,// Enable progress bar
+            onClick: function(){} 
+          }).showToast();
         }
         else if(data.resp== false){   
           setLoginError(data.respMsg)

@@ -37,11 +37,18 @@
           if (!cartId) {
             sessionStorage.setItem("cartId", favouriteData.respObj.cart_id);
           }
-          toast("Product added to favourites", {
-            autoClose: 3000,
-            closeButton: true,
-          });
-          console.log("favourite")
+          window.Toastify({
+            text: "Your Product added to Favourite!",
+            duration: 3000,
+            newWindow: true,
+            close: true,
+            gravity: "top",
+            position: 'right', 
+            backgroundColor: "#47cf73",
+            stopOnFocus: true,
+            progressBar: true ,// Enable progress bar
+            onClick: function(){} 
+          }).showToast();
         }
       } catch (error) {
         console.log("error while adding product to favourites", error);
