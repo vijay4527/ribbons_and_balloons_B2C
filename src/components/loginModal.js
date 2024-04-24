@@ -194,7 +194,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal}) => {
             gravity: "top",
             position: 'right', 
             backgroundColor: "#47cf73",
-            onclose: 
+            onclose: setModalIsOpen(false),
             stopOnFocus: true,  
             progressBar: true ,// Enable progress bar
             onClick: function(){} 
