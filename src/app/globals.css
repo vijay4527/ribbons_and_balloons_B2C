@@ -2895,3 +2895,12 @@ ul.selectLocationOption a {
 .login-container input {
   color: white;
 }
+
+
+.toast {
+  position: fixed;
+  z-index: 1050; /* Adjust the z-index value to ensure it appears over the modal */
+  top: 1rem;
+  right: 1rem;
+  width: 300px; /* Adjust width as needed */
+}

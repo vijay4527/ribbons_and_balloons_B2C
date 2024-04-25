@@ -1,7 +1,7 @@
 import axios from "axios";
 import https from "https";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import Toast from "react-bootstrap/Toast";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const httpsAgent = new https.Agent({
   rejectUnauthorized: false,
