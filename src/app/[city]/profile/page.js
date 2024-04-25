@@ -79,14 +79,9 @@ const page = () => {
   }
   return (
     <>
-<<<<<<< HEAD
       <div className="container profile-container">
         <div className="m-4 form-wrap">
           <form className="profile-form">
-=======
-      <div className="container ">
-        <div className="m-4">
->>>>>>> a043ca461fd6d978648ccc37aff60ba2dcff9be8
             <div className="row">
               <div className="col-lg-6">
                 <label>First Name</label>
