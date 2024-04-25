@@ -29,7 +29,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+          integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        />
         <link
           rel="apple-touch-icon"
           sizes="180x180"
@@ -101,6 +107,12 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Cormorant&display=swap"
         />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
       </head>
       <body className={inter.className}>
@@ -110,7 +122,6 @@ export default function RootLayout({ children }) {
             {children}
             <Footer />
           </AuthOtpContext>
-
         </AuthProvider>
       </body>
     </html>

@@ -18,7 +18,6 @@ export const axiosGet = async (url, config = {}) => {
     return response.data;
   } catch (error) {
     handleAxiosError(error)
-
   }
 };
 
@@ -43,8 +42,7 @@ export const axiosGetAll = async (url, config = {}) => {
 
 
 const handleAxiosError = (error) => {
-  if (error.response) {
-   
+  if (error.response) {  
     const { status, data } = error.response;
     toast.error(`Error: ${status} - ${data.message}`);
   } else if (error.request) {
