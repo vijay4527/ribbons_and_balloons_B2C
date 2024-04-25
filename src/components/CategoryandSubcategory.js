@@ -75,7 +75,7 @@ function CategoryComponent({ category, subcategoryName, data, categoryName,city 
                      
                         <div className={styles.item} key={item.product_id}>
                           <div className={styles.itemInfo}>
-                            <AddToFavoriteButton  productData={item} city={city}/>
+                            {/* <AddToFavoriteButton  productData={item} city={city}/> */}
                             <Link
                         key={item.product_id}
                         href={`/${city}/p/${productName}`}
