@@ -43,6 +43,7 @@
 .orderHistoryWrap{
   display: flex;
   flex-wrap: wrap;
+  padding: 0 4rem;
 }
 .orderHistoryFilter{
   flex-grow: 0;
@@ -66,9 +67,13 @@
   max-height: calc(100vh - 200px);
     overflow: hidden;
     overflow-y: auto;
+    border-radius: 10px;
+    border: 2px solid #c19f5f;
+    margin-bottom: 1.5rem;
 }
 .orderHistoryItem{
   padding: 1.6rem;
+  background-color: #25130f;
 }
 .orderHistoryItem:not(:last-child){
   border-bottom: 1px solid #ecedeb;

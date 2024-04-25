@@ -20,9 +20,9 @@ const page = () => {
   }, []);
   return (
     <>
-      <div className="container ">
-        <div className="m-4">
-          <form>
+      <div className="container profile-container">
+        <div className="m-4 form-wrap">
+          <form className="profile-form">
             <div className="row">
               <div className="col-lg-6">
                 <label>First Name</label>

@@ -83,6 +83,7 @@ const product = ({data,city}) => {
                         </ul>
                       </div>
                       <div className={styles.pdp_ProductImg}>
+                        <AddToFavoritesButton productData={data} city={city}/>
                         <ProductImageZoom
                           imageSrc={
                             AppConfig.cdn + "products/" + image[activeIndex]
@@ -103,7 +104,6 @@ const product = ({data,city}) => {
                     <>
                       <h2 className={styles.pdp_ProductName}>
                         {data.product_name}
-                        <AddToFavoritesButton productData={data} city={city}/>
                       </h2>
                       <div className={styles.underLineSeperator}></div>
                       <AddToCart data={data} city={city}></AddToCart>

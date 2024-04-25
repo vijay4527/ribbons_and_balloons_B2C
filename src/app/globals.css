@@ -54,7 +54,10 @@ html body {
   line-height: 1.9;
   color: var(--body-text-color);
   text-align: left;
-  background-color: var(--body-bg-color);
+  background-image: url(https://fama.b-cdn.net/Stripes.jpg);
+  background-attachment: fixed !important;
+  transition: background 0s !important;
+  background-size: 100%;
 }
 
 img {
@@ -2894,4 +2897,39 @@ ul.selectLocationOption a {
 }
 .login-container input {
   color: white;
+}
+
+.profile-form {
+  border: 2px solid #c19d56;
+  padding: 3rem;
+  border-radius: 8px;
+  background-color: #25130f;
+}
+.profile-container {
+  padding: 3rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profile-form .form-control {
+  height: 4rem;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #565655;
+  border-radius: 0%;
+}
+
+.profile-form .form-control:hover {
+  border: none !important;
+  border-bottom: 2px solid #c19f5f !important;
+}
+
+.profile-form .form-control:focus {
+  background: none;
+  border: none !important;
+  box-shadow: none;
+  border-bottom: 2px solid #c19d56 !important;
+}
+.form-wrap {
+  width: 80rem;
 }
