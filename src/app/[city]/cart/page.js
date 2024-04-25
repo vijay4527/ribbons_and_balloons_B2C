@@ -183,7 +183,7 @@ const page = ({ params }) => {
                                       )}
                                     </h4>
                                     <div className="trash-icon-div">
-                                      <img className="" src="https://fama.b-cdn.net/RnB/gold-trash%20(2).png"></img>
+                                      <img className="" src="https://fama.b-cdn.net/RnB/gold-trash%20(2).png" onClick={removeFromCart}></img>
                                     </div>
                                   </div>
                                 </div>
