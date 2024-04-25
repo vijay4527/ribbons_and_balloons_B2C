@@ -369,7 +369,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
           You have logged In successfully!
           <button
             type="button"
-            className="btn-close"
+            className="btn btn-sm btn-close"
             onClick={() => setShowA(false)}
           ></button>
         </Toast.Body>
