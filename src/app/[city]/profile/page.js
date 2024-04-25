@@ -79,8 +79,8 @@ const page = () => {
   }
   return (
     <>
-      <div className="container ">
-        <div className="m-4">
+      <div className="container profile-container">
+        <div className="m-4 form-wrap">
             <div className="row">
               <div className="col-lg-6">
                 <label>First Name</label>

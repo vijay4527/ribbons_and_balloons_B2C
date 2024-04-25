@@ -2956,7 +2956,12 @@ ul.selectLocationOption a {
   color: white;
 }
 
-<<<<<<< HEAD
+.form-wrap {
+  background-color: #25130f;
+  padding: 4rem;
+}
+
+
 .profile-form {
   border: 2px solid #c19d56;
   padding: 3rem;
@@ -2991,7 +2996,6 @@ ul.selectLocationOption a {
 .form-wrap {
   width: 80rem;
 }
-=======
 .toast {
   position: fixed;
   z-index: 1050; 
@@ -3009,4 +3013,4 @@ ul.selectLocationOption a {
   top: 15px;
   border-radius: 4px;
 }
->>>>>>> a043ca461fd6d978648ccc37aff60ba2dcff9be8
+
