@@ -2958,7 +2958,9 @@ ul.selectLocationOption a {
 
 .form-wrap {
   background-color: #25130f;
-  padding: 4rem;
+  padding: 3rem;
+  border: 2px solid #c19f5f;
+  border-radius: 8px;
 }
 
 
@@ -2974,7 +2976,7 @@ ul.selectLocationOption a {
   justify-content: center;
   align-items: center;
 }
-.profile-form .form-control {
+.form-wrap .form-control {
   height: 4rem;
   background: none;
   border: none;
@@ -2982,12 +2984,12 @@ ul.selectLocationOption a {
   border-radius: 0%;
 }
 
-.profile-form .form-control:hover {
+.form-wrap .form-control:hover {
   border: none !important;
   border-bottom: 2px solid #c19f5f !important;
 }
 
-.profile-form .form-control:focus {
+.form-wrap .form-control:focus {
   background: none;
   border: none !important;
   box-shadow: none;
