@@ -363,12 +363,13 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
         delay={3000}
         position="top-end"
         progressBar={true}
+        style={{borderRadius:"4px"}}
       >
         <Toast.Body className="LoginToaster">
           You have logged In successfully!
           <button
             type="button"
-            className="btn-close"
+            className="btn btn-sm btn-close"
             onClick={() => setShowA(false)}
           ></button>
         </Toast.Body>

@@ -28,8 +28,12 @@ import { useRouter } from "next/navigation";
       const Orders = await axiosGet(`Order/GetOrderByUserId/${userInfo.user_id}`);
       console.log("Orders");
       if (Orders) {
-        setOrders(Orders);
+        const sortedOrders = Orders.sort((a, b) => {
+          return new Date(b.created_on) - new Date(a.created_on);
+        });
+        setOrders(sortedOrders);
       }
+      
     };
   
   return (

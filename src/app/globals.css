@@ -54,7 +54,10 @@ html body {
   line-height: 1.9;
   color: var(--body-text-color);
   text-align: left;
-  background-color: var(--body-bg-color);
+  background-image: url(https://fama.b-cdn.net/Stripes.jpg);
+  background-attachment: fixed !important;
+  transition: background 0s !important;
+  background-size: 100%;
 }
 
 img {
@@ -2953,6 +2956,48 @@ ul.selectLocationOption a {
   color: white;
 }
 
+.form-wrap {
+  background-color: #25130f;
+  padding: 3rem;
+  border: 2px solid #c19f5f;
+  border-radius: 8px;
+}
+
+
+.profile-form {
+  border: 2px solid #c19d56;
+  padding: 3rem;
+  border-radius: 8px;
+  background-color: #25130f;
+}
+.profile-container {
+  padding: 3rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form-wrap .form-control {
+  height: 4rem;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #565655;
+  border-radius: 0%;
+}
+
+.form-wrap .form-control:hover {
+  border: none !important;
+  border-bottom: 2px solid #c19f5f !important;
+}
+
+.form-wrap .form-control:focus {
+  background: none;
+  border: none !important;
+  box-shadow: none;
+  border-bottom: 2px solid #c19d56 !important;
+}
+.form-wrap {
+  width: 80rem;
+}
 .toast {
   position: fixed;
   z-index: 1050; 
@@ -2968,4 +3013,6 @@ ul.selectLocationOption a {
   background: rgb(71, 207, 115) !important;
   transform: translate(0px, 0px) !important;
   top: 15px;
+  border-radius: 4px;
 }
+
