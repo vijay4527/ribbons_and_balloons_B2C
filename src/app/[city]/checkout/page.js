@@ -215,11 +215,11 @@ const page = ({ params }) => {
         toast("Your Order has been placed", {
           autoClose: 3000,
           closeButton: true,
-          onClose: () => {
-            sessionStorage.removeItem("cartId");
-            setProducts([]);
-            router.push(`/${city}/orders`);
-          },
+          // onClose: () => {
+          //   sessionStorage.removeItem("cartId");
+          //   setProducts([]);
+          //   router.push(`/${city}/orders`);
+          // },
         });
       } else {
         console.log("Order not placed");
@@ -699,22 +699,18 @@ const page = ({ params }) => {
                         <h4 className={styles.checkoutQctShippingContentTitle}>
                           Select your collection store
                         </h4>
-                        <p className={styles.pickUpImpNote}>
-                          Note: The product exchange feature is not available
-                          for this shipping method
-                        </p>
                         <div className={styles.pickUpWrap}>
                           <div className={styles.pickUpSearch}>
                             <div className={homeStyles["form_group"]}>
                               <Form.Label>
                                 {" "}
-                                Search by city, locality or mall name
+                                Search by city or locality
                               </Form.Label>
                               <Form.Control
                                 type="text"
                                 value={inputValue}
                                 onChange={handleFranchiseAddress}
-                                placeholder="Enter the city, locality or mall"
+                                placeholder="Enter the city or locality"
                                 required
                               />
                             </div>

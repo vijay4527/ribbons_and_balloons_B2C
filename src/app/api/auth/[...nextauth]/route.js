@@ -3,7 +3,6 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { axiosPost } from "@/api";
-
 const handler = NextAuth({
   providers: [
     CredentialsProvider({
@@ -43,15 +42,19 @@ const handler = NextAuth({
   ],
   callbacks: {
     async jwt({ token, account }) {
+
       if (account) {
         token.accessToken = account.access_token;
         token.provider = account.provider;
         token.account = account;
+        const cartId = sessionStorage.getItem("cartId");
+
         try {
+        
           const response = await axiosPost("/User/LoginCheck", {
             mobile: "",
             fb_id: account.provider === "facebook" ? account.access_token : "",
-            cart_id: "",
+            cart_id: cartId || "",
             g_id: account.provider === "google" ? account.access_token : "",
             otp: "",
           });
