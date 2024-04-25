@@ -1,7 +1,7 @@
 import axios from "axios";
 import https from "https";
-import Toast from "react-bootstrap/Toast";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const httpsAgent = new https.Agent({
   rejectUnauthorized: false,
@@ -18,7 +18,6 @@ export const axiosGet = async (url, config = {}) => {
     return response.data;
   } catch (error) {
     handleAxiosError(error)
-
   }
 };
 
@@ -43,8 +42,7 @@ export const axiosGetAll = async (url, config = {}) => {
 
 
 const handleAxiosError = (error) => {
-  if (error.response) {
-   
+  if (error.response) {  
     const { status, data } = error.response;
     toast.error(`Error: ${status} - ${data.message}`);
   } else if (error.request) {

@@ -8,13 +8,12 @@ import * as yup from "yup";
 import { loginSchema } from "@/components/validation";
 import { otpSchema } from "@/components/validation";
 import homeStyles from "@/app/home.module.css";
-import { ToastContainer} from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Head from "next/head";
 import { AuthOtpContext } from "@/components/authContext";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import Toast from "react-bootstrap/Toast";
+import "bootstrap/dist/css/bootstrap.min.css";
 const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
   const { data: session, status } = useSession();
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -210,26 +209,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
         if (data.resp == true) {
           sessionStorage.setItem("userData", JSON.stringify(data.respObj));
           sessionStorage.setItem("isLoggedIn", "true");
-          // toggleShowA();
-          showToastMessage()
-           // window.Toastify({
-          //   text: "You have logged in successfully!",
-          //   duration: 3000,
-          //   newWindow: true,
-          //   close: true,
-          //   gravity: "top",
-          //   position: 'right',
-          //   backgroundColor: "#47cf73",
-          //   onclose:  () => {
-          //     console.log("Toast is closed!"); // Check if this message appears in the console
-          //     setIsLogged(true); // Verify if this function is triggering as expected
-          //     setShowOtpSection(false);
-          //     setModalIsOpen(false); // Make sure this line is executing
-          //   },
-          //   stopOnFocus: true,
-          //   progressBar: true ,
-          //   onClick: function(){}
-          // }).showToast();
+          toggleShowA();
         } else if (data.resp == false) {
           setLoginError(data.respMsg);
         }
@@ -372,7 +352,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
           </div>
         </div>
       </Modal>
-      {/* <Toast
+      <Toast
         show={showA}
         onClose={() => {
           setIsLogged(true);
@@ -380,15 +360,19 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
           setModalIsOpen(false);
         }}
         autohide
-        delay={3000} 
+        delay={3000}
         position="top-end"
+        progressBar={true}
       >
-        <Toast.Header>
-          <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-        </Toast.Header>
-        <Toast.Body>Woohoo, you're reading this text in a Toast!</Toast.Body>
-      </Toast> */}
-      <ToastContainer />
+        <Toast.Body className="LoginToaster">
+          You have logged In successfully!
+          <button
+            type="button"
+            className="btn-close"
+            onClick={() => setShowA(false)}
+          ></button>
+        </Toast.Body>
+      </Toast>
     </div>
   );
 };
