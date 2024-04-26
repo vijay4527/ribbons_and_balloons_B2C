@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useEffect, useState,useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useSession } from "next-auth/react";
 import styles from "@/app/[city]/checkout/page.module.css";
 import homeStyles from "@/app/home.module.css";
@@ -17,7 +17,7 @@ import axios from "axios";
 import GoogleMapModal from "@/components/googleMapModal";
 import { AuthOtpContext } from "@/components/authContext";
 // import { cookies } from 'next/headers'
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 const validationSchema = yup.object().shape({
   firstName: yup.string().required("First Name is required"),
@@ -86,8 +86,7 @@ const page = ({ params }) => {
   useEffect(() => {
     GetAllCart();
     GetAddress();
-  }, [city,user]);
-
+  }, [city, user]);
 
   useEffect(() => {
     countSubTotalAmount();
@@ -146,14 +145,13 @@ const page = ({ params }) => {
     }
   };
   const handleOptionChange = (option) => {
-    if(option == "pickup"){
-      setSelectedAddress("")
+    if (option == "pickup") {
+      setSelectedAddress("");
     }
-    if(option == "delivery"){
-      setInputValue("")
-      setSelectedFranchise("")
-      setFranchise([])
-
+    if (option == "delivery") {
+      setInputValue("");
+      setSelectedFranchise("");
+      setFranchise([]);
     }
     setSelectedOption(option);
   };
@@ -223,14 +221,13 @@ const page = ({ params }) => {
     if (products.length > 0) {
       const order = await axiosPost("Order/SaveOrder", orderobj);
       if (order && order?.resp == true) {
-       
         toast("Your Order has been placed", {
           autoClose: 3000,
           closeButton: true,
           onClose: () => {
             setProducts([]);
-            Cookies.remove('cartId');
-            sessionStorage.removeItem("cartId")
+            Cookies.remove("cartId");
+            sessionStorage.removeItem("cartId");
             router.push(`/${city}/orders`);
           },
         });
@@ -366,8 +363,9 @@ const page = ({ params }) => {
               });
               setLocation({
                 latitude: position.coords.latitude,
-                longitude: position.coords.longitude
-              });              setError(null);
+                longitude: position.coords.longitude,
+              });
+              setError(null);
             } else {
               setError("Unable to find address for this location");
             }
@@ -607,7 +605,6 @@ const page = ({ params }) => {
                                   </div>
                                 )}
                               </div>
-                            
                             </div>
 
                             <div className={styles.checkoutQctShippingAddress}>
@@ -816,7 +813,9 @@ const page = ({ params }) => {
                     <h4>Order summary</h4>
                     <ServingInfo />
                   </div>
-                  <OrderSummary data={products} />
+                  {products && products.length > 0 && (
+                    <OrderSummary data={products} />
+                  )}
                   <button
                     className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`}
                     onClick={handlePlaceOrder}
@@ -830,7 +829,6 @@ const page = ({ params }) => {
         </div>
       </section>
       <ToastContainer />
-      
     </>
   );
 };

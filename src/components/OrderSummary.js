@@ -1,6 +1,6 @@
+"use client"
 import React, { useState, useEffect } from "react";
 import styles from "@/app/[city]/cart/page.module.css";
-import { useEffect,useState } from "react";
 export default function OrderSummary({ data }) {
   const totalPrice = data.reduce((acc, item) => acc + item.cost, 0);
   const [products,setProducts] = useState([])
@@ -19,7 +19,7 @@ export default function OrderSummary({ data }) {
                 (
                 {item.product_type == 3 ? (
                   <>{item.value}</>
-                ) : (
+                ) : ( 
                   <>{item.value + " " + item.unit}</>
                 )}
                 )
