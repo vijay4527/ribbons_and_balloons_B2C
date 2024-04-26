@@ -64,21 +64,21 @@ export default function Header() {
       setIsLoginModalOpen(true);
     } else if (
       typeof window !== "undefined" &&
-      session?.userData?.isLogin == true
+      session?.userData?.isLogin == true || isLogged
     ) {
+      setIsLoggedIn(true);
       sessionStorage.setItem("userData", JSON.stringify(session.userData));
       sessionStorage.setItem("isLoggedIn", true);
     }
-  }, [session, isLoggedIn]);
+  }, [session, isLoggedIn,isLogged,userObject?.user_id]);
 
-  const loggedIn =
-    typeof window !== "undefined" ? sessionStorage.getItem("isLoggedIn") : "";
-  useEffect(() => {
-    if (loggedIn || session?.userData?.isLogin || isLogged) {
-      console.log("you have been logged in");
-      setIsLoggedIn(true);
-    }
-  }, [session, userObject?.user_id, isLogged]);
+  // const loggedIn =
+  //   typeof window !== "undefined" ? sessionStorage.getItem("isLoggedIn") : "";
+  // useEffect(() => {
+  //   if (loggedIn || session?.userData?.isLogin || isLogged) {
+  //     console.log("you have been logged in");
+  //   }
+  // }, [session, userObject?.user_id, isLogged]);
 
   useEffect(() => {
     const handleStorageChange = () => {

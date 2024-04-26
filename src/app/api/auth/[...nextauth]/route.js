@@ -47,20 +47,21 @@ const handler = NextAuth({
         token.accessToken = account.access_token;
         token.provider = account.provider;
         token.account = account;
-        const cartId = sessionStorage.getItem("cartId");
+         token.error= ""
 
         try {
-        
           const response = await axiosPost("/User/LoginCheck", {
             mobile: "",
             fb_id: account.provider === "facebook" ? account.access_token : "",
-            cart_id: cartId || "",
+            cart_id:  "",
             g_id: account.provider === "google" ? account.access_token : "",
             otp: "",
           });
 
           if (response.respObj) {
             token.userData = response.respObj;
+          }else{
+            token.error = "something went wrong while login"
           }
         } catch (error) {
           console.error("Error checking login:", error);
@@ -73,6 +74,7 @@ const handler = NextAuth({
       session.provider = token.provider;
       session.account = token.account;
       session.userData = token.userData;
+      session.error = token.error
       return session;
     },
   },

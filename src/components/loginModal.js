@@ -57,10 +57,9 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
 
   const showToastMessage = () => {
     toast.success("Login successful! Welcome back!", {
-      position: toast.POSITION.TOP_RIGHT, // Adjust position as needed
-      autoClose: 3000, // Adjust duration (milliseconds) as needed
-      hideProgressBar: true, // Optionally hide progress bar
-      // Add more options as needed
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 3000, 
+      hideProgressBar: true, 
     });
   };
 
@@ -71,9 +70,8 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
     setShowToast(false); // Close the toast
   };
 
-  const submitHandler = async (type) => {
+  const submitHandler = async () => {
     setUserSubmitted(true);
-
     try {
       var loginData = {
         mobile: mobile,
