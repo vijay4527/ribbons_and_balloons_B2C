@@ -228,9 +228,9 @@ const page = ({ params }) => {
           autoClose: 3000,
           closeButton: true,
           onClose: () => {
+            setProducts([]);
             Cookies.remove('cartId');
             sessionStorage.removeItem("cartId")
-            setProducts([]);
             router.push(`/${city}/orders`);
           },
         });
