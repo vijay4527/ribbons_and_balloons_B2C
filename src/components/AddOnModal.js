@@ -141,11 +141,11 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city }) => {
           </div>
         </div>
       </div>
-      <div class="text-center">
+      <div class="text-center addon-bottom-btn-div">
         <Link href={`/${city}/cart`}>
-          <div class="btn btn-secondary mb-4">Skip</div>
+          <div class="btn btn-secondary mb-4 addon-bottom-btn">Skip</div>
         </Link>{" "}
-        <div class="btn btn-primary mb-4">Continue</div>
+        <div class="btn btn-primary mb-4 continue-btn addon-bottom-btn">Continue</div>
       </div>
     </Modal>
   );

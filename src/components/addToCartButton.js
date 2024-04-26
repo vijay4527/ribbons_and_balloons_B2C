@@ -86,7 +86,6 @@ const addToCartButton = ({ data, city }) => {
           city={city}
         />
       )}
-
       <ToastContainer />
     </div>
   );

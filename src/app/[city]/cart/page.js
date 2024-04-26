@@ -227,7 +227,7 @@ const page = ({ params }) => {
                     className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`}
                     onClick={handleProducts}
                   >
-                    <span>Checkout</span>
+                    <span className={styles.cartPriceBoxSpan}>Checkout</span>
                   </button>
                 </div>
               </div>

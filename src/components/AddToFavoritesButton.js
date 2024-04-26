@@ -67,7 +67,7 @@ export default function AddToFavoritesButton({ productData, city }) {
     </Head>
       <div className={styles.addToFavButton} onClick={addToFavourite}>
       
-        <i class="fa-solid fa-heart favBtn-heart"></i>
+        <i className={`${styles.HeartIcon} fa-solid fa-heart favBtn-heart`}></i>
       </div>
       </>
   );

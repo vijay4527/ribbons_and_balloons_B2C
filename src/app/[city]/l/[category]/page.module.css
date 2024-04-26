@@ -763,7 +763,12 @@
       width: 32px;
       height: 32px; 
       position: absolute;
-      background-color: white;
+    }
+    .HeartIcon {
+      color: white;
+    }
+    .HeartIcon:hover {
+      color: #da4b4b;
     }
     .HeartBordered svg,
     .HeartSolid svg{
