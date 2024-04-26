@@ -35,7 +35,7 @@ export default function Header() {
   const [selectedCity, setSelectedCity] = useState("");
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-  const [filteredProduct, setFilteredProduct] = useState([]);
+  const [filteredProduct,setFilteredProduct] =useState([])
   const loactionToggle = () => {
     if (!(pathname.includes("checkout") || pathname.includes("cart"))) {
       setIsLoactionActive(!isLoactionActive);
@@ -44,6 +44,7 @@ export default function Header() {
   const toggleSearchActive = () => {
     setSearchActive(!isSearchActive);
   };
+  
 
   useEffect(() => {
     if (city) {
@@ -54,38 +55,30 @@ export default function Header() {
   const toggleClass = () => {
     setIsActive(!isActive);
   };
-
-  // const userObject =
-  //   typeof window !== "undefined" ? sessionStorage.getItem("userData") : "s";
-
+  const userObject =
+    typeof window !== "undefined"
+      ? JSON.parse(sessionStorage.getItem("userData"))
+      : null;
   useEffect(() => {
     if (session?.userData?.isLogin === false) {
       setIsLoginModalOpen(true);
     } else if (
-      (typeof window !== "undefined" && session?.userData?.isLogin == true) ||
-      session?.userData?.isLogin ||
-      isLogged
+      typeof window !== "undefined" &&
+      session?.userData?.isLogin == true
     ) {
-      setIsLoggedIn(true);
-      sessionStorage.setItem("userData", JSON.stringify(session?.userData));
+      sessionStorage.setItem("userData", JSON.stringify(session.userData));
       sessionStorage.setItem("isLoggedIn", true);
-    } else if (session) {
-      if (session?.error) {
-        toast(session.error, {
-          autoClose: 3000,
-          closeButton: true,
-        });
-      }
     }
-  }, [session, isLoggedIn, isLogged]);
+  }, [session, isLoggedIn]);
 
-  // const loggedIn =
-  //   typeof window !== "undefined" ? sessionStorage.getItem("isLoggedIn") : "";
-  // useEffect(() => {
-  //   if (loggedIn || session?.userData?.isLogin || isLogged) {
-  //     console.log("you have been logged in");
-  //   }
-  // }, [session, userObject?.user_id, isLogged]);
+  const loggedIn =
+    typeof window !== "undefined" ? sessionStorage.getItem("isLoggedIn") : "";
+  useEffect(() => {
+    if (loggedIn || session?.userData?.isLogin || isLogged) {
+      console.log("you have been logged in");
+      setIsLoggedIn(true);
+    }
+  }, [session, userObject?.user_id, isLogged]);
 
   useEffect(() => {
     const handleStorageChange = () => {
@@ -199,20 +192,20 @@ export default function Header() {
     </a>
   ));
 
-  const handleKeyPress = async (event) => {
-    if (event.key === "Enter" && searchValue.length > 0 && city) {
-      try {
-        setIsProductModalOpen(true);
-        var searchedTerm = searchValue.split("/").join("");
-        const data = await axiosGet(
-          `/ProductMaster/GetAllProductByName/${searchedTerm}/${city}`
-        );
-        if (data.length > 0) {
-          setFilteredProduct(data);
-        }
-      } catch (error) {
-        console.log(error);
-      }
+
+  const handleKeyPress = async(event) => {
+    if (event.key === 'Enter' && searchValue.length > 0 && city) {
+try{
+  setIsProductModalOpen(true);
+  var searchedTerm = searchValue.split('/').join('')
+  const data =await axiosGet(`/ProductMaster/GetAllProductByName/${searchedTerm}/${city}`)
+  if(data.length > 0){  
+    setFilteredProduct(data)
+  }
+}
+   catch(error){
+console.log(error)
+   }
     }
   };
   return (
@@ -315,10 +308,7 @@ export default function Header() {
                                 }
                               >
                                 <Link
-                                  href={`/${city}/l/${category.category_name.replaceAll(
-                                    " ",
-                                    "-"
-                                  )}`}
+                                  href={`/${city}/l/${category.category_name.replaceAll(" ","-")}`}
                                   onClick={toggleClass}
                                   prefetch={true}
                                 >
@@ -407,10 +397,9 @@ export default function Header() {
                                           key={subcategory.sub_category_id}
                                         >
                                           <Link
-                                            href={`/${city}/l/${category.category_name.replaceAll(
-                                              " ",
-                                              "-"
-                                            )}/${
+                                            href={`/${city}/l/${
+                                              category.category_name.replaceAll(" ","-")
+                                            }/${
                                               subcategory.sub_category_name
                                                 ? subcategory.sub_category_name.replaceAll(
                                                     " ",
@@ -551,8 +540,10 @@ export default function Header() {
                               id="inputSearch"
                               placeholder="Search for cakes, occasion, flavor and more"
                               value={searchValue}
-                              className="form-control"
-                              onChange={(e) => setSearchValue(e.target.value)}
+                              className="form-control"                        
+                              onChange={(e) =>
+                              setSearchValue(e.target.value)
+                              }
                               onKeyDown={handleKeyPress}
                             />
                           </div>

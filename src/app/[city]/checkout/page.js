@@ -146,6 +146,15 @@ const page = ({ params }) => {
     }
   };
   const handleOptionChange = (option) => {
+    if(option == "pickup"){
+      setSelectedAddress("")
+    }
+    if(option == "delivery"){
+      setInputValue("")
+      setSelectedFranchise("")
+      setFranchise([])
+
+    }
     setSelectedOption(option);
   };
 
