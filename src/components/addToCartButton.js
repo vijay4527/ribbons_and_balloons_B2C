@@ -9,6 +9,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthOtpContext } from "@/components/authContext";
 import AddOnModal from "@/components/AddOnModal";
+// import { cookies } from 'next/headers'
+import Cookies from 'js-cookie';
+
 const addToCartButton = ({ data, city }) => {
   const { Variable, Variety, Unit, Value, Message } = useSharedStore();
   const router = useRouter();
@@ -46,6 +49,7 @@ const addToCartButton = ({ data, city }) => {
       const response = await axiosPost(`/CartMaster/SaveCartDetails`, cartItem);
       if (response.resp == true) {
         if (!cartId) {
+          Cookies.set('cartId', response.respObj.cart_id);
           sessionStorage.setItem("cartId", response.respObj.cart_id);
         }
         setOpenModal(true);

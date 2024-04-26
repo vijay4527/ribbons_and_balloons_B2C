@@ -49,6 +49,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
   }, [user]);
 
   const closeModal = () => {
+    setShowLoginInput(true)
     setModalIsOpen(false);
     signOut();
     onRequestClose();

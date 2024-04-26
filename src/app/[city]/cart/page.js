@@ -34,7 +34,7 @@ const page = ({ params }) => {
       setIsUserLoggedIn(true);
       setUser(userInfo);
     }
-  }, [isLogged]);
+  }, [session,isLogged]);
   let cartId =
     typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
   useEffect(() => {

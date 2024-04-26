@@ -5,7 +5,7 @@ import InstaPosts from "@/components/InstaPosts";
 import NewLaunches from "@/components/newLaunched";
 import MediaCollaborators from "@/components/mediaCollaborators";
 import EnquiryModal from "@/components/EnquiryModal";
-
+import {cartId} from "../api/getCookie";
 export async function generateMetadata({ params }) {
   return {
     title: "Home | Ribbons and Balloons",
@@ -28,6 +28,7 @@ export async function generateMetadata({ params }) {
   };
 }
 const page = () => {
+  console.log("cartId",cartId)
   return (
     <>
       <Banner />

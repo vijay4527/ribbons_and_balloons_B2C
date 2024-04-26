@@ -55,20 +55,30 @@ export default function Header() {
   const toggleClass = () => {
     setIsActive(!isActive);
   };
-  const userObject =
-    typeof window !== "undefined"
-      ? JSON.parse(sessionStorage.getItem("userData"))
-      : null;
+  
+  const userObject = typeof window !== "undefined" && sessionStorage.getItem("userData")
+    ? JSON.parse(sessionStorage.getItem("userData"))
+    : null;
+
+   
   useEffect(() => {
     if (session?.userData?.isLogin === false) {
       setIsLoginModalOpen(true);
     } else if (
       typeof window !== "undefined" &&
-      session?.userData?.isLogin == true || isLogged
+      session?.userData?.isLogin == true  || session?.userData?.isLogin || isLogged
     ) {
       setIsLoggedIn(true);
-      sessionStorage.setItem("userData", JSON.stringify(session.userData));
+      sessionStorage.setItem("userData", JSON.stringify(session?.userData));
       sessionStorage.setItem("isLoggedIn", true);
+    }
+    else if(session){
+      if(session?.error){
+        toast(session.error, {
+          autoClose: 3000,
+          closeButton: true,
+        });
+      }
     }
   }, [session, isLoggedIn,isLogged,userObject?.user_id]);
 

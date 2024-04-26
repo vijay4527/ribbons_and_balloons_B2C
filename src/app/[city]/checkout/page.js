@@ -16,6 +16,8 @@ import OrderSummary from "@/components/OrderSummary";
 import axios from "axios";
 import GoogleMapModal from "@/components/googleMapModal";
 import { AuthOtpContext } from "@/components/authContext";
+// import { cookies } from 'next/headers'
+import Cookies from 'js-cookie';
 
 const validationSchema = yup.object().shape({
   firstName: yup.string().required("First Name is required"),
@@ -211,15 +213,17 @@ const page = ({ params }) => {
     };
     if (products.length > 0) {
       const order = await axiosPost("Order/SaveOrder", orderobj);
-      if (order.resp == true) {
+      if (order && order?.resp == true) {
+       
         toast("Your Order has been placed", {
           autoClose: 3000,
           closeButton: true,
-          // onClose: () => {
-          //   sessionStorage.removeItem("cartId");
-          //   setProducts([]);
-          //   router.push(`/${city}/orders`);
-          // },
+          onClose: () => {
+            Cookies.remove('cartId');
+            sessionStorage.removeItem("cartId")
+            setProducts([]);
+            router.push(`/${city}/orders`);
+          },
         });
       } else {
         console.log("Order not placed");

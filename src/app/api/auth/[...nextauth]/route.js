@@ -3,6 +3,10 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { axiosPost } from "@/api";
+import { parseCookies } from "nookies"; 
+import { cartId } from "@/components/getCookies";
+import { cookies } from 'next/headers'
+
 const handler = NextAuth({
   providers: [
     CredentialsProvider({
@@ -41,27 +45,28 @@ const handler = NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, account }) {
-
+    async jwt({ token, account, req }) {
       if (account) {
         token.accessToken = account.access_token;
         token.provider = account.provider;
         token.account = account;
-         token.error= ""
-
+        token.error = "";
+        const cartId = cookies().get("cartId")?.value ?? "";
+        console.log("cartId",cartId)
+        console.log(cookies)
         try {
           const response = await axiosPost("/User/LoginCheck", {
             mobile: "",
             fb_id: account.provider === "facebook" ? account.access_token : "",
-            cart_id:  "",
+            cart_id: cartId ? cartId : "",
             g_id: account.provider === "google" ? account.access_token : "",
             otp: "",
           });
 
           if (response.respObj) {
             token.userData = response.respObj;
-          }else{
-            token.error = "something went wrong while login"
+          } else {
+            token.error = "something went wrong while login";
           }
         } catch (error) {
           console.error("Error checking login:", error);
@@ -74,7 +79,7 @@ const handler = NextAuth({
       session.provider = token.provider;
       session.account = token.account;
       session.userData = token.userData;
-      session.error = token.error
+      session.error = token.error;
       return session;
     },
   },
