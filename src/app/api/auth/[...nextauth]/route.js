@@ -3,8 +3,6 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { axiosPost } from "@/api";
-import { parseCookies } from "nookies"; 
-import { cartId } from "@/components/getCookies";
 import { cookies } from 'next/headers'
 
 const handler = NextAuth({
