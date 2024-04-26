@@ -9,6 +9,7 @@ import useSharedStore from "@/components/calculatedPrice";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Toast from "react-bootstrap/Toast";
 import Head from "next/head";
+import Cookies from 'js-cookie';
 
 import { useState } from "react";
 export default function AddToFavoritesButton({ productData, city }) {
@@ -35,6 +36,7 @@ export default function AddToFavoritesButton({ productData, city }) {
       const favouriteData = await axiosPost("/CartMaster/SaveCartDetails", obj);
       if (favouriteData.resp == true) {
         if (!cartId) {
+          Cookies.set('cartId', response.respObj.cart_id);
           sessionStorage.setItem("cartId", favouriteData.respObj.cart_id);
         }
         window
@@ -67,7 +69,11 @@ export default function AddToFavoritesButton({ productData, city }) {
     </Head>
       <div className={styles.addToFavButton} onClick={addToFavourite}>
       
+<<<<<<< HEAD
         <i className={`${styles.HeartIcon} fa-solid fa-heart favBtn-heart`}></i>
+=======
+        <i className="fa-solid fa-heart favBtn-heart"></i>
+>>>>>>> bedd8f310030bd07a5766ac7451ea40f14653e2f
       </div>
       </>
   );

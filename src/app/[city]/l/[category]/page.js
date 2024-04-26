@@ -10,12 +10,12 @@ export async function generateMetadata({ params }) {
       description:"Welcome to AshGamewitted, your ultimate destination for immersive gaming and captivating anime content! Dive into a world where pixels meet passion, as we bring you the latest updates, reviews, and insights from the gaming and anime realms.",
       openGraph: {
         images: [
-          {
-            url: "https://ribbonsandballoons.com/frontassets/images/fav.png",
-            height: 1200,
-            width: 600,
-            alt: "Alt",
-          },
+          // {
+          //   url: "https://ribbonsandballoons.com/frontassets/images/fav.png",
+          //   height: 1200,
+          //   width: 600,
+          //   alt: "Alt",
+          // },
         ],
         icons:{
           icon:[

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import { useEffect, useState, useContext } from "react";
 import styles from "@/app/[city]/cart/page.module.css";
@@ -21,8 +21,8 @@ const page = ({ params }) => {
   const router = useRouter();
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [isCityModalOpen, setCityModalOpen] = useState(false);
-  const [user, setUser] = useState(null)
-  const { isLogged } = useContext(AuthOtpContext)
+  const [user, setUser] = useState(null);
+  const { isLogged } = useContext(AuthOtpContext);
   const city = params.city;
 
   useEffect(() => {
@@ -32,10 +32,9 @@ const page = ({ params }) => {
         : "";
     if (userInfo) {
       setIsUserLoggedIn(true);
-      setUser(userInfo)
+      setUser(userInfo);
     }
-
-  }, [isLogged]);
+  }, [session,isLogged]);
   let cartId =
     typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
   useEffect(() => {
@@ -86,7 +85,6 @@ const page = ({ params }) => {
       setGrandTotal(total);
     }
   }, [cart]);
-
 
   const handleProducts = () => {
     if (!isUserLoggedIn || !user) {
@@ -162,18 +160,18 @@ const page = ({ params }) => {
                             <div className="card-div-flex">
                               <div className={styles.cartBoxInfo}>
                                 <div className="cart-title">
-                                  <h4 className="h4-title">{item.product_name}</h4>
+                                  <h4 className="h4-title">
+                                    {item.product_name}
+                                  </h4>
                                   <div className="price-flex">
                                     <p>₹{item.cost}</p>
                                   </div>
                                 </div>
                                 <div className="cart-msg-info">
-                                  <h4 className="msg-on-cake">Message on Cake : {item.msg_cake}</h4>
-                                  <h5>
-                                    {/* <span className={styles.cartBoxPrice}>
-                                    ₹{item.cost}
-                                  </span> */}
-                                  </h5>
+                                  <h4 className="msg-on-cake">
+                                    Message on Cake : {item.msg_cake}
+                                  </h4>
+                                  <h5></h5>
                                   <div className="trash-flex">
                                     <h4>
                                       {item.product_type == 3 ? (
@@ -183,30 +181,13 @@ const page = ({ params }) => {
                                       )}
                                     </h4>
                                     <div className="trash-icon-div">
-                                      <img className="" src="https://fama.b-cdn.net/RnB/gold-trash%20(2).png"></img>
+                                      <img className="" src="https://fama.b-cdn.net/RnB/gold-trash%20(2).png" onClick={()=>removeFromCart(item.cp_id, item.cost)}></img>
                                     </div>
                                   </div>
                                 </div>
-
                               </div>
                             </div>
                           </div>
-                          {/* <div className={styles.cartBoxAction}>
-                            <div
-                              className={styles.cartBoxButtonAction}
-                              onClick={() =>
-                                removeFromCart(item.cp_id, item.cost)
-                              }
-                            >
-                              Remove
-                            </div>
-                            <div
-                              className={styles.cartBoxButtonAction}
-                              onClick={() => addToFavourite(item)}
-                            >
-                              Move to favourites
-                            </div>
-                          </div> */}
                         </div>
                       ))}
                     </>
@@ -221,7 +202,6 @@ const page = ({ params }) => {
                     <h4>Order summary</h4>
                     <ServingInfo />
                   </div>
-
                   <OrderSummary data={cart} />
                   <button
                     className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`}

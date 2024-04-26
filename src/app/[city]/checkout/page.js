@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useEffect, useState,useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useSession } from "next-auth/react";
 import styles from "@/app/[city]/checkout/page.module.css";
 import homeStyles from "@/app/home.module.css";
@@ -16,6 +16,8 @@ import OrderSummary from "@/components/OrderSummary";
 import axios from "axios";
 import GoogleMapModal from "@/components/googleMapModal";
 import { AuthOtpContext } from "@/components/authContext";
+// import { cookies } from 'next/headers'
+import Cookies from "js-cookie";
 
 const validationSchema = yup.object().shape({
   firstName: yup.string().required("First Name is required"),
@@ -84,8 +86,7 @@ const page = ({ params }) => {
   useEffect(() => {
     GetAllCart();
     GetAddress();
-  }, [city,user]);
-
+  }, [city, user]);
 
   useEffect(() => {
     countSubTotalAmount();
@@ -144,6 +145,14 @@ const page = ({ params }) => {
     }
   };
   const handleOptionChange = (option) => {
+    if (option == "pickup") {
+      setSelectedAddress("");
+    }
+    if (option == "delivery") {
+      setInputValue("");
+      setSelectedFranchise("");
+      setFranchise([]);
+    }
     setSelectedOption(option);
   };
 
@@ -211,13 +220,14 @@ const page = ({ params }) => {
     };
     if (products.length > 0) {
       const order = await axiosPost("Order/SaveOrder", orderobj);
-      if (order.resp == true) {
+      if (order && order?.resp == true) {
         toast("Your Order has been placed", {
           autoClose: 3000,
           closeButton: true,
           onClose: () => {
-            sessionStorage.removeItem("cartId");
             setProducts([]);
+            Cookies.remove("cartId");
+            sessionStorage.removeItem("cartId");
             router.push(`/${city}/orders`);
           },
         });
@@ -353,8 +363,9 @@ const page = ({ params }) => {
               });
               setLocation({
                 latitude: position.coords.latitude,
-                longitude: position.coords.longitude
-              });              setError(null);
+                longitude: position.coords.longitude,
+              });
+              setError(null);
             } else {
               setError("Unable to find address for this location");
             }
@@ -594,7 +605,6 @@ const page = ({ params }) => {
                                   </div>
                                 )}
                               </div>
-                            
                             </div>
 
                             <div className={styles.checkoutQctShippingAddress}>
@@ -699,22 +709,18 @@ const page = ({ params }) => {
                         <h4 className={styles.checkoutQctShippingContentTitle}>
                           Select your collection store
                         </h4>
-                        <p className={styles.pickUpImpNote}>
-                          Note: The product exchange feature is not available
-                          for this shipping method
-                        </p>
                         <div className={styles.pickUpWrap}>
                           <div className={styles.pickUpSearch}>
                             <div className={homeStyles["form_group"]}>
                               <Form.Label>
                                 {" "}
-                                Search by city, locality or mall name
+                                Search by city or locality
                               </Form.Label>
                               <Form.Control
                                 type="text"
                                 value={inputValue}
                                 onChange={handleFranchiseAddress}
-                                placeholder="Enter the city, locality or mall"
+                                placeholder="Enter the city or locality"
                                 required
                               />
                             </div>
@@ -807,7 +813,9 @@ const page = ({ params }) => {
                     <h4>Order summary</h4>
                     <ServingInfo />
                   </div>
-                  <OrderSummary data={products} />
+                  {products && products.length > 0 && (
+                    <OrderSummary data={products} />
+                  )}
                   <button
                     className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`}
                     onClick={handlePlaceOrder}
@@ -821,7 +829,6 @@ const page = ({ params }) => {
         </div>
       </section>
       <ToastContainer />
-      
     </>
   );
 };
