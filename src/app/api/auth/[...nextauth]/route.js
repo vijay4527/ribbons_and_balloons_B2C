@@ -53,14 +53,14 @@ const handler = NextAuth({
         console.log("cartId",cartId)
         console.log(cookies)
         try {
-          const response = await axiosPost("/User/LoginCheck", {
+          var userObject = {
             mobile: "",
             fb_id: account.provider === "facebook" ? account.access_token : "",
             cart_id: cartId ? cartId : "",
             g_id: account.provider === "google" ? account.access_token : "",
             otp: "",
-          });
-
+          }
+          const response = await axiosPost("/User/LoginCheck", userObject);
           if (response.respObj) {
             token.userData = response.respObj;
           } else {

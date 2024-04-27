@@ -14,6 +14,8 @@ import OrderSummary from "@/components/OrderSummary";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthOtpContext } from "@/components/authContext";
+import Cookies from "js-cookie";
+
 const page = ({ params }) => {
   const { data: session, status } = useSession();
   const [cart, setCart] = useState([]);
@@ -24,17 +26,16 @@ const page = ({ params }) => {
   const [user, setUser] = useState(null);
   const { isLogged } = useContext(AuthOtpContext);
   const city = params.city;
-
+  var userInfo =
+  typeof window !== "undefined"
+    ? JSON.parse(sessionStorage.getItem("userData"))
+    : "";
   useEffect(() => {
-    var userInfo =
-      typeof window !== "undefined"
-        ? JSON.parse(sessionStorage.getItem("userData"))
-        : "";
     if (userInfo) {
       setIsUserLoggedIn(true);
       setUser(userInfo);
     }
-  }, [session,isLogged]);
+  }, [session,isLogged,userInfo?.user_id]);
   let cartId =
     typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
   useEffect(() => {
@@ -67,6 +68,7 @@ const page = ({ params }) => {
       setGrandTotal(newPrice);
       if (cart.length == 1) {
         try {
+          Cookies.remove("cartId")
           sessionStorage.removeItem("cartId");
           cartId = "";
         } catch (error) {

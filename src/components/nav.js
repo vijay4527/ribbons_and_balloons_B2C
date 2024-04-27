@@ -12,6 +12,8 @@ import { axiosPost, axiosGet } from "@/api";
 import { AuthOtpContext } from "@/components/authContext";
 import ProductModal from "@/components/productFilterModal";
 import { removeData } from "jquery";
+import Cookies from "js-cookie";
+
 export default function Header() {
   const router = useRouter();
   const path = usePathname();
@@ -158,6 +160,7 @@ export default function Header() {
   }, []);
 
   const Logout = () => {
+
     sessionStorage.removeItem("userData");
     sessionStorage.removeItem("isLoggedIn");
     signOut();
