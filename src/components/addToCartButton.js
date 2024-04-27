@@ -45,7 +45,7 @@ const addToCartButton = ({ data, city }) => {
         value: Value.toString(),
         msg_cake: Message,
         type: "AC",
-        product_type:"p"
+        product_type:"P"
       };
       const response = await axiosPost(`/CartMaster/SaveCartDetails`, cartItem);
       if (response.resp == true) {

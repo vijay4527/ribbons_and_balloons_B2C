@@ -15,7 +15,6 @@ async function fetOrderDetails(orderId) {
         return null
       }
     }
-
   } catch (err) {
     console.error(err)
   }
