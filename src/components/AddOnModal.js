@@ -75,7 +75,7 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
 
   const incrementQuantity = (index) => {
     if (quantities[index] < 10) {
-      const newQuantities = [...quantities];
+      const newQuantities = [...quantities];3
       newQuantities[index] += 1;
       setQuantities(newQuantities);
     }
