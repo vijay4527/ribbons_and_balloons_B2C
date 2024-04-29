@@ -8,11 +8,6 @@ import AppConfig from "@/AppConfig";
 import ProductImages from "@/components/productImages";
 import AddToCart from "@/components/addToCartButton";
 import ProductDetails from "@/components/productDetails";
-import AddToFavoritesButton from "@/components/AddToFavoritesButton";
-import CategoryStyles from "@/app/[city]/l/[category]/page.module.css";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 export async function generateMetadata({ params }) {
   const data = await GetProductData(params.productbyname, params.city);
   if (data) {
@@ -37,7 +32,6 @@ export async function generateMetadata({ params }) {
     };
   }
 }
-
 async function getCategoryData(category, city) {
   try {
     if (category) {
@@ -46,12 +40,9 @@ async function getCategoryData(category, city) {
         sub_category_name: "",
         city_name: city,
       };
-      const categorydata = await axiosPost(
-        "/ProductMaster/GetB2CProducts",
-        obj
-      );
-      if (categorydata) {
-        return categorydata;
+      const getData = await axiosPost("/ProductMaster/GetB2CProducts", obj);
+      if (getData) {
+        return getData;
       }
     }
 
@@ -61,9 +52,13 @@ async function getCategoryData(category, city) {
     };
   } catch (error) {
     console.error("Error fetching data:", error);
-    return "";
+    return {
+      data: null,
+      additionalData: null,
+    };
   }
 }
+
 async function GetProductData(productname, city) {
   const Name = productname.split("-").join(" ");
   try {
@@ -71,10 +66,6 @@ async function GetProductData(productname, city) {
       `/productMaster/GetProductByName/${city}/${Name}`
     );
     if (response) {
-      // const categoryProduct = await getCategoryData(response, city);
-      // if (categoryProduct) {
-      //   console.log("categoryProduct", categoryProduct);
-      // }
       return response;
     }
   } catch (error) {
@@ -114,13 +105,13 @@ const productbyname = async ({ params }) => {
   const data = await GetProductData(productname, city);
   if (data) {
     let image = data.product_image.split(",");
-    const categoryProduct = (productname.replaceAll("-", " "), city);
+    const categoryProduct = await getCategoryData(data.category_name, city);
     if (categoryProduct) {
-      console.logo("categoryProduct", categoryProduct);
+      console.log("categoryProduct", categoryProduct);
     }
     return (
       <>
-        {data && (
+        {data && categoryProduct && (
           <div className={styles.pdp_WrapContent}>
             <div className={styles.common_header}>
               <div className={homeStyles["container_fluid"]}>
@@ -186,15 +177,11 @@ const productbyname = async ({ params }) => {
                 <div className={styles.pdp_otherContent}>
                   <div className={homeStyles["container_fluid"]}>
                     <div className={styles.reviewSection}>
-                      {data ? (
-                        <div className="ShowCaseSliderWrap">
-                          <div className="ShowCaseSliderTitle">
-                            You may also like
-                          </div>
-                        </div>
-                      ) : (
-                        ""
-                      )}
+                      {categoryProduct &&
+                        categoryProduct.length > 0 &&
+                        categoryProduct.map((item) => {
+                          <h2>{item.product_name}</h2>;
+                        })}
                     </div>
                   </div>
                 </div>
