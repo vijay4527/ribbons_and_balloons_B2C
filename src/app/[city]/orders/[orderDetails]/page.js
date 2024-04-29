@@ -57,7 +57,7 @@ const page = async ({ params }) => {
                                 <img
                                   src={
                                     "https://fama.b-cdn.net/RnB/Dev/products/" +
-                                    product.product_image.split(",")[0]
+                                    product.product_image
                                   }
                                   alt={product.product_name}
                                 />

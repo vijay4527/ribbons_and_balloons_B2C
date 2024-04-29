@@ -4,36 +4,30 @@ import styles from "@/app/[city]/p/[productbyname]/page.module.css";
 import homeStyles from "@/app/home.module.css";
 import AddToCart from "@/components/addToCartButton";
 import ProducDetails from "@/components/productDetails";
-import ProductImageZoom from "@/components/productImageZoom";
-import AppConfig from "@/AppConfig";
 import Link from "next/link";
-import AddToFavoritesButton from "@/components/AddToFavoritesButton";
 import ShowCaseSlider from "@/components/ShowCaseSlider";
-import { useState,useEffect } from 'react';
+import ProductImages from '@/components/productImages';
+
 
 const product = ({data,city}) => {
-    const [activeIndex, setActiveIndex] = useState(0);
-    let image = data.product_image.split(","); 
-    const handleThumbnailClick = (index) => {
-      setActiveIndex(index);
-    };
+     let image = data.product_image.split(","); 
   return (
     <>
     <div className={styles.pdp_WrapContent}>
-      <div className={styles.common_header}>
+      {/* <div className={styles.common_header}>
         <div className={homeStyles["container_fluid"]}>
           <div className={styles.content_heading}>
             <div className={styles.content_title_heading}>
               <span className={styles.back_to_shop}>READY REGULARS</span>
               <h1 className={styles.text_title_heading}>
-                <a
+                <Link
                   href={`/${city}/l/${data ? data?.category_name
                     .split(" ")
                     .join("-") : ""}`}
                   style={{ textDecoration: "none", color: "white" }}
                 >
                   {data ? data.category_name : ""}
-                </a>
+                </Link>
               </h1>
             </div>
             <div className={styles.breadcrumb}>
@@ -55,7 +49,7 @@ const product = ({data,city}) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       {data ? (
         <div className={styles.pdp_Wrap}>
           <div className={homeStyles["container_fluid"]}>
@@ -63,35 +57,7 @@ const product = ({data,city}) => {
               <div className={styles.pdp_detailImgs}>
                 <div className={styles.pdp_DetailImg}>
                   {image ? (
-                    <>
-                      <div className={styles.pdp_ProductImgs}>
-                        <ul>
-                          {image.map((item, index) => (
-                            <li
-                              key={item}
-                              className={
-                                  index === activeIndex ? styles.active : ""
-                              }
-                              onClick={() => handleThumbnailClick(index)}
-                            >
-                              <img
-                                src={AppConfig.cdn + "products/" + item}
-                                alt="No image found"
-                              />
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div className={styles.pdp_ProductImg}>
-                        <AddToFavoritesButton productData={data} city={city}/>
-                        <ProductImageZoom
-                          imageSrc={
-                            AppConfig.cdn + "products/" + image[activeIndex]
-                          }
-                          alt="image"
-                        />
-                      </div>
-                    </>
+                    <ProductImages data={data} city={city}/>
                   ) : (
                     <p>No images available</p>
                   )}
@@ -116,13 +82,12 @@ const product = ({data,city}) => {
                 {
                   data && (
                     <ProducDetails data={data}></ProducDetails>
-
                   )
                 }
               </div>
             </div>
           </div>
-          <div className={styles.pdp_otherContent}>
+          {/* <div className={styles.pdp_otherContent}>
             <div className={homeStyles["container_fluid"]}>
               <div className={styles.reviewSection}>
                 {
@@ -136,10 +101,9 @@ const product = ({data,city}) => {
                     ""
                   )
                 }
-               
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       ) : (
         <>

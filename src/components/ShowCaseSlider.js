@@ -18,14 +18,10 @@ async function getCategoryData(sliderData,city) {
         };
         const getData = await axiosPost("/ProductMaster/GetB2CProducts", obj);
         if (getData) {
-         return getData;
+          console.log("category",getData)
+         return  getData;
         }
-      }
-       
-          return {
-            data: response,
-            category: category,
-          };
+      } 
       } catch (error) {
         console.error("Error fetching data:", error);
         return {
@@ -36,17 +32,13 @@ async function getCategoryData(sliderData,city) {
   }
 
 const ShowCaseSlider = async({ sliderName, sliderData, city }) => {
-  
-
-
   const categoryProduct =await getCategoryData(sliderData,city)
-
   return (
     <>
       <div className="ShowCaseSliderWrap">
         <div className="ShowCaseSliderTitle">{sliderName}</div>
         <div className="ShowCaseSliderBody">
-          {categoryProduct.length > 0 ? (
+          {category && categoryProduct.length > 0 ? (
             <Carousel
               responsive={{
                 superLargeDesktop: {
