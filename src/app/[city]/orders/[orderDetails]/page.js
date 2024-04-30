@@ -1,28 +1,28 @@
-import React from 'react'
+import React from "react";
 import Head from "next/head";
 import styles from "@/app/[city]/orders/[orderDetails]/page.module.css";
 import homeStyles from "@/app/home.module.css";
 import { axiosGet } from "@/api";
-
 
 async function fetOrderDetails(orderId) {
   try {
     if (orderId) {
       const response = await axiosGet("Order/GetOrderByOrderId/" + orderId);
       if (response) {
-        return response
+        console.log("Response", response);
+        return response;
       } else {
-        return null
+        return null;
       }
     }
   } catch (err) {
-    console.error(err)
+    console.error(err);
   }
 }
 
 const page = async ({ params }) => {
-  const orderId = params.orderDetails
-  const orderInfo = await fetOrderDetails(orderId)
+  const orderId = params.orderDetails;
+  const orderInfo = await fetOrderDetails(orderId);
   return (
     <>
       <Head>
@@ -32,15 +32,17 @@ const page = async ({ params }) => {
       </Head>
 
       <section className={styles.CheckOutQct}>
-        <div className='container'>
+        <div className="container">
           <div className={styles.checkoutQctTitle}>
             <h1>Order Details</h1>
-            </div>
+          </div>
         </div>
-        <div className={`${homeStyles["container"]} ${styles["home-container"]}`}>
+        <div
+          className={`${homeStyles["container"]} ${styles["home-container"]}`}
+        >
           <div className={styles.checkOutQctWrap}>
             {/* <div className={styles.checkoutQctTitle}>Order Details</div> */}
-            {orderInfo.orderProducts &&
+            {orderInfo?.orderProducts &&
               orderInfo.orderProducts.map((product, index) => (
                 <div className={styles.checkoutQctBody} key={index}>
                   <div className={styles.checkoutQctShipping}>
@@ -56,19 +58,30 @@ const page = async ({ params }) => {
                               <div className={styles.cartBoxImg}>
                                 <img
                                   src={
-                                    "https://fama.b-cdn.net/RnB/Dev/products/" +
                                     product.product_image
+                                      ? "https://fama.b-cdn.net/RnB/Dev/products/" +
+                                        product.product_image.split(",")[0]
+                                      : ""
                                   }
                                   alt={product.product_name}
                                 />
                               </div>
                               <div className={styles.cartBoxInfo}>
-                                <h4>{product.product_name}</h4>
+                                <h4>
+                                  {product.product_name
+                                    ? product.product_name
+                                    : ""}
+                                </h4>
                                 <h4>
                                   <span className={styles.cartBoxMsg}>
-                                    Message on Cake{" "}
+                                    {product.unit === "PCS" ? (
+                                      <span>Piece : {product.value}</span>
+                                    ) : (
+                                      <span>
+                                        Message on Cake : {product.msg_cake}
+                                      </span>
+                                    )}{" "}
                                   </span>
-                                  : {product.msg_cake}
                                 </h4>
                                 <h5>
                                   <span className={styles.cartBoxPrice}>
@@ -83,9 +96,7 @@ const page = async ({ params }) => {
                       </div>
                     </div>
                   </div>
-                  <div className={styles.checkoutQctOrderSummary}>
-
-                  </div>
+                  <div className={styles.checkoutQctOrderSummary}></div>
                 </div>
               ))}
 
@@ -231,7 +242,7 @@ const page = async ({ params }) => {
         </div>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default page
+export default page;

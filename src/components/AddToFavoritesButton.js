@@ -1,8 +1,6 @@
 "use client";
 import React from "react";
 import styles from "@/app/[city]/l/[category]/page.module.css";
-// import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
 import { axiosPost } from "@/api";
 import { useRouter } from "next/navigation";
 import useSharedStore from "@/components/calculatedPrice";
@@ -32,6 +30,7 @@ export default function AddToFavoritesButton({ productData, city }) {
         value: Value.toString(),
         msg_cake: Message,
         type: "WL",
+        product_type:"P"
       };
       const favouriteData = await axiosPost("/CartMaster/SaveCartDetails", obj);
       if (favouriteData.resp == true) {

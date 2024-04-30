@@ -119,14 +119,14 @@ const productbyname = async ({ params }) => {
                   <div className={styles.content_title_heading}>
                     <span className={styles.back_to_shop}>READY REGULARS</span>
                     <h1 className={styles.text_title_heading}>
-                      <a
+                      <Link
                         href={`/${city}/l/${
                           data ? data?.category_name.split(" ").join("-") : ""
                         }`}
                         style={{ textDecoration: "none", color: "white" }}
                       >
                         {data ? data.category_name : ""}
-                      </a>
+                      </Link>
                     </h1>
                   </div>
                   <div className={styles.breadcrumb}>

@@ -47,7 +47,7 @@ function CategoryComponent({ category, subcategoryName, data, categoryName,city 
                             <a>{item.category_name}</a>
                           </li>
                         ))
-                      : ""}
+                      : ""} 
                     </ul>
                   </div>
                 </div>
