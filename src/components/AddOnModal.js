@@ -7,7 +7,7 @@ import homeStyles from "@/app/home.module.css";
 import { AuthOtpContext } from "@/components/authContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { useRouter } from "next/navigation";
 const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
   const [modalIsOpen, setModalIsOpen] = useState(isOpen);
   const [addOns, setAddOns] = useState([]);
@@ -16,6 +16,7 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
   const { isLogged } = useContext(AuthOtpContext);
   const [user, setUser] = useState(null);
   const [showCartButton, setShowCartbutton] = useState(false);
+  const router = useRouter()
   const cartId =
     typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
   useEffect(() => {
@@ -99,6 +100,12 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
       console.log("added in addons");
     }
   };
+
+  const handleProductModal = ()=>{
+    setQuantities([])
+    setModalIsOpen(false)
+    router.push(`/${city}/cart`)
+  }
   return (
     <>
       <Modal
@@ -197,7 +204,7 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
           <Link href={`/${city}/cart`}>
             <div className="btn btn-secondary mb-4 addon-bottom-btn">Skip</div>
           </Link>{" "}
-          <div className="btn btn-primary mb-4 continue-btn addon-bottom-btn">
+          <div className="btn btn-primary mb-4 continue-btn addon-bottom-btn" onClick={handleProductModal}>
             Continue
           </div>
         </div>
