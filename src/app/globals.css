@@ -336,7 +336,7 @@ img {
 .selectLocation h4 {
   font-size: 1.4rem;
   margin-bottom: 0px;
-  text-transform: uppercase;
+  text-transform: capitalize;
   margin-right: 5px;
   font-family: var(--font-family);
 }
@@ -425,6 +425,7 @@ img {
   margin-top: 20px !important;
   font-family: var(--font-family);
   width: 100%;
+  margin-bottom: 20px !important;
 }
 
 ul.selectLocationOption li {
@@ -688,15 +689,15 @@ ul.selectLocationOption a {
   margin-bottom: 0px;
   font-size: 1.4rem;
   text-transform: capitalize;
-  font-weight: 600;
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   line-height: 17px;
-  letter-spacing: 2.47px;
+  letter-spacing: 1px;
   text-align: left;
   color: #ffffff;
   white-space: nowrap;
-  font-family: Montserrat, sans-serif;
+  font-family: var(--font-family)
 }
 
 .sub_nav.show,
@@ -909,7 +910,6 @@ ul.selectLocationOption a {
     padding: 0 0 0 15px;
   }
 
-  .sub_nav:hover .subnav-content,
   .sub_navbtn {
     display: none;
   }
@@ -935,9 +935,19 @@ ul.selectLocationOption a {
   }
 
   .sub_nav:hover .subnav-content {
-    display: none;
+    display: block;
+    background-color: #fff;
   }
-
+  .sub_nav:hover .subnav-content .category-sub-title{
+    width: 100%;
+  }
+  .sub_nav:hover .subnav-content .submenu-list{
+    text-align: left;
+    padding: 15px 0px;
+  }
+  .sub_nav:hover .subnav-content .category-sub-title a{
+    color: #000;
+  }
   .sub_navbtn {
     display: none;
   }
@@ -2118,9 +2128,7 @@ ul.selectLocationOption a {
   border-left: 2px solid var(--theme-primary);
   color: var(--theme-primary) !important;
   padding-left: 10px;
-  -webkit-transition: -webkit-transform 0.8s ease-out;
-  -moz-transition: -moz-transform 0.8s ease-out;
-  transition: transform 0.8s ease-out;
+  transition: border-left 0.8s ease-out, color 0.8s ease-out, padding-left 0.8s ease-out;
 }
 
 .footerLogos {
@@ -2692,9 +2700,9 @@ ul.selectLocationOption a {
 }
 .addon-container {
   background-image: url(https://fama.b-cdn.net/Stripes.jpg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-attachment: fixed !important;
+  transition: background 0s !important;
+  background-size: 100%;
 }
 
 .addon-overlap {

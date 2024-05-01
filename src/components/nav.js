@@ -30,7 +30,7 @@ const Nav = async () => {
   const categories = await getCategories(city);
   console.log("categories",categories)
   return (
-    <Navbar>
+    <div>
         <Container>
             <div className="navbar_body">
               <div className="navbar_logo">
@@ -107,7 +107,7 @@ const Nav = async () => {
                               className={`sub_nav `}
                               key={index}
                             >
-                             <div>
+                             <div className="sub_navbtn">
                                 <Link
                                   href={`/${city}/l/${category.category_name.replaceAll(" ","-")}`}
                                   // onClick={toggleClass}
@@ -132,8 +132,7 @@ const Nav = async () => {
                                   </svg>
                                 </span>
                               </div>
-                              <div
-                              >
+                              <div className="MobileSub_navbtn sub_navbtn">
                                 <Link
                                   href={`/${city}/l/${category.category_name.replaceAll(
                                     " ",
@@ -144,7 +143,7 @@ const Nav = async () => {
                                 >
                                   {" "}
                                   <h4 className="category-title">
-                                    {category.name}
+                                    {category.category_name}{" "}
                                   </h4>
                                 </Link>
                                 <span
@@ -176,7 +175,18 @@ const Nav = async () => {
                                     </svg>
                                   </i>
                                 </span>
-                              </div>  
+                              </div> 
+
+                              <div className="subnav-content">
+                                <ul className="submenu-list">
+                                  <li className="category-sub-title">
+                                    <a href="/products/Saw-blades/Diamond-Saw-Blades" className="nav-link">Diamond Saw Blades</a>
+                                  </li>
+                                  <li className="category-sub-title">
+                                    <a href="/products/Saw-blades/TCT-Circular-Saw-Blades" className="nav-link">TCT Circular Saw Blades</a>
+                                  </li>
+                                </ul>
+                              </div>
                             </div>
                           ))}
                       </div>
@@ -188,7 +198,7 @@ const Nav = async () => {
               </nav>
             </div>
           </Container>
-    </Navbar>
+    </div>
   );
 };
 
