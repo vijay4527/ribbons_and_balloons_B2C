@@ -126,7 +126,7 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
                       <div className="addon-image">
                         {selectedIndexes.includes(index) && (
                           <span
-                            className="SvgIcons"
+                            className="SvgIcons addOnCartIcon"
                             onClick={() => CreateAddOns(item, index)}
                           >
                             <svg
@@ -145,7 +145,7 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
                         <img
                           src={AppConfig.cdn + "products/" + item.addon_image}
                           alt="Magic Candles Set"
-                          className="img-fluid v-align-bottom ls-is-cached lazyloaded"
+                          className="img-fluid v-align-bottom ls-is-cached lazyloaded addOnCardImage"
                           title="Magic Candles Set"
                         />
                       </div>
