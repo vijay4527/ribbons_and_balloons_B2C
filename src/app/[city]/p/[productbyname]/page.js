@@ -8,6 +8,8 @@ import AppConfig from "@/AppConfig";
 import ProductImages from "@/components/productImages";
 import AddToCart from "@/components/addToCartButton";
 import ProductDetails from "@/components/productDetails";
+import style from "./Carousel.module.css"; // Import CSS for styling
+
 export async function generateMetadata({ params }) {
   const data = await GetProductData(params.productbyname, params.city);
   if (data) {
@@ -73,42 +75,14 @@ async function GetProductData(productname, city) {
   }
 }
 const productbyname = async ({ params }) => {
-  var respObject = {
-    superLargeDesktop: {
-      breakpoint: { max: 4000, min: 3000 },
-      items: 5,
-    },
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 4,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-    },
-  };
-
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-  };
-
   const city = params.city;
   const productname = params.productbyname;
   const data = await GetProductData(productname, city);
   if (data) {
     let image = data.product_image.split(",");
     const categoryProduct = await getCategoryData(data.category_name, city);
-    if (categoryProduct) {
-      console.log("categoryProduct", categoryProduct);
-    }
+
+
     return (
       <>
         {data && categoryProduct && (
@@ -179,8 +153,10 @@ const productbyname = async ({ params }) => {
                     <div className={styles.reviewSection}>
                       {categoryProduct &&
                         categoryProduct.length > 0 &&
-                        categoryProduct.map((item) => {
-                          <h2>{item.product_name}</h2>;
+                        categoryProduct.map((item,index) => {
+                          <div key={item.id || index} className={styles.slide}>
+                            <img src={`${AppConfig.cdn}products/${item.product_image.split(",")[0]}`} alt={`Slide ${index}`} />
+                          </div>
                         })}
                     </div>
                   </div>

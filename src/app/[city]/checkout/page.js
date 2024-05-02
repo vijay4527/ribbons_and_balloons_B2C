@@ -75,10 +75,12 @@ const page = ({ params }) => {
           : "";
       if (userObject) {
         setUser(userObject);
+      }else{
+        router.push("/"+city)
       }
     };
     fetchUser();
-  }, [isLogged]);
+  }, [isLogged,user?.user_id]);
 
   const cartId =
     typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
@@ -86,7 +88,7 @@ const page = ({ params }) => {
   useEffect(() => {
     GetAllCart();
     GetAddress();
-  }, [city, user]);
+  }, [city, user?.user_id]);
 
   useEffect(() => {
     countSubTotalAmount();

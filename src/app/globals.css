@@ -1929,8 +1929,8 @@ ul.selectLocationOption a {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  /* background-image: linear-gradient(#000000, rgba(25,53,93,1) 90%, rgba(25,53,93,1)); */
-  /* background-image: url(https://fama.b-cdn.net/RnB/combg.png); */
+  /* background-image: linear-gradient(#000000, rgba(25,53,93,1) 90%, rgba(25,53,93,1)); 
+    background-image: url(https://fama.b-cdn.net/RnB/combg.png);   */
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;

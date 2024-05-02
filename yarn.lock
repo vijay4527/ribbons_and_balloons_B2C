@@ -1396,6 +1396,13 @@ caniuse-lite@^1.0.30001406:
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001489.tgz"
   integrity sha512-x1mgZEXK8jHIfAxm+xgdpHpk50IN3z3q3zP261/WS+uvePxW8izXuCu6AHz0lkuYTlATDehiZ/tNyYBdSQsOUQ==
 
+carousel@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.npmjs.org/carousel/-/carousel-0.0.3.tgz"
+  integrity sha512-7/6BwcKV4vepSCpurqJxTJlcigZAjU+RdhyRcye1RNEU/a8N8k7/jprMa7DGcVvP+A8xaHHvWqWq2qygJr1jcw==
+  dependencies:
+    domready "~0.2.12"
+
 chalk@^4.0.0:
   version "4.1.2"
   resolved "https://registry.npmjs.org/chalk/-/chalk-4.1.2.tgz"
@@ -1589,6 +1596,11 @@ dom-helpers@^5.0.1, dom-helpers@^5.2.0, dom-helpers@^5.2.1:
   dependencies:
     "@babel/runtime" "^7.8.7"
     csstype "^3.0.2"
+
+domready@~0.2.12:
+  version "0.2.13"
+  resolved "https://registry.npmjs.org/domready/-/domready-0.2.13.tgz"
+  integrity sha512-32G1m2FCiSLdxRVnamVdMVpgpSyE4aesx8Bof8Usm6dGpq+19PAXFtrKWWRYJoaSIfwTVTHV5wlQyyZ4aHhauA==
 
 emoji-regex@^9.2.2:
   version "9.2.2"

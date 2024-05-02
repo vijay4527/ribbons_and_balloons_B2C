@@ -16,188 +16,230 @@ const getCategories = async (city) => {
   }
 };
 
-const fetchSubcategories=async (category)=>{
+const fetchSubcategories = async (category) => {
   const data = await axiosGet(
     "SubCategory/GetSubCategoryByCategoryId/" + category
   );
   if (data) {
-    return data
+    return data;
   }
-}
+};
 
 const Nav = async () => {
   const city = "mumbai";
   const categories = await getCategories(city);
-  console.log("categories",categories)
   return (
     <div>
-        <Container>
-            <div className="navbar_body">
-              <div className="navbar_logo">
-                <Navbar href="/">
-                  <div className="flip-container">
-                    <div className="flipper">
-                      <div className="front">
-                        <img
-                          src="https://ribbonsandballoons.com/frontassets/images/logo3.png"
-                          className="d-inline-block align-top"
-                          alt="React Bootstrap logo"
-                        />
-                      </div>
-                      <div className="back">
-                        <img
-                          src="https://fama.b-cdn.net/RnB/Logo-Golden.png"
-                          className="d-inline-block align-top"
-                          alt="React Bootstrap logo"
-                        />
-                      </div>
-                      <div className="clear"></div>
-                    </div>
+      <Container>
+        <div className="navbar_body">
+          <div className="navbar_logo">
+            <Navbar href="/">
+              <div className="flip-container">
+                <div className="flipper">
+                  <div className="front">
+                    <img
+                      src="https://ribbonsandballoons.com/frontassets/images/logo3.png"
+                      className="d-inline-block align-top"
+                      alt="React Bootstrap logo"
+                    />
                   </div>
-                </Navbar>
+                  <div className="back">
+                    <img
+                      src="https://fama.b-cdn.net/RnB/Logo-Golden.png"
+                      className="d-inline-block align-top"
+                      alt="React Bootstrap logo"
+                    />
+                  </div>
+                  <div className="clear"></div>
+                </div>
               </div>
-              <nav className="subNavbar_wrapper navbar navbar-expand-lg navbar-light mt-2">
-                <div className="container">
+            </Navbar>
+          </div>
+          <nav className="subNavbar_wrapper navbar navbar-expand-lg navbar-light mt-2">
+            <div className="container">
+              <button
+                className="navbar-toggler toggleButton"
+                type="button"
+                aria-label="button"
+              >
+                <span className="navbar-toggler-icon"></span>
+              </button>
+              <div className={`Navbar_content navbar-collapse collapse `}>
+                <div className="navbar_MobileClose">
+                  <span>Close</span>
                   <button
                     className="navbar-toggler toggleButton"
                     type="button"
-                    aria-label="button"
+                    aria-label="closeButton"
                   >
-                    <span className="navbar-toggler-icon"></span>
+                    <span className="navbar-toggler-icon"></span>{" "}
                   </button>
-                  <div
-                    className={`Navbar_content navbar-collapse collapse `}
-                  >
-                    <div className="navbar_MobileClose" >
-                      <span>Close</span>
-                      <button
-                        className="navbar-toggler toggleButton"
-                        type="button"
-                        aria-label="closeButton"
-                      >
-                        <span className="navbar-toggler-icon"></span>{" "}
-                      </button>
-                    </div>
-                    <div className="Brands_navbody">
-                      <div className="subNavbar_body">
-                        <div className={`sub_nav`}>
-                          <div className={"sub_navbtn"}>
-                            <Link
-                              href={`/${city}`}                            
-                              prefetch={true}
-                            >
-                              <h4 className="category-title">Home</h4>
-                            </Link>
-                          </div>
-                        </div>
-                        <div className={`sub_nav`}>
-                          <div className={"sub_navbtn"}>
-                            <Link
-                              href={`/${city}/about-us`}
-                              prefetch={true}
-                            >
-                              <h4 className="category-title">About Us</h4>
-                            </Link>
-                          </div>
-                        </div>
-                        {categories &&
-                          categories.length > 0 &&
-                          categories.map((category, index) => (
-                            <div
-                              className={`sub_nav `}
-                              key={index}
-                            >
-                             <div className="sub_navbtn">
-                                <Link
-                                  href={`/${city}/l/${category.category_name.replaceAll(" ","-")}`}
-                                  // onClick={toggleClass}
-                                  prefetch={true}
-                                >
-                                  <h4 className="category-title">
-                                    {category.category_name}{" "}
-                                  </h4>
-                                </Link>
-                                <span className="category-dropIcon">
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="9"
-                                    height="7"
-                                    fill="none"
-                                    viewBox="0 0 9 7"
-                                  >
-                                    <path
-                                      stroke="#000"
-                                      d="M8.177 1.25 4.355 5.663a.1.1 0 0 1-.15 0L.382 1.25"
-                                    />
-                                  </svg>
-                                </span>
-                              </div>
-                              <div className="MobileSub_navbtn sub_navbtn">
-                                <Link
-                                  href={`/${city}/l/${category.category_name.replaceAll(
-                                    " ",
-                                    "-"
-                                  )}`}
-                                 
-                                  prefetch={true}
-                                >
-                                  {" "}
-                                  <h4 className="category-title">
-                                    {category.category_name}{" "}
-                                  </h4>
-                                </Link>
-                                <span
-                                  
-                                  className="category-dropIcon"
-                                >
-                                  <i className="plus_Icon">
-                                    <svg
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      width="16"
-                                      height="16"
-                                      fill="currentColor"
-                                      className="bi bi-plus"
-                                      viewBox="0 0 16 16"
-                                    >
-                                      <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                                    </svg>
-                                  </i>
-                                  <i className="mins_Icon">
-                                    <svg
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      width="16"
-                                      height="16"
-                                      fill="currentColor"
-                                      className="bi bi-dash"
-                                      viewBox="0 0 16 16"
-                                    >
-                                      <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
-                                    </svg>
-                                  </i>
-                                </span>
-                              </div> 
-
-                              <div className="subnav-content">
-                                <ul className="submenu-list">
-                                  <li className="category-sub-title">
-                                    <a href="/products/Saw-blades/Diamond-Saw-Blades" className="nav-link">Diamond Saw Blades</a>
-                                  </li>
-                                  <li className="category-sub-title">
-                                    <a href="/products/Saw-blades/TCT-Circular-Saw-Blades" className="nav-link">TCT Circular Saw Blades</a>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                          ))}
+                </div>
+                <div className="Brands_navbody">
+                  <div className="subNavbar_body">
+                    <div className={`sub_nav`}>
+                      <div className={"sub_navbtn"}>
+                        <Link href={`/${city}`} prefetch={true}>
+                          <h4 className="category-title">Home</h4>
+                        </Link>
                       </div>
                     </div>
-                  </div>
-                  <NavComponent />
+                    <div className={`sub_nav`}>
+                      <div className={"sub_navbtn"}>
+                        <Link href={`/${city}/about-us`} prefetch={true}>
+                          <h4 className="category-title">About Us</h4>
+                        </Link>
+                      </div>
+                    </div>
+                    {categories &&
+                      categories.length > 0 &&
+                      categories.map((category, index) => (
+                        <div className={`sub_nav `} key={index}>
+                          <div className="sub_navbtn">
+                            <Link
+                              href={`/${city}/l/${category.category_name.replaceAll(
+                                " ",
+                                "-"
+                              )}`}
+                              // onClick={toggleClass}
+                              prefetch={true}
+                            >
+                              <h4 className="category-title">
+                                {category.category_name}{" "}
+                              </h4>
+                            </Link>
+                            <span className="category-dropIcon">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="9"
+                                height="7"
+                                fill="none"
+                                viewBox="0 0 9 7"
+                              >
+                                <path
+                                  stroke="#000"
+                                  d="M8.177 1.25 4.355 5.663a.1.1 0 0 1-.15 0L.382 1.25"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                          <div className="MobileSub_navbtn sub_navbtn">
+                            <Link
+                              href={`/${city}/l/${category.category_name.replaceAll(
+                                " ",
+                                "-"
+                              )}`}
+                              prefetch={true}
+                            >
+                              {" "}
+                              <h4 className="category-title">
+                                {category.category_name}{" "}
+                              </h4>
+                            </Link>
+                            <span className="category-dropIcon">
+                              <i className="plus_Icon">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="16"
+                                  height="16"
+                                  fill="currentColor"
+                                  className="bi bi-plus"
+                                  viewBox="0 0 16 16"
+                                >
+                                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                </svg>
+                              </i>
+                              <i className="mins_Icon">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="16"
+                                  height="16"
+                                  fill="currentColor"
+                                  className="bi bi-dash"
+                                  viewBox="0 0 16 16"
+                                >
+                                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+                                </svg>
+                              </i>
+                            </span>
+                          </div>
 
+                          <div className="subnav-content">
+                            <ul className="submenu-list">
+                              <li className="category-sub-title">
+                                <Link
+                                  href={`/${city}/p/Classic-Vanilla-Sponge-Cake`}
+                                  className="nav-link"
+                                >
+                                  Classic Vanilla Sponge Cake
+                                </Link>
+                              </li>
+
+                              <li className="category-sub-title">
+                                <Link
+                                  href={`/${city}/p/Pound-cake`}
+                                  className="nav-link"
+                                >
+                                  Pound cake
+                                </Link>
+                              </li>
+
+                              <li className="category-sub-title">
+                                <Link
+                                  href={`/${city}/p/Black-Forest-Cake`}
+                                  className="nav-link"
+                                >
+                                  Black Forest Cake
+                                </Link>
+                              </li>
+
+                              <li className="category-sub-title">
+                                <Link
+                                  href={`/${city}/p/Strawberry-Ombre-Cake`}
+                                  className="nav-link"
+                                >
+                                  Strawberry Ombre Cake
+                                </Link>
+                              </li>
+
+                              <li className="category-sub-title">
+                                <Link
+                                  href={`/${city}/p/Caramel-Swirl-Symphony`}
+                                  className="nav-link"
+                                >
+                                  Caramel Swirl Symphony
+                                </Link>
+                              </li>
+
+                              <li className="category-sub-title">
+                                <Link
+                                  href={`/${city}/p/Pineapple-Paradise-Cake`}
+                                  className="nav-link"
+                                >
+                                  Pineapple Paradise Cake
+                                </Link>
+                              </li>
+
+                              <li className="category-sub-title">
+                                <Link
+                                  href={`/${city}/p/INFINITE-PRALINE-CAKE`}
+                                  className="nav-link"
+                                >
+                                  INFINITE PRALINE CAKE
+                                </Link>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
                 </div>
-              </nav>
+              </div>
+              <NavComponent />
             </div>
-          </Container>
+          </nav>
+        </div>
+      </Container>
     </div>
   );
 };
