@@ -63,7 +63,7 @@ const page = ({ params }) => {
 
   const removeFromCart = async (cpId, itemCost) => {
     const response = await axiosGet(`/CartMaster/RemoveCart/${cpId}`);
-    if (response.resp == true) {
+    if (response?.resp == true) {
       var newPrice = grandTotal - itemCost;
       setGrandTotal(newPrice);
       if (cart.length == 1) {
@@ -106,22 +106,22 @@ const page = ({ params }) => {
     setCityModalOpen(false);
   };
 
-  const addToFavourite = async (data) => {
-    try {
-      const favouriteData = await axiosPost(
-        "/CartMaster/SaveCartDetails",
-        productData
-      );
-      if (favouriteData.resp == true) {
-        toast("Product added to favourites", {
-          autoClose: 3000,
-          closeButton: true,
-        });
-      }
-    } catch (error) {
-      console.log("error while adding product to favourites", error);
-    }
-  };
+  // const addToFavourite = async (data) => {
+  //   try {
+  //     const favouriteData = await axiosPost(
+  //       "/CartMaster/SaveCartDetails",
+  //       productData
+  //     );
+  //     if (favouriteData.resp == true) {
+  //       toast("Product added to favourites", {
+  //         autoClose: 3000,
+  //         closeButton: true,
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.log("error while adding product to favourites", error);
+  //   }
+  // };
   return (
     <>
       <Head>

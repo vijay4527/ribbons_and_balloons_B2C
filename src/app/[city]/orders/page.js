@@ -29,7 +29,7 @@ const page = ({ params }) => {
       const Orders = await axiosGet(
         `Order/GetOrderByUserId/${userInfo.user_id}`
       );
-      console.log("Orders");
+      console.log("Orders", Orders);
       if (Orders) {
         const sortedOrders = Orders.sort((a, b) => {
           return new Date(b.created_on) - new Date(a.created_on);
@@ -75,13 +75,16 @@ const page = ({ params }) => {
                             className="orderDetails"
                           >
                             <div className={styles.orderHistoryCard}>
-                              <img
-                                src={`https://fama.b-cdn.net/RnB/Dev/products/${
-                                  orderDetail.orderProducts[0].product_image.split(
-                                    ","
-                                  )[0]
-                                }`}
-                              />
+                              {orderDetail.orderProducts[0].product_image &&
+                                orderDetail.orderProducts[0].product_image
+                                  .split(",")
+                                  .map((image, index) => (
+                                    <img
+                                      key={index}
+                                      src={`https://fama.b-cdn.net/RnB/Dev/products/${image.trim()}`}
+                                      alt={`Product Image ${index + 1}`}
+                                    />
+                                  ))}
                               <div className={styles.orderHistoryCardInfo}>
                                 <h5>
                                   Total Price : ₹ {orderDetail.total_price}
