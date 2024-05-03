@@ -45,7 +45,7 @@ const page = () => {
         </div>
         <div className="cakeOfMonthBody">
           <div className="wrapper">
-            <video
+            {/* <video
               muted
               autoPlay
               loop
@@ -56,14 +56,14 @@ const page = () => {
                 src="https://fama.b-cdn.net/PalmExpo/palmExpo.mp4"
                 type="video/mp4"
               />
-            </video>
-            {/* <div className="backdrop"></div>
+            </video> */}
+            <div className="backdrop"></div>
             <div className="stage_floor"></div>
-            <div className="stage_highlight"></div> */}
-            {/* <div className="spotlight_swivel">
+            <div className="stage_highlight"></div>
+            <div className="spotlight_swivel">
               <div className="lamp"></div>
               <div className="spotlight"></div>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>
