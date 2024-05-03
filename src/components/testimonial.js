@@ -8,7 +8,6 @@ import Head from "next/head";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; 
 import { Carousel } from 'react-responsive-carousel';
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 // Import Owl Carousel CSS
 // import "owl.carousel/dist/assets/owl.carousel.css";

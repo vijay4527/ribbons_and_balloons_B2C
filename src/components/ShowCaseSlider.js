@@ -1,72 +1,21 @@
+"use client"
 import React from "react";
-import Head from "next/head";
 import styles from "@/app/[city]/l/[category]/page.module.css";
 import Link from "next/link";
 import AppConfig from "@/AppConfig";
-import { axiosPost } from "@/api";
 import AddToFavoritesButton from "./AddToFavoritesButton";
-import "react-multi-carousel/lib/styles.css"; 
-import Carousel from "react-multi-carousel";
+import { Carousel } from 'react-responsive-carousel';
+import "bootstrap/dist/css/bootstrap.min.css";
 
-// async function getCategoryData(sliderData,city) {
-//     try {
-//       if (sliderData.category_name) {
-//         const obj = {
-//           category_name: sliderData.category_name || "",
-//           sub_category_name: "",
-//           city_name: city,
-//         };
-//         const getData = await axiosPost("/ProductMaster/GetB2CProducts", obj);
-//         if (getData) {
-//          return getData;
-//         }
-//       }
-       
-//           return {
-//             data: response,
-//             category: category,
-//           };
-//       } catch (error) {
-//         console.error("Error fetching data:", error);
-//         return {
-//             data: null,
-//             additionalData: null,
-//         };
-//       }
-//   }
-
-const ShowCaseSlider = async({ data,city }) => {
-  
-//  var respObject = {
-//     superLargeDesktop: {
-//       breakpoint: { max: 4000, min: 3000 },
-//       items: 5,
-//     },
-//     desktop: {
-//       breakpoint: { max: 3000, min: 1024 },
-//       items: 4,
-//     },
-//     tablet: {
-//       breakpoint: { max: 1024, min: 464 },
-//       items: 2,
-//     },
-//     mobile: {
-//       breakpoint: { max: 464, min: 0 },
-//       items: 1,
-//     },
-//  }
-
-//   const categoryProduct =await getCategoryData(sliderData,city)
-
+const ShowCaseSlider = ({ data, city }) => {
   return (
     <>
       <div className="ShowCaseSliderWrap">
-        <div className="ShowCaseSliderTitle">{sliderName}</div>
+        <div className="ShowCaseSliderTitle">You may also like</div>
         <div className="ShowCaseSliderBody">
           {data && data.length > 0 ? (
-            <Carousel
-            >
-              {categoryProduct.map((item, index) => {
+            <Carousel className="ShowCaseCarousel" centerMode={true} centerSlidePercentage={10} showThumbs={true} showArrows={false} selectedItem={5} autoPlay={true}>
+            {data.map((item, index) => {
                 const productName = item.product_name.split(" ").join("-");
                 var image = item.product_image.split(",");
                 return (
