@@ -76,15 +76,23 @@ const page = ({ params }) => {
                           >
                             <div className={styles.orderHistoryCard}>
                               {orderDetail.orderProducts[0].product_image &&
-                                orderDetail.orderProducts[0].product_image
-                                  .split(",")
-                                  .map((image, index) => (
-                                    <img
-                                      key={index}
-                                      src={`https://fama.b-cdn.net/RnB/Dev/products/${image.trim()}`}
-                                      alt={`Product Image ${index + 1}`}
-                                    />
-                                  ))}
+                                (orderDetail.orderProducts[0].product_image.split(
+                                  ","
+                                ).length > 0 ? (
+                                  <img
+                                    src={`https://fama.b-cdn.net/RnB/Dev/products/${
+                                      orderDetail.orderProducts[0].product_image.split(
+                                        ","
+                                      )[0]
+                                    }`}
+                                    alt={`Product Image`}
+                                  />
+                                ) : (
+                                  <img
+                                    src={`https://fama.b-cdn.net/RnB/Dev/products/${orderDetail.orderProducts[0].product_image}`}
+                                    alt={`Product Image`}
+                                  />
+                                ))}
                               <div className={styles.orderHistoryCardInfo}>
                                 <h5>
                                   Total Price : ₹ {orderDetail.total_price}
