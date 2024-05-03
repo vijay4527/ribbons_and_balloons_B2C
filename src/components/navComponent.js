@@ -165,6 +165,7 @@ const navComponent = () => {
       }
     }
   };
+  
   return (
     <div className="navAction">
       <ul>
@@ -214,18 +215,19 @@ const navComponent = () => {
                 {cities &&
                   cities.length > 0 &&
                   cities.map((e) => (
-                    <li key={e.rnb_city_id}>
-                      <Link href={`/${e.city_name.toLowerCase()}`}>
+                    <Link href={`/${e.city_name.toLowerCase()}`}>
+                      <li key={e.rnb_city_id}>
                         <h4 onClick={() => setSelectedCity(e.city_name)}>
                           {e.city_name}
                         </h4>
-                      </Link>
-                      <img
-                        src="https://static.cure.fit/assets/images/back-arrow-white.svg"
-                        alt="No image found"
-                      />
-                    </li>
-                  ))}
+                        <img
+                          src="https://static.cure.fit/assets/images/back-arrow-white.svg"
+                          alt="No image found"
+                        />
+                      </li>
+                    </Link>
+                  ))
+                  }
               </ul>
             </div>
           </div>
