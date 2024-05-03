@@ -55,13 +55,24 @@ const page = async ({ params }) => {
                           <div className={styles.cartBoxItem}>
                             <div className={styles.cartBoxContent}>
                               <div className={styles.cartBoxImg}>
-                                <img
-                                  src={
-                                    "https://fama.b-cdn.net/RnB/Dev/products/" +
-                                    product.product_image.split(",")[0]
-                                  }
-                                  alt={product.product_name}
-                                />
+                                 {product.product_image &&
+                                (product.product_image.split(
+                                  ","
+                                ).length > 0 ? (
+                                  <img
+                                    src={`https://fama.b-cdn.net/RnB/Dev/products/${
+                                      product.product_image.split(
+                                        ","
+                                      )[0]
+                                    }`}
+                                    alt={`Product Image`}
+                                  />
+                                ) : (
+                                  <img
+                                    src={`https://fama.b-cdn.net/RnB/Dev/products/${orderDetail.orderProducts[0].product_image}`}
+                                    alt={`Product Image`}
+                                  />
+                                ))}
                               </div>
                               <div className={styles.cartBoxInfo}>
                                 <h4>{product.product_name}</h4>
