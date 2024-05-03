@@ -1,26 +1,23 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import initAOS from "@/components/initAOS";
 import { useSession } from "next-auth/react";
 import Container from "react-bootstrap/Container";
 import Head from "next/head";
-
-// Import Bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
-
-// Import Owl Carousel CSS
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from "react-responsive-carousel";
 const OwlCarousel = dynamic(() => import("react-owl-carousel"), {
   ssr: false,
 });
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel/dist/assets/owl.theme.default.css";
+// import "owl.carousel/dist/assets/owl.carousel.css";
+// import "owl.carousel/dist/assets/owl.theme.default.css";
 const optionsMedia = {
   items: 5,
-  loop: true,
+  // loop: true,
   margin: 10,
   autoplay: true,
   autoplayTimeout: 3000,
@@ -56,7 +53,7 @@ const MediaCollaborators = () => {
 
   return (
     <>
-      <Head>
+      {/* <Head>
         <link
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/css/bootstrap.min.css"
           rel="stylesheet"
@@ -67,7 +64,7 @@ const MediaCollaborators = () => {
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         ></link>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-      </Head>
+      </Head> */}
       <div className="mediaCollabWrap">
         <Container fluid>
           <div className="testimonialsBody">
@@ -116,6 +113,44 @@ const MediaCollaborators = () => {
                 </div>
               </OwlCarousel>
             )}
+            {/* <Carousel
+              centerMode={true}
+              centerSlidePercentage={10}
+              thumbWidth={50}
+            >
+              <div className="item">
+                <div className="MediaContentImg">
+                  <img
+                    src="https://fama.b-cdn.net/RnB/media2.png"
+                    alt="No image found"
+                  />
+                </div>
+              </div>
+              <div className="item">
+                <div className="MediaContentImg">
+                  <img
+                    src="https://fama.b-cdn.net/RnB/media1.png"
+                    alt="No image found"
+                  />
+                </div>
+              </div>
+              <div className="item">
+                <div className="MediaContentImg">
+                  <img
+                    src="https://fama.b-cdn.net/RnB/media3.png"
+                    alt="No image found"
+                  />
+                </div>
+              </div>
+              <div className="item">
+                <div className="MediaContentImg">
+                  <img
+                    src="https://fama.b-cdn.net/RnB/media4.png"
+                    alt="mediaImage"
+                  />
+                </div>
+              </div>
+            </Carousel> */}
           </div>
         </Container>
       </div>

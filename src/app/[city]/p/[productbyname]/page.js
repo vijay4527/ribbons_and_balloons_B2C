@@ -8,8 +8,9 @@ import AppConfig from "@/AppConfig";
 import ProductImages from "@/components/productImages";
 import AddToCart from "@/components/addToCartButton";
 import ProductDetails from "@/components/productDetails";
-import style from "./Carousel.module.css"; // Import CSS for styling
-
+import { Carousel } from "react-responsive-carousel";
+import "bootstrap/dist/css/bootstrap.min.css";
+import ShowCaseSlider from "@/components/ShowCaseSlider";
 export async function generateMetadata({ params }) {
   const data = await GetProductData(params.productbyname, params.city);
   if (data) {
@@ -82,7 +83,6 @@ const productbyname = async ({ params }) => {
     let image = data.product_image.split(",");
     const categoryProduct = await getCategoryData(data.category_name, city);
 
-
     return (
       <>
         {data && categoryProduct && (
@@ -151,13 +151,11 @@ const productbyname = async ({ params }) => {
                 <div className={styles.pdp_otherContent}>
                   <div className={homeStyles["container_fluid"]}>
                     <div className={styles.reviewSection}>
-                      {categoryProduct &&
-                        categoryProduct.length > 0 &&
-                        categoryProduct.map((item,index) => {
-                          <div key={item.id || index} className={styles.slide}>
-                            <img src={`${AppConfig.cdn}products/${item.product_image.split(",")[0]}`} alt={`Slide ${index}`} />
-                          </div>
-                        })}
+                      {
+                        categoryProduct && categoryProduct.length > 0 && (
+                          <ShowCaseSlider data={categoryProduct} city={city} />
+                        )
+                      }
                     </div>
                   </div>
                 </div>

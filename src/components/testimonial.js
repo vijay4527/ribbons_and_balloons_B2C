@@ -5,17 +5,18 @@ import initAOS from "@/components/initAOS";
 import { useSession } from "next-auth/react";
 import Container from "react-bootstrap/Container";
 import Head from "next/head";
-
-// Import Bootstrap CSS
+import "react-responsive-carousel/lib/styles/carousel.min.css"; 
+import { Carousel } from 'react-responsive-carousel';
+import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 // Import Owl Carousel CSS
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel/dist/assets/owl.theme.default.css";
+// import "owl.carousel/dist/assets/owl.carousel.css";
+// import "owl.carousel/dist/assets/owl.theme.default.css";
 
-const OwlCarousel = dynamic(() => import("react-owl-carousel"), {
-  ssr: false,
-});
+// const OwlCarousel = dynamic(() => import("react-owl-carousel"), {
+//   ssr: false,
+// });
 
 const options = {
   items: 1,
@@ -85,7 +86,7 @@ const Testimonial = () => {
                 </div>
               </div>
             </div>
-            {isMounted && (
+            {/* {isMounted && (
               <OwlCarousel className="owl-theme" {...options}>
                 <div className="item">
                   <div className="headerTitle">
@@ -124,7 +125,45 @@ const Testimonial = () => {
                   </div>
                 </div>
               </OwlCarousel>
-            )}
+            )} */}
+            <Carousel autoPlay={true}>
+            <div className="item">
+                  <div className="headerTitle">
+                    <h6>
+                      An vis civibus albucius. Eu mea augue menandri consequat,
+                      his graeco discere consequat ei. An autem nostrum
+                      signiferumque mea, id ullum antiopam qui. Has eu timeam
+                      utroque dissentiunt, eos te iriure verterem suis san.
+                    </h6>
+                    <h5>Roland Brown</h5>
+                    <div>Chef</div>
+                  </div>
+                </div>
+                <div className="item">
+                  <div className="headerTitle">
+                    <h6>
+                      An vis civibus albucius. Eu mea augue menandri consequat,
+                      his graeco discere consequat ei. An autem nostrum
+                      signiferumque mea, id ullum antiopam qui. Has eu timeam
+                      utroque dissentiunt, eos te iriure verterem suis san.
+                    </h6>
+                    <h5>Roland Brown</h5>
+                    <div>Chef</div>
+                  </div>
+                </div>
+                <div className="item">
+                  <div className="headerTitle">
+                    <h6>
+                      An vis civibus albucius. Eu mea augue menandri consequat,
+                      his graeco discere consequat ei. An autem nostrum
+                      signiferumque mea, id ullum antiopam qui. Has eu timeam
+                      utroque dissentiunt, eos te iriure verterem suis san.
+                    </h6>
+                    <h5>Roland Brown</h5>
+                    <div>Chef</div>
+                  </div>
+                </div>
+            </Carousel>
           </div>
         </Container>
       </div>
