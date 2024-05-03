@@ -9,6 +9,7 @@ import ProductImages from "@/components/productImages";
 import AddToCart from "@/components/addToCartButton";
 import ProductDetails from "@/components/productDetails";
 import ShowCaseSlider from "@/components/ShowCaseSlider";
+import { redirect } from "next/navigation";
 export async function generateMetadata({ params }) {
   const data = await GetProductData(params.productbyname, params.city);
   if (data) {
@@ -73,14 +74,35 @@ async function GetProductData(productname, city) {
     console.log(error);
   }
 }
+
+async function getCities() {
+  try {
+    const cities = await axiosGet("RNBCity/GetAllRNBCity");
+    if (cities) {
+      return cities;
+    }
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return {
+      data: null,
+    };
+  }
+}
 const productbyname = async ({ params }) => {
+  const cities = await getCities();
   const city = params.city;
   const productname = params.productbyname;
+  const isValidCity = cities.some(
+    (c) => c.city_name.toLowerCase() === city.toLowerCase()
+  );
+
+  if (!isValidCity) {
+    redirect("/mumbai/p/" + productname);
+  }
   const data = await GetProductData(productname, city);
   if (data) {
     let image = data.product_image.split(",");
     const categoryProduct = await getCategoryData(data.category_name, city);
-
 
     return (
       <>
@@ -150,14 +172,16 @@ const productbyname = async ({ params }) => {
                 <div className={styles.pdp_otherContent}>
                   <div className={homeStyles["container_fluid"]}>
                     <div className={styles.reviewSection}>
-                      {categoryProduct &&
-                        categoryProduct.length > 0 && ( <ShowCaseSlider data={categoryProduct} city={city}/>)
+                      {
+                        categoryProduct && categoryProduct.length > 0 && (
+                          <ShowCaseSlider data={categoryProduct} city={city} />
+                        )
                         // categoryProduct.map((item,index) => {
                         //   <div key={item.id || index} className={styles.slide}>
                         //     <img src={`${AppConfig.cdn}products/${item.product_image.split(",")[0]}`} alt={`Slide ${index}`} />
                         //   </div>
                         // })
-                        }
+                      }
                     </div>
                   </div>
                 </div>

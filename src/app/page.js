@@ -1,8 +1,5 @@
-"use client"
-import { useRouter } from 'next/navigation';
-
+import React from "react";
+import { redirect } from "next/navigation";
 export default function Profile() {
-    const router = useRouter();   
-    router.push("/mumbai");
-        return null;
+    redirect("/mumbai")
 }

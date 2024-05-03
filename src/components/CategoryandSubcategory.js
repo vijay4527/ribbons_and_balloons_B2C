@@ -9,7 +9,6 @@ import AddToFavoriteButton from "./AddToFavoritesButton";
 import 'react-range-slider-input/dist/style.css';
 
 function CategoryComponent({ category, subcategoryName, data, categoryName,city }) {
-
   return (
     <>
       <div className={styles.breadcrumb}>
@@ -27,7 +26,7 @@ function CategoryComponent({ category, subcategoryName, data, categoryName,city 
                     </div>
                   </div>
                   <div className={styles.plpFilterDescAction}>
-                    <RangeSlider/>
+                    <RangeSlider />
                   </div>
                 </div>
                 <div className={styles.plpFilterAction}>

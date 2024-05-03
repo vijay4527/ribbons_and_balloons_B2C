@@ -1,7 +1,7 @@
 import React from 'react'
-import { axiosPost } from '@/api';
+import { axiosPost,axiosGet } from '@/api';
 import CategoryComponent from "@/components/CategoryandSubcategory"
-
+import { redirect } from 'next/navigation';
 export async function generateMetadata({ params }) {
   const {data,category} = await getCategoryData(params.category,params.subcategory,params.city);
   if (data) {
@@ -57,10 +57,33 @@ async function getCategoryData(categoryName,subcategory,city) {
       }
   }
 
+  async function getCities() {
+    try {
+   
+        const cities = await axiosGet("RNBCity/GetAllRNBCity");
+        if (cities) {
+          return cities;
+        }  
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return {
+        data: null,
+      };
+    }
+  }
+
 const page = async({params}) => {
+  const cities = await getCities()
     const categoryName = params.category
     const city = params.city
     const subcategory = params.subcategory
+    const isValidCity = cities.some(
+      (c) => c.city_name.toLowerCase() === city.toLowerCase()
+    );
+  
+    if (!isValidCity) {
+      redirect('/mumbai/l/'+categoryName)
+    }
  const {data,category} = await getCategoryData(categoryName,subcategory,city)
   return (
     <CategoryComponent

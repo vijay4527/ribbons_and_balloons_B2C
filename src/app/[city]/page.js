@@ -5,6 +5,8 @@ import InstaPosts from "@/components/InstaPosts";
 import NewLaunches from "@/components/newLaunched";
 import MediaCollaborators from "@/components/mediaCollaborators";
 import EnquiryModal from "@/components/EnquiryModal";
+import { axiosGet } from "@/api";
+import { redirect } from 'next/navigation'
 export async function generateMetadata({ params }) {
   return {
     title: "Home | Ribbons and Balloons",
@@ -26,7 +28,39 @@ export async function generateMetadata({ params }) {
     },
   };
 }
-const page = () => {
+
+async function getCities() {
+  try {
+ 
+      const cities = await axiosGet("RNBCity/GetAllRNBCity");
+      if (cities) {
+        return cities;
+      }  
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return {
+      data: null,
+    };
+  }
+}
+
+
+const page = async({params}) => {
+  const city = params.city 
+  const cities = await getCities();
+  console.log(cities)
+
+  if (!Array.isArray(cities)) {
+    console.error("Cities data is not an array.");
+  }
+
+  const isValidCity = cities.some(
+    (c) => c.city_name.toLowerCase() === city.toLowerCase()
+  );
+
+  if (!isValidCity) {
+    redirect('/mumbai')
+  }
   return (
     <>
       <Banner />
