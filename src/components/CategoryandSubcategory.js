@@ -49,15 +49,28 @@ function CategoryComponent({
       const cost = parseFloat(item.cost);
       return cost >= min && cost <= max;
     });
-    setFilteredData(filteredProducts);
+    if (sortingType == "Default sorting") {
+      setFilteredData(filteredProducts);
+    }
+    if (sortingType == "Sort by price: low to high") {
+      const data = filteredProducts.sort(
+        (a, b) => parseFloat(a.cost) - parseFloat(b.cost)
+      );
+      setSortingDirection("asc");
+      setFilteredData(data);
+    }
+    if (sortingType == "Sort by price: high to low") {
+      const data = filteredProducts.sort(
+        (a, b) => parseFloat(b.cost) - parseFloat(a.cost)
+      );
+      setSortingDirection("desc");
+      setFilteredData(data);
+    }
   };
 
   const handleRangeChange = ({ start, end }) => {
     setSelectedMaxRange(end);
     setSelectedMinRange(start);
-    console.log("Range values start:", start);
-    console.log("Range values end:", end);
-
     filterProductsByRange(start, end);
   };
 
@@ -65,13 +78,10 @@ function CategoryComponent({
     let sortedProducts = [...filteredData];
     switch (sortType) {
       case "Sort by popularity":
-        // Implement logic to sort by popularity
         break;
       case "Sort by average rating":
-        // Implement logic to sort by average rating
         break;
       case "Sort by latest":
-        // Implement logic to sort by latest
         break;
       case "Sort by price: low to high":
         sortedProducts.sort((a, b) => parseFloat(a.cost) - parseFloat(b.cost));
@@ -82,17 +92,12 @@ function CategoryComponent({
         setSortingDirection("desc");
         break;
       default:
-        // Default sorting (no sorting)
         break;
     }
-  
-    // Update the sorting type state
     setSortingType(sortType);
-  
-    // Update the filteredData state with sorted products
     setFilteredData(sortedProducts);
   };
-  
+
   return (
     <>
       <div className={styles.breadcrumb}></div>
@@ -108,7 +113,8 @@ function CategoryComponent({
                     <div className={"shapLine"}></div>
                   </div>
                 </div>
-                <div className={styles.plpFilterDescAction}>
+                <div className={styles.plpFilterDescAction} style={{display:"flex"}}>
+                  <span>Price :{" "}{selectedMinRange}</span>
                   <RangeSlider
                     min={minRange}
                     max={maxRange}
@@ -118,6 +124,7 @@ function CategoryComponent({
                       handleRangeChange({ start: values[0], end: values[1] })
                     }
                   />
+                  <span>{selectedMaxRange}</span>
                 </div>
               </div>
               <div className={styles.plpFilterAction}>
@@ -151,14 +158,18 @@ function CategoryComponent({
                     className={"form-control"}
                     defaultValue="Default sorting"
                     value={sortingType}
-                    onChange={(e)=>sortProducts(e.target.value)}
+                    onChange={(e) => sortProducts(e.target.value)}
                   >
-                    <option  value="Default sorting">Default sorting</option>
+                    <option value="Default sorting">Default sorting</option>
                     {/* <option  value="Sort by popularity">Sort by popularity</option>
                     <option  value="Sort by average rating">Sort by average rating</option>
                     <option  value="Sort by latest">Sort by latest</option> */}
-                    <option  value="Sort by price: low to high">Sort by price: low to high</option>
-                    <option  value="Sort by price: high to low">Sort by price: high to low</option>
+                    <option value="Sort by price: low to high">
+                      Sort by price: low to high
+                    </option>
+                    <option value="Sort by price: high to low">
+                      Sort by price: high to low
+                    </option>
                   </select>
                 </div>
               </div>
