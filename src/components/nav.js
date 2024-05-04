@@ -28,6 +28,8 @@ const fetchSubcategories = async (category) => {
 const Nav = async () => {
   const city = "mumbai";
   const categories = await getCategories(city);
+  console.log("categories and subcategories", categories);
+
   return (
     <div>
       <Container>
@@ -166,7 +168,24 @@ const Nav = async () => {
 
                           <div className="subnav-content">
                             <ul className="submenu-list">
-                              <li className="category-sub-title">
+                              {/* {category.json_sub_category &&
+                                category.json_sub_category.length > 0 &&
+                                category.json_sub_category.map(
+                                  (subcategory, index) => (
+                                    <li
+                                      key={index}
+                                      className="category-sub-title"
+                                    >
+                                      <Link
+                                        href={`/${city}/p/${subcategory.sub_category_name.replaceAll(" ","-")}`}
+                                        className="nav-link"
+                                      >
+                                        {subcategory.sub_category_name}
+                                      </Link>
+                                    </li>
+                                  )
+                                )} */}
+                             <li className="category-sub-title">
                                 <Link
                                   href={`/${city}/p/Classic-Vanilla-Sponge-Cake`}
                                   className="nav-link"
@@ -227,7 +246,7 @@ const Nav = async () => {
                                 >
                                   INFINITE PRALINE CAKE
                                 </Link>
-                              </li>
+                              </li> 
                             </ul>
                           </div>
                         </div>

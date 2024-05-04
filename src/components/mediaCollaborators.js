@@ -13,11 +13,11 @@ import { Carousel } from "react-responsive-carousel";
 const OwlCarousel = dynamic(() => import("react-owl-carousel"), {
   ssr: false,
 });
-// import "owl.carousel/dist/assets/owl.carousel.css";
-// import "owl.carousel/dist/assets/owl.theme.default.css";
+import "owl.carousel/dist/assets/owl.carousel.css";
+import "owl.carousel/dist/assets/owl.theme.default.css";
 const optionsMedia = {
   items: 5,
-  // loop: true,
+   loop: true,
   margin: 10,
   autoplay: true,
   autoplayTimeout: 3000,

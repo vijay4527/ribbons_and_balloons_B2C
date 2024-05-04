@@ -165,7 +165,7 @@ const navComponent = () => {
       }
     }
   };
-  
+
   return (
     <div className="navAction">
       <ul>
@@ -215,7 +215,7 @@ const navComponent = () => {
                 {cities &&
                   cities.length > 0 &&
                   cities.map((e) => (
-                    <Link href={`/${e.city_name.toLowerCase()}`}>
+                    <Link href={`/${e.city_name.toLowerCase()}`} key={e.rnb_city_id}>
                       <li key={e.rnb_city_id}>
                         <h4 onClick={() => setSelectedCity(e.city_name)}>
                           {e.city_name}
