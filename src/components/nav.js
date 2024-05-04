@@ -168,7 +168,7 @@ const Nav = async () => {
 
                           <div className="subnav-content">
                             <ul className="submenu-list">
-                              {/* {category.json_sub_category &&
+                              {category.json_sub_category &&
                                 category.json_sub_category.length > 0 &&
                                 category.json_sub_category.map(
                                   (subcategory, index) => (
@@ -177,76 +177,24 @@ const Nav = async () => {
                                       className="category-sub-title"
                                     >
                                       <Link
-                                        href={`/${city}/p/${subcategory.sub_category_name.replaceAll(" ","-")}`}
-                                        className="nav-link"
+                                        href={`/${city}/l/${category.category_name.replaceAll(
+                                          " ",
+                                          "-"
+                                        )}/${
+                                          subcategory.sub_category_name
+                                            ? subcategory.sub_category_name.replaceAll(
+                                                " ",
+                                                "-"
+                                              )
+                                            : ""
+                                        }`}
+                                        prefetch={true}
                                       >
                                         {subcategory.sub_category_name}
                                       </Link>
                                     </li>
                                   )
-                                )} */}
-                             <li className="category-sub-title">
-                                <Link
-                                  href={`/${city}/p/Classic-Vanilla-Sponge-Cake`}
-                                  className="nav-link"
-                                >
-                                  Classic Vanilla Sponge Cake
-                                </Link>
-                              </li>
-
-                              <li className="category-sub-title">
-                                <Link
-                                  href={`/${city}/p/Pound-cake`}
-                                  className="nav-link"
-                                >
-                                  Pound cake
-                                </Link>
-                              </li>
-
-                              <li className="category-sub-title">
-                                <Link
-                                  href={`/${city}/p/Black-Forest-Cake`}
-                                  className="nav-link"
-                                >
-                                  Black Forest Cake
-                                </Link>
-                              </li>
-
-                              <li className="category-sub-title">
-                                <Link
-                                  href={`/${city}/p/Strawberry-Ombre-Cake`}
-                                  className="nav-link"
-                                >
-                                  Strawberry Ombre Cake
-                                </Link>
-                              </li>
-
-                              <li className="category-sub-title">
-                                <Link
-                                  href={`/${city}/p/Caramel-Swirl-Symphony`}
-                                  className="nav-link"
-                                >
-                                  Caramel Swirl Symphony
-                                </Link>
-                              </li>
-
-                              <li className="category-sub-title">
-                                <Link
-                                  href={`/${city}/p/Pineapple-Paradise-Cake`}
-                                  className="nav-link"
-                                >
-                                  Pineapple Paradise Cake
-                                </Link>
-                              </li>
-
-                              <li className="category-sub-title">
-                                <Link
-                                  href={`/${city}/p/INFINITE-PRALINE-CAKE`}
-                                  className="nav-link"
-                                >
-                                  INFINITE PRALINE CAKE
-                                </Link>
-                              </li> 
+                                )}
                             </ul>
                           </div>
                         </div>
