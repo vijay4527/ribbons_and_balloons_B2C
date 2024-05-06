@@ -626,6 +626,7 @@ ul.selectLocationOption a {
   justify-content: center;
   margin-right: 20px;
   z-index: 4;
+  position: relative;
 }
 
 .sub_navbtn {
@@ -726,9 +727,7 @@ ul.selectLocationOption a {
 .sub_nav.show .subnav-content,
 .sub_nav:hover .subnav-content {
   margin-top: 0px;
-  display: grid;
-  grid-template-columns: 1fr 0.5fr;
-  max-height: 310px;
+  display: block;
   overflow: hidden;
   overflow-y: auto;
   background-color: var(--theme-seconary);
@@ -756,12 +755,11 @@ ul.selectLocationOption a {
   right: 0;
   left: 0;
   position: absolute;
-  width: 100%;
+  width: 235px;
 }
 
 .subnav-content {
   display: none;
-  height: 0;
   z-index: 5;
   list-style: none;
   background-color: #fff;
@@ -773,7 +771,7 @@ ul.selectLocationOption a {
 .submenu-list {
   width: 100%;
   min-width: 100%;
-  padding: 15px 15px 15px 25px;
+  padding: 0;
   list-style: none;
   margin: 0;
   display: flex;
@@ -782,8 +780,8 @@ ul.selectLocationOption a {
 }
 
 .category-sub-title {
-  width: 25%;
-  margin-bottom: 25px;
+  text-align: left;
+  width: 100%;
 }
 
 .category-sub-title a {
@@ -792,13 +790,14 @@ ul.selectLocationOption a {
   font-stretch: normal;
   letter-spacing: normal;
   color: #ffffff;
-  padding: 0px 15px;
+  padding: 6px 15px;
   font-size: 1.4rem;
   font-family: Montserrat, sans-serif;
 }
 
 .category-sub-title a:hover {
-  color: var(--theme-primary);
+  color: var(--theme-seconary);
+  background-color: var(--theme-primary);
 }
 
 .MobileSub_navbtn {
@@ -1373,7 +1372,7 @@ ul.selectLocationOption a {
 }
 
 .mediaCollabWrap {
-  padding: 85px 0px;
+  padding: 85px 0px 0px;
   /* background-color: #0c0805; */
 
   background-image: url(https://fama.b-cdn.net/Stripes.jpg);
@@ -2074,7 +2073,7 @@ ul.selectLocationOption a {
 /* footer */
 .footerWap {
   position: relative;
-  /* margin-top: -100px; */
+  margin-top: 150px;
 }
 
 .footerbg {
@@ -2099,7 +2098,6 @@ ul.selectLocationOption a {
     margin-bottom: 0;
 } */
 .footerBody {
-  padding: 102px 0 25px;
   border-top: 0 solid #dadada;
 }
 
@@ -3064,8 +3062,10 @@ ul.selectLocationOption a {
 
 
 
-
-.ShowCaseCarousel ul{
+.carousel-item-padding-40-px{
+  padding: 0px 15px;
+}
+/* .ShowCaseCarousel ul{
   display: flex !important;
   overflow: hidden;
-}
+} */
