@@ -47,19 +47,19 @@ async function getCities() {
 
 const page = async({params}) => {
   const city = params.city 
-  const cities = await getCities();
+  // const cities = await getCities();
 
-  if (!Array.isArray(cities)) {
-    console.error("Cities data is not an array.");
-  }
+  // if (!Array.isArray(cities)) {
+  //   console.error("Cities data is not an array.");
+  // }
 
-  const isValidCity = cities.some(
-    (c) => c.city_name.toLowerCase() === city.toLowerCase()
-  );
+  // const isValidCity = cities.some(
+  //   (c) => c.city_name.toLowerCase() === city.toLowerCase()
+  // );
 
-  if (!isValidCity) {
-    redirect('/mumbai')
-  }
+  // if (!isValidCity) {
+  //   redirect('/mumbai')
+  // }
   return (
     <>
       <Banner />
@@ -78,7 +78,7 @@ const page = async({params}) => {
         </div>
         <div className="cakeOfMonthBody">
           <div className="wrapper">
-            <video
+            {/* <video
               muted
               autoPlay
               loop
@@ -89,14 +89,14 @@ const page = async({params}) => {
                 src="https://fama.b-cdn.net/PalmExpo/palmExpo.mp4"
                 type="video/mp4"
               />
-            </video>
-            {/* <div className="backdrop"></div>
+            </video> */}
+            <div className="backdrop"></div>
             <div className="stage_floor"></div>
-            <div className="stage_highlight"></div> */}
-            {/* <div className="spotlight_swivel">
+            <div className="stage_highlight"></div> 
+             <div className="spotlight_swivel">
               <div className="lamp"></div>
               <div className="spotlight"></div>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>
