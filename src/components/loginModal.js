@@ -56,20 +56,13 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
     closeLoginModal();
   };
 
-  const showToastMessage = () => {
-    toast.success("Login successful! Welcome back!", {
-      position: toast.POSITION.TOP_RIGHT,
-      autoClose: 3000, 
-      hideProgressBar: true, 
-    });
-  };
 
-  const handleToastClose = () => {
-    setIsLogged(true);
-    setShowOtpSection(false);
-    setModalIsOpen(false);
-    setShowToast(false); // Close the toast
-  };
+  // const handleToastClose = () => {
+  //   setIsLogged(true);
+  //   setShowOtpSection(false);
+  //   setModalIsOpen(false);
+  //   setShowToast(false); // Close the toast
+  // };
 
   const submitHandler = async () => {
     setUserSubmitted(true);
@@ -109,53 +102,53 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
     }
   };
 
-  const handleOTPChange = (e, index) => {
-    const inputs = document.querySelectorAll("input"),
-      button = document.getElementById("btnVerifyOtp");
-    inputs.forEach((input, index1) => {
-      input.addEventListener("keyup", (e) => {
-        const currentInput = input,
-          nextInput = input.nextElementSibling,
-          prevInput = input.previousElementSibling;
-        if (currentInput.value.length > 1) {
-          currentInput.value = "";
-          return;
-        }
-        if (
-          nextInput &&
-          nextInput.hasAttribute("disabled") &&
-          currentInput.value !== ""
-        ) {
-          nextInput.removeAttribute("disabled");
-          nextInput.focus();
-        }
-        if (e.key === "Backspace") {
-          inputs.forEach((input, index2) => {
-            if (index1 <= index2 && prevInput) {
-              input.removeAttribute("disabled");
-              input.value = "";
-              prevInput.focus();
-            }
-          });
-        }
-        if (!inputs[4].disabled && inputs[4].value !== "") {
-          button.classList.add("active");
-        } else {
-          button.classList.remove("active");
-        }
-      });
-    });
-    window.addEventListener("load", () => inputs[0].focus());
-    const newOTP = [...otp];
-    newOTP[index] = e.target.value;
-    setOTP(newOTP);
-    const valuesArray = newOTP.toString();
-    const Array = valuesArray.split(",").filter((value) => value !== "");
-    if (Array.length == length) {
-      const combinedString = Array.join("");
-      setnewOtp(combinedString);
-    }
-  };
+  // const handleOTPChange = (e, index) => {
+  //   const inputs = document.querySelectorAll("input"),
+  //     button = document.getElementById("btnVerifyOtp");
+  //   inputs.forEach((input, index1) => {
+  //     input.addEventListener("keyup", (e) => {
+  //       const currentInput = input,
+  //         nextInput = input.nextElementSibling,
+  //         prevInput = input.previousElementSibling;
+  //       if (currentInput.value.length > 1) {
+  //         currentInput.value = "";
+  //         return;
+  //       }
+  //       if (
+  //         nextInput &&
+  //         nextInput.hasAttribute("disabled") &&
+  //         currentInput.value !== ""
+  //       ) {
+  //         nextInput.removeAttribute("disabled");
+  //         nextInput.focus();
+  //       }
+  //       if (e.key === "Backspace") {
+  //         inputs.forEach((input, index2) => {
+  //           if (index1 <= index2 && prevInput) {
+  //             input.removeAttribute("disabled");
+  //             input.value = "";
+  //             prevInput.focus();
+  //           }
+  //         });
+  //       }
+  //       if (!inputs[4].disabled && inputs[4].value !== "") {
+  //         button.classList.add("active");
+  //       } else {
+  //         button.classList.remove("active");
+  //       }
+  //     });
+  //   });
+  //   window.addEventListener("load", () => inputs[0].focus());
+  //   const newOTP = [...otp];
+  //   newOTP[index] = e.target.value;
+  //   setOTP(newOTP);
+  //   const valuesArray = newOTP.toString();
+  //   const Array = valuesArray.split(",").filter((value) => value !== "");
+  //   if (Array.length == length) {
+  //     const combinedString = Array.join("");
+  //     setnewOtp(combinedString);
+  //   }
+  // };
 
   useEffect(() => {
     inputs.forEach((id, index) => {
@@ -206,6 +199,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
         };
         const data = await axiosPost("OtpDetails/VerifyUserOtp", loginData);
         if (data.resp == true) {
+          setLoginError("")
           sessionStorage.setItem("userData", JSON.stringify(data.respObj));
           sessionStorage.setItem("isLoggedIn", "true");
           toggleShowA();
@@ -228,6 +222,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
     signIn("google");
   };
   const handleOTpNotRecieved = async () => {
+    setLoginError('')
     setShowOtpSection(false);
     setShowLoginInput(true);
   };

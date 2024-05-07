@@ -25,13 +25,19 @@ const page = ({ params }) => {
   }, [userInfo?.user_id]);
 
   const getAllOrders = async () => {
-    const Orders = await axiosGet(`Order/GetOrderByUserId/${userInfo.user_id}`);
-    console.log("Orders");
-    if (Orders) {
-      const sortedOrders = Orders.sort((a, b) => {
-        return new Date(b.created_on) - new Date(a.created_on);
-      });
-      setOrders(sortedOrders);
+    try {
+      const Orders = await axiosGet(
+        `Order/GetOrderByUserId/${userInfo.user_id}`
+      );
+      console.log("Orders", Orders);
+      if (Orders) {
+        const sortedOrders = Orders.sort((a, b) => {
+          return new Date(b.created_on) - new Date(a.created_on);
+        });
+        setOrders(sortedOrders);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 

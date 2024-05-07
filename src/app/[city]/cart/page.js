@@ -14,6 +14,8 @@ import OrderSummary from "@/components/OrderSummary";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthOtpContext } from "@/components/authContext";
+import Cookies from "js-cookie";
+
 const page = ({ params }) => {
   const { data: session, status } = useSession();
   const [cart, setCart] = useState([]);
@@ -24,17 +26,16 @@ const page = ({ params }) => {
   const [user, setUser] = useState(null);
   const { isLogged } = useContext(AuthOtpContext);
   const city = params.city;
-
+  var userInfo =
+  typeof window !== "undefined"
+    ? JSON.parse(sessionStorage.getItem("userData"))
+    : "";
   useEffect(() => {
-    var userInfo =
-      typeof window !== "undefined"
-        ? JSON.parse(sessionStorage.getItem("userData"))
-        : "";
     if (userInfo) {
       setIsUserLoggedIn(true);
       setUser(userInfo);
     }
-  }, [session,isLogged]);
+  }, [session,isLogged,userInfo?.user_id]);
   let cartId =
     typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
   useEffect(() => {
@@ -62,11 +63,12 @@ const page = ({ params }) => {
 
   const removeFromCart = async (cpId, itemCost) => {
     const response = await axiosGet(`/CartMaster/RemoveCart/${cpId}`);
-    if (response.resp == true) {
+    if (response?.resp == true) {
       var newPrice = grandTotal - itemCost;
       setGrandTotal(newPrice);
       if (cart.length == 1) {
         try {
+          Cookies.remove("cartId")
           sessionStorage.removeItem("cartId");
           cartId = "";
         } catch (error) {
@@ -104,22 +106,22 @@ const page = ({ params }) => {
     setCityModalOpen(false);
   };
 
-  const addToFavourite = async (data) => {
-    try {
-      const favouriteData = await axiosPost(
-        "/CartMaster/SaveCartDetails",
-        productData
-      );
-      if (favouriteData.resp == true) {
-        toast("Product added to favourites", {
-          autoClose: 3000,
-          closeButton: true,
-        });
-      }
-    } catch (error) {
-      console.log("error while adding product to favourites", error);
-    }
-  };
+  // const addToFavourite = async (data) => {
+  //   try {
+  //     const favouriteData = await axiosPost(
+  //       "/CartMaster/SaveCartDetails",
+  //       productData
+  //     );
+  //     if (favouriteData.resp == true) {
+  //       toast("Product added to favourites", {
+  //         autoClose: 3000,
+  //         closeButton: true,
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.log("error while adding product to favourites", error);
+  //   }
+  // };
   return (
     <>
       <Head>

@@ -28,8 +28,12 @@ const Banner = () => {
                 id="animatedImage"
                 style={{ transform: `translateY(-${scrollPosition * 0.5}px)` }}
               >
-                <img
+                {/* <img
                   src="https://swissdelight.qodeinteractive.com/wp-content/uploads/2021/02/h2-img-7.jpg"
+                  alt="No image found"
+                /> */}
+                <img
+                  src="https://fama.b-cdn.net/RnB/bannerImage1.jpg"
                   alt="No image found"
                 />
               </div>
@@ -38,8 +42,12 @@ const Banner = () => {
                 id="animatedImage"
                 style={{ transform: `translateY(-${scrollPosition * 0.5}px)` }}
               >
-                <img
+                {/* <img
                   src="https://swissdelight.qodeinteractive.com/wp-content/uploads/2021/02/h2-img-1-729x1024.png"
+                  alt="No image found"
+                /> */}
+                <img
+                  src="https://fama.b-cdn.net/RnB/bannerImage2.png"
                   alt="No image found"
                 />
               </div>
@@ -50,8 +58,12 @@ const Banner = () => {
                 id="animatedImage"
                 style={{ transform: `translateY(-${scrollPosition * 0}px)` }}
               >
-                <img
+                {/* <img
                   src="https://swissdelight.qodeinteractive.com/wp-content/uploads/2021/02/h2-img-8.jpg"
+                  alt="No image found"
+                /> */}
+                <img
+                  src="https://fama.b-cdn.net/RnB/bannerImage3.jpg"
                   alt="No image found"
                 />
               </div>
@@ -62,8 +74,12 @@ const Banner = () => {
                 id="animatedImage"
                 style={{ transform: `translateY(-${scrollPosition * 0.5}px)` }}
               >
-                <img
+                {/* <img
                   src="https://swissdelight.qodeinteractive.com/wp-content/uploads/2021/02/h2-img-10.jpg"
+                  alt="No image found"
+                /> */}
+                <img
+                  src="https://fama.b-cdn.net/RnB/bannerImage4.jpg"
                   alt="No image found"
                 />
               </div>
@@ -72,8 +88,12 @@ const Banner = () => {
                 id="animatedImage"
                 style={{ transform: `translateY(-${scrollPosition * 0.5}px)` }}
               >
-                <img
+                {/* <img
                   src="https://swissdelight.qodeinteractive.com/wp-content/uploads/2021/02/h2-img-9.jpg"
+                  alt="No image found"
+                /> */}
+                <img
+                  src="https://fama.b-cdn.net/RnB/bannerImage5.jpg"
                   alt="No image found"
                 />
               </div>

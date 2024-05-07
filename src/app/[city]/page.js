@@ -5,6 +5,8 @@ import InstaPosts from "@/components/InstaPosts";
 import NewLaunches from "@/components/newLaunched";
 import MediaCollaborators from "@/components/mediaCollaborators";
 import EnquiryModal from "@/components/EnquiryModal";
+import { axiosGet } from "@/api";
+import { redirect } from 'next/navigation'
 export async function generateMetadata({ params }) {
   return {
     title: "Home | Ribbons and Balloons",
@@ -26,7 +28,38 @@ export async function generateMetadata({ params }) {
     },
   };
 }
-const page = () => {
+
+async function getCities() {
+  try {
+ 
+      const cities = await axiosGet("RNBCity/GetAllRNBCity");
+      if (cities) {
+        return cities;
+      }  
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return {
+      data: null,
+    };
+  }
+}
+
+
+const page = async({params}) => {
+  const city = params.city 
+  // const cities = await getCities();
+
+  // if (!Array.isArray(cities)) {
+  //   console.error("Cities data is not an array.");
+  // }
+
+  // const isValidCity = cities.some(
+  //   (c) => c.city_name.toLowerCase() === city.toLowerCase()
+  // );
+
+  // if (!isValidCity) {
+  //   redirect('/mumbai')
+  // }
   return (
     <>
       <Banner />
@@ -56,14 +89,14 @@ const page = () => {
                 src="https://fama.b-cdn.net/PalmExpo/palmExpo.mp4"
                 type="video/mp4"
               />
-            </video> */}
-            <div className="backdrop"></div>
+            </video>
+            {/* <div className="backdrop"></div>
             <div className="stage_floor"></div>
             <div className="stage_highlight"></div>
             <div className="spotlight_swivel">
               <div className="lamp"></div>
               <div className="spotlight"></div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

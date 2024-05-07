@@ -14,6 +14,8 @@ const productFilterModal = ({ isOpen, onRequestClose, closeModal,city,searchTerm
       setModalIsOpen(true);
     }
   }, [isOpen]);
+
+  
   return (
     <Modal
       show={modalIsOpen}

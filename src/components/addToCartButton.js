@@ -45,6 +45,7 @@ const addToCartButton = ({ data, city }) => {
         value: Value.toString(),
         msg_cake: Message,
         type: "AC",
+        product_type:"P"
       };
       const response = await axiosPost(`/CartMaster/SaveCartDetails`, cartItem);
       if (response.resp == true) {
@@ -88,6 +89,7 @@ const addToCartButton = ({ data, city }) => {
           onRequestClose={() => setOpenModal(false)}
           closeModal={() => setOpenModal(false)}
           city={city}
+          data={data}
         />
       )}
       <ToastContainer />

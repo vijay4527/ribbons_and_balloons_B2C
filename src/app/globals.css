@@ -336,7 +336,7 @@ img {
 .selectLocation h4 {
   font-size: 1.4rem;
   margin-bottom: 0px;
-  text-transform: uppercase;
+  text-transform: capitalize;
   margin-right: 5px;
   font-family: var(--font-family);
 }
@@ -425,6 +425,7 @@ img {
   margin-top: 20px !important;
   font-family: var(--font-family);
   width: 100%;
+  margin-bottom: 20px !important;
 }
 
 ul.selectLocationOption li {
@@ -625,6 +626,7 @@ ul.selectLocationOption a {
   justify-content: center;
   margin-right: 20px;
   z-index: 4;
+  position: relative;
 }
 
 .sub_navbtn {
@@ -688,15 +690,15 @@ ul.selectLocationOption a {
   margin-bottom: 0px;
   font-size: 1.4rem;
   text-transform: capitalize;
-  font-weight: 600;
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   line-height: 17px;
-  letter-spacing: 2.47px;
+  letter-spacing: 1px;
   text-align: left;
   color: #ffffff;
   white-space: nowrap;
-  font-family: Montserrat, sans-serif;
+  font-family: var(--font-family)
 }
 
 .sub_nav.show,
@@ -725,9 +727,7 @@ ul.selectLocationOption a {
 .sub_nav.show .subnav-content,
 .sub_nav:hover .subnav-content {
   margin-top: 0px;
-  display: grid;
-  grid-template-columns: 1fr 0.5fr;
-  max-height: 310px;
+  display: block;
   overflow: hidden;
   overflow-y: auto;
   background-color: var(--theme-seconary);
@@ -755,12 +755,11 @@ ul.selectLocationOption a {
   right: 0;
   left: 0;
   position: absolute;
-  width: 100%;
+  width: 235px;
 }
 
 .subnav-content {
   display: none;
-  height: 0;
   z-index: 5;
   list-style: none;
   background-color: #fff;
@@ -772,7 +771,7 @@ ul.selectLocationOption a {
 .submenu-list {
   width: 100%;
   min-width: 100%;
-  padding: 15px 15px 15px 25px;
+  padding: 0;
   list-style: none;
   margin: 0;
   display: flex;
@@ -781,8 +780,8 @@ ul.selectLocationOption a {
 }
 
 .category-sub-title {
-  width: 25%;
-  margin-bottom: 25px;
+  text-align: left;
+  width: 100%;
 }
 
 .category-sub-title a {
@@ -791,13 +790,14 @@ ul.selectLocationOption a {
   font-stretch: normal;
   letter-spacing: normal;
   color: #ffffff;
-  padding: 0px 15px;
+  padding: 6px 15px;
   font-size: 1.4rem;
   font-family: Montserrat, sans-serif;
 }
 
 .category-sub-title a:hover {
-  color: var(--theme-primary);
+  color: var(--theme-seconary);
+  background-color: var(--theme-primary);
 }
 
 .MobileSub_navbtn {
@@ -909,7 +909,6 @@ ul.selectLocationOption a {
     padding: 0 0 0 15px;
   }
 
-  .sub_nav:hover .subnav-content,
   .sub_navbtn {
     display: none;
   }
@@ -935,9 +934,19 @@ ul.selectLocationOption a {
   }
 
   .sub_nav:hover .subnav-content {
-    display: none;
+    display: block;
+    background-color: #fff;
   }
-
+  .sub_nav:hover .subnav-content .category-sub-title{
+    width: 100%;
+  }
+  .sub_nav:hover .subnav-content .submenu-list{
+    text-align: left;
+    padding: 15px 0px;
+  }
+  .sub_nav:hover .subnav-content .category-sub-title a{
+    color: #000;
+  }
   .sub_navbtn {
     display: none;
   }
@@ -1363,7 +1372,7 @@ ul.selectLocationOption a {
 }
 
 .mediaCollabWrap {
-  padding: 85px 0px;
+  padding: 85px 0px 0px;
   /* background-color: #0c0805; */
 
   background-image: url(https://fama.b-cdn.net/Stripes.jpg);
@@ -1919,8 +1928,8 @@ ul.selectLocationOption a {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-image: linear-gradient(#000000, rgba(25,53,93,1) 90%, rgba(25,53,93,1));
- background-image: url(https://fama.b-cdn.net/RnB/combg.png); 
+   background-image: linear-gradient(#000000, rgba(25,53,93,1) 90%, rgba(25,53,93,1)); 
+    background-image: url(https://fama.b-cdn.net/RnB/combg.png);   
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -2064,7 +2073,7 @@ ul.selectLocationOption a {
 /* footer */
 .footerWap {
   position: relative;
-  /* margin-top: -100px; */
+  margin-top: 150px;
 }
 
 .footerbg {
@@ -2089,7 +2098,6 @@ ul.selectLocationOption a {
     margin-bottom: 0;
 } */
 .footerBody {
-  padding: 102px 0 25px;
   border-top: 0 solid #dadada;
 }
 
@@ -2118,9 +2126,7 @@ ul.selectLocationOption a {
   border-left: 2px solid var(--theme-primary);
   color: var(--theme-primary) !important;
   padding-left: 10px;
-  -webkit-transition: -webkit-transform 0.8s ease-out;
-  -moz-transition: -moz-transform 0.8s ease-out;
-  transition: transform 0.8s ease-out;
+  transition: border-left 0.8s ease-out, color 0.8s ease-out, padding-left 0.8s ease-out;
 }
 
 .footerLogos {
@@ -2657,6 +2663,18 @@ ul.selectLocationOption a {
   width: 100%;
   height: 100%;
   border-radius: 7px;
+  position: relative;
+}
+
+.addOnCartIcon {
+  position: absolute;
+  z-index: 1;
+}
+.addOnCartIcon {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  padding: 1rem 2.5rem;
 }
 
 .addon-card,
@@ -2692,12 +2710,16 @@ ul.selectLocationOption a {
 }
 .addon-container {
   background-image: url(https://fama.b-cdn.net/Stripes.jpg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-attachment: fixed !important;
+  transition: background 0s !important;
+  background-size: 100%;
 }
 
 .addon-overlap {
+  padding: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   text-align: center;
   border: 2px solid #c19f5f;
   border-radius: 10px;
@@ -2736,6 +2758,7 @@ ul.selectLocationOption a {
   opacity: 0.8;
   font-size: 12px;
 }
+
 
 .skip_button {
   font-family: Poppins, sans-serif;
@@ -3036,3 +3059,13 @@ ul.selectLocationOption a {
     rgba(125, 185, 232, 0) 100%
   );
 }
+
+
+
+.carousel-item-padding-40-px{
+  padding: 0px 15px;
+}
+/* .ShowCaseCarousel ul{
+  display: flex !important;
+  overflow: hidden;
+} */
