@@ -1,160 +1,190 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
-import initAOS from "@/components/initAOS";
-import { useSession } from "next-auth/react";
+import React from "react";
+// import dynamic from "next/dynamic";
+// import initAOS from "@/components/initAOS";
+// import { useSession } from "next-auth/react";
 import Container from "react-bootstrap/Container";
 import Head from "next/head";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import styles from "@/app/[city]/l/[category]/page.module.css";
 
-import "react-responsive-carousel/lib/styles/carousel.min.css"; 
-import { Carousel } from 'react-responsive-carousel';
-import "bootstrap/dist/css/bootstrap.min.css";
+// Import Owl Carousel CSS
 // import "owl.carousel/dist/assets/owl.carousel.css";
 // import "owl.carousel/dist/assets/owl.theme.default.css";
+
 // const OwlCarousel = dynamic(() => import("react-owl-carousel"), {
 //   ssr: false,
 // });
 
-// const optionsNewLunched = {
-//   items: 4,
-//   loop: true,
-//   margin: 10,
-//   autoplay: false,
-//   nav: false,
-//   dots: false,
-//   navText: [
-//     '<span className="arrow-prev-icon"><span className="arrow-top-part"></span><span className="arrow-bottom-part"></span></span>',
-//     '<span className="arrow-next-icon"><span className="arrow-top-part"></span><span className="arrow-bottom-part"></span></span>',
-//   ],
-// };
-
-const NewLaunched = () => {
+const responsive = {
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 4,
+    slidesToSlide: 1,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2,
+    slidesToSlide: 1,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+    slidesToSlide: 1,
+  },
+};
+const Testimonial = () => {
   // const [isMounted, setIsMounted] = useState(false);
   // const { data: session, status } = useSession();
 
   // useEffect(() => {
   //   if (typeof window !== "undefined") {
   //     initAOS();
-  //     const jqueryScript = document.createElement("script");
-  //     jqueryScript.src = "https://code.jquery.com/jquery-3.4.1.min.js";
-  //     jqueryScript.async = true;
-  //     jqueryScript.onload = () => {
-  //       const bootstrapScript = document.createElement("script");
-  //       bootstrapScript.src =
-  //         "https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/js/bootstrap.bundle.min.js";
-  //       bootstrapScript.async = true;
-  //       document.body.appendChild(bootstrapScript);
-  //     };
-  //     document.body.appendChild(jqueryScript);
-
   //     setIsMounted(true);
+  //     const script1 = document.createElement("script");
+  //     script1.src = "https://code.jquery.com/jquery-3.4.1.min.js";
+  //     script1.async = true;
+  //     script1.onload = () => {
+  //       const script2 = document.createElement("script");
+  //       script2.src =
+  //         "https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/js/bootstrap.bundle.min.js";
+  //       script2.async = true;
+  //       document.body.appendChild(script2);
+  //     };
+  //     document.body.appendChild(script1);
   //   }
   // }, [session, isMounted]);
-
   return (
     <>
-      <Head>
+      {/* <Head>
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+        />
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         />
-      </Head>
-      <div className="newLaunchWrap">
-        <div className="lte-background-overlay"></div>
-        <Container fluid>
-          <div className="headerTitle">
-            <h2>New Launches</h2>
-            <div className="testimonialUnderLine">
-              <div className="testimonialUnder">
-                <div className="underLine"></div>
-                <div className="shapLine"></div>
+        <script
+          src="https://code.jquery.com/jquery-3.3.1.js"
+          integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+          crossorigin="anonymous"
+        ></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
+      </Head> */}
+
+      <div className="testimonialsWrap">
+        <Container fluid className="testimonial-container">
+          <div className="testimonialsBody">
+            <div className="headerTitle">
+              <p className=""> you said about us </p>
+              <h2>Testimonials</h2>
+              <div className="testimonialUnderLine">
+                <div className="testimonialUnder">
+                  <div className="underLine"></div>
+                  <div className="shapLine"></div>
+                </div>
               </div>
             </div>
             {/* {isMounted && (
-              <OwlCarousel className="owl-theme" {...optionsNewLunched}>
+              <OwlCarousel className="owl-theme" {...options}>
                 <div className="item">
-                  <div className="itemNewLunch">
-                    <div className="itemNewLunchImg">
-                      <img
-                        src="https://fama.b-cdn.net/RnB/Ln1.jpg"
-                        alt="No image found"
-                      />
-                    </div>
+                  <div className="headerTitle">
+                    <h6>
+                      An vis civibus albucius. Eu mea augue menandri consequat,
+                      his graeco discere consequat ei. An autem nostrum
+                      signiferumque mea, id ullum antiopam qui. Has eu timeam
+                      utroque dissentiunt, eos te iriure verterem suis san.
+                    </h6>
+                    <h5>Roland Brown</h5>
+                    <div>Chef</div>
                   </div>
                 </div>
                 <div className="item">
-                  <div className="itemNewLunch">
-                    <div className="itemNewLunchImg">
-                      <img
-                        src="https://fama.b-cdn.net/RnB/Ln2.jpg"
-                        alt="No image found"
-                      />
-                    </div>
+                  <div className="headerTitle">
+                    <h6>
+                      An vis civibus albucius. Eu mea augue menandri consequat,
+                      his graeco discere consequat ei. An autem nostrum
+                      signiferumque mea, id ullum antiopam qui. Has eu timeam
+                      utroque dissentiunt, eos te iriure verterem suis san.
+                    </h6>
+                    <h5>Roland Brown</h5>
+                    <div>Chef</div>
                   </div>
                 </div>
                 <div className="item">
-                  <div className="itemNewLunch">
-                    <div className="itemNewLunchImg">
-                      <img
-                        src="https://fama.b-cdn.net/RnB/Ln3.jpg"
-                        alt="No image found"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="item">
-                  <div className="itemNewLunch">
-                    <div className="itemNewLunchImg">
-                      <img
-                        src="https://fama.b-cdn.net/RnB/Ln4.jpg"
-                        alt="No image found"
-                      />
-                    </div>
+                  <div className="headerTitle">
+                    <h6>
+                      An vis civibus albucius. Eu mea augue menandri consequat,
+                      his graeco discere consequat ei. An autem nostrum
+                      signiferumque mea, id ullum antiopam qui. Has eu timeam
+                      utroque dissentiunt, eos te iriure verterem suis san.
+                    </h6>
+                    <h5>Roland Brown</h5>
+                    <div>Chef</div>
                   </div>
                 </div>
               </OwlCarousel>
             )} */}
-            <Carousel centerMode={true} centerSlidePercentage={25} thumbWidth={130}>
-             <div className="item">
-                  <div className="itemNewLunch">
-                    <div className="itemNewLunchImg">
-                      <img
-                        src="https://fama.b-cdn.net/RnB/Ln1.jpg"
-                        alt="No image found"
-                      />
-                    </div>
+            <Carousel
+              responsive={responsive}
+              swipeable={true}
+              draggable={true}
+              showDots={true}
+              ssr={true}
+              infinite={true}
+              autoPlay={true}
+              autoPlaySpeed={2000}
+              keyBoardControl={true}
+              // customTransition="all .5"
+              transitionDuration={500}
+              containerClass={`${styles.showCaseCarouselContainer}`}
+              removeArrowOnDeviceType={["tablet", "mobile"]}
+              deviceType="desktop"
+              // dotListClass={`${styles.showCaseCarouselDotList}`}
+              // itemClass={`${styles.showCaseCarouselItem}`}
+            >
+              <div className="item">
+                <div className="itemNewLunch">
+                  <div className="itemNewLunchImg">
+                    <img
+                      src="https://fama.b-cdn.net/RnB/Ln1.jpg"
+                      alt="No image found"
+                    />
                   </div>
                 </div>
-                <div className="item">
-                  <div className="itemNewLunch">
-                    <div className="itemNewLunchImg">
-                      <img
-                        src="https://fama.b-cdn.net/RnB/Ln2.jpg"
-                        alt="No image found"
-                      />
-                    </div>
+              </div>
+              <div className="item">
+                <div className="itemNewLunch">
+                  <div className="itemNewLunchImg">
+                    <img
+                      src="https://fama.b-cdn.net/RnB/Ln2.jpg"
+                      alt="No image found"
+                    />
                   </div>
                 </div>
-                <div className="item">
-                  <div className="itemNewLunch">
-                    <div className="itemNewLunchImg">
-                      <img
-                        src="https://fama.b-cdn.net/RnB/Ln3.jpg"
-                        alt="No image found"
-                      />
-                    </div>
+              </div>
+              <div className="item">
+                <div className="itemNewLunch">
+                  <div className="itemNewLunchImg">
+                    <img
+                      src="https://fama.b-cdn.net/RnB/Ln3.jpg"
+                      alt="No image found"
+                    />
                   </div>
                 </div>
-                <div className="item">
-                  <div className="itemNewLunch">
-                    <div className="itemNewLunchImg">
-                      <img
-                        src="https://fama.b-cdn.net/RnB/Ln4.jpg"
-                        alt="No image found"
-                      />
-                    </div>
+              </div>
+              <div className="item">
+                <div className="itemNewLunch">
+                  <div className="itemNewLunchImg">
+                    <img
+                      src="https://fama.b-cdn.net/RnB/Ln4.jpg"
+                      alt="No image found"
+                    />
                   </div>
                 </div>
+              </div>
             </Carousel>
           </div>
         </Container>
@@ -163,4 +193,4 @@ const NewLaunched = () => {
   );
 };
 
-export default NewLaunched;
+export default Testimonial;

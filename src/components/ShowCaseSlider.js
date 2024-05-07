@@ -6,11 +6,10 @@ import AppConfig from "@/AppConfig";
 import AddToFavoritesButton from "./AddToFavoritesButton";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 4,
+    items: 5,
     slidesToSlide: 1,
   },
   tablet: {
@@ -37,7 +36,7 @@ const ShowCaseSlider = ({ data, city }) => {
               swipeable={true}
               draggable={true}
               showDots={true}
-              ssr={true} // Set ssr to true for server-side rendering support
+              ssr={true}
               infinite={true}
               autoPlay={true}
               autoPlaySpeed={2000}
@@ -56,7 +55,7 @@ const ShowCaseSlider = ({ data, city }) => {
               return (
                 <Link
                   key={item.product_id}
-                  href={`/mumbai/p/${productName}`}
+                  href={`/${city}/p/${productName}`}
                   className={styles.itemCard}
                   prefetch={true}
                 >

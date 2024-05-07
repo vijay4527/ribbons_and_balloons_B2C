@@ -118,6 +118,7 @@ const navComponent = () => {
     sessionStorage.removeItem("userData");
     sessionStorage.removeItem("isLoggedIn");
     signOut();
+    // router.push("/"+ city)
   };
 
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (

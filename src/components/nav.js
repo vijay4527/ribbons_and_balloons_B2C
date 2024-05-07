@@ -4,6 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { axiosPost } from "@/api";
 import Link from "next/link";
 import NavComponent from "./navComponent";
+import { headers } from 'next/headers';
 const getCategories = async (city) => {
   try {
     const categoryObj = { city_name: city };
@@ -16,20 +17,18 @@ const getCategories = async (city) => {
   }
 };
 
-const fetchSubcategories = async (category) => {
-  const data = await axiosGet(
-    "SubCategory/GetSubCategoryByCategoryId/" + category
-  );
-  if (data) {
-    return data;
+const Nav = async () => { 
+  const headersList = headers();
+  const fullUrl = headersList.get('referer') || "";
+  let pathOnly = "";
+  if (fullUrl) {
+    pathOnly = new URL(fullUrl).pathname;
   }
-};
-
-const Nav = async () => {
-  const city = "mumbai";
-  const categories = await getCategories(city);
-  console.log("categories and subcategories", categories);
-
+const pathParts = pathOnly.split("/");
+// const city = pathParts[1];
+const city = "mumbai"
+console.log("city",city)
+   const categories = await getCategories(city);
   return (
     <div>
       <Container>

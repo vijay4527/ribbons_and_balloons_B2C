@@ -48,7 +48,6 @@ async function getCities() {
 const page = async({params}) => {
   const city = params.city 
   const cities = await getCities();
-  console.log(cities)
 
   if (!Array.isArray(cities)) {
     console.error("Cities data is not an array.");

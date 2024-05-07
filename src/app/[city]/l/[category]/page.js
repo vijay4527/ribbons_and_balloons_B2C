@@ -73,17 +73,17 @@ async function getCategoryData(categoryName,subcategory,city) {
   }
 
 const page = async({params}) => {
-  const cities = await getCities()
+  // const cities = await getCities()
     const categoryName = params.category
     const city = params.city
     const subcategory = params.subcategory
-    const isValidCity = cities.some(
-      (c) => c.city_name.toLowerCase() === city.toLowerCase()
-    );
-  
-    if (!isValidCity) {
-      redirect('/mumbai/l/'+categoryName)
-    }
+    // const isValidCity = cities.some(
+    //   (c) => c.city_name.toLowerCase() === city.toLowerCase()
+    // );
+
+    // if (!isValidCity) {
+    //   redirect('/mumbai/l/'+categoryName)
+    // }
  const {data,category} = await getCategoryData(categoryName,subcategory,city)
   return (
     <CategoryComponent

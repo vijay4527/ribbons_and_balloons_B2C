@@ -13,23 +13,15 @@ import { useRouter } from "next/navigation";
 import * as yup from "yup";
 import ServingInfo from "@/components/ServingInfo";
 import OrderSummary from "@/components/OrderSummary";
-import axios from "axios";
-import GoogleMapModal from "@/components/googleMapModal";
 import { AuthOtpContext } from "@/components/authContext";
-// import { cookies } from 'next/headers'
 import Cookies from "js-cookie";
+
 
 const validationSchema = yup.object().shape({
   firstName: yup.string().required("First Name is required"),
   lastName: yup.string().required("Last Name is required"),
-  email: yup
-    .string()
-    .email("Invalid email format")
-    .required("Email is required"),
-  contact: yup
-    .string()
-    .matches(/^[0-9]{10}$/, "Invalid Contact format (10 digits required)")
-    .required("This field is required"),
+  email: yup.string().email("Invalid email format").required("Email is required"),
+  contact: yup.string().matches(/^[0-9]{10}$/, "Invalid Contact format (10 digits required)").required("This field is required"),
   address: yup.string().required("Address is required"),
   city: yup.string().required("City is required"),
   state: yup.string().required("State is required"),
@@ -40,7 +32,6 @@ const page = ({ params }) => {
   const { data, status } = useSession();
   const [products, setProducts] = useState([]);
   const [subTotalAmount, setSubTotalAmount] = useState(0);
-  const [shippingCharges, setShippingCharges] = useState(20);
   const [selectedOption, setSelectedOption] = useState("delivery");
   const [inputValue, setInputValue] = useState("");
   const [franchise, setFranchise] = useState([]);
@@ -51,19 +42,19 @@ const page = ({ params }) => {
   const [user, setUser] = useState({});
   const [enableAddress, setEnableAddress] = useState(false);
   const [showMapModal, setShowMapModal] = useState(false);
+  const [selectedCoupon, setSelectedCoupon] = useState("");
+  const [filteredCoupon, setFilteredCoupon] = useState([]);
+  const [coupon, setCoupon] = useState([{ coupon_name: "abc", coupon_id: "1234" },{ coupon_name: "sdsd", coupon_id: "122345" },]);
+  const [inputCoupon, setInputCoupon] = useState("");
+  const [isDisplayCoupon, setIsDisplayCoupon] = useState(false);
   const { isLogged } = useContext(AuthOtpContext);
   const handleCloseMapModal = () => setShowMapModal(false);
+  const accessCode= process.env.ACCESS_CODE
+  const redirectUrl = process.env.form_Action_Url
+  console.log("accsess code",accessCode)
+  console.log("redirect url",redirectUrl)
   const [formValues, setFormValues] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    contact: "",
-    address: "",
-    city: "",
-    state: "",
-    pinCode: "",
-    country: "",
-  });
+    firstName: "",lastName: "",email: "",contact: "",address: "",city: "",state: "",pinCode: "",country: "",});
 
   const router = useRouter();
   const city = params.city;
@@ -75,24 +66,36 @@ const page = ({ params }) => {
           : "";
       if (userObject) {
         setUser(userObject);
-      }else{
-        router.push("/"+city)
+      } else {
+        router.push("/" + city);
       }
     };
     fetchUser();
-  }, [isLogged,user?.user_id]);
+  }, [isLogged, user?.user_id]);
 
   const cartId =
     typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
-
   useEffect(() => {
     GetAllCart();
     GetAddress();
+    // getAllCoupons()
   }, [city, user?.user_id]);
 
   useEffect(() => {
     countSubTotalAmount();
   }, [products]);
+
+  const getAllCoupons = async () => {
+    try {
+      const cityObj = {city: city};
+      const data = await axiosPost("CouponMaster/GetCoupon", cityObj);
+      if (data) {
+        setCoupon(data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const GetAllCart = async () => {
     if (user && user.user_id && city) {
@@ -101,16 +104,13 @@ const page = ({ params }) => {
         user_id: user ? user.user_id : "",
         city_name: city,
         type: "AC",
+        coupon_id: selectedCoupon ? selectedCoupon : ""
       };
       const response = await axiosPost("/CartMaster/GetCartDetails", obj);
       if (response) {
         setProducts(response);
       }
     }
-  };
-
-  const searchAddress = () => {
-    setShowMapModal(true);
   };
 
   const countSubTotalAmount = () => {
@@ -196,7 +196,6 @@ const page = ({ params }) => {
         return false;
       }
     }
-
     return true;
   };
 
@@ -208,9 +207,7 @@ const page = ({ params }) => {
   };
 
   const createOrder = async () => {
-    products.forEach((e) => {
-      e.city = city;
-    });
+    products.forEach((e) => {e.city = city;});
     const orderobj = {
       order_type: selectedOption,
       franchise_id: selectedFranchise ? selectedFranchise : null,
@@ -223,16 +220,42 @@ const page = ({ params }) => {
     if (products.length > 0) {
       const order = await axiosPost("Order/SaveOrder", orderobj);
       if (order && order?.resp == true) {
-        toast("Your Order has been placed", {
-          autoClose: 3000,
-          closeButton: true,
-          onClose: () => {
-            setProducts([]);
-            Cookies.remove("cartId");
-            sessionStorage.removeItem("cartId");
-            router.push(`/${city}/orders`);
-          },
-        });
+        const form = document.createElement("form");
+    form.id = "nonseamless";
+    form.method = "post";
+    form.name = "redirect";
+    form.action = redirectUrl;
+
+    // Create input elements and set their values
+    const encRequestInput = document.createElement("input");
+    encRequestInput.type = "hidden";
+    encRequestInput.name = "encRequest";
+    encRequestInput.value = order.respObj.formdata.encRequest;
+
+    const accessCodeInput = document.createElement("input");
+    accessCodeInput.type = "hidden";
+    accessCodeInput.name = "access_code";
+    accessCodeInput.value = accessCode;
+
+    // Append input elements to the form
+    form.appendChild(encRequestInput);
+    form.appendChild(accessCodeInput);
+
+    // Append the form to the document body
+    document.body.appendChild(form);
+
+    // Submit the form
+    form.submit();
+        // toast("Your Order has been placed", {
+        //   autoClose: 3000,
+        //   closeButton: true,
+        //   onClose: () => {
+        //     setProducts([]);
+        //     Cookies.remove("cartId");
+        //     sessionStorage.removeItem("cartId");
+        //     router.push(`/${city}/orders`);
+        //   },
+        // });
       } else {
         console.log("Order not placed");
         toast("Something went wrong! Your Order has not been placed", {
@@ -249,7 +272,6 @@ const page = ({ params }) => {
   };
 
   const frachiseSelection = (store) => {
-    console.log("storeDetails", store);
     setSelectedFranchise(store.store_id);
   };
 
@@ -276,25 +298,9 @@ const page = ({ params }) => {
       };
       const data = await axiosPost("ShippingAddress/SaveShippingAddress", obj);
       if (data.resp == true) {
-        toast("Your address has been saved", {
-          autoClose: 3000,
-          closeButton: true,
-        });
+        toast("Your address has been saved", {autoClose: 3000,closeButton: true,});
         GetAddress();
-        setFormValues({
-          firstName: "",
-          lastName: "",
-          email: "",
-          contact: "",
-          address: "",
-          city: "",
-          state: "",
-          pinCode: "",
-          country: "",
-          latitude: location?.latitude ? location?.latitude : "",
-          longitude: location?.longitude,
-        });
-      }
+        setFormValues({firstName: "",lastName: "",email: "",contact: "",address: "",city: "",state: "",pinCode: "", country: "",latitude: location?.latitude ? location?.latitude : "",longitude: location?.longitude,});}
     } catch (validationError) {
       if (validationError instanceof yup.ValidationError) {
         const newErrors = {};
@@ -322,81 +328,31 @@ const page = ({ params }) => {
     setEnableAddress(true);
     getLocation();
   };
-  const getLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          try {
-            const response = await axios.get(
-              `https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=AIzaSyBpti7QuC_QXwWE90MT0RkfMPlET1KbhS4&libraries=places`
-            );
-            if (response.data.results.length > 0) {
-              let city = "";
-              let state = "";
-              let zipCode = "";
-              let country = "";
-              const formattedAddress =
-                response.data.results[0].formatted_address;
-              for (let component of response.data.results[0]
-                .address_components) {
-                if (component.types.includes("locality")) {
-                  city = component.long_name;
-                } else if (
-                  component.types.includes("administrative_area_level_1")
-                ) {
-                  state = component.long_name;
-                } else if (component.types.includes("postal_code")) {
-                  zipCode = component.long_name;
-                } else if (component.types.includes("country")) {
-                  country = component.long_name;
-                }
-              }
-              const remainingAddress = formattedAddress
-                .replace(`${city}, ${state} ${zipCode}, ${country}`, "")
-                .trim();
-
-              setFormValues({
-                ...formValues,
-                city: city,
-                state: state,
-                country: country,
-                address: remainingAddress,
-                pinCode: zipCode,
-              });
-              setLocation({
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude,
-              });
-              setError(null);
-            } else {
-              setError("Unable to find address for this location");
-            }
-          } catch (error) {
-            setError("Error retrieving address");
-          }
-        },
-        (error) => {
-          setError("Unable to retrieve your location");
-        }
-      );
-    } else {
-      setError("Geolocation is not supported by your browser");
-    }
-  };
 
   const handleClose = () => {
-    setFormValues({
-      firstName: "",
-      lastName: "",
-      email: "",
-      contact: "",
-      address: "",
-      city: "",
-      state: "",
-      pinCode: "",
-      country: "",
-    });
+    setFormValues({firstName: "",lastName: "",email: "",contact: "",address: "",city: "",state: "",pinCode: "",country: "",});
     setEnableAddress(false);
+  };
+
+  const [filter, setFilter] = useState("");
+  const handleCouponChange = (e) => {
+    setFilter(e);
+    fitlerCoupon();
+    if (e.length == 0) {
+      setFilter("");
+      setSelectedCoupon("");
+      setFilteredCoupon([]);
+    }
+  };
+  const fitlerCoupon = () => {
+    const filteredCoupons = coupon.filter((coupon) =>
+      coupon.coupon_name.toLowerCase().includes(filter.toLowerCase())
+    );
+    if(filteredCoupon.length > 0){
+      setIsDisplayCoupon(true)
+      setFilteredCoupon(filteredCoupons);
+      
+    }
   };
 
   return (
@@ -422,9 +378,7 @@ const page = ({ params }) => {
                     <ul className={styles.checkoutQctShippingTabs}>
                       <li
                         className={
-                          selectedOption === "delivery"
-                            ? `${styles.active}`
-                            : ""
+                          selectedOption === "delivery"? `${styles.active}`: ""
                         }
                         onClick={() => handleOptionChange("delivery")}
                       >
@@ -432,9 +386,7 @@ const page = ({ params }) => {
                         <p>(Get your product delivered to your home)</p>
                       </li>
                       <li
-                        className={
-                          selectedOption === "pickup" ? `${styles.active}` : ""
-                        }
+                        className={selectedOption === "pickup" ? `${styles.active}` : ""}
                         onClick={() => handleOptionChange("pickup")}
                       >
                         <h4>Pick from nearby store</h4>
@@ -444,10 +396,7 @@ const page = ({ params }) => {
                     <div className={styles.checkoutQctShippingContents}>
                       <div
                         className={`${styles.checkoutQctShippingContent} ${
-                          selectedOption === "delivery"
-                            ? `${styles.active}`
-                            : ""
-                        }`}
+                          selectedOption === "delivery"? `${styles.active}` : ""}`}
                       >
                         <div className={styles.newAddress}>
                           <h4
@@ -486,14 +435,7 @@ const page = ({ params }) => {
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>Last Name</Form.Label>
-                                <Form.Control
-                                  type="text"
-                                  name="lastName"
-                                  value={formValues.lastName}
-                                  onChange={handleInputChange}
-                                  placeholder="Enter last name"
-                                  required
-                                />
+                                <Form.Control type="text" name="lastName" value={formValues.lastName} onChange={handleInputChange} placeholder="Enter last name" required/>
                                 {errors.lastName && (
                                   <div className="text-danger">
                                     {errors.lastName}
@@ -502,12 +444,7 @@ const page = ({ params }) => {
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>Email</Form.Label>
-                                <Form.Control
-                                  type="text"
-                                  name="email"
-                                  value={formValues.email}
-                                  onChange={handleInputChange}
-                                  placeholder="Enter email"
+                                <Form.Control type="text" name="email" value={formValues.email} onChange={handleInputChange} placeholder="Enter email"
                                 />
                                 {errors.email && (
                                   <div className="text-danger">
@@ -517,14 +454,7 @@ const page = ({ params }) => {
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>Contact</Form.Label>
-                                <Form.Control
-                                  type="text"
-                                  placeholder="+91"
-                                  name="contact"
-                                  value={formValues.contact}
-                                  onChange={handleInputChange}
-                                  required
-                                />
+                                <Form.Control type="text" placeholder="+91" name="contact" value={formValues.contact} onChange={handleInputChange} required />
                                 {errors.contact && (
                                   <div className="text-danger">
                                     {" "}
@@ -534,12 +464,7 @@ const page = ({ params }) => {
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>Address</Form.Label>
-                                <Form.Control
-                                  type="text"
-                                  name="address"
-                                  value={formValues.address}
-                                  onChange={handleInputChange}
-                                  required
+                                <Form.Control type="text" name="address" value={formValues.address} onChange={handleInputChange} required
                                 />
                                 {errors.address && (
                                   <div className="text-danger">
@@ -549,13 +474,7 @@ const page = ({ params }) => {
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>Zip Code</Form.Label>
-                                <Form.Control
-                                  type="text"
-                                  name="pinCode"
-                                  value={formValues.pinCode}
-                                  onChange={handleInputChange}
-                                  required
-                                />
+                                <Form.Control type="text" name="pinCode" value={formValues.pinCode} onChange={handleInputChange} required />
                                 {errors.pinCode && (
                                   <div className="text-danger">
                                     {errors.pinCode}
@@ -564,13 +483,7 @@ const page = ({ params }) => {
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>City</Form.Label>
-                                <Form.Control
-                                  type="text"
-                                  name="city"
-                                  value={formValues.city}
-                                  onChange={handleInputChange}
-                                  required
-                                />
+                                <Form.Control type="text" name="city" value={formValues.city} onChange={handleInputChange} required />
                                 {errors.city && (
                                   <div className="text-danger">
                                     {errors.city}
@@ -810,20 +723,95 @@ const page = ({ params }) => {
                 </div>
               </div>
               <div className={styles.checkoutQctOrderSummary}>
-                <div className={styles.cartPriceBox}>
-                  <div className={styles.cartOrderSummary}>
-                    <h4>Order summary</h4>
-                    <ServingInfo />
+                <div className="" style={{ width: "100%" }}>
+                  <div className={styles.cartPriceBox}>
+                    <div className={styles.cartOrderSummary}>
+                      <h4>Order summary</h4>
+                      <ServingInfo />
+                    </div>
+                    {products && products.length > 0 && (
+                      <OrderSummary data={products} />
+                    )}
+                    <button
+                      className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`}
+                      onClick={handlePlaceOrder}
+                    >
+                      <span className={styles.cartPriceBoxSpan}>Checkout</span>
+                    </button>
                   </div>
-                  {products && products.length > 0 && (
-                    <OrderSummary data={products} />
-                  )}
-                  <button
-                    className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`}
-                    onClick={handlePlaceOrder}
-                  >
-                    <span className={styles.cartPriceBoxSpan}>Checkout</span>
-                  </button>
+                </div>
+
+                <div className="" style={{ width: "100%", marginTop: "10px" }}>
+                  <div className={styles.cartPriceBox}>
+                    <div className={styles.cartOrderSummary}>
+                      <h4>Add Coupons</h4>
+                    </div>
+                    <div className={homeStyles["form_group"]}>
+                      <input
+                        type="text"
+                        value={filter}
+                        onChange={(e) => handleCouponChange(e.target.value)}
+                        placeholder="Search Coupon"
+                      />
+                      {isDisplayCoupon && filteredCoupon.length > 0 ? (
+                        filteredCoupon.map((res) => (
+                          <label
+                            htmlFor={`Franchise${res.coupon_id}`}
+                            className={`${styles.pickUpSearchResultItem} ${
+                              selectedCoupon === res.coupon_id
+                                ? `${styles.active}`
+                                : ""
+                            }`}
+                            key={res.coupon_id}
+                          >
+                            <div className={styles.pickUpFranchiseInput}>
+                              <input
+                                id={`Franchise${res.coupon_id}`}
+                                className="form-check-input"
+                                type="radio"
+                                value="pickup"
+                                checked={selectedCoupon === res.coupon_id}
+                                onChange={() => {
+                                  setSelectedCoupon(res.coupon_id);
+                                }}
+                              />
+                              <div className={styles.pickUpFranchiseInputIcon}>
+                                <svg
+                                  className={styles.roundedIcon}
+                                  focusable="false"
+                                  viewBox="0 0 24 24"
+                                  aria-hidden="true"
+                                >
+                                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
+                                </svg>
+                                <svg
+                                  className={styles.solidIcon}
+                                  focusable="false"
+                                  viewBox="0 0 24 24"
+                                  aria-hidden="true"
+                                >
+                                  <path d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"></path>
+                                </svg>
+                              </div>
+                            </div>
+                            <div className={styles.pickUpFranchiseDetails}>
+                              <div className={styles.pickUpFranchiseInfo}>
+                                <h4>{res.coupon_name}</h4>
+                              </div>
+                              <div className={styles.pickUpFranchiseInfo}>
+                                <h5>{res.coupon_name}</h5>{" "}
+                              </div>
+                            </div>
+                          </label>
+                        ))
+                      ) : (
+                        <div>
+                          {" "}
+                          <h5>No Franchise to Show</h5>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
