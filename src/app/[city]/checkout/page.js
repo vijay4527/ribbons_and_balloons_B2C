@@ -230,11 +230,13 @@ const page = ({ params }) => {
     const encRequestInput = document.createElement("input");
     encRequestInput.type = "hidden";
     encRequestInput.name = "encRequest";
+    encRequestInput.id = "encRequest";
     encRequestInput.value = order.respObj.formdata.encRequest;
 
     const accessCodeInput = document.createElement("input");
     accessCodeInput.type = "hidden";
     accessCodeInput.name = "access_code";
+    accessCodeInput.id = "access_code";
     accessCodeInput.value = accessCode;
 
     // Append input elements to the form
