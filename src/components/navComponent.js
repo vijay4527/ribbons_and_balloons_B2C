@@ -117,6 +117,7 @@ const navComponent = () => {
   const Logout = () => {
     sessionStorage.removeItem("userData");
     sessionStorage.removeItem("isLoggedIn");
+    sessionStorage.removeItem("cartaId")
     Cookies.remove("cartId")
     signOut();
     // router.push("/"+ city)
