@@ -8,6 +8,7 @@ import { AuthOtpContext } from "@/components/authContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
+
 const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
   const [modalIsOpen, setModalIsOpen] = useState(isOpen);
   const [addOns, setAddOns] = useState([]);
@@ -97,7 +98,10 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
     };
     const response = await axiosPost(`/CartMaster/SaveCartDetails`, obj);
     if (response.resp == true) {
-      toast
+      toast("Your product added to the cart", {
+        autoClose: 3000,
+        closeButton: true,
+      });
     }
   };
 

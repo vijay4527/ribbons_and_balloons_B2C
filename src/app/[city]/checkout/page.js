@@ -294,9 +294,7 @@ const page = ({ params }) => {
   };
 
   const addressSelection = (shippingId) => {
-    console.log("shiiping adress hit");
     setSelectedAddress(shippingId);
-    console.log("shipping address is", shippingId);
   };
   const saveShippingAddress = async () => {
     try {
