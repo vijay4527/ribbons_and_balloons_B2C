@@ -2,16 +2,9 @@ import * as yup from "yup";
 
 const loginSchema = yup.object().shape({
   mobile: yup
-    .number()
-    .typeError("Mobile number must be a number")
-    .positive("Mobile number must be a positive number")
-    .integer("Mobile number must be an integer")
-    .required("Mobile Number is required")
-    .test(
-      "len",
-      "Mobile number must be exactly 10 digits",
-      (val) => val.toString().length === 10
-    ),
+  .string() // Convert mobile number to string
+  .required("Mobile Number is required")
+  .matches(/^[0-9]{10}$/, "Mobile number must be exactly 10 digits"),
 });
 
 const otpSchema = yup.object().shape({
