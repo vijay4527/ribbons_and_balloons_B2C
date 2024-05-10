@@ -31,7 +31,6 @@ export async function generateMetadata({ params }) {
 
 async function getCities() {
   try {
- 
       const cities = await axiosGet("RNBCity/GetAllRNBCity");
       if (cities) {
         return cities;
@@ -47,19 +46,19 @@ async function getCities() {
 
 const page = async({params}) => {
   const city = params.city 
-  // const cities = await getCities();
+   const cities = await getCities();
 
-  // if (!Array.isArray(cities)) {
-  //   console.error("Cities data is not an array.");
-  // }
+  if (!Array.isArray(cities)) {
+    console.error("Cities data is not an array.");
+  }
 
-  // const isValidCity = cities.some(
-  //   (c) => c.city_name.toLowerCase() === city.toLowerCase()
-  // );
+  const isValidCity = cities.some(
+    (c) => c.city_name.toLowerCase() === city.toLowerCase()
+  );
 
-  // if (!isValidCity) {
-  //   redirect('/mumbai')
-  // }
+  if (!isValidCity) {
+    redirect('/mumbai')
+  }
   return (
     <>
       <Banner />
