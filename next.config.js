@@ -18,7 +18,7 @@ const nextConfig = {
     ACCESS_CODE: "AVXX84LE19AL47XXLA",
     form_Action_Url:
       "https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction",
-   //API_URL: "https://localhost:7189/api",
+    //API_URL: "https://localhost:7189/api",
     API_URL: "https://rnbapi.alphadigitall.com/api/",
   },
 };

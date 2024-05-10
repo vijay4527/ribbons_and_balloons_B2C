@@ -9,6 +9,7 @@ import { axiosPost, axiosGet } from "@/api";
 import { AuthOtpContext } from "@/components/authContext";
 import ProductModal from "@/components/productFilterModal";
 import LoginModal from "@/components/loginModal";
+import Cookies from "js-cookie";
 
 const navComponent = () => {
   const router = useRouter();
@@ -116,6 +117,7 @@ const navComponent = () => {
   const Logout = () => {
     sessionStorage.removeItem("userData");
     sessionStorage.removeItem("isLoggedIn");
+    Cookies.remove("cartId")
     signOut();
     // router.push("/"+ city)
   };
