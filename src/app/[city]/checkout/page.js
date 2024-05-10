@@ -16,12 +16,17 @@ import OrderSummary from "@/components/OrderSummary";
 import { AuthOtpContext } from "@/components/authContext";
 import Cookies from "js-cookie";
 
-
 const validationSchema = yup.object().shape({
   firstName: yup.string().required("First Name is required"),
   lastName: yup.string().required("Last Name is required"),
-  email: yup.string().email("Invalid email format").required("Email is required"),
-  contact: yup.string().matches(/^[0-9]{10}$/, "Invalid Contact format (10 digits required)").required("This field is required"),
+  email: yup
+    .string()
+    .email("Invalid email format")
+    .required("Email is required"),
+  contact: yup
+    .string()
+    .matches(/^[0-9]{10}$/, "Invalid Contact format (10 digits required)")
+    .required("This field is required"),
   address: yup.string().required("Address is required"),
   city: yup.string().required("City is required"),
   state: yup.string().required("State is required"),
@@ -44,17 +49,26 @@ const page = ({ params }) => {
   const [showMapModal, setShowMapModal] = useState(false);
   const [selectedCoupon, setSelectedCoupon] = useState("");
   const [filteredCoupon, setFilteredCoupon] = useState([]);
-  const [coupon, setCoupon] = useState([{ coupon_name: "abc", coupon_id: "1234" },{ coupon_name: "sdsd", coupon_id: "122345" },]);
+  const [coupon, setCoupon] = useState([
+    { coupon_name: "abc", coupon_id: "1234" },
+    { coupon_name: "sdsd", coupon_id: "122345" },
+  ]);
   const [inputCoupon, setInputCoupon] = useState("");
   const [isDisplayCoupon, setIsDisplayCoupon] = useState(false);
   const { isLogged } = useContext(AuthOtpContext);
-  const handleCloseMapModal = () => setShowMapModal(false);
-  const accessCode= process.env.ACCESS_CODE
-  const redirectUrl = process.env.form_Action_Url
-  console.log("accsess code",accessCode)
-  console.log("redirect url",redirectUrl)
+  const accessCode = process.env.ACCESS_CODE;
+  const redirectUrl = process.env.form_Action_Url;
   const [formValues, setFormValues] = useState({
-    firstName: "",lastName: "",email: "",contact: "",address: "",city: "",state: "",pinCode: "",country: "",});
+    firstName: "",
+    lastName: "",
+    email: "",
+    contact: "",
+    address: "",
+    city: "",
+    state: "",
+    pinCode: "",
+    country: "",
+  });
 
   const router = useRouter();
   const city = params.city;
@@ -87,7 +101,7 @@ const page = ({ params }) => {
 
   const getAllCoupons = async () => {
     try {
-      const cityObj = {city: city};
+      const cityObj = { city: city };
       const data = await axiosPost("CouponMaster/GetCoupon", cityObj);
       if (data) {
         setCoupon(data);
@@ -104,7 +118,7 @@ const page = ({ params }) => {
         user_id: user ? user.user_id : "",
         city_name: city,
         type: "AC",
-        coupon_id: selectedCoupon ? selectedCoupon : ""
+        coupon_id: selectedCoupon ? selectedCoupon : "",
       };
       const response = await axiosPost("/CartMaster/GetCartDetails", obj);
       if (response) {
@@ -207,7 +221,9 @@ const page = ({ params }) => {
   };
 
   const createOrder = async () => {
-    products.forEach((e) => {e.city = city;});
+    products.forEach((e) => {
+      e.city = city;
+    });
     const orderobj = {
       order_type: selectedOption,
       franchise_id: selectedFranchise ? selectedFranchise : null,
@@ -221,33 +237,33 @@ const page = ({ params }) => {
       const order = await axiosPost("Order/SaveOrder", orderobj);
       if (order && order?.resp == true) {
         const form = document.createElement("form");
-    form.id = "nonseamless";
-    form.method = "post";
-    form.name = "redirect";
-    form.action = redirectUrl;
+        form.id = "nonseamless";
+        form.method = "post";
+        form.name = "redirect";
+        form.action = redirectUrl;
 
-    // Create input elements and set their values
-    const encRequestInput = document.createElement("input");
-    encRequestInput.type = "hidden";
-    encRequestInput.name = "encRequest";
-    encRequestInput.id = "encRequest";
-    encRequestInput.value = order.respObj.formdata.encRequest;
+        // Create input elements and set their values
+        const encRequestInput = document.createElement("input");
+        encRequestInput.type = "hidden";
+        encRequestInput.name = "encRequest";
+        encRequestInput.id = "encRequest";
+        encRequestInput.value = order.respObj.formdata.encRequest;
 
-    const accessCodeInput = document.createElement("input");
-    accessCodeInput.type = "hidden";
-    accessCodeInput.name = "access_code";
-    accessCodeInput.id = "access_code";
-    accessCodeInput.value = accessCode;
+        const accessCodeInput = document.createElement("input");
+        accessCodeInput.type = "hidden";
+        accessCodeInput.name = "access_code";
+        accessCodeInput.id = "access_code";
+        accessCodeInput.value = accessCode;
 
-    // Append input elements to the form
-    form.appendChild(encRequestInput);
-    form.appendChild(accessCodeInput);
+        // Append input elements to the form
+        form.appendChild(encRequestInput);
+        form.appendChild(accessCodeInput);
 
-    // Append the form to the document body
-    document.body.appendChild(form);
+        // Append the form to the document body
+        document.body.appendChild(form);
 
-    // Submit the form
-    form.submit();
+        // Submit the form
+        form.submit();
         // toast("Your Order has been placed", {
         //   autoClose: 3000,
         //   closeButton: true,
@@ -300,9 +316,25 @@ const page = ({ params }) => {
       };
       const data = await axiosPost("ShippingAddress/SaveShippingAddress", obj);
       if (data.resp == true) {
-        toast("Your address has been saved", {autoClose: 3000,closeButton: true,});
+        toast("Your address has been saved", {
+          autoClose: 3000,
+          closeButton: true,
+        });
         GetAddress();
-        setFormValues({firstName: "",lastName: "",email: "",contact: "",address: "",city: "",state: "",pinCode: "", country: "",latitude: location?.latitude ? location?.latitude : "",longitude: location?.longitude,});}
+        setFormValues({
+          firstName: "",
+          lastName: "",
+          email: "",
+          contact: "",
+          address: "",
+          city: "",
+          state: "",
+          pinCode: "",
+          country: "",
+          latitude: location?.latitude ? location?.latitude : "",
+          longitude: location?.longitude,
+        });
+      }
     } catch (validationError) {
       if (validationError instanceof yup.ValidationError) {
         const newErrors = {};
@@ -332,14 +364,24 @@ const page = ({ params }) => {
   };
 
   const handleClose = () => {
-    setFormValues({firstName: "",lastName: "",email: "",contact: "",address: "",city: "",state: "",pinCode: "",country: "",});
+    setFormValues({
+      firstName: "",
+      lastName: "",
+      email: "",
+      contact: "",
+      address: "",
+      city: "",
+      state: "",
+      pinCode: "",
+      country: "",
+    });
     setEnableAddress(false);
   };
 
   const [filter, setFilter] = useState("");
   const handleCouponChange = (e) => {
     setFilter(e);
-    fitlerCoupon();
+
     if (e.length == 0) {
       setFilter("");
       setSelectedCoupon("");
@@ -350,10 +392,9 @@ const page = ({ params }) => {
     const filteredCoupons = coupon.filter((coupon) =>
       coupon.coupon_name.toLowerCase().includes(filter.toLowerCase())
     );
-    if(filteredCoupon.length > 0){
-      setIsDisplayCoupon(true)
+    if (filteredCoupons.length > 0) {
+      setIsDisplayCoupon(true);
       setFilteredCoupon(filteredCoupons);
-      
     }
   };
 
@@ -380,7 +421,9 @@ const page = ({ params }) => {
                     <ul className={styles.checkoutQctShippingTabs}>
                       <li
                         className={
-                          selectedOption === "delivery"? `${styles.active}`: ""
+                          selectedOption === "delivery"
+                            ? `${styles.active}`
+                            : ""
                         }
                         onClick={() => handleOptionChange("delivery")}
                       >
@@ -388,7 +431,9 @@ const page = ({ params }) => {
                         <p>(Get your product delivered to your home)</p>
                       </li>
                       <li
-                        className={selectedOption === "pickup" ? `${styles.active}` : ""}
+                        className={
+                          selectedOption === "pickup" ? `${styles.active}` : ""
+                        }
                         onClick={() => handleOptionChange("pickup")}
                       >
                         <h4>Pick from nearby store</h4>
@@ -398,7 +443,10 @@ const page = ({ params }) => {
                     <div className={styles.checkoutQctShippingContents}>
                       <div
                         className={`${styles.checkoutQctShippingContent} ${
-                          selectedOption === "delivery"? `${styles.active}` : ""}`}
+                          selectedOption === "delivery"
+                            ? `${styles.active}`
+                            : ""
+                        }`}
                       >
                         <div className={styles.newAddress}>
                           <h4
@@ -437,7 +485,14 @@ const page = ({ params }) => {
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>Last Name</Form.Label>
-                                <Form.Control type="text" name="lastName" value={formValues.lastName} onChange={handleInputChange} placeholder="Enter last name" required/>
+                                <Form.Control
+                                  type="text"
+                                  name="lastName"
+                                  value={formValues.lastName}
+                                  onChange={handleInputChange}
+                                  placeholder="Enter last name"
+                                  required
+                                />
                                 {errors.lastName && (
                                   <div className="text-danger">
                                     {errors.lastName}
@@ -446,7 +501,12 @@ const page = ({ params }) => {
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>Email</Form.Label>
-                                <Form.Control type="text" name="email" value={formValues.email} onChange={handleInputChange} placeholder="Enter email"
+                                <Form.Control
+                                  type="text"
+                                  name="email"
+                                  value={formValues.email}
+                                  onChange={handleInputChange}
+                                  placeholder="Enter email"
                                 />
                                 {errors.email && (
                                   <div className="text-danger">
@@ -456,7 +516,14 @@ const page = ({ params }) => {
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>Contact</Form.Label>
-                                <Form.Control type="text" placeholder="+91" name="contact" value={formValues.contact} onChange={handleInputChange} required />
+                                <Form.Control
+                                  type="text"
+                                  placeholder="+91"
+                                  name="contact"
+                                  value={formValues.contact}
+                                  onChange={handleInputChange}
+                                  required
+                                />
                                 {errors.contact && (
                                   <div className="text-danger">
                                     {" "}
@@ -466,7 +533,12 @@ const page = ({ params }) => {
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>Address</Form.Label>
-                                <Form.Control type="text" name="address" value={formValues.address} onChange={handleInputChange} required
+                                <Form.Control
+                                  type="text"
+                                  name="address"
+                                  value={formValues.address}
+                                  onChange={handleInputChange}
+                                  required
                                 />
                                 {errors.address && (
                                   <div className="text-danger">
@@ -476,7 +548,13 @@ const page = ({ params }) => {
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>Zip Code</Form.Label>
-                                <Form.Control type="text" name="pinCode" value={formValues.pinCode} onChange={handleInputChange} required />
+                                <Form.Control
+                                  type="text"
+                                  name="pinCode"
+                                  value={formValues.pinCode}
+                                  onChange={handleInputChange}
+                                  required
+                                />
                                 {errors.pinCode && (
                                   <div className="text-danger">
                                     {errors.pinCode}
@@ -485,7 +563,13 @@ const page = ({ params }) => {
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>City</Form.Label>
-                                <Form.Control type="text" name="city" value={formValues.city} onChange={handleInputChange} required />
+                                <Form.Control
+                                  type="text"
+                                  name="city"
+                                  value={formValues.city}
+                                  onChange={handleInputChange}
+                                  required
+                                />
                                 {errors.city && (
                                   <div className="text-danger">
                                     {errors.city}
@@ -752,6 +836,11 @@ const page = ({ params }) => {
                       <input
                         type="text"
                         value={filter}
+                        onKeyDown={(e) => {
+                          if (e.key == "Enter" && e.target.value != "") {
+                            fitlerCoupon();
+                          }
+                        }}
                         onChange={(e) => handleCouponChange(e.target.value)}
                         placeholder="Search Coupon"
                       />

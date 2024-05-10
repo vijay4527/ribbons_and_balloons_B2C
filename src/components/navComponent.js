@@ -67,7 +67,6 @@ const navComponent = () => {
     typeof window !== "undefined" ? sessionStorage.getItem("isLoggedIn") : "";
   useEffect(() => {
     if (loggedIn || session?.userData?.isLogin || isLogged) {
-      console.log("you have been logged in");
       setIsLoggedIn(true);
     }
   }, [session, userObject?.user_id, isLogged]);

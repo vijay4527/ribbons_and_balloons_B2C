@@ -5,7 +5,7 @@ import Link from "next/link";
 import AppConfig from "@/AppConfig";
 import homeStyles from "@/app/home.module.css";
 import { AuthOtpContext } from "@/components/authContext";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
@@ -97,7 +97,7 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
     };
     const response = await axiosPost(`/CartMaster/SaveCartDetails`, obj);
     if (response.resp == true) {
-      console.log("added in addons");
+      toast
     }
   };
 
