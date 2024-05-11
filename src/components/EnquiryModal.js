@@ -49,7 +49,7 @@ function EnquiryModal() {
       <Modal id='enquiry-modal-dialog' show={show} onHide={handleClose} centered>
         <div className='modal-flex-div'>
           <div className='modal-img-div'>
-            <img src='https://img.freepik.com/free-photo/front-view-delicious-chocolate-cake-concept_23-2148769269.jpg?t=st=1713784946~exp=1713788546~hmac=08aa9294847931729fd314e2a57a262d0978f8b438dd42adf2313a6425085b42&w=360' className=''></img>
+            <img src='https://img.freepik.com/free-photo/front-view-delicious-chocolate-cake-concept_23-2148769269.jpg?t=st=1713784946~exp=1713788546~hmac=08aa9294847931729fd314e2a57a262d0978f8b438dd42adf2313a6425085b42&w=360' className='' alt="modal image"/>
           </div>
           <Modal.Body className="enquiryBody">
             <div className="headerTitle headerTitle-Enquiry">
@@ -113,7 +113,7 @@ function EnquiryModal() {
                     <a>
                       <img
                         src="https://fama.b-cdn.net/RnB/call.png"
-                        alt=""
+                        alt="call image"
                         className="icon-image"
                       />
                       <span>1234567890</span>
@@ -121,7 +121,7 @@ function EnquiryModal() {
                     <a>
                       <img
                         src="https://fama.b-cdn.net/RnB/email.png"
-                        alt=""
+                        alt="email image"
                         className="icon-image"
                       />
                       <span>abc@gmail.com</span>
@@ -136,7 +136,7 @@ function EnquiryModal() {
                       <span className="">
                         <img
                           src="https://fama.b-cdn.net/RnB/call.png"
-                          alt=""
+                          alt="call image"
                           className="icon-image"
                         />
                       </span>
@@ -148,7 +148,7 @@ function EnquiryModal() {
                       <span className="">
                         <img
                           src="https://fama.b-cdn.net/RnB/email.png"
-                          alt=""
+                          alt="email image"
                           className="icon-image"
                         />
                       </span>
@@ -161,7 +161,7 @@ function EnquiryModal() {
                       <span className="">
                         <img
                           src="https://fama.b-cdn.net/RnB/home.png"
-                          alt=""
+                          alt="home image"
                           className="icon-image"
                         />
                       </span>

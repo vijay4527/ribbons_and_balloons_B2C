@@ -185,7 +185,7 @@ const page = ({ params }) => {
                                       )}
                                     </h4>
                                     <div className="trash-icon-div">
-                                      <img className="" src="https://fama.b-cdn.net/RnB/gold-trash%20(2).png" onClick={()=>removeFromCart(item.cp_id, item.cost)}></img>
+                                      <img className="" src="https://fama.b-cdn.net/RnB/gold-trash%20(2).png" onClick={()=>removeFromCart(item.cp_id, item.cost)} alt="icon"/>
                                     </div>
                                   </div>
                                 </div>

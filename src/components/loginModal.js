@@ -246,7 +246,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
       >
         <div className="login-modal-flex">
           <div className="login-modal-img-div">
-            <img src="https://img.freepik.com/free-photo/front-view-cake-with-slice-cut-out_23-2148485343.jpg?t=st=1713786533~exp=1713790133~hmac=79ef04caa8f89924e1ae13d93f572083f1c1d58d1da15c1bc857d64dc0a5d211&w=360"></img>
+            <img src="https://img.freepik.com/free-photo/front-view-cake-with-slice-cut-out_23-2148485343.jpg?t=st=1713786533~exp=1713790133~hmac=79ef04caa8f89924e1ae13d93f572083f1c1d58d1da15c1bc857d64dc0a5d211&w=360" alt="login modal image"></img>
           </div>
           <div className="container login-container container-fluid">
             {showloginInput && !user ? (
