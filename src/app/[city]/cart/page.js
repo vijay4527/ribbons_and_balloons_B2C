@@ -55,6 +55,7 @@ const page = ({ params }) => {
         const response = await axiosPost("/CartMaster/GetCartDetails", obj);
         if (response) {
           setCart(response.result);
+          setGrandTotal(response.final_amount)
         }
       }
     } catch (error) {
@@ -205,7 +206,7 @@ const page = ({ params }) => {
                     <h4>Order summary</h4>
                     <ServingInfo />
                   </div>
-                  <OrderSummary data={cart} />
+                  <OrderSummary data={cart} finalAmount={grandTotal}/>
                   <button
                     className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`}
                     onClick={handleProducts}

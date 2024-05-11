@@ -57,6 +57,8 @@ const page = ({ params }) => {
   const accessCode = process.env.ACCESS_CODE;
   const redirectUrl = process.env.form_Action_Url;
   const [finalAmount,setFinalAmount] = useState(0)
+  const [discountAmount,setDiscountAmount] = useState(0)
+  const [totalAmount,setTotalAmount] = useState(0)
   const [formValues, setFormValues] = useState({
     firstName: "",
     lastName: "",
@@ -123,6 +125,8 @@ const page = ({ params }) => {
         if (response) {
           setProducts(response.result);
           setFinalAmount(response.final_amount)
+          setTotalAmount(response.totalAmount)
+          setDiscountAmount(response.discount)
           if(response.validationMessage !== ""){
             setCouponMessage(response.validationMessage)
           }
@@ -243,6 +247,9 @@ const page = ({ params }) => {
     if (products.length > 0) {
       const order = await axiosPost("Order/SaveOrder", orderobj);
       if (order && order?.resp == true) {
+        setProducts([]);
+        Cookies.remove("cartId");
+        sessionStorage.removeItem("cartId");
         const form = document.createElement("form");
         form.id = "nonseamless";
         form.method = "post";
@@ -271,6 +278,10 @@ const page = ({ params }) => {
 
         // Submit the form
         form.submit();
+         setProducts([]);
+            Cookies.remove("cartId");
+            sessionStorage.removeItem("cartId");
+            
         // toast("Your Order has been placed", {
         //   autoClose: 3000,
         //   closeButton: true,
@@ -594,7 +605,7 @@ const page = ({ params }) => {
                       <ServingInfo />
                     </div>
                     {products && products.length > 0 && (
-                      <OrderSummary data={products} finalAmount={finalAmount}/>
+                      <OrderSummary data={products} finalAmount={finalAmount} discountAmount={discountAmount} totalAmount={totalAmount}/>
                     )}
                     <button className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`} onClick={handlePlaceOrder} >
                       <span className={styles.cartPriceBoxSpan}>Checkout</span>
