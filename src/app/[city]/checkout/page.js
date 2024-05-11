@@ -56,6 +56,7 @@ const page = ({ params }) => {
   const { isLogged } = useContext(AuthOtpContext);
   const accessCode = process.env.ACCESS_CODE;
   const redirectUrl = process.env.form_Action_Url;
+  const [finalAmount,setFinalAmount] = useState(0)
   const [formValues, setFormValues] = useState({
     firstName: "",
     lastName: "",
@@ -108,20 +109,29 @@ const page = ({ params }) => {
     }
   };
 
-  const GetAllCart = async () => {
-    if (user && user.user_id && city) {
-      var obj = {
-        cart_id: cartId ? cartId : "",
-        user_id: user ? user.user_id : "",
-        city_name: city,
-        type: "AC",
-        coupon_id: selectedCoupon ? selectedCoupon : "",
-      };
-      const response = await axiosPost("/CartMaster/GetCartDetails", obj);
-      if (response) {
-        setProducts(response);
+  const GetAllCart = async (couponId) => {
+    try{
+      if (user && user.user_id && city) {
+        var obj = {
+          cart_id: cartId ? cartId : "",
+          user_id: user ? user.user_id : "",
+          city_name: city,
+          type: "AC",
+          coupon_id: couponId ? couponId : "",
+        };
+        const response = await axiosPost("/CartMaster/GetCartDetails", obj);
+        if (response) {
+          setProducts(response.result);
+          setFinalAmount(response.final_amount)
+          if(response.validationMessage !== ""){
+            setCouponMessage(response.validationMessage)
+          }
+        }
       }
+    }catch(error){
+      console.log(error)
     }
+  
   };
 
   const countSubTotalAmount = () => {
@@ -584,7 +594,7 @@ const page = ({ params }) => {
                       <ServingInfo />
                     </div>
                     {products && products.length > 0 && (
-                      <OrderSummary data={products} />
+                      <OrderSummary data={products} finalAmount={finalAmount}/>
                     )}
                     <button className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`} onClick={handlePlaceOrder} >
                       <span className={styles.cartPriceBoxSpan}>Checkout</span>
@@ -603,7 +613,7 @@ const page = ({ params }) => {
                         filteredCoupon.map((res) => (
                           <label htmlFor={`Franchise${res.coupon_id}`} className={`${styles.pickUpSearchResultItem} ${   selectedCoupon === res.coupon_id     ? `${styles.active}`     : "" }`} key={res.coupon_id} >
                             <div className={styles.pickUpFranchiseInput}>
-                              <input id={`Franchise${res.coupon_id}`} className="form-check-input" type="radio" value="pickup" checked={selectedCoupon === res.coupon_id} onChange={() => {   setSelectedCoupon(res.coupon_id); }} />
+                              <input id={`Franchise${res.coupon_id}`} className="form-check-input" type="radio" value="pickup" checked={selectedCoupon === res.coupon_id} onChange={() => {setSelectedCoupon(res.coupon_id),GetAllCart(res.coupon_id) }} />
                               <div className={styles.pickUpFranchiseInputIcon}>
                                 <svg className={styles.roundedIcon} focusable="false" viewBox="0 0 24 24" aria-hidden="true" >
                                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
