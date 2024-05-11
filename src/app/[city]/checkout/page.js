@@ -50,10 +50,7 @@ const page = ({ params }) => {
   const [selectedCoupon, setSelectedCoupon] = useState("");
   const [filteredCoupon, setFilteredCoupon] = useState([]);
   const [couponMessage,setCouponMessage] = useState("")
-  const [coupon, setCoupon] = useState([
-    { coupon_name: "abc", coupon_id: "1234" },
-    { coupon_name: "sdsd", coupon_id: "122345" },
-  ]);
+  const [coupon, setCoupon] = useState([]);
   const [inputCoupon, setInputCoupon] = useState("");
   const [isDisplayCoupon, setIsDisplayCoupon] = useState(false);
   const { isLogged } = useContext(AuthOtpContext);
@@ -93,7 +90,7 @@ const page = ({ params }) => {
   useEffect(() => {
     GetAllCart();
     GetAddress();
-    // getAllCoupons()
+     getAllCoupons()
   }, [city, user?.user_id]);
 
   useEffect(() => {
@@ -102,8 +99,7 @@ const page = ({ params }) => {
 
   const getAllCoupons = async () => {
     try {
-      const cityObj = { city: city };
-      const data = await axiosPost("CouponMaster/GetCoupon", cityObj);
+      const data = await axiosGet("CouponMaster/GetAllCouponByCity?city="+city);
       if (data) {
         setCoupon(data);
       }
