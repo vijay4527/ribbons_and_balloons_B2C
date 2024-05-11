@@ -48,7 +48,7 @@ export default function AddToFavoritesButton({ productData, city }) {
             position: "right",
             backgroundColor: "#47cf73",
             stopOnFocus: true,
-            progressBar: true, // Enable progress bar
+            progressbar: true, // Enable progress bar
             onClick: function () {},
           })
           .showToast();

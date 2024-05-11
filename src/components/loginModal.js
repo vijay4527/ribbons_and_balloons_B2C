@@ -356,7 +356,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
         autohide
         delay={3000}
         position="top-end"
-        progressBar={true}
+        progressbar={true}
         style={{borderRadius:"4px"}}
       >
         <Toast.Body className="LoginToaster">
