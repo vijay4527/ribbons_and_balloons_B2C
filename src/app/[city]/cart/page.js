@@ -50,6 +50,7 @@ const page = ({ params }) => {
           user_id: user ? user.user_id : "",
           city_name: city ? city : "",
           type: "AC",
+          coupon_id:""
         };
         const response = await axiosPost("/CartMaster/GetCartDetails", obj);
         if (response) {
