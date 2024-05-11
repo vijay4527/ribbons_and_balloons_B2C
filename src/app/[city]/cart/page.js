@@ -54,7 +54,7 @@ const page = ({ params }) => {
         };
         const response = await axiosPost("/CartMaster/GetCartDetails", obj);
         if (response) {
-          setCart(response);
+          setCart(response.result);
         }
       }
     } catch (error) {

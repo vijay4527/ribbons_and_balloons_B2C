@@ -94,9 +94,9 @@ const page = ({ params }) => {
      getAllCoupons()
   }, [city, user?.user_id]);
 
-  useEffect(() => {
-    countSubTotalAmount();
-  }, [products]);
+  // useEffect(() => {
+  //   countSubTotalAmount();
+  // }, [products]);
 
   const getAllCoupons = async () => {
     try {
@@ -134,13 +134,13 @@ const page = ({ params }) => {
   
   };
 
-  const countSubTotalAmount = () => {
-    var price = 0;
-    products.map((e) => {
-      price += e.cost;
-    });
-    setSubTotalAmount(price);
-  };
+  // const countSubTotalAmount = () => {
+  //   var price = 0;
+  //   products.map((e) => {
+  //     price += e.cost;
+  //   });
+  //   setSubTotalAmount(price);
+  // };
 
   const handleFranchiseAddress = async (e) => {
     const inputValue = e.target.value;
