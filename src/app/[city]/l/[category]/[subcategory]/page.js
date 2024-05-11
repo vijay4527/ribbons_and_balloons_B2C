@@ -16,14 +16,14 @@ export async function generateMetadata({ params }) {
         //     alt: "Alt",
         //   },
         // ],
-        icons:{
-          icon:[
-            "/favicon/favicon.ico"
-          ],
-          shortcut:[
-            "/favicon/favicon.ico"
-          ],
-        }
+        // icons:{
+        //   icon:[
+        //     "/favicon/favicon.ico"
+        //   ],
+        //   shortcut:[
+        //     "/favicon/favicon.ico"
+        //   ],
+        // }
       },
     };
 }

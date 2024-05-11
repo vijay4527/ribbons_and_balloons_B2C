@@ -12,16 +12,16 @@ export const metadata = {
   openGraph: {
     images: [
       {
-        url: "https://ribbonsandballoons.com/frontassets/images/fav.png",
+        // url: "https://ribbonsandballoons.com/frontassets/images/fav.png",
         height: 1200,
         width: 600,
         alt: "Alt",
       },
     ],
-    icons: {
-      icon: ["https://ribbonsandballoons.com/frontassets/images/fav.png"],
-      shortcut: ["https://ribbonsandballoons.com/frontassets/images/fav.png"],
-    },
+    // icons: {
+    //   icon: ["https://ribbonsandballoons.com/frontassets/images/fav.png"],
+    //   shortcut: ["https://ribbonsandballoons.com/frontassets/images/fav.png"],
+    // },
   },
 };
 
@@ -36,36 +36,36 @@ export default function RootLayout({ children }) {
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
-        <link
+        {/* <link
           rel="apple-touch-icon"
           sizes="180x180"
           href="https://ribbonsandballoons.com/frontassets/images/fav.png"
-        />
-        <link
+        /> */}
+        {/* <link
           rel="icon"
           type="image/png"
           sizes="32x32"
           href="https://ribbonsandballoons.com/frontassets/images/fav.png"
-        />
-        <link
+        /> */}
+        {/* <link
           rel="icon"
           type="image/png"
           sizes="194x194"
           href="https://ribbonsandballoons.com/frontassets/images/fav.png"
-        />
-        <link
+        /> */}
+        {/* <link
           rel="icon"
           type="image/png"
           sizes="192x192"
           href="https://ribbonsandballoons.com/frontassets/images/fav.png"
-        />
-        <link
+        /> */}
+        {/* <link
           rel="icon"
           type="image/png"
           sizes="16x16"
           href="/favicon/favicon-16x16.png"
-        />
-        <link
+        /> */}
+        {/* <link
           rel="manifest"
           href="https://ribbonsandballoons.com/frontassets/images/fav.png"
         />
@@ -73,7 +73,7 @@ export default function RootLayout({ children }) {
           rel="mask-icon"
           href="https://ribbonsandballoons.com/frontassets/images/fav.png"
           color="#000000"
-        />
+        /> */}
         <meta name="msapplication-TileColor" content="#000000" />
         <meta name="msapplication-TileImage" content="/mstile-144x144.png" />
         <meta name="theme-color" content="#ffffff" />

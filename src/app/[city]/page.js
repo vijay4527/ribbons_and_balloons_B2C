@@ -15,16 +15,16 @@ export async function generateMetadata({ params }) {
     openGraph: {
       images: [
         {
-          url: "https://ribbonsandballoons.com/frontassets/images/fav.png",
+          // url: "https://ribbonsandballoons.com/frontassets/images/fav.png",
           height: 1200,
           width: 600,
           alt: "Alt",
         },
       ],
-      icons: {
-        icon: ["https://ribbonsandballoons.com/frontassets/images/fav.png"],
-        shortcut: ["https://ribbonsandballoons.com/frontassets/images/fav.png"],
-      },
+      // icons: {
+      //   icon: ["https://ribbonsandballoons.com/frontassets/images/fav.png"],
+      //   shortcut: ["https://ribbonsandballoons.com/frontassets/images/fav.png"],
+      // },
     },
   };
 }
