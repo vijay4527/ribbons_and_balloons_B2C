@@ -47,15 +47,12 @@ async function getCities() {
 const page = async({params}) => {
   const city = params.city 
    const cities = await getCities();
-
   if (!Array.isArray(cities)) {
     console.error("Cities data is not an array.");
   }
-
   const isValidCity = cities.some(
     (c) => c.city_name.toLowerCase() === city.toLowerCase()
   );
-
   if (!isValidCity) {
     redirect('/mumbai')
   }

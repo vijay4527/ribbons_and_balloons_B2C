@@ -49,6 +49,7 @@ const page = ({ params }) => {
   const [showMapModal, setShowMapModal] = useState(false);
   const [selectedCoupon, setSelectedCoupon] = useState("");
   const [filteredCoupon, setFilteredCoupon] = useState([]);
+  const [couponMessage,setCouponMessage] = useState("")
   const [coupon, setCoupon] = useState([
     { coupon_name: "abc", coupon_id: "1234" },
     { coupon_name: "sdsd", coupon_id: "122345" },
@@ -275,18 +276,9 @@ const page = ({ params }) => {
         //   },
         // });
       } else {
-        console.log("Order not placed");
-        toast("Something went wrong! Your Order has not been placed", {
-          autoClose: 3000,
-          closeButton: true,
-        });
+        toast("Something went wrong! Your Order has not been placed", {autoClose: 3000,closeButton: true,});
       }
-    } else {
-      toast("Please add product to your cart", {
-        autoClose: 3000,
-        closeButton: true,
-      });
-    }
+    } else {toast("Please add product to your cart", {autoClose: 3000,closeButton: true,});}
   };
 
   const frachiseSelection = (store) => {
@@ -378,33 +370,34 @@ const page = ({ params }) => {
 
   const [filter, setFilter] = useState("");
   const handleCouponChange = (e) => {
-    setFilter(e);
-
+      setFilter(e);
+      fitlerCoupon(e)
     if (e.length == 0) {
       setFilter("");
       setSelectedCoupon("");
       setFilteredCoupon([]);
+      setCouponMessage("")
     }
   };
-  const fitlerCoupon = () => {
+
+  const fitlerCoupon = (e) => {
     const filteredCoupons = coupon.filter((coupon) =>
-      coupon.coupon_name.toLowerCase().includes(filter.toLowerCase())
+      coupon.coupon_name.toLowerCase() === e.toLowerCase()
     );
     if (filteredCoupons.length > 0) {
+      setCouponMessage("")
       setIsDisplayCoupon(true);
       setFilteredCoupon(filteredCoupons);
+    }else{
+      setCouponMessage("No Coupon Found")
+      setSelectedCoupon("");
+      setFilteredCoupon([]);
     }
   };
 
   return (
     <>
-      <Head>
-        <link
-          rel="icon"
-          href="https://ribbonsandballoons.com/frontassets/images/fav.png"
-          type="image/x-icon"
-        />
-      </Head>
+      <Head><link rel="icon" href="https://ribbonsandballoons.com/frontassets/images/fav.png" type="image/x-icon" /></Head>
       <section className={styles.CheckOutQct}>
         <div className={homeStyles["container"]}>
           <div className={styles.checkOutQctWrap}>
@@ -417,64 +410,27 @@ const page = ({ params }) => {
                       Shipping method
                     </h4>
                     <ul className={styles.checkoutQctShippingTabs}>
-                      <li
-                        className={
-                          selectedOption === "delivery"
-                            ? `${styles.active}`
-                            : ""
-                        }
-                        onClick={() => handleOptionChange("delivery")}
-                      >
+                      <li className={   selectedOption === "delivery"     ? `${styles.active}`     : "" } onClick={() => handleOptionChange("delivery")} >
                         <h4>Home Delivery</h4>
                         <p>(Get your product delivered to your home)</p>
                       </li>
-                      <li
-                        className={
-                          selectedOption === "pickup" ? `${styles.active}` : ""
-                        }
-                        onClick={() => handleOptionChange("pickup")}
-                      >
+                      <li className={   selectedOption === "pickup" ? `${styles.active}` : "" } onClick={() => handleOptionChange("pickup")} >
                         <h4>Pick from nearby store</h4>
                         <p>(Collect your order from a store of your choice)</p>
                       </li>
                     </ul>
                     <div className={styles.checkoutQctShippingContents}>
-                      <div
-                        className={`${styles.checkoutQctShippingContent} ${
-                          selectedOption === "delivery"
-                            ? `${styles.active}`
-                            : ""
-                        }`}
-                      >
+                      <div className={`${styles.checkoutQctShippingContent} ${   selectedOption === "delivery"     ? `${styles.active}`     : "" }`} >
                         <div className={styles.newAddress}>
-                          <h4
-                            className={`${styles.checkoutQctShippingContentTitle}`}
-                            onClick={enableAddAddress}
-                          >
-                            Add new address
-                          </h4>
-                          {enableAddress && (
-                            <button
-                              className={`${styles.closeButton}`}
-                              onClick={handleClose}
-                            >
-                              Close
-                            </button>
-                          )}
+                          <h4 className={`${styles.checkoutQctShippingContentTitle}`} onClick={enableAddAddress} >Add new address</h4>
+                          {enableAddress && (<button className={`${styles.closeButton}`} onClick={handleClose} >Close</button>)}
                         </div>
                         {enableAddress && (
                           <>
                             <div className={styles.checkoutQctShippingForm}>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>First Name</Form.Label>
-                                <Form.Control
-                                  type="text"
-                                  name="firstName"
-                                  value={formValues.firstName}
-                                  onChange={handleInputChange}
-                                  placeholder="Enter first name"
-                                  required
-                                />
+                                <Form.Control type="text" name="firstName" value={formValues.firstName} onChange={handleInputChange} placeholder="Enter first name" required />
                                 {errors.firstName && (
                                   <div className="text-danger">
                                     {errors.firstName}
@@ -483,14 +439,7 @@ const page = ({ params }) => {
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>Last Name</Form.Label>
-                                <Form.Control
-                                  type="text"
-                                  name="lastName"
-                                  value={formValues.lastName}
-                                  onChange={handleInputChange}
-                                  placeholder="Enter last name"
-                                  required
-                                />
+                                <Form.Control type="text" name="lastName" value={formValues.lastName} onChange={handleInputChange} placeholder="Enter last name" required />
                                 {errors.lastName && (
                                   <div className="text-danger">
                                     {errors.lastName}
@@ -499,75 +448,33 @@ const page = ({ params }) => {
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>Email</Form.Label>
-                                <Form.Control
-                                  type="text"
-                                  name="email"
-                                  value={formValues.email}
-                                  onChange={handleInputChange}
-                                  placeholder="Enter email"
-                                />
+                                <Form.Control type="text" name="email" value={formValues.email} onChange={handleInputChange} placeholder="Enter email" />
                                 {errors.email && (
-                                  <div className="text-danger">
-                                    {errors.email}
-                                  </div>
-                                )}
+                                  <div className="text-danger">{errors.email}</div>)}
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>Contact</Form.Label>
-                                <Form.Control
-                                  type="text"
-                                  placeholder="+91"
-                                  name="contact"
-                                  value={formValues.contact}
-                                  onChange={handleInputChange}
-                                  required
-                                />
+                                <Form.Control type="text" placeholder="+91" name="contact" value={formValues.contact} onChange={handleInputChange} required />
                                 {errors.contact && (
-                                  <div className="text-danger">
-                                    {" "}
-                                    {errors.contact}
-                                  </div>
+                                  <div className="text-danger">{" "}{errors.contact}</div>
                                 )}
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>Address</Form.Label>
-                                <Form.Control
-                                  type="text"
-                                  name="address"
-                                  value={formValues.address}
-                                  onChange={handleInputChange}
-                                  required
-                                />
+                                <Form.Control type="text" name="address" value={formValues.address} onChange={handleInputChange} required />
                                 {errors.address && (
-                                  <div className="text-danger">
-                                    {errors.address}
-                                  </div>
-                                )}
+                                  <div className="text-danger">{errors.address}</div>)}
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>Zip Code</Form.Label>
-                                <Form.Control
-                                  type="text"
-                                  name="pinCode"
-                                  value={formValues.pinCode}
-                                  onChange={handleInputChange}
-                                  required
-                                />
+                                <Form.Control type="text" name="pinCode" value={formValues.pinCode} onChange={handleInputChange} required />
                                 {errors.pinCode && (
-                                  <div className="text-danger">
-                                    {errors.pinCode}
-                                  </div>
+                                  <div className="text-danger">{errors.pinCode}</div>
                                 )}
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>City</Form.Label>
-                                <Form.Control
-                                  type="text"
-                                  name="city"
-                                  value={formValues.city}
-                                  onChange={handleInputChange}
-                                  required
-                                />
+                                <Form.Control type="text" name="city" value={formValues.city} onChange={handleInputChange} required />
                                 {errors.city && (
                                   <div className="text-danger">
                                     {errors.city}
@@ -576,41 +483,18 @@ const page = ({ params }) => {
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>State</Form.Label>
-                                <Form.Control
-                                  type="text"
-                                  name="state"
-                                  value={formValues.state}
-                                  onChange={handleInputChange}
-                                  required
-                                />
-                                {errors.state && (
-                                  <div className="text-danger">
-                                    {errors.state}
-                                  </div>
-                                )}
+                                <Form.Control type="text" name="state" value={formValues.state} onChange={handleInputChange} required />
+                                {errors.state && (<div className="text-danger">{errors.state}</div>)}
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>Country</Form.Label>
-                                <Form.Control
-                                  type="text"
-                                  name="country"
-                                  value={formValues.country}
-                                  onChange={handleInputChange}
-                                  required
-                                />
-                                {errors.country && (
-                                  <div className="text-danger">
-                                    {errors.country}
-                                  </div>
-                                )}
+                                <Form.Control type="text" name="country" value={formValues.country} onChange={handleInputChange} required />
+                                {errors.country && (<div className="text-danger">{errors.country}</div>)}
                               </div>
                             </div>
 
                             <div className={styles.checkoutQctShippingAddress}>
-                              <button
-                                className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`}
-                                onClick={saveShippingAddress}
-                              >
+                              <button className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`} onClick={saveShippingAddress} >
                                 <span>ADD ADDRESS</span>
                               </button>
                             </div>
@@ -621,155 +505,54 @@ const page = ({ params }) => {
                           <div className={styles.pickUpSearchResult}>
                             {userAddress && userAddress.length > 0 ? (
                               userAddress.map((res) => (
-                                <label
-                                  htmlFor={`Address${res.shipping_address_id}`}
-                                  className={`${
-                                    styles.pickUpSearchResultItem
-                                  } ${
-                                    selectedAddress === res.shipping_address_id
-                                      ? `${styles.active}`
-                                      : ""
-                                  }`}
-                                  key={res.shipping_address_id}
-                                >
+                                <label htmlFor={`Address${res.shipping_address_id}`} className={`${   styles.pickUpSearchResultItem } ${selectedAddress === res.shipping_address_id? `${styles.active}`     : "" }`} key={res.shipping_address_id} >
                                   <div className={styles.pickUpFranchiseInput}>
-                                    <input
-                                      id={`Address${res.shipping_address_id}`}
-                                      className="form-check-input"
-                                      type="radio"
-                                      name="address"
-                                      checked={
-                                        selectedAddress ===
-                                        res.shipping_address_id
-                                      }
-                                      onChange={() => {
-                                        addressSelection(
-                                          res.shipping_address_id
-                                        );
-                                      }}
-                                    />
-                                    <div
-                                      className={
-                                        styles.pickUpFranchiseInputIcon
-                                      }
-                                    >
-                                      <svg
-                                        className={styles.roundedIcon}
-                                        focusable="false"
-                                        viewBox="0 0 24 24"
-                                        aria-hidden="true"
-                                      >
+                                    <input id={`Address${res.shipping_address_id}`} className="form-check-input" type="radio" name="address" checked={   selectedAddress ===   res.shipping_address_id } onChange={() => {   addressSelection(     res.shipping_address_id   ); }} />
+                                    <div className={styles.pickUpFranchiseInputIcon}>
+                                      <svg className={styles.roundedIcon} focusable="false" viewBox="0 0 24 24" aria-hidden="true" >
                                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
                                       </svg>
-                                      <svg
-                                        className={styles.solidIcon}
-                                        focusable="false"
-                                        viewBox="0 0 24 24"
-                                        aria-hidden="true"
-                                      >
+                                      <svg className={styles.solidIcon} focusable="false" viewBox="0 0 24 24" aria-hidden="true" >
                                         <path d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"></path>
                                       </svg>
                                     </div>
                                   </div>
-                                  <div
-                                    className={styles.pickUpFranchiseDetails}
-                                  >
+                                  <div className={styles.pickUpFranchiseDetails} >
                                     <div className={styles.addressInfo}>
                                       <h4>
-                                        <p>
-                                          {" "}
-                                          {res.first_name} {res.last_name},
-                                        </p>
-                                        <p>
-                                          {res.address},{res.city}-{res.pincode}
-                                        </p>
-                                        <p>
-                                          {res.state}, {res.country}
-                                        </p>
+                                        <p>{" "}{res.first_name} {res.last_name},</p>
+                                        <p>{res.address},{res.city}-{res.pincode}</p>
+                                        <p>{res.state}, {res.country}</p>
                                         <p>Mobile no: {res.mobile_number}</p>
                                       </h4>
                                     </div>
                                   </div>
                                 </label>
                               ))
-                            ) : (
-                              <div>
-                                <h5>No Address to Show</h5>
-                              </div>
-                            )}
+                            ) : (<div> <h5>No Address to Show</h5></div>)}
                           </div>
                         </div>
                       </div>
-                      <div
-                        className={`${styles.checkoutQctShippingContent} ${
-                          selectedOption === "pickup" ? `${styles.active}` : ""
-                        }`}
-                      >
-                        <h4 className={styles.checkoutQctShippingContentTitle}>
-                          Select your collection store
-                        </h4>
+                      <div className={`${styles.checkoutQctShippingContent} ${   selectedOption === "pickup" ? `${styles.active}` : "" }`} >
+                        <h4 className={styles.checkoutQctShippingContentTitle}>Select your collection store</h4>
                         <div className={styles.pickUpWrap}>
                           <div className={styles.pickUpSearch}>
                             <div className={homeStyles["form_group"]}>
-                              <Form.Label>
-                                {" "}
-                                Search by city or locality
-                              </Form.Label>
-                              <Form.Control
-                                type="text"
-                                value={inputValue}
-                                onChange={handleFranchiseAddress}
-                                placeholder="Enter the city or locality"
-                                required
-                              />
+                              <Form.Label>{" "}Search by city or locality</Form.Label>
+                              <Form.Control type="text" value={inputValue} onChange={handleFranchiseAddress} placeholder="Enter the city or locality" required />
                             </div>
                           </div>
                           <div className={styles.pickUpSearchResult}>
                             {franchise.length >= 1 ? (
                               franchise.map((res) => (
-                                <label
-                                  htmlFor={`Franchise${res.store_id}`}
-                                  className={`${
-                                    styles.pickUpSearchResultItem
-                                  } ${
-                                    selectedFranchise === res.store_id
-                                      ? `${styles.active}`
-                                      : ""
-                                  }`}
-                                  key={res.store_id}
-                                >
+                                <label htmlFor={`Franchise${res.store_id}`} className={`${   styles.pickUpSearchResultItem } ${   selectedFranchise === res.store_id     ? `${styles.active}`     : "" }`} key={res.store_id} >
                                   <div className={styles.pickUpFranchiseInput}>
-                                    <input
-                                      id={`Franchise${res.store_id}`}
-                                      className="form-check-input"
-                                      type="radio"
-                                      value="pickup"
-                                      checked={
-                                        selectedFranchise === res.store_id
-                                      }
-                                      onChange={() => {
-                                        frachiseSelection(res);
-                                      }}
-                                    />
-                                    <div
-                                      className={
-                                        styles.pickUpFranchiseInputIcon
-                                      }
-                                    >
-                                      <svg
-                                        className={styles.roundedIcon}
-                                        focusable="false"
-                                        viewBox="0 0 24 24"
-                                        aria-hidden="true"
-                                      >
+                                    <input id={`Franchise${res.store_id}`} className="form-check-input" type="radio" value="pickup" checked={   selectedFranchise === res.store_id } onChange={() => {   frachiseSelection(res); }} />
+                                    <div className={   styles.pickUpFranchiseInputIcon } >
+                                      <svg className={styles.roundedIcon} focusable="false" viewBox="0 0 24 24" aria-hidden="true" >
                                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
                                       </svg>
-                                      <svg
-                                        className={styles.solidIcon}
-                                        focusable="false"
-                                        viewBox="0 0 24 24"
-                                        aria-hidden="true"
-                                      >
+                                      <svg className={styles.solidIcon} focusable="false" viewBox="0 0 24 24" aria-hidden="true" >
                                         <path d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"></path>
                                       </svg>
                                     </div>
@@ -779,11 +562,7 @@ const page = ({ params }) => {
                                   >
                                     <div className={styles.pickUpFranchiseInfo}>
                                       <h4>{res.franchise_name}</h4>
-                                      <p
-                                        onClick={() =>
-                                          loadMap(res.latitude, res.longitude)
-                                        }
-                                      >
+                                      <p onClick={() =>   loadMap(res.latitude, res.longitude) }>
                                         View in Map
                                       </p>
                                     </div>
@@ -793,12 +572,7 @@ const page = ({ params }) => {
                                   </div>
                                 </label>
                               ))
-                            ) : (
-                              <div>
-                                {" "}
-                                <h5>No Franchise to Show</h5>
-                              </div>
-                            )}
+                            ) : (<div> {" "} <h5>No Franchise to Show</h5></div>)}
                           </div>
                         </div>
                       </div>
@@ -816,10 +590,7 @@ const page = ({ params }) => {
                     {products && products.length > 0 && (
                       <OrderSummary data={products} />
                     )}
-                    <button
-                      className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`}
-                      onClick={handlePlaceOrder}
-                    >
+                    <button className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`} onClick={handlePlaceOrder} >
                       <span className={styles.cartPriceBoxSpan}>Checkout</span>
                     </button>
                   </div>
@@ -831,54 +602,17 @@ const page = ({ params }) => {
                       <h4>Add Coupons</h4>
                     </div>
                     <div className={homeStyles["form_group"]}>
-                      <input
-                        type="text"
-                        value={filter}
-                        onKeyDown={(e) => {
-                          if (e.key == "Enter" && e.target.value != "") {
-                            fitlerCoupon();
-                          }
-                        }}
-                        onChange={(e) => handleCouponChange(e.target.value)}
-                        placeholder="Search Coupon"
-                      />
+                      <input type="text" value={filter}  onChange={(e) => handleCouponChange(e.target.value)} placeholder="Search Coupon if any" />
                       {isDisplayCoupon && filteredCoupon.length > 0 ? (
                         filteredCoupon.map((res) => (
-                          <label
-                            htmlFor={`Franchise${res.coupon_id}`}
-                            className={`${styles.pickUpSearchResultItem} ${
-                              selectedCoupon === res.coupon_id
-                                ? `${styles.active}`
-                                : ""
-                            }`}
-                            key={res.coupon_id}
-                          >
+                          <label htmlFor={`Franchise${res.coupon_id}`} className={`${styles.pickUpSearchResultItem} ${   selectedCoupon === res.coupon_id     ? `${styles.active}`     : "" }`} key={res.coupon_id} >
                             <div className={styles.pickUpFranchiseInput}>
-                              <input
-                                id={`Franchise${res.coupon_id}`}
-                                className="form-check-input"
-                                type="radio"
-                                value="pickup"
-                                checked={selectedCoupon === res.coupon_id}
-                                onChange={() => {
-                                  setSelectedCoupon(res.coupon_id);
-                                }}
-                              />
+                              <input id={`Franchise${res.coupon_id}`} className="form-check-input" type="radio" value="pickup" checked={selectedCoupon === res.coupon_id} onChange={() => {   setSelectedCoupon(res.coupon_id); }} />
                               <div className={styles.pickUpFranchiseInputIcon}>
-                                <svg
-                                  className={styles.roundedIcon}
-                                  focusable="false"
-                                  viewBox="0 0 24 24"
-                                  aria-hidden="true"
-                                >
+                                <svg className={styles.roundedIcon} focusable="false" viewBox="0 0 24 24" aria-hidden="true" >
                                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
                                 </svg>
-                                <svg
-                                  className={styles.solidIcon}
-                                  focusable="false"
-                                  viewBox="0 0 24 24"
-                                  aria-hidden="true"
-                                >
+                                <svg className={styles.solidIcon} focusable="false" viewBox="0 0 24 24" aria-hidden="true" >
                                   <path d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"></path>
                                 </svg>
                               </div>
@@ -887,16 +621,13 @@ const page = ({ params }) => {
                               <div className={styles.pickUpFranchiseInfo}>
                                 <h4>{res.coupon_name}</h4>
                               </div>
-                              <div className={styles.pickUpFranchiseInfo}>
-                                <h5>{res.coupon_name}</h5>{" "}
-                              </div>
                             </div>
                           </label>
                         ))
                       ) : (
-                        <div>
+                        <div className="mt-2">
                           {" "}
-                          <h5>No Franchise to Show</h5>
+                          <h5>{couponMessage}</h5>
                         </div>
                       )}
                     </div>
