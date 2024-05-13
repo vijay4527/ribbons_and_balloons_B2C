@@ -7,9 +7,8 @@ import MediaCollaborators from "@/components/mediaCollaborators";
 import EnquiryModal from "@/components/EnquiryModal";
 import { axiosGet } from "@/api";
 import { redirect } from 'next/navigation'
-// import SetCookies from "@/components/setCookies" 
 export async function generateMetadata({ params }) {
-  return {  
+  return {
     title: "Home | Ribbons and Balloons",
     description:
       "Buy & Order Cakes Online and Send Cakes anywhere in Mumbai. Ribbons & Balloons is an Online Cakes Shop in Mumbai, we make your Occasions special for your friends, family and you. Order Best Quality cakes online and we deliver it on your doorsteps.",
@@ -45,7 +44,7 @@ async function getCities() {
 }
 
 
-const page = async({params,res}) => {
+const page = async({params}) => {
   const city = params.city 
    const cities = await getCities();
   if (!Array.isArray(cities)) {
@@ -101,8 +100,6 @@ const page = async({params,res}) => {
       <div className="enquiryWrapper">
         <EnquiryModal />
       </div>
-      {/* <SetCookies city={city} /> */}
-
     </>
   );
 };

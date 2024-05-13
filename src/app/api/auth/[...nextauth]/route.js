@@ -52,6 +52,7 @@ const handler = NextAuth({
         token.cartId =""
         const cartId = cookies().get("cartId")?.value ?? "";
         console.log("cartId",cartId)
+        console.log(cookies)
         try {
           var userObject = {
             mobile: "",
@@ -65,7 +66,7 @@ const handler = NextAuth({
 
             token.userData = response.respObj;
             token.cartId = response.respObj.cart_id
-            // cookies().set("cartId",response.respObj.cart_id)
+          
           } else {
             token.error = "something went wrong while login";
           }
