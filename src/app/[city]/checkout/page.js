@@ -16,12 +16,17 @@ import OrderSummary from "@/components/OrderSummary";
 import { AuthOtpContext } from "@/components/authContext";
 import Cookies from "js-cookie";
 
-
 const validationSchema = yup.object().shape({
   firstName: yup.string().required("First Name is required"),
   lastName: yup.string().required("Last Name is required"),
-  email: yup.string().email("Invalid email format").required("Email is required"),
-  contact: yup.string().matches(/^[0-9]{10}$/, "Invalid Contact format (10 digits required)").required("This field is required"),
+  email: yup
+    .string()
+    .email("Invalid email format")
+    .required("Email is required"),
+  contact: yup
+    .string()
+    .matches(/^[0-9]{10}$/, "Invalid Contact format (10 digits required)")
+    .required("This field is required"),
   address: yup.string().required("Address is required"),
   city: yup.string().required("City is required"),
   state: yup.string().required("State is required"),
@@ -44,17 +49,27 @@ const page = ({ params }) => {
   const [showMapModal, setShowMapModal] = useState(false);
   const [selectedCoupon, setSelectedCoupon] = useState("");
   const [filteredCoupon, setFilteredCoupon] = useState([]);
-  const [coupon, setCoupon] = useState([{ coupon_name: "abc", coupon_id: "1234" },{ coupon_name: "sdsd", coupon_id: "122345" },]);
+  const [couponMessage,setCouponMessage] = useState("")
+  const [coupon, setCoupon] = useState([]);
   const [inputCoupon, setInputCoupon] = useState("");
   const [isDisplayCoupon, setIsDisplayCoupon] = useState(false);
   const { isLogged } = useContext(AuthOtpContext);
-  const handleCloseMapModal = () => setShowMapModal(false);
-  const accessCode= process.env.ACCESS_CODE
-  const redirectUrl = process.env.form_Action_Url
-  console.log("accsess code",accessCode)
-  console.log("redirect url",redirectUrl)
+  const accessCode = process.env.ACCESS_CODE;
+  const redirectUrl = process.env.form_Action_Url;
+  const [finalAmount,setFinalAmount] = useState(0)
+  const [discountAmount,setDiscountAmount] = useState(0)
+  const [totalAmount,setTotalAmount] = useState(0)
   const [formValues, setFormValues] = useState({
-    firstName: "",lastName: "",email: "",contact: "",address: "",city: "",state: "",pinCode: "",country: "",});
+    firstName: "",
+    lastName: "",
+    email: "",
+    contact: "",
+    address: "",
+    city: "",
+    state: "",
+    pinCode: "",
+    country: "",
+  });
 
   const router = useRouter();
   const city = params.city;
@@ -78,17 +93,16 @@ const page = ({ params }) => {
   useEffect(() => {
     GetAllCart();
     GetAddress();
-    // getAllCoupons()
+     getAllCoupons()
   }, [city, user?.user_id]);
 
-  useEffect(() => {
-    countSubTotalAmount();
-  }, [products]);
+  // useEffect(() => {
+  //   countSubTotalAmount();
+  // }, [products]);
 
   const getAllCoupons = async () => {
     try {
-      const cityObj = {city: city};
-      const data = await axiosPost("CouponMaster/GetCoupon", cityObj);
+      const data = await axiosGet("CouponMaster/GetAllCouponByCity?city="+city);
       if (data) {
         setCoupon(data);
       }
@@ -97,29 +111,40 @@ const page = ({ params }) => {
     }
   };
 
-  const GetAllCart = async () => {
-    if (user && user.user_id && city) {
-      var obj = {
-        cart_id: cartId ? cartId : "",
-        user_id: user ? user.user_id : "",
-        city_name: city,
-        type: "AC",
-        coupon_id: selectedCoupon ? selectedCoupon : ""
-      };
-      const response = await axiosPost("/CartMaster/GetCartDetails", obj);
-      if (response) {
-        setProducts(response);
+  const GetAllCart = async (couponId) => {
+    try{
+      if (user && user.user_id && city) {
+        var obj = {
+          cart_id: cartId ? cartId : "",
+          user_id: user ? user.user_id : "",
+          city_name: city,
+          type: "AC",
+          coupon_id: couponId ? couponId : "",
+        };
+        const response = await axiosPost("/CartMaster/GetCartDetails", obj);
+        if (response) {
+          setProducts(response.result);
+          setFinalAmount(response.final_amount)
+          setTotalAmount(response.totalAmount)
+          setDiscountAmount(response.discount)
+          if(response.validationMessage !== ""){
+            setCouponMessage(response.validationMessage)
+          }
+        }
       }
+    }catch(error){
+      console.log(error)
     }
+  
   };
 
-  const countSubTotalAmount = () => {
-    var price = 0;
-    products.map((e) => {
-      price += e.cost;
-    });
-    setSubTotalAmount(price);
-  };
+  // const countSubTotalAmount = () => {
+  //   var price = 0;
+  //   products.map((e) => {
+  //     price += e.cost;
+  //   });
+  //   setSubTotalAmount(price);
+  // };
 
   const handleFranchiseAddress = async (e) => {
     const inputValue = e.target.value;
@@ -207,7 +232,9 @@ const page = ({ params }) => {
   };
 
   const createOrder = async () => {
-    products.forEach((e) => {e.city = city;});
+    products.forEach((e) => {
+      e.city = city;
+    });
     const orderobj = {
       order_type: selectedOption,
       franchise_id: selectedFranchise ? selectedFranchise : null,
@@ -220,32 +247,41 @@ const page = ({ params }) => {
     if (products.length > 0) {
       const order = await axiosPost("Order/SaveOrder", orderobj);
       if (order && order?.resp == true) {
+        setProducts([]);
+        Cookies.remove("cartId");
+        sessionStorage.removeItem("cartId");
         const form = document.createElement("form");
-    form.id = "nonseamless";
-    form.method = "post";
-    form.name = "redirect";
-    form.action = redirectUrl;
+        form.id = "nonseamless";
+        form.method = "post";
+        form.name = "redirect";
+        form.action = redirectUrl;
 
-    // Create input elements and set their values
-    const encRequestInput = document.createElement("input");
-    encRequestInput.type = "hidden";
-    encRequestInput.name = "encRequest";
-    encRequestInput.value = order.respObj.formdata.encRequest;
+        // Create input elements and set their values
+        const encRequestInput = document.createElement("input");
+        encRequestInput.type = "hidden";
+        encRequestInput.name = "encRequest";
+        encRequestInput.id = "encRequest";
+        encRequestInput.value = order.respObj.formdata.encRequest;
 
-    const accessCodeInput = document.createElement("input");
-    accessCodeInput.type = "hidden";
-    accessCodeInput.name = "access_code";
-    accessCodeInput.value = accessCode;
+        const accessCodeInput = document.createElement("input");
+        accessCodeInput.type = "hidden";
+        accessCodeInput.name = "access_code";
+        accessCodeInput.id = "access_code";
+        accessCodeInput.value = accessCode;
 
-    // Append input elements to the form
-    form.appendChild(encRequestInput);
-    form.appendChild(accessCodeInput);
+        // Append input elements to the form
+        form.appendChild(encRequestInput);
+        form.appendChild(accessCodeInput);
 
-    // Append the form to the document body
-    document.body.appendChild(form);
+        // Append the form to the document body
+        document.body.appendChild(form);
 
-    // Submit the form
-    form.submit();
+        // Submit the form
+        form.submit();
+         setProducts([]);
+            Cookies.remove("cartId");
+            sessionStorage.removeItem("cartId");
+            
         // toast("Your Order has been placed", {
         //   autoClose: 3000,
         //   closeButton: true,
@@ -257,18 +293,9 @@ const page = ({ params }) => {
         //   },
         // });
       } else {
-        console.log("Order not placed");
-        toast("Something went wrong! Your Order has not been placed", {
-          autoClose: 3000,
-          closeButton: true,
-        });
+        toast("Something went wrong! Your Order has not been placed", {autoClose: 3000,closeButton: true,});
       }
-    } else {
-      toast("Please add product to your cart", {
-        autoClose: 3000,
-        closeButton: true,
-      });
-    }
+    } else {toast("Please add product to your cart", {autoClose: 3000,closeButton: true,});}
   };
 
   const frachiseSelection = (store) => {
@@ -276,9 +303,7 @@ const page = ({ params }) => {
   };
 
   const addressSelection = (shippingId) => {
-    console.log("shiiping adress hit");
     setSelectedAddress(shippingId);
-    console.log("shipping address is", shippingId);
   };
   const saveShippingAddress = async () => {
     try {
@@ -298,9 +323,25 @@ const page = ({ params }) => {
       };
       const data = await axiosPost("ShippingAddress/SaveShippingAddress", obj);
       if (data.resp == true) {
-        toast("Your address has been saved", {autoClose: 3000,closeButton: true,});
+        toast("Your address has been saved", {
+          autoClose: 3000,
+          closeButton: true,
+        });
         GetAddress();
-        setFormValues({firstName: "",lastName: "",email: "",contact: "",address: "",city: "",state: "",pinCode: "", country: "",latitude: location?.latitude ? location?.latitude : "",longitude: location?.longitude,});}
+        setFormValues({
+          firstName: "",
+          lastName: "",
+          email: "",
+          contact: "",
+          address: "",
+          city: "",
+          state: "",
+          pinCode: "",
+          country: "",
+          latitude: location?.latitude ? location?.latitude : "",
+          longitude: location?.longitude,
+        });
+      }
     } catch (validationError) {
       if (validationError instanceof yup.ValidationError) {
         const newErrors = {};
@@ -330,40 +371,50 @@ const page = ({ params }) => {
   };
 
   const handleClose = () => {
-    setFormValues({firstName: "",lastName: "",email: "",contact: "",address: "",city: "",state: "",pinCode: "",country: "",});
+    setFormValues({
+      firstName: "",
+      lastName: "",
+      email: "",
+      contact: "",
+      address: "",
+      city: "",
+      state: "",
+      pinCode: "",
+      country: "",
+    });
     setEnableAddress(false);
   };
 
   const [filter, setFilter] = useState("");
   const handleCouponChange = (e) => {
-    setFilter(e);
-    fitlerCoupon();
+      setFilter(e);
+      fitlerCoupon(e)
     if (e.length == 0) {
       setFilter("");
       setSelectedCoupon("");
       setFilteredCoupon([]);
+      setCouponMessage("")
     }
   };
-  const fitlerCoupon = () => {
+
+  const fitlerCoupon = (e) => {
     const filteredCoupons = coupon.filter((coupon) =>
-      coupon.coupon_name.toLowerCase().includes(filter.toLowerCase())
+      coupon.coupon_name.toLowerCase() === e.toLowerCase()
     );
-    if(filteredCoupon.length > 0){
-      setIsDisplayCoupon(true)
+    if (filteredCoupons.length > 0) {
+      setCouponMessage("")
+      setIsDisplayCoupon(true);
       setFilteredCoupon(filteredCoupons);
-      
+    }else{
+      setCouponMessage("No Coupon Found")
+      setSelectedCoupon("");
+      setFilteredCoupon([]);
     }
   };
 
   return (
     <>
-      <Head>
-        <link
-          rel="icon"
-          href="https://ribbonsandballoons.com/frontassets/images/fav.png"
-          type="image/x-icon"
-        />
-      </Head>
+      <Head><link rel="icon" href="https://ribbonsandballoons.com/frontassets/images/fav.png" type="image/x-icon" /></Head>
       <section className={styles.CheckOutQct}>
         <div className={homeStyles["container"]}>
           <div className={styles.checkOutQctWrap}>
@@ -376,57 +427,27 @@ const page = ({ params }) => {
                       Shipping method
                     </h4>
                     <ul className={styles.checkoutQctShippingTabs}>
-                      <li
-                        className={
-                          selectedOption === "delivery"? `${styles.active}`: ""
-                        }
-                        onClick={() => handleOptionChange("delivery")}
-                      >
+                      <li className={   selectedOption === "delivery"     ? `${styles.active}`     : "" } onClick={() => handleOptionChange("delivery")} >
                         <h4>Home Delivery</h4>
                         <p>(Get your product delivered to your home)</p>
                       </li>
-                      <li
-                        className={selectedOption === "pickup" ? `${styles.active}` : ""}
-                        onClick={() => handleOptionChange("pickup")}
-                      >
+                      <li className={   selectedOption === "pickup" ? `${styles.active}` : "" } onClick={() => handleOptionChange("pickup")} >
                         <h4>Pick from nearby store</h4>
                         <p>(Collect your order from a store of your choice)</p>
                       </li>
                     </ul>
                     <div className={styles.checkoutQctShippingContents}>
-                      <div
-                        className={`${styles.checkoutQctShippingContent} ${
-                          selectedOption === "delivery"? `${styles.active}` : ""}`}
-                      >
+                      <div className={`${styles.checkoutQctShippingContent} ${   selectedOption === "delivery"     ? `${styles.active}`     : "" }`} >
                         <div className={styles.newAddress}>
-                          <h4
-                            className={`${styles.checkoutQctShippingContentTitle}`}
-                            onClick={enableAddAddress}
-                          >
-                            Add new address
-                          </h4>
-                          {enableAddress && (
-                            <button
-                              className={`${styles.closeButton}`}
-                              onClick={handleClose}
-                            >
-                              Close
-                            </button>
-                          )}
+                          <h4 className={`${styles.checkoutQctShippingContentTitle}`} onClick={enableAddAddress} >Add new address</h4>
+                          {enableAddress && (<button className={`${styles.closeButton}`} onClick={handleClose} >Close</button>)}
                         </div>
                         {enableAddress && (
                           <>
                             <div className={styles.checkoutQctShippingForm}>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>First Name</Form.Label>
-                                <Form.Control
-                                  type="text"
-                                  name="firstName"
-                                  value={formValues.firstName}
-                                  onChange={handleInputChange}
-                                  placeholder="Enter first name"
-                                  required
-                                />
+                                <Form.Control type="text" name="firstName" value={formValues.firstName} onChange={handleInputChange} placeholder="Enter first name" required />
                                 {errors.firstName && (
                                   <div className="text-danger">
                                     {errors.firstName}
@@ -435,7 +456,7 @@ const page = ({ params }) => {
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>Last Name</Form.Label>
-                                <Form.Control type="text" name="lastName" value={formValues.lastName} onChange={handleInputChange} placeholder="Enter last name" required/>
+                                <Form.Control type="text" name="lastName" value={formValues.lastName} onChange={handleInputChange} placeholder="Enter last name" required />
                                 {errors.lastName && (
                                   <div className="text-danger">
                                     {errors.lastName}
@@ -444,41 +465,28 @@ const page = ({ params }) => {
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>Email</Form.Label>
-                                <Form.Control type="text" name="email" value={formValues.email} onChange={handleInputChange} placeholder="Enter email"
-                                />
+                                <Form.Control type="text" name="email" value={formValues.email} onChange={handleInputChange} placeholder="Enter email" />
                                 {errors.email && (
-                                  <div className="text-danger">
-                                    {errors.email}
-                                  </div>
-                                )}
+                                  <div className="text-danger">{errors.email}</div>)}
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>Contact</Form.Label>
                                 <Form.Control type="text" placeholder="+91" name="contact" value={formValues.contact} onChange={handleInputChange} required />
                                 {errors.contact && (
-                                  <div className="text-danger">
-                                    {" "}
-                                    {errors.contact}
-                                  </div>
+                                  <div className="text-danger">{" "}{errors.contact}</div>
                                 )}
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>Address</Form.Label>
-                                <Form.Control type="text" name="address" value={formValues.address} onChange={handleInputChange} required
-                                />
+                                <Form.Control type="text" name="address" value={formValues.address} onChange={handleInputChange} required />
                                 {errors.address && (
-                                  <div className="text-danger">
-                                    {errors.address}
-                                  </div>
-                                )}
+                                  <div className="text-danger">{errors.address}</div>)}
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>Zip Code</Form.Label>
                                 <Form.Control type="text" name="pinCode" value={formValues.pinCode} onChange={handleInputChange} required />
                                 {errors.pinCode && (
-                                  <div className="text-danger">
-                                    {errors.pinCode}
-                                  </div>
+                                  <div className="text-danger">{errors.pinCode}</div>
                                 )}
                               </div>
                               <div className={homeStyles["form_group"]}>
@@ -492,41 +500,18 @@ const page = ({ params }) => {
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>State</Form.Label>
-                                <Form.Control
-                                  type="text"
-                                  name="state"
-                                  value={formValues.state}
-                                  onChange={handleInputChange}
-                                  required
-                                />
-                                {errors.state && (
-                                  <div className="text-danger">
-                                    {errors.state}
-                                  </div>
-                                )}
+                                <Form.Control type="text" name="state" value={formValues.state} onChange={handleInputChange} required />
+                                {errors.state && (<div className="text-danger">{errors.state}</div>)}
                               </div>
                               <div className={homeStyles["form_group"]}>
                                 <Form.Label>Country</Form.Label>
-                                <Form.Control
-                                  type="text"
-                                  name="country"
-                                  value={formValues.country}
-                                  onChange={handleInputChange}
-                                  required
-                                />
-                                {errors.country && (
-                                  <div className="text-danger">
-                                    {errors.country}
-                                  </div>
-                                )}
+                                <Form.Control type="text" name="country" value={formValues.country} onChange={handleInputChange} required />
+                                {errors.country && (<div className="text-danger">{errors.country}</div>)}
                               </div>
                             </div>
 
                             <div className={styles.checkoutQctShippingAddress}>
-                              <button
-                                className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`}
-                                onClick={saveShippingAddress}
-                              >
+                              <button className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`} onClick={saveShippingAddress} >
                                 <span>ADD ADDRESS</span>
                               </button>
                             </div>
@@ -537,155 +522,54 @@ const page = ({ params }) => {
                           <div className={styles.pickUpSearchResult}>
                             {userAddress && userAddress.length > 0 ? (
                               userAddress.map((res) => (
-                                <label
-                                  htmlFor={`Address${res.shipping_address_id}`}
-                                  className={`${
-                                    styles.pickUpSearchResultItem
-                                  } ${
-                                    selectedAddress === res.shipping_address_id
-                                      ? `${styles.active}`
-                                      : ""
-                                  }`}
-                                  key={res.shipping_address_id}
-                                >
+                                <label htmlFor={`Address${res.shipping_address_id}`} className={`${   styles.pickUpSearchResultItem } ${selectedAddress === res.shipping_address_id? `${styles.active}`     : "" }`} key={res.shipping_address_id} >
                                   <div className={styles.pickUpFranchiseInput}>
-                                    <input
-                                      id={`Address${res.shipping_address_id}`}
-                                      className="form-check-input"
-                                      type="radio"
-                                      name="address"
-                                      checked={
-                                        selectedAddress ===
-                                        res.shipping_address_id
-                                      }
-                                      onChange={() => {
-                                        addressSelection(
-                                          res.shipping_address_id
-                                        );
-                                      }}
-                                    />
-                                    <div
-                                      className={
-                                        styles.pickUpFranchiseInputIcon
-                                      }
-                                    >
-                                      <svg
-                                        className={styles.roundedIcon}
-                                        focusable="false"
-                                        viewBox="0 0 24 24"
-                                        aria-hidden="true"
-                                      >
+                                    <input id={`Address${res.shipping_address_id}`} className="form-check-input" type="radio" name="address" checked={   selectedAddress ===   res.shipping_address_id } onChange={() => {   addressSelection(     res.shipping_address_id   ); }} />
+                                    <div className={styles.pickUpFranchiseInputIcon}>
+                                      <svg className={styles.roundedIcon} focusable="false" viewBox="0 0 24 24" aria-hidden="true" >
                                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
                                       </svg>
-                                      <svg
-                                        className={styles.solidIcon}
-                                        focusable="false"
-                                        viewBox="0 0 24 24"
-                                        aria-hidden="true"
-                                      >
+                                      <svg className={styles.solidIcon} focusable="false" viewBox="0 0 24 24" aria-hidden="true" >
                                         <path d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"></path>
                                       </svg>
                                     </div>
                                   </div>
-                                  <div
-                                    className={styles.pickUpFranchiseDetails}
-                                  >
+                                  <div className={styles.pickUpFranchiseDetails} >
                                     <div className={styles.addressInfo}>
                                       <h4>
-                                        <p>
-                                          {" "}
-                                          {res.first_name} {res.last_name},
-                                        </p>
-                                        <p>
-                                          {res.address},{res.city}-{res.pincode}
-                                        </p>
-                                        <p>
-                                          {res.state}, {res.country}
-                                        </p>
+                                        <p>{" "}{res.first_name} {res.last_name},</p>
+                                        <p>{res.address},{res.city}-{res.pincode}</p>
+                                        <p>{res.state}, {res.country}</p>
                                         <p>Mobile no: {res.mobile_number}</p>
                                       </h4>
                                     </div>
                                   </div>
                                 </label>
                               ))
-                            ) : (
-                              <div>
-                                <h5>No Address to Show</h5>
-                              </div>
-                            )}
+                            ) : (<div> <h5>No Address to Show</h5></div>)}
                           </div>
                         </div>
                       </div>
-                      <div
-                        className={`${styles.checkoutQctShippingContent} ${
-                          selectedOption === "pickup" ? `${styles.active}` : ""
-                        }`}
-                      >
-                        <h4 className={styles.checkoutQctShippingContentTitle}>
-                          Select your collection store
-                        </h4>
+                      <div className={`${styles.checkoutQctShippingContent} ${   selectedOption === "pickup" ? `${styles.active}` : "" }`} >
+                        <h4 className={styles.checkoutQctShippingContentTitle}>Select your collection store</h4>
                         <div className={styles.pickUpWrap}>
                           <div className={styles.pickUpSearch}>
                             <div className={homeStyles["form_group"]}>
-                              <Form.Label>
-                                {" "}
-                                Search by city or locality
-                              </Form.Label>
-                              <Form.Control
-                                type="text"
-                                value={inputValue}
-                                onChange={handleFranchiseAddress}
-                                placeholder="Enter the city or locality"
-                                required
-                              />
+                              <Form.Label>{" "}Search by city or locality</Form.Label>
+                              <Form.Control type="text" value={inputValue} onChange={handleFranchiseAddress} placeholder="Enter the city or locality" required />
                             </div>
                           </div>
                           <div className={styles.pickUpSearchResult}>
                             {franchise.length >= 1 ? (
                               franchise.map((res) => (
-                                <label
-                                  htmlFor={`Franchise${res.store_id}`}
-                                  className={`${
-                                    styles.pickUpSearchResultItem
-                                  } ${
-                                    selectedFranchise === res.store_id
-                                      ? `${styles.active}`
-                                      : ""
-                                  }`}
-                                  key={res.store_id}
-                                >
+                                <label htmlFor={`Franchise${res.store_id}`} className={`${   styles.pickUpSearchResultItem } ${   selectedFranchise === res.store_id     ? `${styles.active}`     : "" }`} key={res.store_id} >
                                   <div className={styles.pickUpFranchiseInput}>
-                                    <input
-                                      id={`Franchise${res.store_id}`}
-                                      className="form-check-input"
-                                      type="radio"
-                                      value="pickup"
-                                      checked={
-                                        selectedFranchise === res.store_id
-                                      }
-                                      onChange={() => {
-                                        frachiseSelection(res);
-                                      }}
-                                    />
-                                    <div
-                                      className={
-                                        styles.pickUpFranchiseInputIcon
-                                      }
-                                    >
-                                      <svg
-                                        className={styles.roundedIcon}
-                                        focusable="false"
-                                        viewBox="0 0 24 24"
-                                        aria-hidden="true"
-                                      >
+                                    <input id={`Franchise${res.store_id}`} className="form-check-input" type="radio" value="pickup" checked={   selectedFranchise === res.store_id } onChange={() => {   frachiseSelection(res); }} />
+                                    <div className={   styles.pickUpFranchiseInputIcon } >
+                                      <svg className={styles.roundedIcon} focusable="false" viewBox="0 0 24 24" aria-hidden="true" >
                                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
                                       </svg>
-                                      <svg
-                                        className={styles.solidIcon}
-                                        focusable="false"
-                                        viewBox="0 0 24 24"
-                                        aria-hidden="true"
-                                      >
+                                      <svg className={styles.solidIcon} focusable="false" viewBox="0 0 24 24" aria-hidden="true" >
                                         <path d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"></path>
                                       </svg>
                                     </div>
@@ -695,11 +579,7 @@ const page = ({ params }) => {
                                   >
                                     <div className={styles.pickUpFranchiseInfo}>
                                       <h4>{res.franchise_name}</h4>
-                                      <p
-                                        onClick={() =>
-                                          loadMap(res.latitude, res.longitude)
-                                        }
-                                      >
+                                      <p onClick={() =>   loadMap(res.latitude, res.longitude) }>
                                         View in Map
                                       </p>
                                     </div>
@@ -709,12 +589,7 @@ const page = ({ params }) => {
                                   </div>
                                 </label>
                               ))
-                            ) : (
-                              <div>
-                                {" "}
-                                <h5>No Franchise to Show</h5>
-                              </div>
-                            )}
+                            ) : (<div> {" "} <h5>No Franchise to Show</h5></div>)}
                           </div>
                         </div>
                       </div>
@@ -730,12 +605,9 @@ const page = ({ params }) => {
                       <ServingInfo />
                     </div>
                     {products && products.length > 0 && (
-                      <OrderSummary data={products} />
+                      <OrderSummary data={products} finalAmount={finalAmount} discountAmount={discountAmount} totalAmount={totalAmount}/>
                     )}
-                    <button
-                      className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`}
-                      onClick={handlePlaceOrder}
-                    >
+                    <button className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`} onClick={handlePlaceOrder} >
                       <span className={styles.cartPriceBoxSpan}>Checkout</span>
                     </button>
                   </div>
@@ -747,49 +619,17 @@ const page = ({ params }) => {
                       <h4>Add Coupons</h4>
                     </div>
                     <div className={homeStyles["form_group"]}>
-                      <input
-                        type="text"
-                        value={filter}
-                        onChange={(e) => handleCouponChange(e.target.value)}
-                        placeholder="Search Coupon"
-                      />
+                      <input type="text" value={filter}  onChange={(e) => handleCouponChange(e.target.value)} placeholder="Search Coupon if any" />
                       {isDisplayCoupon && filteredCoupon.length > 0 ? (
                         filteredCoupon.map((res) => (
-                          <label
-                            htmlFor={`Franchise${res.coupon_id}`}
-                            className={`${styles.pickUpSearchResultItem} ${
-                              selectedCoupon === res.coupon_id
-                                ? `${styles.active}`
-                                : ""
-                            }`}
-                            key={res.coupon_id}
-                          >
+                          <label htmlFor={`Franchise${res.coupon_id}`} className={`${styles.pickUpSearchResultItem} ${   selectedCoupon === res.coupon_id     ? `${styles.active}`     : "" }`} key={res.coupon_id} >
                             <div className={styles.pickUpFranchiseInput}>
-                              <input
-                                id={`Franchise${res.coupon_id}`}
-                                className="form-check-input"
-                                type="radio"
-                                value="pickup"
-                                checked={selectedCoupon === res.coupon_id}
-                                onChange={() => {
-                                  setSelectedCoupon(res.coupon_id);
-                                }}
-                              />
+                              <input id={`Franchise${res.coupon_id}`} className="form-check-input" type="radio" value="pickup" checked={selectedCoupon === res.coupon_id} onChange={() => {setSelectedCoupon(res.coupon_id),GetAllCart(res.coupon_id) }} />
                               <div className={styles.pickUpFranchiseInputIcon}>
-                                <svg
-                                  className={styles.roundedIcon}
-                                  focusable="false"
-                                  viewBox="0 0 24 24"
-                                  aria-hidden="true"
-                                >
+                                <svg className={styles.roundedIcon} focusable="false" viewBox="0 0 24 24" aria-hidden="true" >
                                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
                                 </svg>
-                                <svg
-                                  className={styles.solidIcon}
-                                  focusable="false"
-                                  viewBox="0 0 24 24"
-                                  aria-hidden="true"
-                                >
+                                <svg className={styles.solidIcon} focusable="false" viewBox="0 0 24 24" aria-hidden="true" >
                                   <path d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"></path>
                                 </svg>
                               </div>
@@ -798,16 +638,13 @@ const page = ({ params }) => {
                               <div className={styles.pickUpFranchiseInfo}>
                                 <h4>{res.coupon_name}</h4>
                               </div>
-                              <div className={styles.pickUpFranchiseInfo}>
-                                <h5>{res.coupon_name}</h5>{" "}
-                              </div>
                             </div>
                           </label>
                         ))
                       ) : (
-                        <div>
+                        <div className="mt-2">
                           {" "}
-                          <h5>No Franchise to Show</h5>
+                          <h5>{couponMessage}</h5>
                         </div>
                       )}
                     </div>
