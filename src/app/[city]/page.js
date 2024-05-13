@@ -7,6 +7,7 @@ import MediaCollaborators from "@/components/mediaCollaborators";
 import EnquiryModal from "@/components/EnquiryModal";
 import { axiosGet } from "@/api";
 import { redirect } from 'next/navigation'
+import SetCookies from "@/components/setCookies";
 export async function generateMetadata({ params }) {
   return {
     title: "Home | Ribbons and Balloons",
@@ -100,6 +101,7 @@ const page = async({params}) => {
       <div className="enquiryWrapper">
         <EnquiryModal />
       </div>
+      <SetCookies city={city} />
     </>
   );
 };
