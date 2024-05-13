@@ -49,9 +49,9 @@ const handler = NextAuth({
         token.provider = account.provider;
         token.account = account;
         token.error = "";
+        token.cartId =""
         const cartId = cookies().get("cartId")?.value ?? "";
         console.log("cartId",cartId)
-        console.log(cookies)
         try {
           var userObject = {
             mobile: "",
@@ -62,7 +62,10 @@ const handler = NextAuth({
           }
           const response = await axiosPost("/User/LoginCheck", userObject);
           if (response.respObj) {
+
             token.userData = response.respObj;
+            token.cartId = response.respObj.cart_id
+            cookies().set("cartId",response.respObj.cart_id)
           } else {
             token.error = "something went wrong while login";
           }
@@ -78,6 +81,7 @@ const handler = NextAuth({
       session.account = token.account;
       session.userData = token.userData;
       session.error = token.error;
+      session.cartId = token.cartId
       return session;
     },
   },

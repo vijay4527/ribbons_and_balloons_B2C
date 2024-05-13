@@ -14,6 +14,7 @@ import Head from "next/head";
 import { AuthOtpContext } from "@/components/authContext";
 import Toast from "react-bootstrap/Toast";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Cookies from "js-cookie";
 const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
   const { data: session, status } = useSession();
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -84,6 +85,9 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
       const response = await axiosPost("/User/LoginCheck", loginData);
       if (response.resp === true) {
         sessionStorage.removeItem("userData");
+        if(response.respObj.cart_id){
+          Cookies.set("cartId",response.respObj.cart_id)
+        }
         setLoginError("");
         setUserObject(response.respObj);
         setShowLoginInput(false);

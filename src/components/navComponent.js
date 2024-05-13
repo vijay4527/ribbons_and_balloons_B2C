@@ -1,30 +1,23 @@
 "use client";
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
-import { axiosPost, axiosGet } from "@/api";
+import {  axiosGet } from "@/api";
 import { AuthOtpContext } from "@/components/authContext";
 import ProductModal from "@/components/productFilterModal";
 import LoginModal from "@/components/loginModal";
 import Cookies from "js-cookie";
-
 const navComponent = () => {
-  const router = useRouter();
   const path = usePathname();
   const pathname = path;
   const pathSegments = pathname.split("/");
   const city = pathSegments[1];
   const [isLoactionActive, setIsLoactionActive] = useState(false);
   const [isSearchActive, setSearchActive] = useState(false);
-  const [scrollPosition, setScrollPosition] = useState(0);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const { data: session, status } = useSession();
-  const [countCart, setCountCart] = useState(0);
-  const [category, setCategory] = useState([]);
-  const [subCategory, setSubCategory] = useState([]);
+  const { data: session } = useSession();
   const [cities, setCities] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const { isLogged } = useContext(AuthOtpContext);
@@ -43,6 +36,7 @@ const navComponent = () => {
   };
 
   useEffect(() => {
+    getCities();
     if (city) {
       setSelectedCity(city);
     }
@@ -88,9 +82,7 @@ const navComponent = () => {
     };
   }, []);
 
-  useEffect(() => {
-    getCities();
-  }, [city]);
+  
 
   const getCities = async () => {
     try {
@@ -103,16 +95,7 @@ const navComponent = () => {
     }
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY || window.pageYOffset;
-      setScrollPosition(scrollY);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  
 
   const Logout = () => {
     sessionStorage.removeItem("userData");
@@ -169,6 +152,18 @@ const navComponent = () => {
     }
   };
 
+
+  const handleCityChange = async(cityName)=>{
+    if (cityName) {
+      const lowercaseCityName = cityName.toLowerCase();
+      console.log(Cookies.get("city"));
+      Cookies.remove("city");
+      setSelectedCity(cityName);
+      Cookies.set("city", lowercaseCityName);
+      loactionToggle()
+    }
+  }
+
   return (
     <div className="navAction">
       <ul>
@@ -220,7 +215,7 @@ const navComponent = () => {
                   cities.map((e) => (
                     <Link href={`/${e.city_name.toLowerCase()}`} key={e.rnb_city_id}>
                       <li key={e.rnb_city_id}>
-                        <h4 onClick={() => setSelectedCity(e.city_name)}>
+                        <h4 onClick={(e) => handleCityChange(e.city_name)}>
                           {e.city_name}
                         </h4>
                         <img
@@ -236,7 +231,7 @@ const navComponent = () => {
           </div>
           <div
             className={`backdropLoaction ${
-              isLoactionActive ? "activeClass" : ""
+              isLoactionActive==true ? "activeClass" : ""
             }`}
             onClick={loactionToggle}
           ></div>
@@ -328,11 +323,11 @@ const navComponent = () => {
                 <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
               </svg>
             </span>
-            {countCart === 0 ? (
+            {/* {countCart === 0 ? (
               ""
             ) : (
               <span className="cartCountNotification"> {countCart}</span>
-            )}
+            )} */}
           </Link>
         </li>
         <li>
