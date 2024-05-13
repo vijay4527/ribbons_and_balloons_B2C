@@ -7,13 +7,13 @@ import AppConfig from "@/AppConfig";
 import RangeSlider from "react-range-slider-input";
 import AddToFavoriteButton from "./AddToFavoritesButton";
 import "react-range-slider-input/dist/style.css";
-
+import Cookies from "js-cookie";
 function CategoryComponent({
   category,
   subcategoryName,
   data,
   categoryName,
-  city,
+
 }) {
   const [minRange, setMinRange] = useState(0);
   const [maxRange, setMaxRange] = useState(0);
@@ -22,7 +22,7 @@ function CategoryComponent({
   const [filteredData, setFilteredData] = useState(data);
   const [sortingType, setSortingType] = useState("Default sorting");
   const [sortingDirection, setSortingDirection] = useState("asc");
-
+  const city = Cookies.get("city")
   useEffect(() => {
     let minCost = Number.MAX_VALUE;
     let maxCost = Number.MIN_VALUE;

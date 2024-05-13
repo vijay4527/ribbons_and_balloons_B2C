@@ -2,6 +2,8 @@ import React from 'react'
 import { axiosPost,axiosGet } from '@/api';
 import CategoryComponent from "@/components/CategoryandSubcategory"
 import { redirect } from 'next/navigation';
+import { cookies } from 'next/headers'; 
+
 export async function generateMetadata({ params }) {
   const {data,category} = await getCategoryData(params.category,params.subcategory,params.city);
   if (data) {
@@ -31,7 +33,9 @@ export async function generateMetadata({ params }) {
 
 }
 async function getCategoryData(categoryName,subcategory,city) {
+
   const categoryStr= await categoryName.split("-").join(" ")
+   
     try {
         const obj = {
           category_name: categoryStr || "",
@@ -75,7 +79,9 @@ async function getCategoryData(categoryName,subcategory,city) {
 const page = async({params}) => {
   // const cities = await getCities()
     const categoryName = params.category
-    const city = params.city
+    const nextCookies = cookies();
+    const cityObj = await nextCookies.get('city')
+    const city = cityObj?.value
     const subcategory = params.subcategory
     // const isValidCity = cities.some(
     //   (c) => c.city_name.toLowerCase() === city.toLowerCase()

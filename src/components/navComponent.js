@@ -37,6 +37,7 @@ const navComponent = () => {
 
   useEffect(() => {
     getCities();
+    const city = Cookies.get("city")
     if (city) {
       setSelectedCity(city);
     }

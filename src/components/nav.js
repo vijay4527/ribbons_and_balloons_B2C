@@ -23,7 +23,6 @@ const Nav = async () => {
   const cityObj = await nextCookies.get('city')
   const city = cityObj?.value
   const categories = await getCategories(city);
-  
   return (
     
     <div>
