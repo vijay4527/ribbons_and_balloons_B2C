@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { axiosPost } from "@/api";
 import Link from "next/link";
 import NavComponent from "./navComponent";
-import { cookies } from 'next/headers'
+import { cookies } from 'next/headers'; 
 
 const getCategories = async (city) => {
   try {
@@ -21,7 +21,9 @@ const getCategories = async (city) => {
 const Nav = async () => {
   // const cityObj =await cookies().get("city")
   // const city =cityObj.value
-  const city = "mumbai"
+  const nextCookies = cookies();
+  const city = nextCookies.get('city')
+  // const city = "mumbai"
   const categories = await getCategories(city);
   
   return (
