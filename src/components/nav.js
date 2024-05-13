@@ -19,8 +19,9 @@ const getCategories = async (city) => {
 };
 
 const Nav = async () => {
-  const cityObj =await cookies().get("city")
-  const city =cityObj.value
+  // const cityObj =await cookies().get("city")
+  // const city =cityObj.value
+  const city = "mumbai"
   const categories = await getCategories(city);
   
   return (
