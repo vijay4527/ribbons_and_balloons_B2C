@@ -127,9 +127,8 @@ const page = ({ params }) => {
           setFinalAmount(response.final_amount)
           setTotalAmount(response.totalAmount)
           setDiscountAmount(response.discount)
-          if(response.validationMessage !== ""){
-            setCouponMessage(response.validationMessage)
-          }
+          setCouponMessage(response.validationMessage)
+
         }
       }
     }catch(error){
@@ -402,7 +401,6 @@ const page = ({ params }) => {
       coupon.coupon_name.toLowerCase() === e.toLowerCase()
     );
     if (filteredCoupons.length > 0) {
-      setCouponMessage("")
       setIsDisplayCoupon(true);
       setFilteredCoupon(filteredCoupons);
     }else{
@@ -637,6 +635,9 @@ const page = ({ params }) => {
                             <div className={styles.pickUpFranchiseDetails}>
                               <div className={styles.pickUpFranchiseInfo}>
                                 <h4>{res.coupon_name}</h4>
+                              </div>
+                              <div className={styles.pickUpFranchiseInfo}>
+                                <h6>{couponMessage}</h6>
                               </div>
                             </div>
                           </label>

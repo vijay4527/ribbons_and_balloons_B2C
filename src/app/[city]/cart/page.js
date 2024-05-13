@@ -25,7 +25,7 @@ const page = ({ params }) => {
   const [isCityModalOpen, setCityModalOpen] = useState(false);
   const [user, setUser] = useState(null);
   const { isLogged } = useContext(AuthOtpContext);
-  const city = params.city;
+  const city =  Cookies.get("city");
   var userInfo =
   typeof window !== "undefined"
     ? JSON.parse(sessionStorage.getItem("userData"))
