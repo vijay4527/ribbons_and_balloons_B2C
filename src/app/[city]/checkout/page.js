@@ -366,7 +366,7 @@ const page = ({ params }) => {
   const [error, setError] = useState(null);
   const enableAddAddress = () => {
     setEnableAddress(true);
-    getLocation();
+    // getLocation();
   };
 
   const handleClose = () => {
@@ -437,7 +437,7 @@ const page = ({ params }) => {
                     <div className={styles.checkoutQctShippingContents}>
                       <div className={`${styles.checkoutQctShippingContent} ${   selectedOption === "delivery"     ? `${styles.active}`     : "" }`} >
                         <div className={styles.newAddress}>
-                          <h4 className={`${styles.checkoutQctShippingContentTitle}`} onClick={enableAddAddress} >Add new address</h4>
+                          <h4 className={`${styles.checkoutQctShippingContentTitle}`} onClick={enableAddAddress} >Click to Add new address</h4>
                           {enableAddress && (<button className={`${styles.closeButton}`} onClick={handleClose} >Close</button>)}
                         </div>
                         {enableAddress && (

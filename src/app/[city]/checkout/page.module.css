@@ -103,7 +103,11 @@
     padding-bottom: 1.6rem;
     font-weight: 600;
     margin: 0;
+    color: #e9cc6d;;
+
 }
+
+
 
 .checkoutQctShippingContentTitle:hover {
     cursor: pointer;
