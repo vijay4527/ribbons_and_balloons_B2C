@@ -87,6 +87,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
         sessionStorage.removeItem("userData");
         if(response.respObj.cart_id){
           Cookies.set("cartId",response.respObj.cart_id)
+          sessionStorage.setItem("cartId",response.respObj.cart_id)
         }
         setLoginError("");
         setUserObject(response.respObj);
