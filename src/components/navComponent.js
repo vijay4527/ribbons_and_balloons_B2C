@@ -49,6 +49,8 @@ const navComponent = () => {
     typeof window !== "undefined"
       ? JSON.parse(sessionStorage.getItem("userData"))
       : null;
+
+
   useEffect(() => {
     if (session?.userData?.isLogin === false) {
       setIsLoginModalOpen(true);
@@ -69,6 +71,7 @@ const navComponent = () => {
 
   const loggedIn =
     typeof window !== "undefined" ? sessionStorage.getItem("isLoggedIn") : "";
+    
   useEffect(() => {
     if (loggedIn || session?.userData?.isLogin || isLogged) {
       setIsLoggedIn(true);

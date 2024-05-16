@@ -83,6 +83,9 @@ const handler = NextAuth({
       session.cartId = token.cartId
       return session;
     },
+    async redirect({ url, baseUrl }) {
+      return baseUrl
+    },
   },
   pages: {
     error: "/login",

@@ -5,8 +5,8 @@ import styles from "@/app/[city]/cart/page.module.css";
 import homeStyles from "@/app/home.module.css";
 import { useRouter } from "next/navigation";
 import LoginModal from "@/components/loginModal";
-import { useSession, signIn, signOut } from "next-auth/react";
-import { axiosGet, axiosPost, axiosGetAll } from "@/api";
+import { useSession} from "next-auth/react";
+import { axiosGet, axiosPost} from "@/api";
 import AppConfig from "@/AppConfig";
 import Head from "next/head";
 import ServingInfo from "@/components/ServingInfo";
@@ -17,7 +17,7 @@ import { AuthOtpContext } from "@/components/authContext";
 import Cookies from "js-cookie";
 
 const page = ({ params }) => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [cart, setCart] = useState([]);
   const [grandTotal, setGrandTotal] = useState(0);
   const router = useRouter();
@@ -36,15 +36,17 @@ const page = ({ params }) => {
       setUser(userInfo);
     }
   }, [session,isLogged,userInfo?.user_id]);
-  let cartId =
-    typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
+  let cartId = "";
+  if (typeof window !== "undefined") {
+    cartId = sessionStorage.getItem("cartId") || Cookies.get("cartId") || "";
+  }
   useEffect(() => {
     GetAllCart();
   }, [city, cartId, user?.user_id]);
 
   const GetAllCart = async () => {
     try {
-      if (city) {
+      if (city && cartId) {
         var obj = {
           cart_id: cartId ? cartId : "",
           user_id: user ? user.user_id : "",
@@ -81,14 +83,14 @@ const page = ({ params }) => {
     }
   };
 
-  useEffect(() => {
-    if (cart.length > 0) {
-      const total = cart.reduce((accumulator, item) => {
-        return accumulator + item.cost;
-      }, 0);
-      setGrandTotal(total);
-    }
-  }, [cart]);
+  // useEffect(() => {
+  //   if (cart.length > 0) {
+  //     const total = cart.reduce((accumulator, item) => {
+  //       return accumulator + item.cost;
+  //     }, 0);
+  //     setGrandTotal(total);
+  //   }
+  // }, [cart]);
 
   const handleProducts = () => {
     if (!isUserLoggedIn || !user) {
@@ -108,22 +110,7 @@ const page = ({ params }) => {
     setCityModalOpen(false);
   };
 
-  // const addToFavourite = async (data) => {
-  //   try {
-  //     const favouriteData = await axiosPost(
-  //       "/CartMaster/SaveCartDetails",
-  //       productData
-  //     );
-  //     if (favouriteData.resp == true) {
-  //       toast("Product added to favourites", {
-  //         autoClose: 3000,
-  //         closeButton: true,
-  //       });
-  //     }
-  //   } catch (error) {
-  //     console.log("error while adding product to favourites", error);
-  //   }
-  // };
+
   return (
     <>
       <Head>
