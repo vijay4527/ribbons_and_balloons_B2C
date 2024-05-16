@@ -23,7 +23,6 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
   const [otp, setOTP] = useState(["", "", "", "", ""]);
   const length = otp.length;
   const [showOtpSection, setShowOtpSection] = useState(false);
-  const [newOtp, setnewOtp] = useState("");
   const [loginError, setLoginError] = useState("");
   const inputs = ["input1", "input2", "input3", "input4"];
   const cartId =
@@ -33,8 +32,6 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
   const [hitApi, setHitApi] = useState(false);
   const { isLogged, setIsLogged } = useContext(AuthOtpContext);
   const [userObject, setUserObject] = useState({});
-  const [userSubmitted, setUserSubmitted] = useState(false); // State to track whether the form has been submitted
-  const [showToast, setShowToast] = useState(false);
 
   const user =
     typeof window !== "undefined" ? sessionStorage.getItem("userData") : "";
@@ -57,16 +54,8 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
     closeLoginModal();
   };
 
-
-  // const handleToastClose = () => {
-  //   setIsLogged(true);
-  //   setShowOtpSection(false);
-  //   setModalIsOpen(false);
-  //   setShowToast(false); // Close the toast
-  // };
-
   const submitHandler = async () => {
-    setUserSubmitted(true);
+   
     try {
       var loginData = {
         mobile: mobile,
@@ -85,7 +74,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
       const response = await axiosPost("/User/LoginCheck", loginData);
       if (response.resp === true) {
         sessionStorage.removeItem("userData");
-        if(response.respObj.cart_id){
+        if(response.respObj.cart_id && (!sessionStorage.getItem("cartId"))){
           Cookies.set("cartId",response.respObj.cart_id)
           sessionStorage.setItem("cartId",response.respObj.cart_id)
         }
@@ -93,10 +82,8 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
         setUserObject(response.respObj);
         setShowLoginInput(false);
         setShowOtpSection(true);
-        // router.push(currentPath);
       } else {
         setLoginError(response.respMsg);
-        // router.push("/")
       }
     } catch (validationError) {
       if (validationError instanceof yup.ValidationError) {
@@ -107,54 +94,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
     }
   };
 
-  // const handleOTPChange = (e, index) => {
-  //   const inputs = document.querySelectorAll("input"),
-  //     button = document.getElementById("btnVerifyOtp");
-  //   inputs.forEach((input, index1) => {
-  //     input.addEventListener("keyup", (e) => {
-  //       const currentInput = input,
-  //         nextInput = input.nextElementSibling,
-  //         prevInput = input.previousElementSibling;
-  //       if (currentInput.value.length > 1) {
-  //         currentInput.value = "";
-  //         return;
-  //       }
-  //       if (
-  //         nextInput &&
-  //         nextInput.hasAttribute("disabled") &&
-  //         currentInput.value !== ""
-  //       ) {
-  //         nextInput.removeAttribute("disabled");
-  //         nextInput.focus();
-  //       }
-  //       if (e.key === "Backspace") {
-  //         inputs.forEach((input, index2) => {
-  //           if (index1 <= index2 && prevInput) {
-  //             input.removeAttribute("disabled");
-  //             input.value = "";
-  //             prevInput.focus();
-  //           }
-  //         });
-  //       }
-  //       if (!inputs[4].disabled && inputs[4].value !== "") {
-  //         button.classList.add("active");
-  //       } else {
-  //         button.classList.remove("active");
-  //       }
-  //     });
-  //   });
-  //   window.addEventListener("load", () => inputs[0].focus());
-  //   const newOTP = [...otp];
-  //   newOTP[index] = e.target.value;
-  //   setOTP(newOTP);
-  //   const valuesArray = newOTP.toString();
-  //   const Array = valuesArray.split(",").filter((value) => value !== "");
-  //   if (Array.length == length) {
-  //     const combinedString = Array.join("");
-  //     setnewOtp(combinedString);
-  //   }
-  // };
-
+ 
   useEffect(() => {
     inputs.forEach((id, index) => {
       const input = document.getElementById(id);
