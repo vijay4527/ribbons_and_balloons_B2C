@@ -63,11 +63,8 @@ const handler = NextAuth({
           }
           const response = await axiosPost("/User/LoginCheck", userObject);
           if (response.respObj) {
-
             token.userData = response.respObj;
-            token.cartId = response.respObj.cart_id
-            // cookies().set("cartId",response.respObj.cart_id)
-          
+            token.cartId = response.respObj.cart_id          
           } else {
             token.error = "something went wrong while login";
           }
