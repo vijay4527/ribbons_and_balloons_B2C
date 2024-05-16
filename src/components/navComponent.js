@@ -57,9 +57,12 @@ const navComponent = () => {
       session?.userData?.isLogin == true
     ) {
       sessionStorage.setItem("userData", JSON.stringify(session.userData));
-      sessionStorage.setItem("cartId",session.userData.cart_id)
-      Cookies.set("cartId",session.userData.cart_id)
-
+      if(!sessionStorage.getItem("cartId")){
+        sessionStorage.setItem("cartId",session.userData.cart_id)
+        Cookies.set("cartId",session.userData.cart_id)
+  
+      }
+     
       sessionStorage.setItem("isLoggedIn", true);
     }
   }, [session, isLoggedIn]);
