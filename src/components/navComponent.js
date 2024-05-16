@@ -9,7 +9,9 @@ import { AuthOtpContext } from "@/components/authContext";
 import ProductModal from "@/components/productFilterModal";
 import LoginModal from "@/components/loginModal";
 import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 const navComponent = () => {
+  const router= useRouter()
   const path = usePathname();
   const pathname = path;
   const pathSegments = pathname.split("/");
@@ -37,7 +39,7 @@ const navComponent = () => {
 
   useEffect(() => {
     getCities();
-    const city = Cookies.get("city")
+    // const city = Cookies.get("city")
     if (city) {
       setSelectedCity(city);
     }
@@ -100,7 +102,6 @@ const navComponent = () => {
   };
 
   
-
   const Logout = () => {
     sessionStorage.removeItem("userData");
     sessionStorage.removeItem("isLoggedIn");
@@ -159,12 +160,14 @@ const navComponent = () => {
 
   const handleCityChange = async(cityName)=>{
     if (cityName) {
+      setSelectedCity(cityName)
       const lowercaseCityName = cityName.toLowerCase();
       console.log(Cookies.get("city"));
       Cookies.remove("city");
-      setSelectedCity(cityName);
       Cookies.set("city", lowercaseCityName);
       loactionToggle()
+      router.push(`/${lowercaseCityName}`)
+      router.refresh()
     }
   }
 
@@ -217,8 +220,8 @@ const navComponent = () => {
                 {cities &&
                   cities.length > 0 &&
                   cities.map((e) => (
-                    <Link href={`/${e.city_name.toLowerCase()}`} key={e.rnb_city_id}>
-                      <li key={e.rnb_city_id}>
+                    // <Link href={`/${e.city_name.toLowerCase()}`} key={e.rnb_city_id}>
+                      <li key={e.rnb_city_id} onClick={() => handleCityChange(e.city_name)}>
                         <h4 onClick={(e) => handleCityChange(e.city_name)}>
                           {e.city_name}
                         </h4>
@@ -227,7 +230,7 @@ const navComponent = () => {
                           alt="No image found"
                         />
                       </li>
-                    </Link>
+                    // </Link>
                   ))
                   }
               </ul>

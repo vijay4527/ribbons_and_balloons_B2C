@@ -24,7 +24,6 @@ const Nav = async () => {
   const city = cityObj?.value
   const categories = await getCategories(city);
   return (
-    
     <div>
       <Container>
         <div className="navbar_body">
