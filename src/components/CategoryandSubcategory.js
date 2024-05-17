@@ -15,7 +15,6 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
   const [filteredData, setFilteredData] = useState(data);
   const [sortingType, setSortingType] = useState("Default sorting");
   const [sortingDirection, setSortingDirection] = useState("asc");
-  const [initialData, setInitialData] = useState(data);
   const city = Cookies.get("city");
   useEffect(() => {
     let minCost = Number.MAX_VALUE;
@@ -44,7 +43,7 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
       return cost >= min && cost <= max;
     });
     if (sortingType == "Default sorting") {
-      setFilteredData(initialData);
+      setFilteredData(filteredProducts);
     }
     if (sortingType == "Sort by price: low to high") {
       const data = filteredProducts.sort(
@@ -71,9 +70,6 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
   const sortProducts = (sortType) => {
     let sortedProducts = [...filteredData];
     switch (sortType) {
-      case "Default sorting":
-        setFilteredData(data);
-        break;
       case "Sort by popularity":
         break;
       case "Sort by average rating":
@@ -91,10 +87,8 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
       default:
         break;
     }
-    if (sortType !== "Default sorting") {
-      setSortingType(sortType);
-      setFilteredData(sortedProducts);
-    }
+    setSortingType(sortType);
+    setFilteredData(sortedProducts);
   };
 
   return (
@@ -141,23 +135,17 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
                   <ul>
                     {category && category.length > 0
                       ? category.map((item, index) => (
-                          // <li key={index}>
-                          //   <a>{item.category_name}</a>
-                          // </li>
-                       
-                            <Link
-                              href={`/${city}/l/${item.category_name
-                                .split(" ")
-                                .join("-")}`}
-                                className="categoryLink"
-                            >
-                                 <li key={index}>
-                                 {item.category_name}
-                                 </li>
-                              
-                            
-                            </Link>
-                          
+                          <Link
+                            href={`/${city}/l/${item.category_name
+                              .split(" ")
+                              .join("-")}`}
+                              key={index}  
+                              className="categoryLink"
+                          >
+                            <li key={index}>
+                              {item.category_name}
+                            </li>
+                          </Link>
                         ))
                       : ""}
                   </ul>
