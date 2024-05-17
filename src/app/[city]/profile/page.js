@@ -118,7 +118,7 @@ const page = () => {
               <label>First Name</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control profileInput"
                 value={formValues.firstName}
                 onChange={handleInputChange}
                 name="firstName"
@@ -131,7 +131,7 @@ const page = () => {
               <label>Last Name</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control profileInput"
                 value={formValues.lastName}
                 onChange={handleInputChange}
                 name="lastName"
@@ -146,7 +146,7 @@ const page = () => {
               <label>Email</label>
               <input
                 type="email"
-                className="form-control"
+                className="form-control profileInput"
                 value={formValues.email}
                 onChange={handleInputChange}
                 name="email"
@@ -159,7 +159,7 @@ const page = () => {
               <label>Contact</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control profileInput"
                 value={contact}
                 onChange={(e) => setContact(e.target.value)}
                 disabled={true}
@@ -173,7 +173,7 @@ const page = () => {
               <label>Address 1</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control profileInput"
                 value={address1}
                 onChange={(e) => setAddress1(e.target.value)}
                 name="address1"
@@ -186,7 +186,7 @@ const page = () => {
               <label>Address 2</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control profileInput"
                 value={address2}
                 onChange={(e) => setAddress2(e.target.value)}
                 name="address2"
@@ -201,7 +201,7 @@ const page = () => {
               <label>Pin Code</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control profileInput"
                 value={formValues.pinCode}
                 onChange={handleInputChange}
                 name="pinCode"
@@ -214,7 +214,7 @@ const page = () => {
               <label>City</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control profileInput"
                 value={formValues.city}
                 onChange={handleInputChange}
                 name="city"
@@ -227,7 +227,7 @@ const page = () => {
               <label>State</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control profileInput"
                 value={formValues.state}
                 onChange={handleInputChange}
                 name="state"
@@ -240,7 +240,7 @@ const page = () => {
               <label>Country</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control profileInput"
                 value={formValues.country}
                 onChange={handleInputChange}
                 name="country"
