@@ -16,7 +16,7 @@ const page = () => {
   const { isLogged } = useContext(AuthOtpContext);
   const { data } = useSession();
   const [errors, setErrors] = useState({});
-  const city = Cookies.get("city")
+  const city = Cookies.get("city");
 
   const [userCity, setUserCity] = useState(city);
 
@@ -32,13 +32,7 @@ const page = () => {
   const [user, setUser] = useState({});
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
-  const [pinCode, setPinCode] = useState("");
-  const [country, setCountry] = useState("");
-  const [state, setState] = useState("");
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -66,7 +60,6 @@ const page = () => {
   };
 
   const saveUserProfile = async () => {
-  
     try {
       await profileSchema.validate(formValues, { abortEarly: false });
       var obj = {
@@ -87,7 +80,7 @@ const page = () => {
         updated_on: "2024-04-25T07:03:52.248Z",
         updated_by: "",
       };
-  
+
       const data = await axiosPost("UserProfile/SaveUserProfile", obj);
       if (data.resp == true) {
         setFormValues({
@@ -142,7 +135,6 @@ const page = () => {
                 value={formValues.lastName}
                 onChange={handleInputChange}
                 name="lastName"
-
               />
               {errors.lastName && (
                 <div className="text-danger">{errors.lastName}</div>
@@ -175,34 +167,7 @@ const page = () => {
               />
             </div>
           </div>
-          <div className="row">
-            <div className="col-lg-6">
-              <label>City</label>
-              <input
-                type="text"
-                className="form-control"
-                value={userCity}
-                onChange={(e) => setUserCity(e.target.value)}
-                name="city"
-              />
-              {errors.city && (
-                <div className="text-danger">{errors.city}</div>
-              )}
-            </div>
-            <div className="col-lg-6">
-              <label>State</label>
-              <input
-                type="text"
-                className="form-control"
-                value={formValues.state}
-                onChange={handleInputChange}
-                name="state"
-              />
-              {errors.state && (
-                <div className="text-danger">{errors.lastName}</div>
-              )}
-            </div>
-          </div>
+
           <div className="row">
             <div className="col-lg-6">
               <label>Address 1</label>
@@ -243,6 +208,32 @@ const page = () => {
               />
               {errors.pinCode && (
                 <div className="text-danger">{errors.pinCode}</div>
+              )}
+            </div>
+            <div className="col-lg-6">
+              <label>City</label>
+              <input
+                type="text"
+                className="form-control"
+                value={formValues.city}
+                onChange={handleInputChange}
+                name="city"
+              />
+              {errors.city && <div className="text-danger">{errors.city}</div>}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-lg-6">
+              <label>State</label>
+              <input
+                type="text"
+                className="form-control"
+                value={formValues.state}
+                onChange={handleInputChange}
+                name="state"
+              />
+              {errors.state && (
+                <div className="text-danger">{errors.state}</div>
               )}
             </div>
             <div className="col-lg-6">
