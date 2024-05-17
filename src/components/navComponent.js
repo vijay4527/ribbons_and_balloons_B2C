@@ -59,10 +59,9 @@ const navComponent = () => {
       session?.userData?.isLogin == true
     ) {
       sessionStorage.setItem("userData", JSON.stringify(session.userData));
-      if(!sessionStorage.getItem("cartId")){
+      if(!sessionStorage.getItem("cartId") && session.userData.cart_id !== null){
         sessionStorage.setItem("cartId",session.userData.cart_id)
         Cookies.set("cartId",session.userData.cart_id)
-  
       }
      
       sessionStorage.setItem("isLoggedIn", true);
