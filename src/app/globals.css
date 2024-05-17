@@ -3078,6 +3078,10 @@ input[name='contact']{
     opacity: 1 !important;
 }
 
+.categoryLink{
+  color: white !important;
+  text-decoration: none !important;
+}
 /* .ShowCaseCarousel ul{
   display: flex !important;
   overflow: hidden;

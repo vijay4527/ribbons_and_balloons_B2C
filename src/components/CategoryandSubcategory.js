@@ -5,16 +5,9 @@ import homeStyles from "@/app/home.module.css";
 import Link from "next/link";
 import AppConfig from "@/AppConfig";
 import RangeSlider from "react-range-slider-input";
-import AddToFavoriteButton from "./AddToFavoritesButton";
 import "react-range-slider-input/dist/style.css";
 import Cookies from "js-cookie";
-function CategoryComponent({
-  category,
-  subcategoryName,
-  data,
-  categoryName,
-
-}) {
+function CategoryComponent({ category, subcategoryName, data, categoryName }) {
   const [minRange, setMinRange] = useState(0);
   const [maxRange, setMaxRange] = useState(0);
   const [selectedMinRange, setSelectedMinRange] = useState(0);
@@ -22,7 +15,8 @@ function CategoryComponent({
   const [filteredData, setFilteredData] = useState(data);
   const [sortingType, setSortingType] = useState("Default sorting");
   const [sortingDirection, setSortingDirection] = useState("asc");
-  const city = Cookies.get("city")
+  const [initialData, setInitialData] = useState(data);
+  const city = Cookies.get("city");
   useEffect(() => {
     let minCost = Number.MAX_VALUE;
     let maxCost = Number.MIN_VALUE;
@@ -50,7 +44,7 @@ function CategoryComponent({
       return cost >= min && cost <= max;
     });
     if (sortingType == "Default sorting") {
-      setFilteredData(filteredProducts);
+      setFilteredData(initialData);
     }
     if (sortingType == "Sort by price: low to high") {
       const data = filteredProducts.sort(
@@ -77,6 +71,9 @@ function CategoryComponent({
   const sortProducts = (sortType) => {
     let sortedProducts = [...filteredData];
     switch (sortType) {
+      case "Default sorting":
+        setFilteredData(data);
+        break;
       case "Sort by popularity":
         break;
       case "Sort by average rating":
@@ -94,8 +91,10 @@ function CategoryComponent({
       default:
         break;
     }
-    setSortingType(sortType);
-    setFilteredData(sortedProducts);
+    if (sortType !== "Default sorting") {
+      setSortingType(sortType);
+      setFilteredData(sortedProducts);
+    }
   };
 
   return (
@@ -113,8 +112,11 @@ function CategoryComponent({
                     <div className={"shapLine"}></div>
                   </div>
                 </div>
-                <div className={styles.plpFilterDescAction} style={{display:"flex"}}>
-                  <span>Price :{" "}{selectedMinRange}</span>
+                <div
+                  className={styles.plpFilterDescAction}
+                  style={{ display: "flex" }}
+                >
+                  <span>Price : {selectedMinRange}</span>
                   <RangeSlider
                     min={minRange}
                     max={maxRange}
@@ -139,8 +141,18 @@ function CategoryComponent({
                   <ul>
                     {category && category.length > 0
                       ? category.map((item, index) => (
+                          // <li key={index}>
+                          //   <a>{item.category_name}</a>
+                          // </li>
                           <li key={index}>
-                            <a>{item.category_name}</a>
+                            <Link
+                              href={`/${city}/l/${item.category_name
+                                .split(" ")
+                                .join("-")}`}
+                                className="categoryLink"
+                            >
+                              {item.category_name}
+                            </Link>
                           </li>
                         ))
                       : ""}
