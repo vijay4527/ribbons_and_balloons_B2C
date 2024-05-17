@@ -15,7 +15,6 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
   const [filteredData, setFilteredData] = useState(data);
   const [sortingType, setSortingType] = useState("Default sorting");
   const [sortingDirection, setSortingDirection] = useState("asc");
-  
   const city = Cookies.get("city");
   useEffect(() => {
     let minCost = Number.MAX_VALUE;
@@ -72,7 +71,8 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
     let sortedProducts = [...filteredData];
     switch (sortType) {
       case "Default sorting":
-        setFilteredData(data)
+        setSortingType(sortType);
+        setFilteredData(data);
         break;
       case "Sort by popularity":
         break;
@@ -83,16 +83,18 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
       case "Sort by price: low to high":
         sortedProducts.sort((a, b) => parseFloat(a.cost) - parseFloat(b.cost));
         setSortingDirection("asc");
+        setSortingType(sortType);
+        setFilteredData(sortedProducts);
         break;
       case "Sort by price: high to low":
         sortedProducts.sort((a, b) => parseFloat(b.cost) - parseFloat(a.cost));
         setSortingDirection("desc");
+        setSortingType(sortType);
+        setFilteredData(sortedProducts);
         break;
       default:
         break;
     }
-    setSortingType(sortType);
-    setFilteredData(sortedProducts);
   };
 
   return (
@@ -143,12 +145,10 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
                             href={`/${city}/l/${item.category_name
                               .split(" ")
                               .join("-")}`}
-                              key={index}  
-                              className="categoryLink"
+                            key={index}
+                            className="categoryLink"
                           >
-                            <li key={index}>
-                              {item.category_name}
-                            </li>
+                            <li key={index}>{item.category_name}</li>
                           </Link>
                         ))
                       : ""}
