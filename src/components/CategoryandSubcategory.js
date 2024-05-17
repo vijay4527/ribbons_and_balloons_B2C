@@ -15,6 +15,7 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
   const [filteredData, setFilteredData] = useState(data);
   const [sortingType, setSortingType] = useState("Default sorting");
   const [sortingDirection, setSortingDirection] = useState("asc");
+  
   const city = Cookies.get("city");
   useEffect(() => {
     let minCost = Number.MAX_VALUE;
@@ -70,6 +71,9 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
   const sortProducts = (sortType) => {
     let sortedProducts = [...filteredData];
     switch (sortType) {
+      case "Default sorting":
+        setFilteredData(data)
+        break;
       case "Sort by popularity":
         break;
       case "Sort by average rating":
