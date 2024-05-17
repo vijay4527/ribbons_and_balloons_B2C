@@ -144,16 +144,20 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
                           // <li key={index}>
                           //   <a>{item.category_name}</a>
                           // </li>
-                          <li key={index}>
+                       
                             <Link
                               href={`/${city}/l/${item.category_name
                                 .split(" ")
                                 .join("-")}`}
                                 className="categoryLink"
                             >
-                              {item.category_name}
+                                 <li key={index}>
+                                 {item.category_name}
+                                 </li>
+                              
+                            
                             </Link>
-                          </li>
+                          
                         ))
                       : ""}
                   </ul>
