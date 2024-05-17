@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -247,48 +247,7 @@ function getProductDetails({ data }) {
       handleWeight(newQuantity);
     }
   };
-  const userObject =
-    typeof window !== "undefined"
-      ? JSON.parse(sessionStorage.getItem("userData"))
-      : "";
-  const cartId =
-    typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
 
-  // const handleAddToCartOrWishlist = () => {
-  //   const cartItem = {
-  //     user_id: userObject ? userObject?.user_id : "",
-  //     cart_id: cartId ? cartId : "",
-  //     product_id: product.product_id,
-  //     variety_id: variety,
-  //     city: city,
-  //     unit: unit,
-  //     value: values.toString(),
-  //     msg_cake: messageOnCake,
-  //   };
-
-  //   axios
-  //     .post(`${api_url}/CartMaster/SaveCartDetails`, cartItem)
-  //     .then((response) => {
-  //       if (response.data.resp === true) {
-  //         try {
-  //           if (!cartId) {
-  //             sessionStorage.setItem("cartId", response.data.respObj.cart_id);
-  //           }
-  //           toastr.options = {
-  //             positionClass: "toast-top-right",
-  //             timeOut: 3000,
-  //             closeButton: true,
-  //           };
-  //           toastr.success("Product added to cart successfully :");
-  //         } catch (error) {
-  //           console.error("Error storing cartId in session storage:", error);
-  //         }
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error adding product to cart:", error);
-  //     });
-  // };
   const handleMessage = (e) => {
     updateMessage(e);
     setMessageOnCake(e);
@@ -301,7 +260,7 @@ function getProductDetails({ data }) {
             <div className={styles.pdp_SelectInfo}>
               <div className={styles.pdp_shortInfo}>
                 <h4 className={styles.pdp_DetailInfoTitle}>Select Weight</h4>
-                <ServingInfo/>
+                <ServingInfo />
               </div>
               <div className={styles.pdp_SelectFlavour}>
                 <ul>
@@ -338,9 +297,9 @@ function getProductDetails({ data }) {
         {product.type_id == 2 && (
           <>
             <div className={styles.pdp_SelectInfo}>
-            <div className={styles.pdp_shortInfo}>
+              <div className={styles.pdp_shortInfo}>
                 <h4 className={styles.pdp_DetailInfoTitle}>Select Weight</h4>
-                <ServingInfo/>
+                <ServingInfo />
               </div>
               <div className={styles.pdp_SelectFlavour}>
                 <ul>
@@ -369,10 +328,9 @@ function getProductDetails({ data }) {
         {product.type_id == 3 && (
           <>
             <div className={styles.pdp_SelectInfo}>
-            <div className={styles.pdp_shortInfo}>
+              <div className={styles.pdp_shortInfo}>
                 <h4 className={styles.pdp_DetailInfoTitle}>Select Weight</h4>
-                <ServingInfo/>
-               
+                <ServingInfo />
               </div>
               <div className={styles.pdp_SelectFlavour}>
                 <ul>
@@ -399,16 +357,36 @@ function getProductDetails({ data }) {
         {product.type_id == 4 && (
           <>
             <div className={styles.pdp_SelectInfo}>
-            <div className={styles.pdp_shortInfo}>
+              <div className={styles.pdp_shortInfo}>
                 <h4 className={styles.pdp_DetailInfoTitle}>Select Weight</h4>
                 <div className={styles.pdp_shortInfo_Box}>
                   <h5 className={styles.pdp_shortInfo_Icon}>
                     Serving info
                     <span>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16"><g stroke="#888" stroke-linecap="round" strokeLinejoin="round" strokeWidth="1.2" clipPath="url(#clip0_4555_10382)"><path d="M8 14.667A6.667 6.667 0 1 0 8 1.334a6.667 6.667 0 0 0 0 13.333ZM8 10.667V8M8 5.333h.006"/></g><defs><clipPath id="clip0_4555_10382"><path fill="#fff" d="M0 0h16v16H0z"/></clipPath></defs></svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="none"
+                        viewBox="0 0 16 16"
+                      >
+                        <g
+                          stroke="#888"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="1.2"
+                          clipPath="url(#clip0_4555_10382)"
+                        >
+                          <path d="M8 14.667A6.667 6.667 0 1 0 8 1.334a6.667 6.667 0 0 0 0 13.333ZM8 10.667V8M8 5.333h.006" />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_4555_10382">
+                            <path fill="#fff" d="M0 0h16v16H0z" />
+                          </clipPath>
+                        </defs>
+                      </svg>
                     </span>
                   </h5>
-                 
                 </div>
               </div>
               <div className={styles.pdp_SelectFlavour}>
@@ -567,82 +545,97 @@ function getProductDetails({ data }) {
           </>
         )}
 
-        <div className={styles.pdp_SelectInfo}>
-          <div className={styles.pdp_shortInfo}>
+        {product.type_id !== 5 && product.type_id !== 6 &&(
+          <>
+            <div className={styles.pdp_SelectInfo}>
+              <div className={styles.pdp_shortInfo}>
                 <h4 className={styles.pdp_DetailInfoTitle}>Upload Image*</h4>
-          </div>
-          <div className={styles.pdp_SelectUploadImage}>
-            <label
-              htmlFor="FileUpload"
-              className={styles.pdp_SelectUploadLabel}
-            >
-              <input
-                type="file"
-                id="FileUpload"
-                className={styles.pdp_SelectUploadInput}
-              />
-              <div className={styles.image_uploading_content}>
-                <div className={styles.choose_file_circle}>
-                  <span></span>
-                  Choose file
-                </div>
-                <div className={styles.image_uploading_Icon}>
-                  <img
-                    src="https://bkmedia.bakingo.com/images/common/upload.svg"
-                    alt="upload"
+              </div>
+              <div className={styles.pdp_SelectUploadImage}>
+                <label
+                  htmlFor="FileUpload"
+                  className={styles.pdp_SelectUploadLabel}
+                >
+                  <input
+                    type="file"
+                    id="FileUpload"
+                    className={styles.pdp_SelectUploadInput}
                   />
-                </div>
-              </div>
-            </label>
-            <div className={styles.photo_uploaded}>
-              <div className={styles.Photo_UploadedImg}>
-                <img src="https://media.bakingo.com/bk/photo-cake/1693661314.423.jpeg" 
-                                alt="No image found"/>
-              </div>
-              <div className={styles.Photo_UploadedAction}>
-                <div className={styles.Photo_UploadedText}>Photo Uploaded</div>
-                <label htmlFor="FileUpload" className={styles.reUploadImg}>
-                  Change Photo
+                  <div className={styles.image_uploading_content}>
+                    <div className={styles.choose_file_circle}>
+                      <span></span>
+                      Choose file
+                    </div>
+                    <div className={styles.image_uploading_Icon}>
+                      <img
+                        src="https://bkmedia.bakingo.com/images/common/upload.svg"
+                        alt="upload"
+                      />
+                    </div>
+                  </div>
                 </label>
+                <div className={styles.photo_uploaded}>
+                  <div className={styles.Photo_UploadedImg}>
+                    <img
+                      src="https://media.bakingo.com/bk/photo-cake/1693661314.423.jpeg"
+                      alt="No image found"
+                    />
+                  </div>
+                  <div className={styles.Photo_UploadedAction}>
+                    <div className={styles.Photo_UploadedText}>
+                      Photo Uploaded
+                    </div>
+                    <label htmlFor="FileUpload" className={styles.reUploadImg}>
+                      Change Photo
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div className={styles.pdp_SelectInfo}>
-          <div className={styles.pdp_shortInfo}>
-              <h4 className={styles.pdp_DetailInfoTitle} htmlFor="messageoncake">Message</h4>
-              <p className={styles.pdp_msgCount}>0/25</p>
-          </div>
-          <div className={styles.pdp_SelectMessage}>
-            <textarea
-              type="text"
-              placeholder={text}
-              maxLength="25"
-              value={messageOnCake}
-              onChange={(e) => handleMessage(e.target.value)}
-              id="messageoncake"
-            ></textarea>
-          </div>
-        </div>
+            <div className={styles.pdp_SelectInfo}>
+              <div className={styles.pdp_shortInfo}>
+                <h4
+                  className={styles.pdp_DetailInfoTitle}
+                  htmlFor="messageoncake"
+                >
+                  Message
+                </h4>
+                <p className={styles.pdp_msgCount}>0/25</p>
+              </div>
+              <div className={styles.pdp_SelectMessage}>
+                <textarea
+                  type="text"
+                  placeholder={text}
+                  maxLength="25"
+                  value={messageOnCake}
+                  onChange={(e) => handleMessage(e.target.value)}
+                  id="messageoncake"
+                ></textarea>
+              </div>
+            </div>
+          </>
+        )}
 
         <div className={styles.underLineSeperator}></div>
-        
+
         <div className={styles.pdp_SelectInfo}>
           <div className={styles.pdp_shortInfo}>
-              <h4 className={styles.pdp_DetailInfoTitle} >Product Description</h4>
+            <h4 className={styles.pdp_DetailInfoTitle}>Product Description</h4>
           </div>
           <div className={styles.pdp_SelectMessage}>
             <ul className={styles.pdp_ProductDesc}>
               <li>
                 <span>{product.description}</span>
               </li>
-            
             </ul>
           </div>
         </div>
-        
+
         <div className={styles.fassalDiv}>
-          <img src="https://media.bakingo.com/bakingo-ssr/static/media/Info-1.aa9d95cd.png" alt="logo"></img>
+          <img
+            src="https://media.bakingo.com/bakingo-ssr/static/media/Info-1.aa9d95cd.png"
+            alt="logo"
+          ></img>
         </div>
       </div>
     );

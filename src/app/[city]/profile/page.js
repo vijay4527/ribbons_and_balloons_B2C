@@ -109,11 +109,14 @@ const page = () => {
       }
     }
   };
+
+  const hasErrors = Object.keys(errors).length > 0;
+
   return (
     <>
       <div className="container profile-container">
         <div className="m-4 form-wrap">
-          <div className="row">
+          <div className={`row ${!hasErrors ? "mt-2": ""}`}>
             <div className="col-lg-6">
               <label>First Name</label>
               <input
@@ -141,7 +144,7 @@ const page = () => {
               )}
             </div>
           </div>
-          <div className="row">
+          <div className={`row ${!hasErrors ? "mt-2": ""}`}>
             <div className="col-lg-6">
               <label>Email</label>
               <input
@@ -168,7 +171,7 @@ const page = () => {
             </div>
           </div>
 
-          <div className="row">
+          <div className={`row ${!hasErrors ? "mt-2": ""}`}>
             <div className="col-lg-6">
               <label>Address 1</label>
               <input
@@ -196,7 +199,7 @@ const page = () => {
               )} */}
             </div>
           </div>
-          <div className="row">
+          <div className={`row ${!hasErrors ? "mt-2": ""}`}>
             <div className="col-lg-6">
               <label>Pin Code</label>
               <input
@@ -222,7 +225,7 @@ const page = () => {
               {errors.city && <div className="text-danger">{errors.city}</div>}
             </div>
           </div>
-          <div className="row">
+          <div className={`row ${!hasErrors ? "mt-2": ""}`}>
             <div className="col-lg-6">
               <label>State</label>
               <input
