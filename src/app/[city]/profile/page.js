@@ -8,19 +8,23 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthOtpContext } from "@/components/authContext";
 import { profileSchema } from "@/components/validation";
+import Cookies from "js-cookie";
+import * as yup from "yup";
+
 const page = () => {
   const router = useRouter();
-
   const { isLogged } = useContext(AuthOtpContext);
-
   const { data } = useSession();
   const [errors, setErrors] = useState({});
+  const city = Cookies.get("city")
+
+  const [userCity, setUserCity] = useState(city);
 
   const [formValues, setFormValues] = useState({
     firstName: "",
     lastName: "",
     email: "",
-    city: "",
+    city: userCity,
     state: "",
     pinCode: "",
     country: "",
@@ -35,7 +39,6 @@ const page = () => {
   const [pinCode, setPinCode] = useState("");
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
-  const [userCity, setUserCity] = useState();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -49,7 +52,6 @@ const page = () => {
       }
     };
     fetchUser();
-    const city = window.location.pathname.split("/")[1];
     if (city) {
       setUserCity(city);
     }
@@ -64,27 +66,28 @@ const page = () => {
   };
 
   const saveUserProfile = async () => {
-    await profileSchema.validate(formValues, { abortEarly: false });
-    var obj = {
-      user_id: user ? user.user_id : "",
-      first_name: formValues.firstName,
-      last_name: formValues.lastName,
-      user_email: formValues.email,
-      contact_details: contact,
-      city: userCity ? userCity : formValues.city,
-      state: formValues.state,
-      address_1: address1,
-      address_2: address2,
-      pincode: formValues.pinCode,
-      country: formValues.country,
-      is_active: true,
-      created_on: "2024-04-25T07:03:52.248Z",
-      created_by: "",
-      updated_on: "2024-04-25T07:03:52.248Z",
-      updated_by: "",
-    };
-
+  
     try {
+      await profileSchema.validate(formValues, { abortEarly: false });
+      var obj = {
+        user_id: user ? user.user_id : "",
+        first_name: formValues.firstName,
+        last_name: formValues.lastName,
+        user_email: formValues.email,
+        contact_details: contact,
+        city: userCity ? userCity : formValues.city,
+        state: formValues.state,
+        address_1: address1,
+        address_2: address2,
+        pincode: formValues.pinCode,
+        country: formValues.country,
+        is_active: true,
+        created_on: "2024-04-25T07:03:52.248Z",
+        created_by: "",
+        updated_on: "2024-04-25T07:03:52.248Z",
+        updated_by: "",
+      };
+  
       const data = await axiosPost("UserProfile/SaveUserProfile", obj);
       if (data.resp == true) {
         setFormValues({
@@ -101,7 +104,7 @@ const page = () => {
           closeButton: true,
         });
       }
-    } catch (error) {
+    } catch (validationError) {
       if (validationError instanceof yup.ValidationError) {
         const newErrors = {};
         validationError.inner.forEach((error) => {
@@ -124,10 +127,11 @@ const page = () => {
                 type="text"
                 className="form-control"
                 value={formValues.firstName}
-                onChange={(e) => handleInputChange(e.target.value)}
+                onChange={handleInputChange}
+                name="firstName"
               />
               {errors.lastName && (
-                <div className="text-danger">{errors.lastName}</div>
+                <div className="text-danger">{errors.firstName}</div>
               )}
             </div>
             <div className="col-lg-6">
@@ -136,7 +140,9 @@ const page = () => {
                 type="text"
                 className="form-control"
                 value={formValues.lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                onChange={handleInputChange}
+                name="lastName"
+
               />
               {errors.lastName && (
                 <div className="text-danger">{errors.lastName}</div>
@@ -147,13 +153,14 @@ const page = () => {
             <div className="col-lg-6">
               <label>Email</label>
               <input
-                type="Email"
+                type="email"
                 className="form-control"
                 value={formValues.email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleInputChange}
+                name="email"
               />
               {errors.lastName && (
-                <div className="text-danger">{errors.lastName}</div>
+                <div className="text-danger">{errors.email}</div>
               )}
             </div>
             <div className="col-lg-6">
@@ -164,6 +171,7 @@ const page = () => {
                 value={contact}
                 onChange={(e) => setContact(e.target.value)}
                 disabled={true}
+                name="contact"
               />
             </div>
           </div>
@@ -171,13 +179,14 @@ const page = () => {
             <div className="col-lg-6">
               <label>City</label>
               <input
-                type="Email"
+                type="text"
                 className="form-control"
                 value={userCity}
                 onChange={(e) => setUserCity(e.target.value)}
+                name="city"
               />
-              {errors.lastName && (
-                <div className="text-danger">{errors.lastName}</div>
+              {errors.city && (
+                <div className="text-danger">{errors.city}</div>
               )}
             </div>
             <div className="col-lg-6">
@@ -186,9 +195,10 @@ const page = () => {
                 type="text"
                 className="form-control"
                 value={formValues.state}
-                onChange={(e) => setState(e.target.value)}
+                onChange={handleInputChange}
+                name="state"
               />
-              {errors.lastName && (
+              {errors.state && (
                 <div className="text-danger">{errors.lastName}</div>
               )}
             </div>
@@ -197,14 +207,15 @@ const page = () => {
             <div className="col-lg-6">
               <label>Address 1</label>
               <input
-                type="Email"
+                type="text"
                 className="form-control"
                 value={address1}
                 onChange={(e) => setAddress1(e.target.value)}
+                name="address1"
               />
-              {errors.lastName && (
+              {/* {errors.lastName && (
                 <div className="text-danger">{errors.lastName}</div>
-              )}
+              )} */}
             </div>
             <div className="col-lg-6">
               <label>Address 2</label>
@@ -213,23 +224,25 @@ const page = () => {
                 className="form-control"
                 value={address2}
                 onChange={(e) => setAddress2(e.target.value)}
+                name="address2"
               />
-              {errors.lastName && (
+              {/* {errors.lastName && (
                 <div className="text-danger">{errors.lastName}</div>
-              )}
+              )} */}
             </div>
           </div>
           <div className="row">
             <div className="col-lg-6">
               <label>Pin Code</label>
               <input
-                type="Email"
+                type="text"
                 className="form-control"
                 value={formValues.pinCode}
-                onChange={(e) => setPinCode(e.target.value)}
+                onChange={handleInputChange}
+                name="pinCode"
               />
-              {errors.lastName && (
-                <div className="text-danger">{errors.lastName}</div>
+              {errors.pinCode && (
+                <div className="text-danger">{errors.pinCode}</div>
               )}
             </div>
             <div className="col-lg-6">
@@ -238,10 +251,11 @@ const page = () => {
                 type="text"
                 className="form-control"
                 value={formValues.country}
-                onChange={(e) => setCountry(e.target.value)}
+                onChange={handleInputChange}
+                name="country"
               />
-              {errors.lastName && (
-                <div className="text-danger">{errors.lastName}</div>
+              {errors.country && (
+                <div className="text-danger">{errors.country}</div>
               )}
             </div>
             <div className="text-center mt-4">

@@ -2,7 +2,7 @@ import * as yup from "yup";
 
 const loginSchema = yup.object().shape({
   mobile: yup
-    .string() 
+    .string()
     .required("Mobile Number is required")
     .matches(/^[0-9]{10}$/, "Mobile number must be exactly 10 digits"),
 });
@@ -26,17 +26,10 @@ const profileSchema = yup.object().shape({
     .string()
     .matches(/^\d{6}$/, "Pin code must be exactly 6 digits")
     .required("Pin code is required"),
-    city:yup
-    .string()
-    .required("city is required"),
-    state:yup
-    .string()
-    .required("state is required"),
-    country:yup
-    .string()
-    .required("country is required"),
+  city: yup.string().required("city is required"),
+  state: yup.string().required("state is required"),
+  country: yup.string().required("country is required"),
 });
-
 
 const validationSchema = yup.object().shape({
   firstName: yup.string().required("First Name is required"),
@@ -49,7 +42,7 @@ const validationSchema = yup.object().shape({
   state: yup.string().required("State is required"),
   pinCode: yup.string().required("Pin code is required"),
   country: yup.string().required("Country is required"),
+  address: yup.string().required("Address is required"),
 });
 
-
-export { loginSchema, otpSchema, profileSchema ,validationSchema};
+export { loginSchema, otpSchema, profileSchema, validationSchema };
