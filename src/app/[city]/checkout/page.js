@@ -204,7 +204,7 @@ const page = ({ params }) => {
       order_type: selectedOption,
       franchise_id: selectedFranchise ? selectedFranchise : null,
       shipping_address_id: selectedAddress ? selectedAddress : "",
-      coupon_code: couponCode ? couponCode : null,
+      coupon_code: selectedCoupon ? selectedCoupon : null,
       city: city,
       user_id: user.user_id,
       order_status: null,
