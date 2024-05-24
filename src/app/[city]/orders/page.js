@@ -124,7 +124,7 @@ const page = ({ params }) => {
                                       </span>
                                       <span>{orderDetail.order_status}</span>
                                     </>
-                                  ) : orderDetail.order_status === "cancel" ? (
+                                  ) : orderDetail.order_status === "Failed" ? (
                                     <>
                                       <span>
                                         <svg

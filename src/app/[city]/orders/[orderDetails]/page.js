@@ -4,7 +4,7 @@ import styles from "@/app/[city]/orders/[orderDetails]/page.module.css";
 import homeStyles from "@/app/home.module.css";
 import { axiosGet } from "@/api";
 
-async function fetOrderDetails(orderId) {
+async function fetchOrderDetails(orderId) {
   try {
     if (orderId) {
       const response = await axiosGet("Order/GetOrderByOrderId/" + orderId);
@@ -22,7 +22,8 @@ async function fetOrderDetails(orderId) {
 
 const page = async ({ params }) => {
   const orderId = params.orderDetails;
-  const orderInfo = await fetOrderDetails(orderId);
+  const orderInfo = await fetchOrderDetails(orderId);
+  console.log("order info",orderInfo)
   return (
     <>
       <Head>
