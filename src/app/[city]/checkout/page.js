@@ -244,17 +244,6 @@ const page = ({ params }) => {
   
           // Submit the form
           form.submit();
-  
-          // toast("Your Order has been placed", {
-          //   autoClose: 3000,
-          //   closeButton: true,
-          //   onClose: () => {
-          //     setProducts([]);
-          //     Cookies.remove("cartId");
-          //     sessionStorage.removeItem("cartId");
-          //     router.push(`/${city}/orders`);
-          //   },
-          // });
         } else {
           toast("Something went wrong! Your Order has not been placed", {
             autoClose: 3000,
@@ -342,7 +331,6 @@ const page = ({ params }) => {
     }
   };
   const [location, setLocation] = useState(null);
-  const [error, setError] = useState(null);
   const enableAddAddress = () => {
     setEnableAddress(true);
     // getLocation();
