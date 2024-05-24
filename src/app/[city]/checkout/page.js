@@ -343,32 +343,63 @@ const page = ({ params }) => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
-          const { latitude, longitude } = position.coords;
-          setLocation({ latitude, longitude });
-          const response = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`
-          );
-          const data = await response.json();
-          const address = data.address;
+          try {
+            const response = await axios.get(
+              `https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=AIzaSyBpti7QuC_QXwWE90MT0RkfMPlET1KbhS4&libraries=places`
+            );
+            if (response.data.results.length > 0) {
+              let city = "";
+              let state = "";
+              let zipCode = "";
+              let country = "";
+              const formattedAddress =
+                response.data.results[0].formatted_address;
+              for (let component of response.data.results[0]
+                .address_components) {
+                if (component.types.includes("locality")) {
+                  city = component.long_name;
+                } else if (
+                  component.types.includes("administrative_area_level_1")
+                ) {
+                  state = component.long_name;
+                } else if (component.types.includes("postal_code")) {
+                  zipCode = component.long_name;
+                } else if (component.types.includes("country")) {
+                  country = component.long_name;
+                }
+              }
+              const remainingAddress = formattedAddress
+                .replace(`${city}, ${state} ${zipCode}, ${country}`, "")
+                .trim();
 
-          setFormValues((prevState) => ({
-            ...prevState,
-            address: address.road || "",
-            city: address.city || address.town || address.village || "",
-            state: address.state || "",
-            pinCode: address.postcode || "",
-            country: address.country || "",
-          }));
+              setFormValues({
+                ...formValues,
+                city: city,
+                state: state,
+                country: country,
+                address: remainingAddress,
+                pinCode: zipCode,
+              });
+              setLocation({
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+              });
+              setError(null);
+            } else {
+              setError("Unable to find address for this location");
+            }
+          } catch (error) {
+            setError("Error retrieving address");
+          }
         },
         (error) => {
-          toast("Error getting location: " + error.message, { autoClose: 3000, closeButton: true });
+          setError("Unable to retrieve your location");
         }
       );
     } else {
-      toast("Geolocation is not supported by this browser.", { autoClose: 3000, closeButton: true });
+      setError("Geolocation is not supported by your browser");
     }
   };
-
   return (
     <>
       <Head>
