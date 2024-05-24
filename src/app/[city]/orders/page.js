@@ -75,7 +75,7 @@ const page = ({ params }) => {
                             className="orderDetails"
                           >
                             <div className={styles.orderHistoryCard}>
-                              {orderDetail?.orderProducts[0].product_image &&
+                              {orderDetail?.orderProducts?.[0]?.product_image &&
                                 (orderDetail?.orderProducts?.[0]?.product_image.split(
                                   ","
                                 ).length > 0 ? (
