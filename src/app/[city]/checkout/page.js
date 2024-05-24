@@ -303,6 +303,8 @@ const page = ({ params }) => {
     }
   };
   const [location, setLocation] = useState(null);
+  const [error, setError] = useState(null);
+
   const enableAddAddress = () => {
     setEnableAddress(true);
      getLocation();
