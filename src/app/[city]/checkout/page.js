@@ -15,6 +15,7 @@ import OrderSummary from "@/components/OrderSummary";
 import { AuthOtpContext } from "@/components/authContext";
 import Cookies from "js-cookie";
 import { validationSchema } from "@/components/validation";
+import axios from "axios";
 const page = ({ params }) => {
   const [products, setProducts] = useState([]);
   const [selectedOption, setSelectedOption] = useState("delivery");
@@ -302,13 +303,7 @@ const page = ({ params }) => {
       setErrors({ ...errors, [name]: "" });
     }
   };
-  const [location, setLocation] = useState(null);
-  const [error, setError] = useState(null);
 
-  const enableAddAddress = () => {
-    setEnableAddress(true);
-     getLocation();
-  };
 
   const handleClose = () => {
     setFormValues({firstName: "",lastName: "",email: "",contact: "",address: "",city: "",state: "",pinCode: "",country: "",});
@@ -341,6 +336,12 @@ const page = ({ params }) => {
     }
   };
 
+  const [location, setLocation] = useState(null);
+  const [error, setError] = useState(null);
+  const enableAddAddress = () => {
+    setEnableAddress(true);
+    getLocation();
+  };
   const getLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -402,6 +403,7 @@ const page = ({ params }) => {
       setError("Geolocation is not supported by your browser");
     }
   };
+
   return (
     <>
       <Head>
