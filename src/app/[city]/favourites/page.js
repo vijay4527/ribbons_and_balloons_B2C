@@ -48,11 +48,13 @@ const page = ({ params }) => {
           user_id: userObject ? userObject.user_id : "",
           city_name: city ? city : "",
           type: "WL",
+          coupon_id:""
         };
 
         const response = await axiosPost("/CartMaster/GetCartDetails", obj);
         if (response) {
-          setCart(response);
+          setCart(response.result);
+          setGrandTotal(response.final_amount)
         }
       }
     } catch (error) {
@@ -72,6 +74,7 @@ const page = ({ params }) => {
         value: item.value.toString(),
         msg_cake: item.msg_cake,
         type: "AC",
+        product_type:"P"
       };
       const response = await axiosPost(`/CartMaster/SaveCartDetails`, cartItem);
       if (response.resp == true) {
@@ -182,7 +185,7 @@ const page = ({ params }) => {
                   <ServingInfo />
                 </div>
 
-                <OrderSummary data={cart} />
+                <OrderSummary data={cart} finalAmount={grandTotal}/>
                 <button
                   className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`}
                 >

@@ -1,6 +1,7 @@
 import React from 'react'
 import { axiosPost } from '@/api';
 import CategoryComponent from "@/components/CategoryandSubcategory"
+import { cookies } from 'next/headers'; 
 
 
 export async function generateMetadata({ params }) {
@@ -57,7 +58,9 @@ async function getCategoryData(categoryName,subcategory,city) {
 
 const page = async({params}) => {
     const categoryName = params.category
-    const city = params.city
+    const nextCookies = cookies();
+    const cityObj = await nextCookies.get('city')
+    const city = cityObj?.value ? cityObj?.value : params.city
     const subcategory = params.subcategory
  const {data,category} = await getCategoryData(categoryName,subcategory,city)
   return (

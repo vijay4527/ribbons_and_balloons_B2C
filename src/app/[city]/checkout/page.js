@@ -197,78 +197,83 @@ const page = ({ params }) => {
   };
 
   const createOrder = async () => {
-    products.forEach((e) => {
-      e.city = city;
-    });
-    const orderobj = {
-      order_type: selectedOption,
-      franchise_id: selectedFranchise ? selectedFranchise : null,
-      shipping_address_id: selectedAddress ? selectedAddress : "",
-      coupon_code: selectedCoupon ? selectedCoupon : null,
-      city: city,
-      user_id: user.user_id,
-      order_status: null,
-    };
-    if (products.length > 0) {
-      const order = await axiosPost("Order/SaveOrder", orderobj);
-      if (order && order?.resp == true) {
-        setProducts([]);
-        Cookies.remove("cartId");
-        sessionStorage.removeItem("cartId");
-        const form = document.createElement("form");
-        form.id = "nonseamless";
-        form.method = "post";
-        form.name = "redirect";
-        form.action = redirectUrl;
-
-        // Create input elements and set their values
-        const encRequestInput = document.createElement("input");
-        encRequestInput.type = "hidden";
-        encRequestInput.name = "encRequest";
-        encRequestInput.id = "encRequest";
-        encRequestInput.value = order.respObj.formdata.encRequest;
-
-        const accessCodeInput = document.createElement("input");
-        accessCodeInput.type = "hidden";
-        accessCodeInput.name = "access_code";
-        accessCodeInput.id = "access_code";
-        accessCodeInput.value = accessCode;
-
-        // Append input elements to the form
-        form.appendChild(encRequestInput);
-        form.appendChild(accessCodeInput);
-
-        // Append the form to the document body
-        document.body.appendChild(form);
-
-        // Submit the form
-        form.submit();
-        setProducts([]);
-        Cookies.remove("cartId");
-        sessionStorage.removeItem("cartId");
-
-        // toast("Your Order has been placed", {
-        //   autoClose: 3000,
-        //   closeButton: true,
-        //   onClose: () => {
-        //     setProducts([]);
-        //     Cookies.remove("cartId");
-        //     sessionStorage.removeItem("cartId");
-        //     router.push(`/${city}/orders`);
-        //   },
-        // });
+    try{
+      products.forEach((e) => {
+        e.city = city;
+      });
+      const orderobj = {
+        order_type: selectedOption,
+        franchise_id: selectedFranchise ? selectedFranchise : null,
+        shipping_address_id: selectedAddress ? selectedAddress : "",
+        coupon_code: selectedCoupon ? selectedCoupon : null,
+        city: city,
+        user_id: user.user_id,
+        order_status: null,
+      };
+      if (products.length > 0) {
+        const order = await axiosPost("Order/SaveOrder", orderobj);
+        if (order && order?.resp == true) {
+          setProducts([]);
+          Cookies.remove("cartId");
+          sessionStorage.removeItem("cartId");
+          const form = document.createElement("form");
+          form.id = "nonseamless";
+          form.method = "post";
+          form.name = "redirect";
+          form.action = redirectUrl;
+  
+          // Create input elements and set their values
+          const encRequestInput = document.createElement("input");
+          encRequestInput.type = "hidden";
+          encRequestInput.name = "encRequest";
+          encRequestInput.id = "encRequest";
+          encRequestInput.value = order.respObj.formdata.encRequest;
+  
+          const accessCodeInput = document.createElement("input");
+          accessCodeInput.type = "hidden";
+          accessCodeInput.name = "access_code";
+          accessCodeInput.id = "access_code";
+          accessCodeInput.value = accessCode;
+  
+          // Append input elements to the form
+          form.appendChild(encRequestInput);
+          form.appendChild(accessCodeInput);
+  
+          // Append the form to the document body
+          document.body.appendChild(form);
+  
+          // Submit the form
+          form.submit();
+  
+          // toast("Your Order has been placed", {
+          //   autoClose: 3000,
+          //   closeButton: true,
+          //   onClose: () => {
+          //     setProducts([]);
+          //     Cookies.remove("cartId");
+          //     sessionStorage.removeItem("cartId");
+          //     router.push(`/${city}/orders`);
+          //   },
+          // });
+        } else {
+          toast("Something went wrong! Your Order has not been placed", {
+            autoClose: 3000,
+            closeButton: true,
+          });
+        }
       } else {
-        toast("Something went wrong! Your Order has not been placed", {
+        toast("Please add product to your cart", {
           autoClose: 3000,
           closeButton: true,
         });
       }
-    } else {
-      toast("Please add product to your cart", {
+    }catch(err){
+      toast("error while placing the order", {
         autoClose: 3000,
         closeButton: true,
       });
     }
+  
   };
 
   const frachiseSelection = (store) => {

@@ -81,7 +81,7 @@ const page = async({params}) => {
     const categoryName = params.category
     const nextCookies = cookies();
     const cityObj = await nextCookies.get('city')
-    const city = cityObj?.value
+    const city = cityObj?.value ? cityObj?.value : params.city
     const subcategory = params.subcategory
     // const isValidCity = cities.some(
     //   (c) => c.city_name.toLowerCase() === city.toLowerCase()
