@@ -61,7 +61,7 @@ const ShowCaseSlider = ({ data, city }) => {
                 >
                   <div className={styles.item}>
                     <div className={styles.itemInfo}>
-                      <AddToFavoritesButton productData={item} />
+                      {/* <AddToFavoritesButton productData={item} /> */}
                       <div className={styles.imgHvr}>
                         <img
                           className={styles.plpProdctImg}
