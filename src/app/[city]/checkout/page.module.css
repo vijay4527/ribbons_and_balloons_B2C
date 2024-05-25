@@ -370,3 +370,29 @@
         transform: translateX(100%);
     }
 }
+
+.giftBox{
+    width: 30% !important;
+}
+
+.modalBox{
+    width: 100%;
+}
+
+
+.modalCartPriceBox{
+    padding: 1.6rem;
+    font-family: var(--font-family);
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.modalCouponName{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.couponDetails{
+    margin-left: 20px !important;
+}
