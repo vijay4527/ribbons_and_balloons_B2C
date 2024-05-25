@@ -93,7 +93,7 @@ const page = async({params}) => {
             <div className="spotlight_swivel">
               <div className="lamp"></div>
               <div className="spotlight"></div>
-            </div> 
+            </div>
           </div>
         </div>
       </div>
