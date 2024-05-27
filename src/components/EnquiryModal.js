@@ -68,7 +68,7 @@ function EnquiryModal() {
                     <Form.Group controlId="formfirstname">
                       <Form.Control
                         type="text"
-                        placeholder="Enter firstname"
+                        placeholder="Enter First Name"
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
                       />
@@ -77,7 +77,7 @@ function EnquiryModal() {
                     <Form.Group controlId="formlastname">
                       <Form.Control
                         type="text"
-                        placeholder="Enter lastname"
+                        placeholder="Enter Last Name"
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
                       />
@@ -85,7 +85,7 @@ function EnquiryModal() {
                     <Form.Group controlId="formemail">
                       <Form.Control
                         type="email"
-                        placeholder="Enter emai"
+                        placeholder="Enter Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                       />
@@ -93,7 +93,7 @@ function EnquiryModal() {
                     <Form.Group controlId="formmessage">
                       <Form.Control
                         as="textarea"
-                        placeholder="Enter message"
+                        placeholder="Enter Message"
                         style={{ height: "100px" }}
                         htmlFor="message on"
                         value={message}
