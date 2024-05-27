@@ -35,7 +35,7 @@ export default function AddToFavoritesButton({ productData, city }) {
       const favouriteData = await axiosPost("/CartMaster/SaveCartDetails", obj);
       if (favouriteData.resp == true) {
         if (!cartId) {
-          Cookies.set('cartId', response.respObj.cart_id);
+          Cookies.set('cartId', favouriteData.respObj.cart_id);
           sessionStorage.setItem("cartId", favouriteData.respObj.cart_id);
         }
         window
@@ -48,7 +48,7 @@ export default function AddToFavoritesButton({ productData, city }) {
             position: "right",
             backgroundColor: "#47cf73",
             stopOnFocus: true,
-            progressbar: true, // Enable progress bar
+            progressbar: true,
             onClick: function () {},
           })
           .showToast();
