@@ -5,8 +5,8 @@ import InstaPosts from "@/components/InstaPosts";
 import NewLaunches from "@/components/newLaunched";
 import MediaCollaborators from "@/components/mediaCollaborators";
 import EnquiryModal from "@/components/EnquiryModal";
-import { axiosGet } from "@/api";
-import { redirect } from 'next/navigation'
+import { axiosGet, axiosPost } from "@/api";
+import { redirect } from "next/navigation";
 import SetCookies from "@/components/setCookies";
 export async function generateMetadata({ params }) {
   return {
@@ -32,10 +32,10 @@ export async function generateMetadata({ params }) {
 
 async function getCities() {
   try {
-      const cities = await axiosGet("RNBCity/GetAllRNBCity");
-      if (cities) {
-        return cities;
-      }  
+    const cities = await axiosGet("RNBCity/GetAllRNBCity");
+    if (cities) {
+      return cities;
+    }
   } catch (error) {
     console.error("Error fetching data:", error);
     return {
@@ -44,10 +44,103 @@ async function getCities() {
   }
 }
 
+async function fetchMedia(city) {
+  try {
+    const obj = {
+      city: city,
+    };
+    const bannerData = await axiosPost("media/getAllMedia", obj);
+    if (bannerData.resp == true) {
+      return;
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
 
-const page = async({params}) => {
-  const city = params.city 
-   const cities = await getCities();
+const page = async ({ params }) => {
+  const media = {
+    banner: [
+      {
+        img_url: "https://fama.b-cdn.net/RnB/bannerImage1.jpg",
+        seq_no: "1",
+        redirect_url: "",
+      },
+      {
+        img_url: "https://fama.b-cdn.net/RnB/bannerImage2.png",
+        seq_no: "2",
+        redirect_url: "",
+      },
+      {
+        img_url: "	https://fama.b-cdn.net/RnB/bannerImage3.jpg",
+        seq_no: "3",
+        redirect_url: "",
+      },
+      {
+        img_url: "https://fama.b-cdn.net/RnB/bannerImage4.jpg",
+        seq_no: "4",
+        redirect_url: "",
+      },
+      {
+        img_url: "https://fama.b-cdn.net/RnB/bannerImage5.jpg",
+        seq_no: "5",
+        redirect_url: "",
+      },
+    ],
+    NewLaunches: [
+      {
+        img_url: "https://fama.b-cdn.net/RnB/Ln1.jpg",
+        seq_no: "1",
+        redirect_url: "",
+      },
+      {
+        img_url: "https://fama.b-cdn.net/RnB/Ln2.jpg",
+        seq_no: "2",
+        redirect_url: "",
+      },
+      {
+        img_url: "https://fama.b-cdn.net/RnB/Ln3.jpg",
+        seq_no: "3",
+        redirect_url: "",
+      },
+      {
+        img_url: "https://fama.b-cdn.net/RnB/Ln4.jpg",
+        seq_no: "4",
+        redirect_url: "",
+      }
+    ],
+    mediaCollaborators: [
+      {
+        img_url: "https://fama.b-cdn.net/RnB/media2.png",
+        seq_no: "1",
+        redirect_url: "",
+      },
+      {
+        img_url: "https://fama.b-cdn.net/RnB/media1.png",
+        seq_no: "2",
+        redirect_url: "",
+      },
+      {
+        img_url: "https://fama.b-cdn.net/RnB/media3.png",
+        seq_no: "3",
+        redirect_url: "",
+      },
+      {
+        img_url: "https://fama.b-cdn.net/RnB/media4.pngs",
+        seq_no: "4",
+        redirect_url: "",
+      },
+    ],
+    cakeOfTheMonth: [
+      {
+        img_url: "https://fama.b-cdn.net/RnB/combg.png",
+        seq_no: "4",
+        redirect_url: "",
+      },
+    ],
+  };
+  const city = params.city;
+  const cities = await getCities();
   if (!Array.isArray(cities)) {
     console.error("Cities data is not an array.");
   }
@@ -55,14 +148,16 @@ const page = async({params}) => {
     (c) => c.city_name.toLowerCase() === city.toLowerCase()
   );
   if (!isValidCity) {
-    redirect('/mumbai')
+    redirect("/mumbai");
   }
+
+  // const media = await fetchMedia(city)
   return (
     <>
-      <Banner />
+      <Banner city={city} data={media?.banner} />
       <Testimonials />
-      <InstaPosts />
-      <NewLaunches />
+      <InstaPosts city={city} data={media} />
+      <NewLaunches city={city} data={media?.NewLaunches} />
       <div className="cakeOfMonthWrap">
         <div className="headerTitle">
           <h2>Cake of the month</h2>
@@ -93,11 +188,11 @@ const page = async({params}) => {
             <div className="spotlight_swivel">
               <div className="lamp"></div>
               <div className="spotlight"></div>
-            </div> 
+            </div>
           </div>
         </div>
       </div>
-      <MediaCollaborators />
+      <MediaCollaborators city={city} data={media?.mediaCollaborators}/>
       <div className="enquiryWrapper">
         <EnquiryModal />
       </div>

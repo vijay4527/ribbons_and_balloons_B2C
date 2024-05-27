@@ -3,7 +3,6 @@ import React from "react";
 import styles from "@/app/[city]/l/[category]/page.module.css";
 import Link from "next/link";
 import AppConfig from "@/AppConfig";
-import AddToFavoritesButton from "./AddToFavoritesButton";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 const responsive = {
@@ -41,7 +40,6 @@ const ShowCaseSlider = ({ data, city }) => {
               autoPlay={true}
               autoPlaySpeed={2000}
               keyBoardControl={true}
-              // customTransition="all .5"
               transitionDuration={500}
               containerClass={`${styles.showCaseCarouselContainer}`}
               removeArrowOnDeviceType={['tablet', 'mobile']}
@@ -61,7 +59,6 @@ const ShowCaseSlider = ({ data, city }) => {
                 >
                   <div className={styles.item}>
                     <div className={styles.itemInfo}>
-                      {/* <AddToFavoritesButton productData={item} /> */}
                       <div className={styles.imgHvr}>
                         <img
                           className={styles.plpProdctImg}
