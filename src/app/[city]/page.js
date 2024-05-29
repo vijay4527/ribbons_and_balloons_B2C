@@ -154,14 +154,14 @@ const page = async ({ params }) => {
     redirect("/mumbai");
   }
 
-   const media = await fetchMedia(city)
+  const media = await fetchMedia(city);
   return (
     <>
       <Banner city={city} data={media?.Banner} />
       <Testimonials />
       <InstaPosts city={city} data={media} />
       <NewLaunches city={city} data={media?.New_Launches} />
-      <div className="cakeOfMonthWrap">
+      {/* <div className="cakeOfMonthWrap">
         <div className="headerTitle">
           <h2>Cake of the month</h2>
           <div className="testimonialUnderLine">
@@ -183,9 +183,9 @@ const page = async ({ params }) => {
             </div>
           </div>
         </div>
-      </div>
-        {/* <CakeOfTheMonth city={city} data={media?.Cake_Of_The_Month}/> */}
-      <MediaCollaborators city={city} data={media?.Media_Collaborator}/>
+      </div> */}
+      <CakeOfTheMonth city={city} data={media?.Cake_Of_The_Month} />
+      <MediaCollaborators city={city} data={media?.Media_Collaborator} />
       <div className="enquiryWrapper">
         <EnquiryModal />
       </div>

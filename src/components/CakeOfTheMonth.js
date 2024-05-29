@@ -1,6 +1,6 @@
 import React from 'react'
 import AppConfig from "@/AppConfig";
-
+import Link from 'next/link';
 const CakeOfTheMonth = ({city,data}) => {
     console.log("data of cake",data)
     console.log("city",city)
@@ -16,6 +16,7 @@ const CakeOfTheMonth = ({city,data}) => {
         </div>
       </div>
     </div>
+    <Link href={`/${data[0]?.redirect_url}`}>
     <div className="cakeOfMonthBody">
       <div className="wrapper">
         {/* <video
@@ -30,7 +31,10 @@ const CakeOfTheMonth = ({city,data}) => {
             type="video/mp4"
           />
         </video> */}
+     
         <div className="backdrop" style={{ backgroundImage: `url(${AppConfig.cdn}${data[0].img_url})` }}></div>
+
+     
         <div className="stage_floor"></div>
         <div className="stage_highlight"></div>
         <div className="spotlight_swivel">
@@ -39,6 +43,7 @@ const CakeOfTheMonth = ({city,data}) => {
         </div>
       </div>
     </div>
+    </Link>
   </div>
   )
 }
