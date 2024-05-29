@@ -5,7 +5,7 @@ import { axiosPost } from "@/api";
 import Link from "next/link";
 import NavComponent from "./navComponent";
 import { cookies } from 'next/headers'; 
-
+import { headers } from "next/headers";
 const getCategories = async (city) => {
   try {
     const categoryObj = { city_name: city };
@@ -25,6 +25,16 @@ const Nav = async () => {
   const categoryData = await getCategories(city);
   const categories= categoryData.data
   const newCity = categoryData.city
+  
+  const headerList = headers();
+  const pathname = headerList.get("x-current-path");
+  const City = pathname ? pathname.substring(1) : ""; // Check if pathname is null before manipulation
+  console.log("city", City); // This will log just the city name if pathname is not null
+  
+  console.log("pathname", pathname);
+  
+
+  console.log("pathname",pathname)
   return (
     <div>
       <Container>
@@ -76,14 +86,14 @@ const Nav = async () => {
                   <div className="subNavbar_body">
                     <div className={`sub_nav`}>
                       <div className={"sub_navbtn"}>
-                        <Link href={`/${city ?city : newCity}`} prefetch={true}>
+                        <Link href={`/${City ? City : city}`} prefetch={true}>
                           <h4 className="category-title">Home</h4>
                         </Link>
                       </div>
                     </div>
                     <div className={`sub_nav`}>
                       <div className={"sub_navbtn"}>
-                        <Link href={`/${city ?city : newCity}/about-us`} prefetch={true}>
+                        <Link href={`/${City ? City : city}/about-us`} prefetch={true}>
                           <h4 className="category-title">About Us</h4>
                         </Link>
                       </div>
@@ -94,7 +104,7 @@ const Nav = async () => {
                         <div className={`sub_nav `} key={index}>
                           <div className="sub_navbtn">
                             <Link
-                              href={`/${city ?city : newCity}/l/${category.category_name.replaceAll(
+                              href={`/${City ? City : city}/l/${category.category_name.replaceAll(
                                 " ",
                                 "-"
                               )}`}
@@ -122,7 +132,7 @@ const Nav = async () => {
                           </div>
                           <div className="MobileSub_navbtn sub_navbtn">
                             <Link
-                              href={`/${city ?city : newCity}/l/${category.category_name.replaceAll(
+                              href={`/${City ? City : city}/l/${category.category_name.replaceAll(
                                 " ",
                                 "-"
                               )}`}
@@ -172,7 +182,7 @@ const Nav = async () => {
                                       className="category-sub-title"
                                     >
                                       <Link
-                                        href={`/${city ?city : newCity}/l/${category.category_name.replaceAll(
+                                        href={`/${City}/l/${category.category_name.replaceAll(
                                           " ",
                                           "-"
                                         )}/${

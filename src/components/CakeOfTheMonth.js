@@ -2,9 +2,6 @@ import React from 'react'
 import AppConfig from "@/AppConfig";
 import Link from 'next/link';
 const CakeOfTheMonth = ({city,data}) => {
-    console.log("data of cake",data)
-    console.log("city",city)
-
   return (
     <div className="cakeOfMonthWrap">
     <div className="headerTitle">
