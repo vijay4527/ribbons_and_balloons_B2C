@@ -5,7 +5,10 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import styles from "@/app/[city]/l/[category]/page.module.css";
 import { axiosPost } from "@/api";
-import { useEffect,useState} from "react";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import AppConfig from "@/AppConfig";
+
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -23,9 +26,23 @@ const responsive = {
     slidesToSlide: 1,
   },
 };
-const MediaCollaborators = ({city,data}) => {
-  useEffect(()=>{
-  },[city])
+const MediaCollaborators = ({ city, data }) => {
+  const [firstImage, setFirstImage] = useState("");
+  const [secondImage, setSecondImage] = useState("");
+  const [thirdImage, setThirdImage] = useState("");
+  const [fourthImage, setFourthImage] = useState("");
+
+  useEffect(() => {
+    const firstImage = data.find((item) => item.seq_no == "1");
+    const secondImage = data.find((item) => item.seq_no == "2");
+    const thirdImage = data.find((item) => item.seq_no == "3");
+    const fourthImage = data.find((item) => item.seq_no == "4");
+
+    if (firstImage) setFirstImage(firstImage);
+    if (secondImage) setSecondImage(secondImage);
+    if (thirdImage) setThirdImage(thirdImage);
+    if (fourthImage) setFourthImage(fourthImage);
+  }, [data, city]);
 
   return (
     <>
@@ -60,34 +77,31 @@ const MediaCollaborators = ({city,data}) => {
             >
               <div className="item">
                 <div className="MediaContentImg">
-                  <img
-                    src="https://fama.b-cdn.net/RnB/media2.png"
-                    alt="No image found"
-                  />
+                <Link href={`/${firstImage.redirect_url}`}>
+                  <img src={AppConfig.cdn+firstImage.img_url} alt="No image found" />
+
+                  </Link>
                 </div>
               </div>
               <div className="item">
                 <div className="MediaContentImg">
-                  <img
-                    src="https://fama.b-cdn.net/RnB/media1.png"
-                    alt="No image found"
-                  />
+                <Link href={`/${secondImage.redirect_url}`}>
+                  <img src={AppConfig.cdn+secondImage.img_url} alt="No image found" />
+                  </Link>
                 </div>
               </div>
               <div className="item">
                 <div className="MediaContentImg">
-                  <img
-                    src="https://fama.b-cdn.net/RnB/media3.png"
-                    alt="No image found"
-                  />
+                <Link href={`/${thirdImage.redirect_url}`}>
+                  <img src={AppConfig.cdn+thirdImage.img_url} alt="No image found" />
+                  </Link>
                 </div>
               </div>
               <div className="item">
                 <div className="MediaContentImg">
-                  <img
-                    src="https://fama.b-cdn.net/RnB/media4.png"
-                    alt="mediaImage"
-                  />
+                <Link href={`/${fourthImage.redirect_url}`}>
+                  <img src={AppConfig.cdn+fourthImage.img_url} alt="mediaImage" />
+                  </Link>
                 </div>
               </div>
             </Carousel>

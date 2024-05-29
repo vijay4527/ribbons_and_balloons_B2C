@@ -5,9 +5,12 @@ import InstaPosts from "@/components/InstaPosts";
 import NewLaunches from "@/components/newLaunched";
 import MediaCollaborators from "@/components/mediaCollaborators";
 import EnquiryModal from "@/components/EnquiryModal";
+import CakeOfTheMonth from "@/components/CakeOfTheMonth";
 import { axiosGet, axiosPost } from "@/api";
 import { redirect } from "next/navigation";
 import SetCookies from "@/components/setCookies";
+import AppConfig from "@/AppConfig";
+
 export async function generateMetadata({ params }) {
   return {
     title: "Home | Ribbons and Balloons",
@@ -47,11 +50,11 @@ async function getCities() {
 async function fetchMedia(city) {
   try {
     const obj = {
-      city: city,
+      city_name: city,
     };
-    const bannerData = await axiosPost("media/getAllMedia", obj);
-    if (bannerData.resp == true) {
-      return;
+    const bannerData = await axiosPost("BannerMaster/GetBannerByCityName", obj);
+    if (bannerData) {
+      return bannerData;
     }
   } catch (err) {
     console.log(err);
@@ -59,86 +62,86 @@ async function fetchMedia(city) {
 }
 
 const page = async ({ params }) => {
-  const media = {
-    banner: [
-      {
-        img_url: "https://fama.b-cdn.net/RnB/bannerImage1.jpg",
-        seq_no: "1",
-        redirect_url: "",
-      },
-      {
-        img_url: "https://fama.b-cdn.net/RnB/bannerImage2.png",
-        seq_no: "2",
-        redirect_url: "",
-      },
-      {
-        img_url: "	https://fama.b-cdn.net/RnB/bannerImage3.jpg",
-        seq_no: "3",
-        redirect_url: "",
-      },
-      {
-        img_url: "https://fama.b-cdn.net/RnB/bannerImage4.jpg",
-        seq_no: "4",
-        redirect_url: "",
-      },
-      {
-        img_url: "https://fama.b-cdn.net/RnB/bannerImage5.jpg",
-        seq_no: "5",
-        redirect_url: "",
-      },
-    ],
-    NewLaunches: [
-      {
-        img_url: "https://fama.b-cdn.net/RnB/Ln1.jpg",
-        seq_no: "1",
-        redirect_url: "",
-      },
-      {
-        img_url: "https://fama.b-cdn.net/RnB/Ln2.jpg",
-        seq_no: "2",
-        redirect_url: "",
-      },
-      {
-        img_url: "https://fama.b-cdn.net/RnB/Ln3.jpg",
-        seq_no: "3",
-        redirect_url: "",
-      },
-      {
-        img_url: "https://fama.b-cdn.net/RnB/Ln4.jpg",
-        seq_no: "4",
-        redirect_url: "",
-      }
-    ],
-    mediaCollaborators: [
-      {
-        img_url: "https://fama.b-cdn.net/RnB/media2.png",
-        seq_no: "1",
-        redirect_url: "",
-      },
-      {
-        img_url: "https://fama.b-cdn.net/RnB/media1.png",
-        seq_no: "2",
-        redirect_url: "",
-      },
-      {
-        img_url: "https://fama.b-cdn.net/RnB/media3.png",
-        seq_no: "3",
-        redirect_url: "",
-      },
-      {
-        img_url: "https://fama.b-cdn.net/RnB/media4.pngs",
-        seq_no: "4",
-        redirect_url: "",
-      },
-    ],
-    cakeOfTheMonth: [
-      {
-        img_url: "https://fama.b-cdn.net/RnB/combg.png",
-        seq_no: "4",
-        redirect_url: "",
-      },
-    ],
-  };
+  // const media = {
+  //   banner: [
+  //     {
+  //       img_url: "https://fama.b-cdn.net/RnB/bannerImage1.jpg",
+  //       seq_no: "1",
+  //       redirect_url: "",
+  //     },
+  //     {
+  //       img_url: "https://fama.b-cdn.net/RnB/bannerImage2.png",
+  //       seq_no: "2",
+  //       redirect_url: "",
+  //     },
+  //     {
+  //       img_url: "	https://fama.b-cdn.net/RnB/bannerImage3.jpg",
+  //       seq_no: "3",
+  //       redirect_url: "",
+  //     },
+  //     {
+  //       img_url: "https://fama.b-cdn.net/RnB/bannerImage4.jpg",
+  //       seq_no: "4",
+  //       redirect_url: "",
+  //     },
+  //     {
+  //       img_url: "https://fama.b-cdn.net/RnB/bannerImage5.jpg",
+  //       seq_no: "5",
+  //       redirect_url: "",
+  //     },
+  //   ],
+  //   NewLaunches: [
+  //     {
+  //       img_url: "https://fama.b-cdn.net/RnB/Ln1.jpg",
+  //       seq_no: "1",
+  //       redirect_url: "",
+  //     },
+  //     {
+  //       img_url: "https://fama.b-cdn.net/RnB/Ln2.jpg",
+  //       seq_no: "2",
+  //       redirect_url: "",
+  //     },
+  //     {
+  //       img_url: "https://fama.b-cdn.net/RnB/Ln3.jpg",
+  //       seq_no: "3",
+  //       redirect_url: "",
+  //     },
+  //     {
+  //       img_url: "https://fama.b-cdn.net/RnB/Ln4.jpg",
+  //       seq_no: "4",
+  //       redirect_url: "",
+  //     }
+  //   ],
+  //   mediaCollaborators: [
+  //     {
+  //       img_url: "https://fama.b-cdn.net/RnB/media2.png",
+  //       seq_no: "1",
+  //       redirect_url: "",
+  //     },
+  //     {
+  //       img_url: "https://fama.b-cdn.net/RnB/media1.png",
+  //       seq_no: "2",
+  //       redirect_url: "",
+  //     },
+  //     {
+  //       img_url: "https://fama.b-cdn.net/RnB/media3.png",
+  //       seq_no: "3",
+  //       redirect_url: "",
+  //     },
+  //     {
+  //       img_url: "https://fama.b-cdn.net/RnB/media4.png",
+  //       seq_no: "4",
+  //       redirect_url: "",
+  //     },
+  //   ],
+  //   cakeOfTheMonth: [
+  //     {
+  //       img_url: "https://fama.b-cdn.net/RnB/combg.png",
+  //       seq_no: "4",
+  //       redirect_url: "",
+  //     },
+  //   ],
+  // };
   const city = params.city;
   const cities = await getCities();
   if (!Array.isArray(cities)) {
@@ -151,13 +154,13 @@ const page = async ({ params }) => {
     redirect("/mumbai");
   }
 
-  // const media = await fetchMedia(city)
+   const media = await fetchMedia(city)
   return (
     <>
-      <Banner city={city} data={media?.banner} />
+      <Banner city={city} data={media?.Banner} />
       <Testimonials />
       <InstaPosts city={city} data={media} />
-      <NewLaunches city={city} data={media?.NewLaunches} />
+      <NewLaunches city={city} data={media?.New_Launches} />
       <div className="cakeOfMonthWrap">
         <div className="headerTitle">
           <h2>Cake of the month</h2>
@@ -170,19 +173,8 @@ const page = async ({ params }) => {
         </div>
         <div className="cakeOfMonthBody">
           <div className="wrapper">
-            {/* <video
-              muted
-              autoPlay
-              loop
-              className="backdrop"
-              style={{ width: "100%" }}
-            >
-              <source
-                src="https://fama.b-cdn.net/PalmExpo/palmExpo.mp4"
-                type="video/mp4"
-              />
-            </video> */}
-            <div className="backdrop"></div>
+           
+            <div className="backdrop" style={{ backgroundImage: `url(${AppConfig.cdn}${media?.Cake_Of_The_Month[0].img_url})` }}></div>
             <div className="stage_floor"></div>
             <div className="stage_highlight"></div>
             <div className="spotlight_swivel">
@@ -192,7 +184,8 @@ const page = async ({ params }) => {
           </div>
         </div>
       </div>
-      <MediaCollaborators city={city} data={media?.mediaCollaborators}/>
+        {/* <CakeOfTheMonth city={city} data={media?.Cake_Of_The_Month}/> */}
+      <MediaCollaborators city={city} data={media?.Media_Collaborator}/>
       <div className="enquiryWrapper">
         <EnquiryModal />
       </div>
