@@ -1,7 +1,6 @@
 "use client";
 import Container from "react-bootstrap/Container";
 import React, { useEffect, useState } from "react";
-import { axiosPost } from "@/api";
 import AppConfig from "@/AppConfig";
 import Link from "next/link";
 const Banner = ({ city, data }) => {
