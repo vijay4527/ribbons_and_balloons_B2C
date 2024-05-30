@@ -157,7 +157,7 @@ const page = async ({ params }) => {
   const media = await fetchMedia(city);
   return (
     <>
-      <Banner city={city} data={media?.Banner} />
+      {/* <Banner city={city} data={media?.Banner} /> */}
       <Testimonials />
       <InstaPosts city={city} data={media} />
       <NewLaunches city={city} data={media?.New_Launches} />
