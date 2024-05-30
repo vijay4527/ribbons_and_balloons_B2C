@@ -28,14 +28,10 @@ const Nav = async () => {
   
   const headerList = headers();
   const pathname = headerList.get("x-current-path");
-  const City = pathname ? pathname.substring(1) : ""; // Check if pathname is null before manipulation
-  console.log("city", City); // This will log just the city name if pathname is not null
-  
+  const City = pathname ? pathname.split("/")[1] : "";
+  console.log("city", City); 
   console.log("pathname", pathname);
-  
-
-  console.log("pathname",pathname)
-  return (
+    return (
     <div>
       <Container>
         <div className="navbar_body">
