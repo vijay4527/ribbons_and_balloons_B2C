@@ -13,7 +13,6 @@ export default function Footer() {
   const [email, setEmail] = useState("");
   const router = usePathname();
   const city = router.split("/")[1]
-console.log("query in footer",city )
   // const  city  = "mumbai";
   const [status, setStatus] = useState(false);
   const saveNewsLetter = async () => {
