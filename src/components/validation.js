@@ -45,4 +45,11 @@ const validationSchema = yup.object().shape({
   address: yup.string().required("Address is required"),
 });
 
-export { loginSchema, otpSchema, profileSchema, validationSchema };
+const newsLetterSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Invalid email format")
+    .required("Email is required"),
+});
+
+export { loginSchema, otpSchema, profileSchema, validationSchema,newsLetterSchema };

@@ -23,9 +23,7 @@ const Nav = async () => {
   const cityObj = await nextCookies.get('city')
   const city = cityObj?.value
   const categoryData = await getCategories(city);
-  const categories= categoryData.data
-  const newCity = categoryData.city
-  
+  const categories= categoryData.data  
   const headerList = headers();
   const pathname = headerList.get("x-current-path");
   const City = pathname ? pathname.split("/")[1] : "";

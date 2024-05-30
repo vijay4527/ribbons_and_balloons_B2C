@@ -5,25 +5,20 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Link from "next/link";
 import * as yup from "yup";
-import { axiosGet, axiosPost, axiosGetAll } from "@/api";
-import { useRouter } from "next/navigation";
-
-const validationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Invalid email format")
-    .required("Email is required"),
-});
-
+import { axiosPost, axiosGetAll } from "@/api";
+import { usePathname } from "next/navigation";
+import { newsLetterSchema } from "./validation";
 export default function Footer() {
   const [errors, setErrors] = useState({});
   const [email, setEmail] = useState("");
-  const router = useRouter();
-  const  city  = "mumbai";
+  const router = usePathname();
+  const city = router.split("/")[1]
+console.log("query in footer",city )
+  // const  city  = "mumbai";
   const [status, setStatus] = useState(false);
   const saveNewsLetter = async () => {
     try {
-      await validationSchema.validate({ email }, { abortEarly: false });
+      await newsLetterSchema.validate({ email }, { abortEarly: false });
       var obj = {
         news_letter_id: "",
         email: email,
@@ -171,6 +166,9 @@ export default function Footer() {
                       </li>
                       <li>
                         <Link href="/">Terms & Conditions </Link>
+                      </li>
+                      <li>
+                        <Link href="/about-us">About Us </Link>
                       </li>
                     </ul>
                   </div>
