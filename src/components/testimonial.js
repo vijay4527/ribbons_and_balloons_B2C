@@ -33,7 +33,7 @@ const Testimonial = () => {
           <div className="testimonialsBody">
             <div className="headerTitle">
               <p className=""> you said about us </p>
-              <h2>Testimonials</h2>
+              <h2 style={{fontFamily:"revicons"}}>Testimonials</h2>
               <div className="testimonialUnderLine">
                 <div className="testimonialUnder">
                   <div className="underLine"></div>

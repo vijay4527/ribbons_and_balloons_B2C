@@ -5,7 +5,7 @@ const InstaPosts = () => {
     <div className="advInstaWrap">
     <Container fluid>
       <div className="headerTitle">
-        <h2>INSTAGRAM</h2>
+        <h2 style={{fontFamily:"revicons"}}>INSTAGRAM</h2>
         <div className="testimonialUnderLine">
           <div className="testimonialUnder">
             <div className="underLine"></div>

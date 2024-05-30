@@ -5,7 +5,7 @@ const CakeOfTheMonth = ({city,data}) => {
   return (
     <div className="cakeOfMonthWrap">
     <div className="headerTitle">
-      <h2>Cake of the month</h2>
+      <h2 style={{fontFamily:"revicons"}}>Cake of the month</h2>
       <div className="testimonialUnderLine">
         <div className="testimonialUnder">
           <div className="ux`nderLine"></div>
