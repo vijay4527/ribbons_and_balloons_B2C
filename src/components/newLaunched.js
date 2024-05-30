@@ -60,15 +60,17 @@ const Testimonial = ({ city, data }) => {
                 data && data.length > 0  && (
                   data.map((e)=>(
                     (
-                      <div className="item">
-                      <Link href={`${e.redirect_url}`}>
+                      <Link href={`${e.redirect_url}`} key={e.banner_id}>
+                      <div className="item" >
+                    
                         <div className="itemNewLunch">
                           <div className="itemNewLunchImg">
                             <img src={AppConfig.cdn+e.img_url} alt="No image found" />
                           </div>
                         </div>
-                      </Link>
+                    
                     </div>
+                    </Link>
       
                     )
                   ))

@@ -236,14 +236,14 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
                         id="btnGoogle"
                         onClick={googleLogin}
                       >
-                        <i className="fa fa-google"></i>
+                        <i className="fab fa-google"></i>
                       </button>
                       <button
                         type="button"
                         className="btn facebookLogin"
                         onClick={() => signIn("facebook")}
                       >
-                        <i className="fa fa-facebook"></i>
+                         <i className="fab fa-facebook"></i>
                       </button>
                     </div>
                   </div>

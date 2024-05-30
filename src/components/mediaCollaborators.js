@@ -24,102 +24,56 @@ const responsive = {
     slidesToSlide: 1,
   },
 };
-const MediaCollaborators = ({ city, data }) => {
 
+const MediaCollaborators = ({ city, data }) => {
   return (
-    <>
-      <div className="mediaCollabWrap">
-        <Container fluid>
-          <div className="testimonialsBody">
-            <div className="headerTitle">
-              <h2>MEDIA COLLABORATIONS</h2>
-              <div className="testimonialUnderLine">
-                <div className="testimonialUnder">
-                  <div className="underLine"></div>
-                  <div className="shapLine"></div>
-                </div>
+    <div className="mediaCollabWrap">
+      <Container fluid>
+        <div className="testimonialsBody">
+          <div className="headerTitle">
+            <h2>MEDIA COLLABORATIONS</h2>
+            <div className="testimonialUnderLine">
+              <div className="testimonialUnder">
+                <div className="underLine"></div>
+                <div className="shapLine"></div>
               </div>
             </div>
-            <Carousel
-              responsive={responsive}
-              swipeable={true}
-              draggable={true}
-              showDots={true}
-              ssr={true}
-              infinite={true}
-              autoPlay={true}
-              autoPlaySpeed={2000}
-              keyBoardControl={true}
-              transitionDuration={500}
-              containerClass={`${styles.showCaseCarouselContainer}`}
-              removeArrowOnDeviceType={["tablet", "mobile"]}
-              deviceType="desktop"
-              dotListClass={`${styles.showCaseCarouselDotList}`}
-              itemClass={`${styles.showCaseCarouselItem}`}
-            >
-              {
-              data &&
-                data.length > 0 &&
-                data.map((e) => (
-                  <div className="item">
-                    <Link href={`${e.redirect_url}`}>
-                      <div className="itemNewLunch">
-                        <div className="itemNewLunchImg">
-                          <img
-                            src={AppConfig.cdn + e.img_url}
-                            alt="No image found"
-                          />
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                ))
-                }
-              {/* <div className="item">
-                <div className="MediaContentImg">
-                  <Link href={`/${firstImage.redirect_url}`}>
-                    <img
-                      src={AppConfig.cdn + firstImage.img_url}
-                      alt="No image found"
-                    />
-                  </Link>
-                </div>
-              </div>
-              <div className="item">
-                <div className="MediaContentImg">
-                  <Link href={`/${secondImage.redirect_url}`}>
-                    <img
-                      src={AppConfig.cdn + secondImage.img_url}
-                      alt="No image found"
-                    />
-                  </Link>
-                </div>
-              </div>
-              <div className="item">
-                <div className="MediaContentImg">
-                  <Link href={`/${thirdImage.redirect_url}`}>
-                    <img
-                      src={AppConfig.cdn + thirdImage.img_url}
-                      alt="No image found"
-                    />
-                  </Link>
-                </div>
-              </div>
-              <div className="item">
-                <div className="MediaContentImg">
-                  <Link href={`/${fourthImage.redirect_url}`}>
-                    <img
-                      src={AppConfig.cdn + fourthImage.img_url}
-                      alt="mediaImage"
-                    />
-                  </Link>
-                </div>
-              </div> */}
-            </Carousel>
           </div>
-        </Container>
-      </div>
-    </>
+          <Carousel
+            responsive={responsive}
+            swipeable={true}
+            draggable={true}
+            showDots={true}
+            ssr={true}
+            infinite={true}
+            autoPlay={true}
+            autoPlaySpeed={2000}
+            keyBoardControl={true}
+            transitionDuration={500}
+            containerClass={`${styles.showCaseCarouselContainer}`}
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+            deviceType="desktop"
+            dotListClass={`${styles.showCaseCarouselDotList}`}
+            itemClass={`${styles.showCaseCarouselItem}`}
+          >
+            {data && data.length > 0 && data.map((e) => (
+              <Link href={`${e.redirect_url}`} key={e.banner_id}>
+                <div className="item">
+                  <div className="itemNewLunch">
+                    <div className="itemNewLunchImg">
+                      <img
+                        src={AppConfig.cdn + e.img_url}
+                        alt="No image found"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </Carousel>
+        </div>
+      </Container>
+    </div>
   );
 };
 
