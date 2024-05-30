@@ -5,7 +5,6 @@ import AppConfig from "@/AppConfig";
 import Link from "next/link";
 const Banner = ({ city, data }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [bannerImage, setBannerImage] = useState(data);
   const [firstImage, setFirstImage] = useState("");
   const [secondImage, setSecondImage] = useState("");
   const [thirdImage, setThirdImage] = useState("");
