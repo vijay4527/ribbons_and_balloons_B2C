@@ -4,8 +4,6 @@ import Container from "react-bootstrap/Container";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import styles from "@/app/[city]/l/[category]/page.module.css";
-import { axiosPost } from "@/api";
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import AppConfig from "@/AppConfig";
 
@@ -27,22 +25,6 @@ const responsive = {
   },
 };
 const MediaCollaborators = ({ city, data }) => {
-  const [firstImage, setFirstImage] = useState("");
-  const [secondImage, setSecondImage] = useState("");
-  const [thirdImage, setThirdImage] = useState("");
-  const [fourthImage, setFourthImage] = useState("");
-
-  useEffect(() => {
-    const firstImage = data.find((item) => item.seq_no == "1");
-    const secondImage = data.find((item) => item.seq_no == "2");
-    const thirdImage = data.find((item) => item.seq_no == "3");
-    const fourthImage = data.find((item) => item.seq_no == "4");
-
-    if (firstImage) setFirstImage(firstImage);
-    if (secondImage) setSecondImage(secondImage);
-    if (thirdImage) setThirdImage(thirdImage);
-    if (fourthImage) setFourthImage(fourthImage);
-  }, [data, city]);
 
   return (
     <>
@@ -75,35 +57,64 @@ const MediaCollaborators = ({ city, data }) => {
               dotListClass={`${styles.showCaseCarouselDotList}`}
               itemClass={`${styles.showCaseCarouselItem}`}
             >
-              <div className="item">
+              {
+              data &&
+                data.length > 0 &&
+                data.map((e) => (
+                  <div className="item">
+                    <Link href={`${e.redirect_url}`}>
+                      <div className="itemNewLunch">
+                        <div className="itemNewLunchImg">
+                          <img
+                            src={AppConfig.cdn + e.img_url}
+                            alt="No image found"
+                          />
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                ))
+                }
+              {/* <div className="item">
                 <div className="MediaContentImg">
-                <Link href={`/${firstImage.redirect_url}`}>
-                  <img src={AppConfig.cdn+firstImage.img_url} alt="No image found" />
-
+                  <Link href={`/${firstImage.redirect_url}`}>
+                    <img
+                      src={AppConfig.cdn + firstImage.img_url}
+                      alt="No image found"
+                    />
                   </Link>
                 </div>
               </div>
               <div className="item">
                 <div className="MediaContentImg">
-                <Link href={`/${secondImage.redirect_url}`}>
-                  <img src={AppConfig.cdn+secondImage.img_url} alt="No image found" />
+                  <Link href={`/${secondImage.redirect_url}`}>
+                    <img
+                      src={AppConfig.cdn + secondImage.img_url}
+                      alt="No image found"
+                    />
                   </Link>
                 </div>
               </div>
               <div className="item">
                 <div className="MediaContentImg">
-                <Link href={`/${thirdImage.redirect_url}`}>
-                  <img src={AppConfig.cdn+thirdImage.img_url} alt="No image found" />
+                  <Link href={`/${thirdImage.redirect_url}`}>
+                    <img
+                      src={AppConfig.cdn + thirdImage.img_url}
+                      alt="No image found"
+                    />
                   </Link>
                 </div>
               </div>
               <div className="item">
                 <div className="MediaContentImg">
-                <Link href={`/${fourthImage.redirect_url}`}>
-                  <img src={AppConfig.cdn+fourthImage.img_url} alt="mediaImage" />
+                  <Link href={`/${fourthImage.redirect_url}`}>
+                    <img
+                      src={AppConfig.cdn + fourthImage.img_url}
+                      alt="mediaImage"
+                    />
                   </Link>
                 </div>
-              </div>
+              </div> */}
             </Carousel>
           </div>
         </Container>

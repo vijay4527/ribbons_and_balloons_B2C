@@ -124,22 +124,22 @@ export default function Footer() {
                     <h2>Useful Links</h2>
                     <ul>
                       <li>
-                        <Link href="/">Signature Cakes</Link>
+                        <Link href={`/${city}/l/Cakes`}>Signature Cakes</Link>
                       </li>
                       <li>
-                        <Link href="/">Ready Regulars</Link>
+                        <Link href={`/${city}/l/Cakes`}>Ready Regulars</Link>
                       </li>
                       <li>
-                        <Link href="/">Fancy Cakes</Link>
+                        <Link href={`/${city}/l/Cakes`}>Fancy Cakes</Link>
                       </li>
                       <li>
-                        <Link href="/">Sinful Collections</Link>
+                        <Link href={`/${city}/l/Cakes`}>Sinful Collections</Link>
                       </li>
                       <li>
-                        <Link href="/">Photo Cakes</Link>
+                        <Link href={`/${city}/l/Cakes`}>Photo Cakes</Link>
                       </li>
                       <li>
-                        <Link href="/">Sensational Cakes</Link>
+                        <Link href={`/${city}/l/Cakes`}>Sensational Cakes</Link>
                       </li>
                     </ul>
                   </div>
@@ -149,25 +149,25 @@ export default function Footer() {
                     <h2>Favourite</h2>
                     <ul>
                       <li>
-                        <Link href="/">Get Franchise</Link>
+                        <Link href={`/${city}`}>Get Franchise</Link>
                       </li>
                       <li>
-                        <Link href="/">Store Location</Link>
+                        <Link href={`/${city}`}>Store Location</Link>
                       </li>
                       <li>
-                        <Link href="/">Privacy policy</Link>
+                        <Link href={`/${city}`}>Privacy policy</Link>
                       </li>
                       <li>
-                        <Link href="/">Disclaimer</Link>
+                        <Link href={`/${city}`}>Disclaimer</Link>
                       </li>
                       <li>
-                        <Link href="/">Delivery Policy</Link>
+                        <Link href={`/${city}`}>Delivery Policy</Link>
                       </li>
                       <li>
-                        <Link href="/">Terms & Conditions </Link>
+                        <Link href={`/${city}`}>Terms & Conditions </Link>
                       </li>
                       <li>
-                        <Link href="/about-us">About Us </Link>
+                        <Link href={`/${city}`}>About Us </Link>
                       </li>
                     </ul>
                   </div>
