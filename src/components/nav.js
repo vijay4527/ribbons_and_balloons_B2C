@@ -37,14 +37,14 @@ const Nav = async () => {
                 <div className="flipper">
                   <div className="front">
                     <img
-                      src="https://ribbonsandballoons.com/frontassets/images/logo3.png"
+                      src="https://fama.b-cdn.net/RnB/logo3.webp"
                       className="d-inline-block align-top"
                       alt="React Bootstrap logo"
                     />
                   </div>
                   <div className="back">
                     <img
-                      src="https://fama.b-cdn.net/RnB/Logo-Golden.png"
+                      src="https://fama.b-cdn.net/RnB/Logo-Golden.webp"
                       className="d-inline-block align-top"
                       alt="React Bootstrap logo"
                     />

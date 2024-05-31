@@ -44,13 +44,12 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
-
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         ></link>
 
-        <link
+        {/* <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
         />
@@ -61,7 +60,7 @@ export default function RootLayout({ children }) {
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
-        />
+        /> */}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Cormorant&display=swap"

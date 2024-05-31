@@ -68,7 +68,7 @@ export default function Footer() {
                 <Col md={3}>
                   <div className="footerLogos">
                     <img
-                      src="https://fama.b-cdn.net/RnB/Logo-Golden.png"
+                      src="https://fama.b-cdn.net/RnB/Logo-Golden.webp"
                       alt="No image found"
                     />
                   </div>
