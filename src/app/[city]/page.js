@@ -75,13 +75,14 @@ const page = async ({ params }) => {
   const media = await fetchMedia(city);
   return (
     <>
-      {/* <Banner city={city} data={media?.Banner} /> */}
+    <p>loaded</p>
+      {/* <Banner city={city} data={media?.Banner} />
       <Suspense fallback={<div>Loading...</div>}>
       <LazyComponent  city={city} data={media?.Banner} />
     </Suspense>
       <Testimonials />
       <InstaPosts city={city} data={media} />
-      <NewLaunches city={city} data={media?.New_Launches} />
+      <NewLaunches city={city} data={media?.New_Launches} /> */}
       {/* <div className="cakeOfMonthWrap">
         <div className="headerTitle">
           <h2>Cake of the month</h2>
@@ -105,12 +106,12 @@ const page = async ({ params }) => {
           </div>
         </div>
       </div> */}
-      <CakeOfTheMonth city={city} data={media?.Cake_Of_The_Month} />
+      {/* <CakeOfTheMonth city={city} data={media?.Cake_Of_The_Month} />
       <MediaCollaborators city={city} data={media?.Media_Collaborator} />
       <div className="enquiryWrapper">
         <EnquiryModal />
       </div>
-      <SetCookies city={city} />
+      <SetCookies city={city} /> */}
     </>
   );
 };

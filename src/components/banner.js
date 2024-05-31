@@ -3,6 +3,8 @@ import Container from "react-bootstrap/Container";
 import React, { useEffect, useState } from "react";
 import AppConfig from "@/AppConfig";
 import Link from "next/link";
+import Image from "next/image";
+import Head from "next/head";
 const Banner = ({ city, data }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [firstImage, setFirstImage] = useState("");
@@ -40,6 +42,7 @@ const Banner = ({ city, data }) => {
 
   return (
     <>
+  
       <div className="banner-wrap">
         <Container fluid>
           <div className="banner-body">
@@ -54,7 +57,13 @@ const Banner = ({ city, data }) => {
                   alt="No image found"
                 /> */}
                 <Link href={`/${firstImage.redirect_url}`}>
-                  <img src={AppConfig.cdn+firstImage.img_url} alt="No image found" />
+                  <Image
+                    src={AppConfig.cdn + firstImage.img_url}
+                    alt="No image found"
+                    loading="lazy"
+                    width={100}
+                    height={100}
+                  />
                 </Link>
               </div>
               <div
@@ -67,7 +76,13 @@ const Banner = ({ city, data }) => {
                   alt="No image found"
                 /> */}
                 <Link href={`/${secondImage.redirect_url}`}>
-                  <img src={AppConfig.cdn+secondImage.img_url} alt="No image found" />
+                  <Image
+                    src={AppConfig.cdn + secondImage.img_url}
+                    alt="No image found"
+                    loading="eager"
+                    width={100}
+                    height={100}
+                  />
                 </Link>
               </div>
             </div>
@@ -82,7 +97,13 @@ const Banner = ({ city, data }) => {
                   alt="No image found"
                 /> */}
                 <Link href={`/${thirdImage.redirect_url}`}>
-                  <img src={AppConfig.cdn+thirdImage.img_url} alt="No image found" />
+                  <Image
+                    src={AppConfig.cdn + thirdImage.img_url}
+                    alt="No image found"
+                    loading="eager"
+                    width={100}
+                    height={100}
+                  />
                 </Link>
               </div>
             </div>
@@ -97,7 +118,13 @@ const Banner = ({ city, data }) => {
                   alt="No image found"
                 /> */}
                 <Link href={`/${fourthImage.redirect_url}`}>
-                  <img src={AppConfig.cdn+fourthImage.img_url} alt="No image found" />
+                  <Image
+                    src={AppConfig.cdn + fourthImage.img_url}
+                    alt="No image found"
+                    loading="eager"
+                    width={100}
+                    height={100}
+                  />
                 </Link>
               </div>
               <div
@@ -110,7 +137,13 @@ const Banner = ({ city, data }) => {
                   alt="No image found"
                 /> */}
                 <Link href={`/${fifthImage.redirect_url}`}>
-                  <img src={AppConfig.cdn+fifthImage.img_url} alt="No image found" />
+                  <Image
+                    src={AppConfig.cdn + fifthImage.img_url}
+                    alt="No image found"
+                    loading="eager"
+                    width={100}
+                    height={100}
+                  />
                 </Link>
               </div>
             </div>
