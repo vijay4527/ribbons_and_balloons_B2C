@@ -9,8 +9,8 @@ import CakeOfTheMonth from "@/components/CakeOfTheMonth";
 import { axiosGet, axiosPost } from "@/api";
 import { redirect } from "next/navigation";
 import SetCookies from "@/components/setCookies";
-import { lazy, Suspense } from 'react';
-const LazyComponent = lazy(() => import('@/components/banner'));
+import { lazy, Suspense } from "react";
+const LazyComponent = lazy(() => import("@/components/banner"));
 
 export async function generateMetadata({ params }) {
   return {
@@ -75,10 +75,10 @@ const page = async ({ params }) => {
   const media = await fetchMedia(city);
   return (
     <>
-      <Banner city={city} data={media?.Banner} />
+      {/* <Banner city={city} data={media?.Banner} /> */}
       <Suspense fallback={<div>Loading...</div>}>
-      <LazyComponent  city={city} data={media?.Banner} />
-    </Suspense>
+        <LazyComponent city={city} data={media?.Banner} />
+      </Suspense>
       <Testimonials />
       <InstaPosts city={city} data={media} />
       <NewLaunches city={city} data={media?.New_Launches} />
