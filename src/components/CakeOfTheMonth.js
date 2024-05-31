@@ -2,6 +2,8 @@ import React from 'react'
 import AppConfig from "@/AppConfig";
 import Link from 'next/link';
 const CakeOfTheMonth = ({city,data}) => {
+  const imageUrl = `${AppConfig.cdn}${data[0]?.img_url}`;
+
   return (
     <div className="cakeOfMonthWrap">
     <div className="headerTitle">
@@ -29,9 +31,7 @@ const CakeOfTheMonth = ({city,data}) => {
           />
         </video> */}
      
-        <div className="backdrop" style={{ backgroundImage: `url(${AppConfig.cdn}${data[0].img_url})` }}></div>
-
-     
+        <div className="backdrop" style={{ backgroundImage: `url(${imageUrl})` }}></div>
         <div className="stage_floor"></div>
         <div className="stage_highlight"></div>
         <div className="spotlight_swivel">

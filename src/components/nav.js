@@ -15,7 +15,7 @@ const getCategories = async (city) => {
     }
   } catch (error) {
     console.error("Error fetching categories:", error);
-  }
+  } 
 };
 
 const Nav = async () => {
@@ -27,8 +27,6 @@ const Nav = async () => {
   const headerList = headers();
   const pathname = headerList.get("x-current-path");
   const City = pathname ? pathname.split("/")[1] : "";
-  console.log("city", City); 
-  console.log("pathname", pathname);
     return (
     <div>
       <Container>
