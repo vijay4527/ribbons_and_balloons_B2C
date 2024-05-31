@@ -75,7 +75,7 @@ export default function Footer() {
                   <div className="footerSocial">
                     <ul>
                       <li>
-                        <Link href="/">
+                        <Link href="/" aria-label="Footer Links">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -89,7 +89,7 @@ export default function Footer() {
                         </Link>
                       </li>
                       <li>
-                        <Link href="/">
+                        <Link href="/" aria-label="Footer Links">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -103,7 +103,7 @@ export default function Footer() {
                         </Link>
                       </li>
                       <li>
-                        <Link href="/">
+                        <Link href="/" aria-label="Footer Links">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -124,22 +124,22 @@ export default function Footer() {
                     <h2>Useful Links</h2>
                     <ul>
                       <li>
-                        <Link href={`/${city}/l/Cakes`}>Signature Cakes</Link>
+                        <Link href={`/${city}/l/Cakes`} aria-label="Signature Cakes">Signature Cakes</Link>
                       </li>
                       <li>
-                        <Link href={`/${city}/l/Cakes`}>Ready Regulars</Link>
+                        <Link href={`/${city}/l/Cakes`} aria-label="Ready Regulars">Ready Regulars</Link>
                       </li>
                       <li>
-                        <Link href={`/${city}/l/Cakes`}>Fancy Cakes</Link>
+                        <Link href={`/${city}/l/Cakes`} aria-label="Fancy Cakes">Fancy Cakes</Link>
                       </li>
                       <li>
-                        <Link href={`/${city}/l/Cakes`}>Sinful Collections</Link>
+                        <Link href={`/${city}/l/Cakes`} aria-label="Sinful Collections">Sinful Collections</Link>
                       </li>
                       <li>
-                        <Link href={`/${city}/l/Cakes`}>Photo Cakes</Link>
+                        <Link href={`/${city}/l/Cakes`} aria-label="Photo Cakes">Photo Cakes</Link>
                       </li>
                       <li>
-                        <Link href={`/${city}/l/Cakes`}>Sensational Cakes</Link>
+                        <Link href={`/${city}/l/Cakes`} aria-label="Sensational Cakes">Sensational Cakes</Link>
                       </li>
                     </ul>
                   </div>
@@ -149,25 +149,25 @@ export default function Footer() {
                     <h2>Favourite</h2>
                     <ul>
                       <li>
-                        <Link href={`/${city}`}>Get Franchise</Link>
+                        <Link href={`/${city}`} aria-label="Get Franchise">Get Franchise</Link>
                       </li>
                       <li>
-                        <Link href={`/${city}`}>Store Location</Link>
+                        <Link href={`/${city}`} aria-label="Store Location">Store Location</Link>
                       </li>
                       <li>
-                        <Link href={`/${city}`}>Privacy policy</Link>
+                        <Link href={`/${city}`} aria-label="Privacy policy">Privacy policy</Link>
                       </li>
                       <li>
-                        <Link href={`/${city}`}>Disclaimer</Link>
+                        <Link href={`/${city}`} aria-label="Desclaimer">Disclaimer</Link>
                       </li>
                       <li>
-                        <Link href={`/${city}`}>Delivery Policy</Link>
+                        <Link href={`/${city}`} aria-label="Delivery Policy">Delivery Policy</Link>
                       </li>
                       <li>
-                        <Link href={`/${city}`}>Terms & Conditions </Link>
+                        <Link href={`/${city}`} aria-label="Terms and Condition">Terms & Conditions </Link>
                       </li>
                       <li>
-                        <Link href={`/${city}`}>About Us </Link>
+                        <Link href={`/${city}/about-us`} aria-label="About Us">About Us </Link>
                       </li>
                     </ul>
                   </div>

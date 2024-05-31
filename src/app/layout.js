@@ -36,44 +36,6 @@ export default function RootLayout({ children }) {
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
-        {/* <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="https://ribbonsandballoons.com/frontassets/images/fav.png"
-        /> */}
-        {/* <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="https://ribbonsandballoons.com/frontassets/images/fav.png"
-        /> */}
-        {/* <link
-          rel="icon"
-          type="image/png"
-          sizes="194x194"
-          href="https://ribbonsandballoons.com/frontassets/images/fav.png"
-        /> */}
-        {/* <link
-          rel="icon"
-          type="image/png"
-          sizes="192x192"
-          href="https://ribbonsandballoons.com/frontassets/images/fav.png"
-        /> */}
-        {/* <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon/favicon-16x16.png"
-        /> */}
-        {/* <link
-          rel="manifest"
-          href="https://ribbonsandballoons.com/frontassets/images/fav.png"
-        />
-        <link
-          rel="mask-icon"
-          href="https://ribbonsandballoons.com/frontassets/images/fav.png"
-          color="#000000"
-        /> */}
         <meta name="msapplication-TileColor" content="#000000" />
         <meta name="msapplication-TileImage" content="/mstile-144x144.png" />
         <meta name="theme-color" content="#ffffff" />

@@ -297,12 +297,12 @@ const navComponent = () => {
               {isLoggedIn == true && (
                 <>
                   <Dropdown.Item>
-                    <Link className="drpItemProfile" href={`/${city}/profile`}>
+                    <Link className="drpItemProfile" href={`/${city}/profile`} aria-label="my account">
                       My Account
                     </Link>
                   </Dropdown.Item>
                   <Dropdown.Item>
-                    <Link className="drpItemProfile" href={`/${city}/orders`}>
+                    <Link className="drpItemProfile" href={`/${city}/orders`} aria-label="order history">
                       Order History
                     </Link>
                   </Dropdown.Item>
@@ -322,7 +322,7 @@ const navComponent = () => {
           </Dropdown>
         </li>
         <li>
-          <Link href={`/${city}/cart`} className="cartButton" prefetch={true}>
+          <Link href={`/${city}/cart`} className="cartButton" prefetch={true} aria-label="cart"> 
             <span className="SvgIcons">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -347,6 +347,7 @@ const navComponent = () => {
             href={`/${city}/favourites`}
             className="cartButton"
             prefetch={true}
+            aria-label="Favourite"
           >
             <span className="SvgIcons">
               <svg

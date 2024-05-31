@@ -16,7 +16,6 @@
     "bootstrap": "^5.3.3",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.3",
-    "jquery": "^3.7.1",
     "js-cookie": "^3.0.5",
     "mongoose": "^6.12.8",
     "next": "^13.5.6",

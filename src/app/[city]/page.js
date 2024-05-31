@@ -9,7 +9,6 @@ import CakeOfTheMonth from "@/components/CakeOfTheMonth";
 import { axiosGet, axiosPost } from "@/api";
 import { redirect } from "next/navigation";
 import SetCookies from "@/components/setCookies";
-import AppConfig from "@/AppConfig";
 
 export async function generateMetadata({ params }) {
   return {
@@ -64,9 +63,6 @@ async function fetchMedia(city) {
 const page = async ({ params }) => {
   const city = params.city;
   const cities = await getCities();
-  if (!Array.isArray(cities)) {
-    console.error("Cities data is not an array.");
-  }
   const isValidCity = cities.some(
     (c) => c.city_name.toLowerCase() === city.toLowerCase()
   );

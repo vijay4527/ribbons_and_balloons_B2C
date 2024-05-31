@@ -26,7 +26,6 @@ const Testimonial = () => {
 
   return (
     <>
-    
 
       <div className="testimonialsWrap">
         <Container fluid className="testimonial-container">
