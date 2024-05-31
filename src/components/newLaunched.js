@@ -58,9 +58,9 @@ const Testimonial = ({ city, data }) => {
             >
               {
                 data && data.length > 0  && (
-                  data.map((e)=>(
+                  data.map((e,i)=>(
                     (
-                      <Link href={`${e.redirect_url}`} key={e.banner_id}>
+                      <Link href={`${e.redirect_url}`} key={i}>
                       <div className="item" >
                     
                         <div className="itemNewLunch">

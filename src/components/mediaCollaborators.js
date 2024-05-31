@@ -56,11 +56,11 @@ const MediaCollaborators = ({ city, data }) => {
             dotListClass={`${styles.showCaseCarouselDotList}`}
             itemClass={`${styles.showCaseCarouselItem}`}
           >
-            {data && data.length > 0 && data.map((e) => (
-              <Link href={`${e.redirect_url}`} key={e.banner_id}>
-                <div className="item">
-                  <div className="itemNewLunch">
-                    <div className="itemNewLunchImg">
+            {data && data.length > 0 && data.map((e,i) => (
+              <Link href={`${e.redirect_url}`} key={i}>
+                <div className="item" key={e.banner_id}>
+                  <div className="itemNewLunch" >
+                    <div className="itemNewLunchImg" >
                       <img
                         src={AppConfig.cdn + e.img_url}
                         alt="No image found"

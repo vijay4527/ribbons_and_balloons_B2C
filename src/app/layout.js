@@ -8,7 +8,7 @@ import AuthOtpContext from "@/components/authContext";
 export const metadata = {
   title: "Ribbons and Balloons",
   description:
-    "Welcome to Gamewitted, your ultimate destination for immersive gaming and captivating anime content! Dive into a world where pixels meet passion, as we bring you the latest updates, reviews, and insights from the gaming and anime realms.",
+    "Buy & Order Cakes Online and Send Cakes anywhere in Mumbai. Ribbons & Balloons is an Online Cakes Shop in Mumbai, we make your Occasions special for your friends, family and you. Order Best Quality cakes online and we deliver it on your doorsteps.",
   openGraph: {
     images: [
       {
@@ -87,7 +87,7 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         ></link>
-       
+
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
@@ -109,7 +109,6 @@ export default function RootLayout({ children }) {
           href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
         />
         <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-
       </head>
       <body className={inter.className}>
         <AuthProvider>
