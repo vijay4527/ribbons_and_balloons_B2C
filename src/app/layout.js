@@ -71,7 +71,12 @@ export default function RootLayout({ children }) {
           href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
         />
         <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-      
+        <link rel="preconnect" href="https://img.freepik.com" />
+        <link
+          rel="preload"
+          href="https://fama.b-cdn.net/RnB/Stripes.webp"
+          as="image"
+        />
       </head>
       <body className={inter.className}>
         <AuthProvider>
