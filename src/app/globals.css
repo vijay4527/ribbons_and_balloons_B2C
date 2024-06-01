@@ -54,7 +54,7 @@ html body {
   line-height: 1.9;
   color: var(--body-text-color);
   text-align: left;
-  background-image: url(https://fama.b-cdn.net/Stripes.jpg);
+  background-image: url(https://fama.b-cdn.net/RnB/Stripes.webp);
   background-attachment: fixed !important;
   transition: background 0s !important;
   background-size: 100%;
@@ -574,7 +574,7 @@ ul.selectLocationOption a {
   color: #ffffff;
   padding: 0px !important;
   padding-top: 5px !important;
-  background-image: url(https://fama.b-cdn.net/Stripes.jpg);
+  background-image: url(https://fama.b-cdn.net/RnB/Stripes.webp);
   background-attachment: fixed !important;
   transition: background 0s !important;
   background-size: 100%;
@@ -1106,7 +1106,7 @@ ul.selectLocationOption a {
 .banner-wrap {
   background-color: #171718;
   padding: 0px 0px;
-  background-image: url(https://fama.b-cdn.net/Stripes.jpg);
+  background-image: url(https://fama.b-cdn.net/RnB/Stripes.webp);
   background-attachment: fixed !important;
   transition: background 0s !important;
   background-size: 100%;
@@ -1901,7 +1901,7 @@ ul.selectLocationOption a {
   padding-top: 85px;
   /* background-color: #121213; */
 
-  background-image: url(https://fama.b-cdn.net/Stripes.jpg);
+  background-image: url(https://fama.b-cdn.net/RnB/Stripes.webp);
   background-attachment: fixed !important;
   transition: background 0s !important;
   background-size: 100%;
@@ -2083,7 +2083,7 @@ video {
 .footerbg {
   /* background-color: #0b0a0b; */
 
-  background-image: url(https://fama.b-cdn.net/Stripes.jpg);
+  background-image: url(https://fama.b-cdn.net/RnB/Stripes.webp);
   background-attachment: fixed !important;
   transition: background 0s !important;
   background-size: 100%;
