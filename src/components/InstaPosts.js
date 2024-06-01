@@ -1,13 +1,8 @@
 import React from 'react'
 import Container from "react-bootstrap/Container";
 const InstaPosts = () => {
-  
-  const advInstaWrapStyle = {
-    backgroundImage: "url(https://ribbons-and-balloons-b2c.vercel.app/)",
-  };
-
   return (
-    <div style={advInstaWrapStyle} className="advInstaWrap">
+    <div className="advInstaWrap">
     <Container fluid>
       <div className="headerTitle">
         <h2 style={{fontFamily:"revicons"}}>INSTAGRAM</h2>

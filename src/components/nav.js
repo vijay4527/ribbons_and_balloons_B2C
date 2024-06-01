@@ -27,9 +27,6 @@ const Nav = async () => {
   const headerList = headers();
   const pathname = headerList.get("x-current-path");
   const City = pathname ? pathname.split("/")[1] : "";
-  const navStyle={
-    backgroundImage: 'url(https://fama.b-cdn.net/RnB/Stripes.webp)',
-  };
     return (
     <div>
       <Container>

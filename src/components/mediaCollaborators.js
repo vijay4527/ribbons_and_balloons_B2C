@@ -26,12 +26,8 @@ const responsive = {
 };
 
 const MediaCollaborators = ({ city, data }) => {
-
-  const mediaCollabWrap = {
-    backgroundImage: "url(https://ribbons-and-balloons-b2c.vercel.app/)",
-  };
   return (
-    <div className="mediaCollabWrap" style={mediaCollabWrap}>
+    <div className="mediaCollabWrap">
       <Container fluid>
         <div className="testimonialsBody">
           <div className="headerTitle">
