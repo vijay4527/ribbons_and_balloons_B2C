@@ -58,9 +58,13 @@ export default function Footer() {
     }
   };
 
+  const footerWapStyle = {
+    backgroundImage: "url(https://ribbons-and-balloons-b2c.vercel.app/)",
+  };
+
   return (
     <>
-      <div className="footerWap">
+      <div className="footerWap" style={footerWapStyle}>
         <div className="footerbg">
           <Container>
             <div className="footerBody">

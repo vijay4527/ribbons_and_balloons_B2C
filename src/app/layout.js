@@ -25,6 +25,7 @@ export const metadata = {
   },
 };
 
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
@@ -70,6 +71,7 @@ export default function RootLayout({ children }) {
           href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
         />
         <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+      
       </head>
       <body className={inter.className}>
         <AuthProvider>

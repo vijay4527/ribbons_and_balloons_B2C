@@ -46,13 +46,7 @@ const Banner = ({ city, data }) => {
   const fifthImage = data.find((item) => item.seq_no === 5) || {};
 
   const bannerWrapStyle = {
-    backgroundColor: '#171718',
-    padding: '0px 0px',
     backgroundImage: 'url(https://fama.b-cdn.net/RnB/Stripes.webp)',
-    backgroundAttachment: 'fixed',
-    transition: 'background 0s',
-    backgroundSize: '100%',
-    position: 'relative'
   };
 
   return (

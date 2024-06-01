@@ -574,7 +574,7 @@ ul.selectLocationOption a {
   color: #ffffff;
   padding: 0px !important;
   padding-top: 5px !important;
-  background-image: url(https://fama.b-cdn.net/RnB/Stripes.webp);
+  /* background-image: url(https://fama.b-cdn.net/RnB/Stripes.webp); */
   background-attachment: fixed !important;
   transition: background 0s !important;
   background-size: 100%;
@@ -1365,7 +1365,7 @@ ul.selectLocationOption a {
     background-position: right bottom;
     background-repeat: no-repeat;
     background-color: #0c0805; */
-  background-image: url(https://fama.b-cdn.net/RnB/Stripes.webp);
+  /* background-image: url(https://fama.b-cdn.net/RnB/Stripes.webp); */
   background-attachment: fixed !important;
   transition: background 0s !important;
   background-size: 100%;
@@ -1375,7 +1375,7 @@ ul.selectLocationOption a {
   padding: 85px 0px 0px;
   /* background-color: #0c0805; */
 
-  background-image: url(https://fama.b-cdn.net/Stripes.jpg);
+  /* background-image: url(https://fama.b-cdn.net/Stripes.jpg); */
   background-attachment: fixed !important;
   transition: background 0s !important;
   background-size: 100%;
@@ -1748,7 +1748,7 @@ ul.selectLocationOption a {
   padding: 85px 0px;
   /* background-color: #121213; */
 
-  background-image: url(https://ribbons-and-balloons-b2c.vercel.app/);
+  /* background-image: url(https://fama.b-cdn.net/RnB/Stripes.webp); */
   background-attachment: fixed !important;
   transition: background 0s !important;
   background-size: 100%;
@@ -1901,7 +1901,7 @@ ul.selectLocationOption a {
   padding-top: 85px;
   /* background-color: #121213; */
 
-  background-image: url(https://fama.b-cdn.net/RnB/Stripes.webp);
+  /* background-image: url(https://fama.b-cdn.net/RnB/Stripes.webp); */
   background-attachment: fixed !important;
   transition: background 0s !important;
   background-size: 100%;
@@ -2083,7 +2083,7 @@ video {
 .footerbg {
   /* background-color: #0b0a0b; */
 
-  background-image: url(https://fama.b-cdn.net/RnB/Stripes.webp);
+  /* background-image: url(https://fama.b-cdn.net/RnB/Stripes.webp); */
   background-attachment: fixed !important;
   transition: background 0s !important;
   background-size: 100%;

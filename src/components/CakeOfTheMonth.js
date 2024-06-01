@@ -3,9 +3,12 @@ import AppConfig from "@/AppConfig";
 import Link from 'next/link';
 const CakeOfTheMonth = ({city,data}) => {
   const imageUrl = `${AppConfig.cdn}${data[0]?.img_url}`;
-
+  const cakeOfMonthWrapStyle = {
+    backgroundImage: "url(https://ribbons-and-balloons-b2c.vercel.app/)",
+  };
   return (
-    <div className="cakeOfMonthWrap">
+
+    <div className="cakeOfMonthWrap" style={cakeOfMonthWrapStyle}>
     <div className="headerTitle">
       <h2 style={{fontFamily:"revicons"}}>Cake of the month</h2>
       <div className="testimonialUnderLine">

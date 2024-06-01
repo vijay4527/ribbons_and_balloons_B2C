@@ -12,8 +12,11 @@ import SetCookies from "@/components/setCookies";
 import { lazy, Suspense } from "react";
 import dynamic from "next/dynamic";
 const LazyComponent = lazy(() => import("@/components/banner"));
-const ClientScrollEffect = dynamic(() => import('@/components/ScrollComponent'), { ssr: false });
-
+const ClientScrollEffect = dynamic(
+  () => import("@/components/ScrollComponent"),
+  { ssr: false }
+);
+import Head from "next/head";
 export async function generateMetadata({ params }) {
   return {
     title: "Home | Ribbons and Balloons",
@@ -77,11 +80,15 @@ const page = async ({ params }) => {
   const media = await fetchMedia(city);
   return (
     <>
+      <Head>
+        <link
+          rel="preload"
+          href="https://fama.b-cdn.net/RnB/Stripes.webp"
+          as="image"
+        />
+      </Head>
       <Banner city={city} data={media?.Banner} />
       <ClientScrollEffect />
-      {/* <Suspense fallback={<div>Loading...</div>}>
-        <LazyComponent city={city} data={media?.Banner} />
-      </Suspense> */}
       <Testimonials />
       <InstaPosts city={city} data={media} />
       <NewLaunches city={city} data={media?.New_Launches} />
