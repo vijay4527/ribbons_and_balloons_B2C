@@ -31,7 +31,7 @@ const MediaCollaborators = ({ city, data }) => {
       <Container fluid>
         <div className="testimonialsBody">
           <div className="headerTitle">
-            <h2 style={{fontFamily:"revicons"}}>MEDIA COLLABORATIONS</h2>
+            <h2 style={{ fontFamily: "revicons" }}>MEDIA COLLABORATIONS</h2>
             <div className="testimonialUnderLine">
               <div className="testimonialUnder">
                 <div className="underLine"></div>
@@ -56,20 +56,30 @@ const MediaCollaborators = ({ city, data }) => {
             dotListClass={`${styles.showCaseCarouselDotList}`}
             itemClass={`${styles.showCaseCarouselItem}`}
           >
-            {data && data.length > 0 && data.map((e,i) => (
-              <Link href={`${e.redirect_url}`} key={i}>
-                <div className="item" key={e.banner_id}>
-                  <div className="itemNewLunch" >
-                    <div className="itemNewLunchImg" >
+            {data &&
+              data.length > 0 &&
+              data.map((e, i) => (
+                <Link href={`${e.redirect_url}`} key={i}>
+                  <div className="item">
+                    <div className="MediaContentImg">
                       <img
                         src={AppConfig.cdn + e.img_url}
                         alt="No image found"
                       />
                     </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                  {/* <div className="item" key={e.banner_id}>
+                    <div className="itemNewLunch">
+                      <div className="itemNewLunchImg">
+                        <img
+                          src={AppConfig.cdn + e.img_url}
+                          alt="No image found"
+                        />
+                      </div>
+                    </div>
+                  </div> */}
+                </Link>
+              ))}
           </Carousel>
         </div>
       </Container>
