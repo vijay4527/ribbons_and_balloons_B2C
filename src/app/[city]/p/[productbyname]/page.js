@@ -9,6 +9,8 @@ import ProductImages from "@/components/productImages";
 import AddToCart from "@/components/addToCartButton";
 import ProductDetails from "@/components/productDetails";
 import ShowCaseSlider from "@/components/ShowCaseSlider";
+import { cookies } from "next/headers";
+import { getCities } from "@/utils/commoncity";
 import { redirect } from "next/navigation";
 export async function generateMetadata({ params }) {
   const data = await GetProductData(params.productbyname, params.city);
@@ -35,6 +37,8 @@ export async function generateMetadata({ params }) {
   }
 }
 async function getCategoryData(category, city) {
+
+
   try {
     if (category) {
       const obj = {
@@ -75,29 +79,34 @@ async function GetProductData(productname, city) {
   }
 }
 
-async function getCities() {
-  try {
-    const cities = await axiosGet("RNBCity/GetAllRNBCity");
-    if (cities) {
-      return cities;
-    }
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return {
-      data: null,
-    };
-  }
-}
+// async function getCities() {
+//   try {
+//     const cities = await axiosGet("RNBCity/GetAllRNBCity");
+//     if (cities) {
+//       return cities;
+//     }
+//   } catch (error) {
+//     console.error("Error fetching data:", error);
+//     return {
+//       data: null,
+//     };
+//   }
+// }
 const productbyname = async ({ params }) => {
   const cities = await getCities();
-  const city = params.city;
+  const newcity = params.city;
   const productname = params.productbyname;
+  const nextCookies = cookies();
+  const cityObj = await nextCookies.get("city");
+  const cookiecity = cityObj?.value;
+  const city = cities.includes(newcity) ? newcity : cookiecity;
+  
   const isValidCity = cities.some(
-    (c) => c.city_name.toLowerCase() === city.toLowerCase()
+    (c) => c.city_name.toLowerCase() === newcity.toLowerCase()
   );
 
   if (!isValidCity) {
-    redirect("/mumbai/p/" + productname);
+    redirect(`/${city}/p/` + productname);
   }
   const data = await GetProductData(productname, city);
   if (data) {
