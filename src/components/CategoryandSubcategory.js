@@ -188,14 +188,15 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
                     var image = item.product_image.split(",");
                     return (
                       <div className={styles.item} key={item.product_id}>
-                        <div className={styles.itemInfo}>
-                          {/* <AddToFavoriteButton  productData={item} city={city}/> */}
-                          <Link
+                        <Link
                             key={item.product_id}
                             href={`/${city}/p/${productName}`}
                             className={styles.itemCard}
                             prefetch={true}
                           >
+                        <div className={styles.itemInfo}>
+                          {/* <AddToFavoriteButton  productData={item} city={city}/> */}
+                          
                             <div className={`${styles.imgHvr}`}>
                               <img
                                 className={styles.plpProdctImg}
@@ -203,14 +204,15 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
                                 alt="No image found"
                               />
                             </div>
-                          </Link>
-
+                        
                           <div className={`${styles["itemDesc"]}`}>
                             <h1>{item.product_name}</h1>
                             <h4>Sinful Collections</h4>
                             <p>₹ {item.cost}</p>
                           </div>
+
                         </div>
+                        </Link>
                       </div>
                     );
                   })
