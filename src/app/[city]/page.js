@@ -9,9 +9,8 @@ import CakeOfTheMonth from "@/components/CakeOfTheMonth";
 import { axiosGet, axiosPost } from "@/api";
 import { redirect } from "next/navigation";
 import SetCookies from "@/components/setCookies";
-import { lazy, Suspense } from "react";
 import dynamic from "next/dynamic";
-const LazyComponent = lazy(() => import("@/components/banner"));
+import {getCities} from "@/utils/commoncity"
 const ClientScrollEffect = dynamic(
   () => import("@/components/ScrollComponent"),
   { ssr: false }
@@ -39,20 +38,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-async function getCities() {
-  try {
-    const cities = await axiosGet("RNBCity/GetAllRNBCity");
-    if (cities) {
-      return cities;
-    }
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return {
-      data: null,
-    };
-  }
-}
-
 async function fetchMedia(city) {
   try {
     const obj = {
@@ -73,6 +58,7 @@ async function fetchMedia(city) {
 const page = async ({ params }) => {
   const city = params.city;
   const cities = await getCities();
+
   const isValidCity = cities.some(
     (c) => c.city_name.toLowerCase() === city.toLowerCase()
   );

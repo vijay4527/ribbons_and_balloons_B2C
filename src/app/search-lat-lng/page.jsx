@@ -37,7 +37,7 @@ const SearchLatLng = () => {
         throw new Error(`Error fetching data: ${response.statusText}`);
       }
       const data = await response.json();
-      console.log(data); // Handle the data as needed
+      console.log(data);
     } catch (err) {
       console.log(err);
     }
