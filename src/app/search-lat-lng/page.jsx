@@ -31,7 +31,7 @@ const SearchLatLng = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyCRjTnDRhNQ9nDMLqQKY5E2oXX0GGAvCsc&input=TAXIMENS&types=geocode"
+        "https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyBpti7QuC_QXwWE90MT0RkfMPlET1KbhS4&input=TAXIMENS&types=geocode"
       );
       if (!response.ok) {
         throw new Error(`Error fetching data: ${response.statusText}`);
