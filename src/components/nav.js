@@ -4,33 +4,31 @@ import Navbar from "react-bootstrap/Navbar";
 import { axiosPost } from "@/api";
 import Link from "next/link";
 import NavComponent from "./navComponent";
-import { cookies } from "next/headers";
+import { cookies } from 'next/headers'; 
 import { headers } from "next/headers";
-import { getCities } from "@/utils/commoncity";
 const getCategories = async (city) => {
   try {
     const categoryObj = { city_name: city };
     const data = await axiosPost("Category/GetAllCategories", categoryObj);
     if (data) {
-      return { data, city };
+      return {data,city};
     }
   } catch (error) {
     console.error("Error fetching categories:", error);
-  }
+  } 
 };
 
 const Nav = async () => {
-  const cities = await getCities();
   const nextCookies = cookies();
-  const cityObj = await nextCookies.get("city");
-  const cookiecity = cityObj?.value;
+  const cityObj = await nextCookies.get('city')
+  const cookiecity = cityObj?.value
   const categoryData = await getCategories(cookiecity);
-  const categories = categoryData.data;
+  const categories= categoryData.data  
   const headerList = headers();
   const pathname = headerList.get("x-current-path");
   const Cityname = pathname ? pathname.split("/")[1] : "";
-  const city = cities.includes(Cityname) ? Cityname : cookiecity;
-  return (
+  const city = Cityname == "paymentfailed" || Cityname == "paymentfailed" ? cookiecity : Cityname
+    return (
     <div>
       <Container>
         <div className="navbar_body">
@@ -88,7 +86,7 @@ const Nav = async () => {
                     </div>
                     <div className={`sub_nav`}>
                       <div className={"sub_navbtn"}>
-                        <Link href={`/${city}`} prefetch={true}>
+                      <Link href={`/${city}`} prefetch={true}>
                           <h4 className="category-title">About Us</h4>
                         </Link>
                       </div>
