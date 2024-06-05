@@ -38,6 +38,20 @@ export async function generateMetadata({ params }) {
   };
 }
 
+// async function getCities() {
+//   try {
+//     const cities = await axiosGet("RNBCity/GetAllRNBCity");
+//     if (cities) {
+//       return cities;
+//     }
+//   } catch (error) {
+//     console.error("Error fetching data:", error);
+//     return {
+//       data: null,
+//     };
+//   }
+// }
+
 async function fetchMedia(city) {
   try {
     const obj = {
