@@ -15,7 +15,7 @@ const CakeOfTheMonth = ({city,data}) => {
         </div>
       </div>
     </div>
-    <Link href={`/${data[0]?.redirect_url}`} aria-label="cake of the month">
+    <Link href={`/${data[0]?.redirect_url }`} aria-label="cake of the month">
     <div className="cakeOfMonthBody">
       <div className="wrapper">
         {/* <video

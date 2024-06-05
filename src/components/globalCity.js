@@ -1,31 +1,29 @@
-// app/components/MyClientComponent.jsx
+// // app/components/MyClientComponent.jsx
+// 'use client';
+// import { useRouter } from 'next/navigation';
+// import { useEffect, useState } from 'react';
 
-'use client';
+// const MyClientComponent = () => {
+//   const router = useRouter();
+//   const [city, setCity] = useState('');
 
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+//   useEffect(() => {
+//     const extractCityFromPath = (path) => {
+//       const parts = path.split('/');
+//       return parts.length > 2 ? parts[2].replace(/-/g, ' ') : '';
+//     };
 
-const MyClientComponent = () => {
-  const router = useRouter();
-  const [city, setCity] = useState('');
+//     const path = router.asPath;
+//     const cityName = extractCityFromPath(path);
+//     console.log("city",city)
+//     setCity(cityName);
+//   }, [router.asPath]);
 
-  useEffect(() => {
-    const extractCityFromPath = (path) => {
-      const parts = path.split('/');
-      return parts.length > 2 ? parts[2].replace(/-/g, ' ') : '';
-    };
+//   return (
+//     <div>
+//       <p>City: {city}</p>
+//     </div>
+//   );
+// };
 
-    const path = router.asPath;
-    const cityName = extractCityFromPath(path);
-    console.log("city",city)
-    setCity(cityName);
-  }, [router.asPath]);
-
-  return (
-    <div>
-      <p>City: {city}</p>
-    </div>
-  );
-};
-
-export default MyClientComponent;
+// export default MyClientComponent;

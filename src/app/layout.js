@@ -49,19 +49,6 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         ></link>
-
-        {/* <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
-        />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Agbalumo&family=Handjet&family=Kenia&family=Nabla&family=Poppins:ital,wght@1,700&family=Whisper&display=swap"
-        />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
-        /> */}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Cormorant&display=swap"
@@ -71,7 +58,7 @@ export default function RootLayout({ children }) {
           href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
         />
         <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-        <link rel="preconnect" href="https://img.freepik.com" />
+        {/* <link rel="preconnect" href="https://img.freepik.com" /> */}
         <link
           rel="preload"
           href="https://fama.b-cdn.net/RnB/Stripes.webp"

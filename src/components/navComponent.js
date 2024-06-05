@@ -10,12 +10,13 @@ import ProductModal from "@/components/productFilterModal";
 import LoginModal from "@/components/loginModal";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+
 const navComponent = () => {
   const router= useRouter()
   const path = usePathname();
   const pathname = path;
   const pathSegments = pathname.split("/");
-  const city = pathSegments[1];
+  const Cityname = pathSegments[1];
   const [isLoactionActive, setIsLoactionActive] = useState(false);
   const [isSearchActive, setSearchActive] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -27,6 +28,8 @@ const navComponent = () => {
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [filteredProduct, setFilteredProduct] = useState([]);
+  const cookiecity =  Cookies.get("city");
+  const city = Cityname == "paymentfailed" || Cityname == "paymentfailed" ? cookiecity : Cityname
 
   const loactionToggle = () => {
     if (!(pathname.includes("checkout") || pathname.includes("cart"))) {
@@ -39,7 +42,7 @@ const navComponent = () => {
 
   useEffect(() => {
     getCities();
-    //  const city = Cookies.get("city")
+  
     if (city) {
       setSelectedCity(city);
     }
@@ -167,7 +170,6 @@ const navComponent = () => {
     if (cityName) {
       setSelectedCity(cityName)
       const lowercaseCityName = cityName.toLowerCase();
-      console.log(Cookies.get("city"));
       Cookies.remove("city");
       Cookies.set("city", lowercaseCityName);
       loactionToggle()

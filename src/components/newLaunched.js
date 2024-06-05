@@ -25,7 +25,6 @@ const responsive = {
   },
 };
 const Testimonial = ({ city, data }) => {
-
   return (
     <>
       <div className="testimonialsWrap">
@@ -33,7 +32,7 @@ const Testimonial = ({ city, data }) => {
           <div className="testimonialsBody">
             <div className="headerTitle">
               <p className=""> you said about us </p>
-              <h2 style={{fontFamily: 'revicons'}}>New Launches</h2>
+              <h2 style={{ fontFamily: "revicons" }}>New Launches</h2>
               <div className="testimonialUnderLine">
                 <div className="testimonialUnder">
                   <div className="underLine"></div>
@@ -56,26 +55,23 @@ const Testimonial = ({ city, data }) => {
               removeArrowOnDeviceType={["tablet", "mobile"]}
               deviceType="desktop"
             >
-              {
-                data && data.length > 0  && (
-                  data.map((e,i)=>(
-                    (
-                      <Link href={`${e.redirect_url}`} key={i}>
-                      <div className="item" >
-                    
-                        <div className="itemNewLunch">
-                          <div className="itemNewLunchImg">
-                            <img src={AppConfig.cdn+e.img_url} alt="No image found" />
-                          </div>
+              {data &&
+                data.length > 0 &&
+                data.map((e, i) => (
+                  <Link href={`${e?.redirect_url}`} key={i}>
+                    <div className="item">
+                      <div className="itemNewLunch">
+                        <div className="itemNewLunchImg">
+                          <img
+                            src={AppConfig.cdn + e?.img_url}
+                            alt="No image found"
+                          />
                         </div>
-                    
+                      </div>
                     </div>
-                    </Link>
-      
-                    )
-                  ))
-                )              }
-             
+                  </Link>
+                ))}
+
               {/* <div className="item">
                 <Link href={`/${secondImage.redirect_url}`}>
                   <div className="itemNewLunch">

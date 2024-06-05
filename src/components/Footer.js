@@ -5,15 +5,17 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Link from "next/link";
 import * as yup from "yup";
-import { axiosPost, axiosGetAll } from "@/api";
+import { axiosPost } from "@/api";
 import { usePathname } from "next/navigation";
 import { newsLetterSchema } from "./validation";
+import Cookies from "js-cookie";
 export default function Footer() {
   const [errors, setErrors] = useState({});
   const [email, setEmail] = useState("");
   const router = usePathname();
-  const city = router.split("/")[1]
-  // const  city  = "mumbai";
+  const cityname = router.split("/")[1]
+  const cookieCity = Cookies.get("city")
+  const city = cityname == "paymentfailed" || cityname == "paymentfailed" ? cookieCity : cityname
   const [status, setStatus] = useState(false);
   const saveNewsLetter = async () => {
     try {

@@ -59,11 +59,11 @@ const MediaCollaborators = ({ city, data }) => {
             {data &&
               data.length > 0 &&
               data.map((e, i) => (
-                <Link href={`${e.redirect_url}`} key={i}>
+                <Link href={`${e?.redirect_url}`} key={i}>
                   <div className="item">
                     <div className="MediaContentImg">
                       <img
-                        src={AppConfig.cdn + e.img_url}
+                        src={AppConfig.cdn + e?.img_url}
                         alt="No image found"
                       />
                     </div>

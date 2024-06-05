@@ -67,6 +67,9 @@ async function fetchMedia(city) {
   }
 }
 
+
+
+
 const page = async ({ params }) => {
   const city = params.city;
   const cities = await getCities();

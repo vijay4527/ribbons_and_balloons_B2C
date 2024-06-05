@@ -1215,7 +1215,7 @@ ul.selectLocationOption a {
   padding: 85px 0px;
   /* background-color: #121213; */
 
-  background-image: url(https://fama.b-cdn.net/Stripes.jpg);
+  background-image: url(https://fama.b-cdn.net/RnB/Stripes.webp);
   background-attachment: fixed !important;
   transition: background 0s !important;
   background-size: 100%;
@@ -1223,7 +1223,7 @@ ul.selectLocationOption a {
 
 .enquiryBody {
   padding: 0 !important;
-  background-image: url("https://fama.b-cdn.net/Stripes.jpg");
+  background-image: url(https://fama.b-cdn.net/RnB/Stripes.webp);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -2500,7 +2500,7 @@ video {
 }
 
 .login-container {
-  background-image: url("https://fama.b-cdn.net/Stripes.jpg");
+  background-image: url("https://fama.b-cdn.net/RnB/Stripes.webp");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -2714,7 +2714,7 @@ video {
   align-items: center;
 }
 .addon-container {
-  background-image: url(https://fama.b-cdn.net/Stripes.jpg);
+  background-image: url(https://fama.b-cdn.net/RnB/Stripes.webp);
   background-attachment: fixed !important;
   transition: background 0s !important;
   background-size: 100%;
@@ -3027,7 +3027,7 @@ video {
 }
 
 .addon-bottom-btn-div {
-  background-image: url(https://fama.b-cdn.net/Stripes.jpg);
+  background-image: url(https://fama.b-cdn.net/RnB/Stripes.webp);
   background-attachment: fixed !important;
   transition: background 0s !important;
   background-size: 100%;
@@ -3073,12 +3073,12 @@ video {
   font-family: "__Inter_aaf875" !important;
 }
 
-input[name='contact']{
+input[name="contact"] {
   background-color: #e9cc6d !important;
-    opacity: 1 !important;
+  opacity: 1 !important;
 }
 
-.categoryLink{
+.categoryLink {
   color: white !important;
   text-decoration: none !important;
 }
@@ -3086,3 +3086,15 @@ input[name='contact']{
   display: flex !important;
   overflow: hidden;
 } */
+
+.enquiryCrossIcon {
+  display: flex;
+  justify-content: end;
+  padding-right: 10px;
+  padding-top:10px
+  
+}
+
+.enquiryCrossIcon i{
+  cursor:pointer
+}
