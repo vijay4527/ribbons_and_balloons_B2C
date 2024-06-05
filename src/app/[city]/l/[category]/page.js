@@ -3,7 +3,6 @@ import { axiosPost,axiosGet } from '@/api';
 import CategoryComponent from "@/components/CategoryandSubcategory"
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers'; 
-import { getCities } from "@/utils/commoncity";
 
 export async function generateMetadata({ params }) {
   const {data,category} = await getCategoryData(params.category,params.subcategory,params.city);
@@ -62,37 +61,35 @@ async function getCategoryData(categoryName,subcategory,city) {
       }
   }
 
-  // async function getCities() {
-  //   try {
+  async function getCities() {
+    try {
    
-  //       const cities = await axiosGet("RNBCity/GetAllRNBCity");
-  //       if (cities) {
-  //         return cities;
-  //       }  
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //     return {
-  //       data: null,
-  //     };
-  //   }
-  // }
+        const cities = await axiosGet("RNBCity/GetAllRNBCity");
+        if (cities) {
+          return cities;
+        }  
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return {
+        data: null,
+      };
+    }
+  }
 
 const page = async({params}) => {
+  // const cities = await getCities()
     const categoryName = params.category
-    const cities = await getCities();
-    const newcity = params.city;
     const nextCookies = cookies();
-    const cityObj = await nextCookies.get("city");
-    const cookiecity = cityObj?.value;
-    const city = cities.includes(newcity) ? newcity : cookiecity;
+    const cityObj = await nextCookies.get('city')
+    const city = cityObj?.value ? cityObj?.value : params.city
     const subcategory = params.subcategory
-    const isValidCity = cities.some(
-      (c) => c.city_name.toLowerCase() === newcity.toLowerCase()
-    );
+    // const isValidCity = cities.some(
+    //   (c) => c.city_name.toLowerCase() === city.toLowerCase()
+    // );
 
-    if (!isValidCity) {
-      redirect(`/${city}/l/`+categoryName)
-    }
+    // if (!isValidCity) {
+    //   redirect('/mumbai/l/'+categoryName)
+    // }
  const {data,category} = await getCategoryData(categoryName,subcategory,city)
   return (
     <CategoryComponent

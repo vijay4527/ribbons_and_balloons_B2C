@@ -10,10 +10,8 @@ import ProductModal from "@/components/productFilterModal";
 import LoginModal from "@/components/loginModal";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
-import { getCities } from "@/utils/commoncity";
 
 const navComponent = () => {
- 
   const router= useRouter()
   const path = usePathname();
   const pathname = path;
@@ -31,7 +29,7 @@ const navComponent = () => {
   const [searchValue, setSearchValue] = useState("");
   const [filteredProduct, setFilteredProduct] = useState([]);
   const cookiecity =  Cookies.get("city");
-  const city = cities.includes(Cityname) ? Cityname : cookiecity
+  const city = Cityname == "paymentfailed" || Cityname == "paymentfailed" ? cookiecity : Cityname
 
   const loactionToggle = () => {
     if (!(pathname.includes("checkout") || pathname.includes("cart"))) {
@@ -42,11 +40,9 @@ const navComponent = () => {
     setSearchActive(!isSearchActive);
   };
 
-  useEffect(async() => {
-   const cities = await getCities();
-   if(cities.length >0){
-    setCities(cities)
-   }
+  useEffect(() => {
+    getCities();
+  
     if (city) {
       setSelectedCity(city);
     }
@@ -102,16 +98,16 @@ const navComponent = () => {
 
   
 
-  // const getCities = async () => {
-  //   try {
-  //     const cityResponse = await axiosGet("RNBCity/GetAllRNBCity");
-  //     if (cityResponse) {
-  //       setCities(cityResponse);
-  //     }
-  //   } catch (error) {
-  //     console.log("error", error);
-  //   }
-  // };
+  const getCities = async () => {
+    try {
+      const cityResponse = await axiosGet("RNBCity/GetAllRNBCity");
+      if (cityResponse) {
+        setCities(cityResponse);
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
 
   
   const Logout = () => {
