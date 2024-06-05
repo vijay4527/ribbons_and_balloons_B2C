@@ -10,7 +10,7 @@ import ProductModal from "@/components/productFilterModal";
 import LoginModal from "@/components/loginModal";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
-
+import { getCities } from "@/utils/commoncity";
 const navComponent = () => {
   const router= useRouter()
   const path = usePathname();
@@ -98,16 +98,16 @@ const navComponent = () => {
 
   
 
-  const getCities = async () => {
-    try {
-      const cityResponse = await axiosGet("RNBCity/GetAllRNBCity");
-      if (cityResponse) {
-        setCities(cityResponse);
-      }
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
+  // const getCities = async () => {
+  //   try {
+  //     const cityResponse = await axiosGet("RNBCity/GetAllRNBCity");
+  //     if (cityResponse) {
+  //       setCities(cityResponse);
+  //     }
+  //   } catch (error) {
+  //     console.log("error", error);
+  //   }
+  // };
 
   
   const Logout = () => {
