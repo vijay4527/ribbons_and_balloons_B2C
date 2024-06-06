@@ -94,8 +94,6 @@ const page = async({params}) => {
     city = cityObj?.value || city; 
     redirect(`/${city}/l/`+ categoryName);
   }
-
-
     const subcategory = params.subcategory
     // const isValidCity = cities.some(
     //   (c) => c.city_name.toLowerCase() === city.toLowerCase()

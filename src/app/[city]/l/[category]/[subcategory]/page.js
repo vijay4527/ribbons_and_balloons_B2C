@@ -2,7 +2,8 @@ import React from "react";
 import { axiosPost } from "@/api";
 import CategoryComponent from "@/components/CategoryandSubcategory";
 import { cookies } from "next/headers";
-
+import { getCities } from "@/utils/commoncity";
+import { redirect } from "next/navigation";
 export async function generateMetadata({ params }) {
   return {
     title: params.subcategory + " | Ribbons and balloons",
@@ -58,9 +59,20 @@ async function getCategoryData(categoryName, subcategory, city) {
 
 const page = async ({ params }) => {
   const categoryName = params.category;
+  const cities = await getCities();
+  const isValidCity = (cityName) => {
+    return cities.some(
+      (city) => city.city_name.toLowerCase() === cityName.toLowerCase()
+    );
+  };
   const nextCookies = cookies();
-  const cityObj = await nextCookies.get("city");
-  const city = cityObj?.value ? cityObj?.value : params.city;
+  const cityObj = await nextCookies.get('city');
+  let city = params.city;
+
+  if (!isValidCity(city)) {
+    city = cityObj?.value || city; 
+    redirect(`/${city}/l/`+ categoryName);
+  }
   const subcategory = params.subcategory;
   const { data, category } = await getCategoryData(
     categoryName,
