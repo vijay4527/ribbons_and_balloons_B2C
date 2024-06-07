@@ -24,15 +24,18 @@ const Nav = async () => {
   const cityObj = await nextCookies.get("city");
   const cookiecity = cityObj?.value;
   const categoryData = await getCategories(cookiecity);
-  const categories = categoryData.data;
+  const categories = categoryData?.data;
   const headerList = headers();
   const pathname = headerList.get("x-current-path");
   const Cityname = pathname ? pathname.split("/")[1] : "";
   let isCity = false;
   const cities = await getCities();
-  if (cities.includes(Cityname)) {
-    isCity = true;
+  if (cities.length > 0) {
+    if (cities.includes(Cityname)) {
+      isCity = true;
+    }
   }
+
   const city = isCity ? cookiecity : Cityname;
   return (
     <div>

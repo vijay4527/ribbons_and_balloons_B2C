@@ -57,7 +57,7 @@ async function fetchMedia(city) {
     const obj = {
       city_name: city,
     };
-    const bannerData = await axiosPost("BannerMaster/GetBannerByCityName", obj);
+    const bannerData = await axiosPost("BannerMaster/GetBannerByCityName", obj,{ cache: 'force-cache' });
     if (bannerData) {
       return bannerData;
     }
