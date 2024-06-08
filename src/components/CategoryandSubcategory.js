@@ -113,20 +113,20 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
                   </div>
                 </div>
                 <div
-                  className={styles.plpFilterDescAction}
-                  style={{ display: "flex" }}
-                >
-                  <span>Price : {selectedMinRange}</span>
-                  <RangeSlider
-                    min={minRange}
-                    max={maxRange}
-                    defaultValue={{ start: minRange, end: maxRange }}
-                    value={[selectedMinRange, selectedMaxRange]}
-                    onInput={(values) =>
-                      handleRangeChange({ start: values[0], end: values[1] })
-                    }
-                  />
-                  <span>{selectedMaxRange}</span>
+                  className={styles.plpFilterDescAction}>
+                  <span className={styles.plpPriceLeft}>Rs: {selectedMinRange}</span>
+                  <div className={styles.plpPriceRange}>
+                    <RangeSlider
+                      min={minRange}
+                      max={maxRange}
+                      defaultValue={{ start: minRange, end: maxRange }}
+                      value={[selectedMinRange, selectedMaxRange]}
+                      onInput={(values) =>
+                        handleRangeChange({ start: values[0], end: values[1] })
+                      }
+                    />
+                  </div>
+                  <span className={styles.plpPriceRight}>Rs: {selectedMaxRange}</span>
                 </div>
               </div>
               <div className={styles.plpFilterAction}>
@@ -141,6 +141,7 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
                   <ul>
                     {category && category.length > 0
                       ? category.map((item, index) => (
+                        <li key={index}>
                           <Link
                             href={`/${city}/l/${item.category_name
                               .split(" ")
@@ -148,8 +149,10 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
                             key={index}
                             className="categoryLink"
                           >
-                            <li key={index}>{item.category_name}</li>
+                            {item.category_name}
                           </Link>
+                          </li>
+                          
                         ))
                       : ""}
                   </ul>

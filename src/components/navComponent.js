@@ -288,6 +288,18 @@ const navComponent = () => {
                 onKeyDown={handleKeyPress}
               />
             </div>
+            <div className="selectSearchContent">
+              <div className="selectSearchList">
+                <Link href="#">
+                  <img src="https://fama.b-cdn.net/RnB/Dev/products/20240214111100427.jpeg"  alt="No image found"/>
+                  <div className="searchItemInfo">
+                    <h2>Pound cake</h2>
+                    <h3>Sinful Collections</h3>
+                  </div>
+                </Link>
+                
+              </div>
+            </div>
           </div>
           <div
             className={`backdropSearchItem ${
