@@ -523,13 +523,14 @@ ul.selectLocationOption a {
   overflow: hidden;
   overflow-y: auto;
 }
-.selectSearchList a{
+.selectSearchList .searchResultContainer{
+  display: flex;
   align-items: start !important;
   text-decoration: none;
   width: 100%;
   padding: 10px;
 }
-.selectSearchList a:not(:last-child) {
+.selectSearchList .searchResultContainer:not(:last-child) {
   border-bottom: 1px solid #fafaff;
 }
 .selectSearchList img{

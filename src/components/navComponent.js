@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
@@ -10,7 +10,7 @@ import ProductModal from "@/components/productFilterModal";
 import LoginModal from "@/components/loginModal";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
-
+import AppConfig from "@/AppConfig";
 const navComponent = () => {
   const router = useRouter();
   const path = usePathname();
@@ -29,6 +29,10 @@ const navComponent = () => {
   const [searchValue, setSearchValue] = useState("");
   const [filteredProduct, setFilteredProduct] = useState([]);
   const cookiecity = Cookies.get("city");
+  const inputRef = useRef(null); // Create a ref for the input element
+
+  const [shouldFocusInput, setShouldFocusInput] = useState(false); // State to manage input focus
+
   const isValidCity = (cityName) => {
     return cities.some(
       (city) => city.city_name.toLowerCase() === cityName.toLowerCase()
@@ -115,6 +119,13 @@ const navComponent = () => {
     }
   };
 
+
+  useEffect(() => {
+    if (isSearchActive && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isSearchActive]);
+
   const Logout = () => {
     sessionStorage.removeItem("userData");
     sessionStorage.removeItem("isLoggedIn");
@@ -154,19 +165,23 @@ const navComponent = () => {
   ));
 
   const handleKeyPress = async (event) => {
-    if (event.key === "Enter" && searchValue.length > 0 && city) {
-      try {
-        setIsProductModalOpen(true);
-        var searchedTerm = searchValue.split("/").join("");
+    setSearchValue(event);
+
+    try {
+      // setIsProductModalOpen(true);
+      if (event.length > 0) {
+        var searchedTerm = event.split("/").join("");
         const data = await axiosGet(
           `/ProductMaster/GetAllProductByName/${searchedTerm}/${city}`
         );
         if (data.length > 0) {
           setFilteredProduct(data);
         }
-      } catch (error) {
-        console.log(error);
+      } else {
+        setFilteredProduct([]);
       }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -180,6 +195,11 @@ const navComponent = () => {
       router.push(`/${lowercaseCityName}`);
       router.refresh();
     }
+  };
+
+  const handleProductClick = (productName) => {
+    setSearchValue("");
+    router.push(`/${city}/p/${productName}`);
   };
 
   return (
@@ -277,27 +297,41 @@ const navComponent = () => {
             }`}
           >
             <div className="selectSearchBody">
-              <div className="headerSearchIcon"></div>
+              <div className={`headerSearchIcon searchInput ${isSearchActive ? "activeClass" : ""}`} ></div>
               <input
+                ref={inputRef} // Attach ref to the input element
                 type="search"
                 id="inputSearch"
                 placeholder="Search for cakes, occasion, flavor and more"
                 value={searchValue}
                 className="form-control"
-                onChange={(e) => setSearchValue(e.target.value)}
-                onKeyDown={handleKeyPress}
+                onChange={(e) => handleKeyPress(e.target.value)}
+                // onKeyDown={handleKeyPress}
               />
             </div>
             <div className="selectSearchContent">
               <div className="selectSearchList">
-                <Link href="#">
-                  <img src="https://fama.b-cdn.net/RnB/Dev/products/20240214111100427.jpeg"  alt="No image found"/>
-                  <div className="searchItemInfo">
-                    <h2>Pound cake</h2>
-                    <h3>Sinful Collections</h3>
-                  </div>
-                </Link>
-                
+                {filteredProduct &&
+                  filteredProduct.length > 0 &&
+                  filteredProduct.map((item) => {
+                    const productName = item.product_name.split(" ").join("-");
+                    var image = item.product_image.split(",");
+                    return (
+                      <div
+                        className="searchResultContainer"
+                        onClick={() => handleProductClick(productName)}
+                      >
+                        <img
+                          src={`${AppConfig.cdn}products/${image[0]}`}
+                          alt={productName}
+                        />
+                        <div className="searchItemInfo">
+                          <h2>{item.product_name}</h2>
+                          <h3>Sinful Collections</h3>
+                        </div>
+                      </div>
+                    );
+                  })}
               </div>
             </div>
           </div>
@@ -404,7 +438,7 @@ const navComponent = () => {
           closeLoginModal={() => setIsLoginModalOpen(false)}
         />
       )}
-      {isProductModalOpen && setSearchValue.length > 0 && (
+      {/* {isProductModalOpen && setSearchValue.length > 0 && (
         <ProductModal
           isOpen={isProductModalOpen}
           onRequestClose={() => setIsProductModalOpen(false)}
@@ -413,7 +447,7 @@ const navComponent = () => {
           searchTerm={searchValue}
           data={filteredProduct}
         ></ProductModal>
-      )}
+      )} */}
     </div>
   );
 };
