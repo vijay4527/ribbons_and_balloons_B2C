@@ -198,8 +198,8 @@ const navComponent = () => {
   };
 
   const handleProductClick = (productName) => {
+    setFilteredProduct([])
     setSearchValue("");
-    router.push(`/${city}/p/${productName}`);
   };
 
   return (
@@ -317,8 +317,9 @@ const navComponent = () => {
                     const productName = item.product_name.split(" ").join("-");
                     var image = item.product_image.split(",");
                     return (
-                      <div
+                      <Link
                         className="searchResultContainer"
+                        href={`/${city}/p/${productName}`} passHref key={item.id}
                         onClick={() => handleProductClick(productName)}
                       >
                         <img
@@ -329,7 +330,7 @@ const navComponent = () => {
                           <h2>{item.product_name}</h2>
                           <h3>Sinful Collections</h3>
                         </div>
-                      </div>
+                      </Link>
                     );
                   })}
               </div>
