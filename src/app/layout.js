@@ -25,7 +25,6 @@ export const metadata = {
   },
 };
 
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
@@ -64,6 +63,9 @@ export default function RootLayout({ children }) {
           href="https://fama.b-cdn.net/RnB/Stripes.webp"
           as="image"
         />
+        <link rel="preconnect" href="https://static.cure.fit" />
+        <link rel="preconnect" href="https://rnbapi.alphadigitall.com" />
+        <link rel="preconnect" href="https://alphadigitall.com" />
       </head>
       <body className={inter.className}>
         <AuthProvider>
