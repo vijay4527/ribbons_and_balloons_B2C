@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    domains: ["images.pexels.com","fama.b-cdn.net"],
+    domains: ["images.pexels.com", "fama.b-cdn.net"],
   },
   env: {
     NEXTAUTH_SECRET: "asddgd",
@@ -19,7 +19,7 @@ const nextConfig = {
     form_Action_Url:
       "https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction",
     //API_URL: "https://localhost:7189/api",
-   API_URL: "https://rnbapi.alphadigitall.com/api/",
+    API_URL: "https://rnbapi.alphadigitall.com/api/",
   },
 };
 
