@@ -622,6 +622,23 @@
     }
     .plpFilterDescAction{
       padding: 25px 15px;
+      display: flex;
+      position: relative;
+      justify-content: center;
+    }
+    .plpPriceLeft{
+      position: absolute;
+      left: 60px;
+      top: 0px;
+    }
+    .plpPriceRight{
+      position: absolute;
+      right: 60px;
+      top: 0px;
+    }
+    .plpPriceRange{
+      margin-top: 15px;
+    width: 100%;
     }
     .plpFilterDescAction [data-testid="element"]{
       width: 65%;
@@ -724,7 +741,6 @@
   }
   .itemDesc h1{
     font-size: 1.6rem;
-    line-height: 1.33rem;
     letter-spacing: .06rem;
     font-family: Montserrat,sans-serif;
   }

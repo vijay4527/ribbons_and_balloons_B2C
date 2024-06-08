@@ -515,6 +515,36 @@ ul.selectLocationOption a {
   font-size: 1.4rem;
 }
 
+.selectSearchContent{
+
+}
+.selectSearchList {
+  max-height: 325px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+.selectSearchList a{
+  align-items: start !important;
+  text-decoration: none;
+  width: 100%;
+  padding: 10px;
+}
+.selectSearchList a:not(:last-child) {
+  border-bottom: 1px solid #fafaff;
+}
+.selectSearchList img{
+  height: 75px;
+}
+.searchItemInfo {
+  text-align: left;
+  padding-left: 20px;
+}
+.selectSearchList h2{
+  font-size: 1.6rem;
+}
+.selectSearchList h3{
+  font-size: 1.7rem;
+}
 .myProfileItems {
 }
 
@@ -785,6 +815,10 @@ ul.selectLocationOption a {
 }
 
 .category-sub-title a {
+  max-width: 100%;
+  min-width: 100%;
+  width: 100%;
+  display: block;
   text-decoration: none;
   font-weight: 500;
   font-stretch: normal;
