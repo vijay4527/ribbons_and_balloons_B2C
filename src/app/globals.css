@@ -816,10 +816,6 @@ ul.selectLocationOption a {
 }
 
 .category-sub-title a {
-  max-width: 100%;
-  min-width: 100%;
-  width: 100%;
-  display: block;
   text-decoration: none;
   font-weight: 500;
   font-stretch: normal;
@@ -1963,8 +1959,6 @@ ul.selectLocationOption a {
   width: 100%;
   height: 100%;
   overflow: hidden;
-   background-image: linear-gradient(#000000, rgba(25,53,93,1) 90%, rgba(25,53,93,1)); 
-    background-image: url(https://fama.b-cdn.net/RnB/combg.png);   
   background-image: linear-gradient(
     #000000,
     rgba(25, 53, 93, 1) 90%,
@@ -2675,9 +2669,9 @@ video {
   color: var(--body-bg-color);
   margin-bottom: 20px;
   text-align: center;
-  padding: 1rem;
+  margin: 1rem;
   color: white;
-  padding-top: 2rem;
+  padding-top: 1rem;
 }
 
 .addon-description,
@@ -2711,9 +2705,12 @@ video {
 .addOnCartIcon {
   position: absolute;
   z-index: 1;
-  right: 20px;
-  top: 20px;
-  color: #000;
+}
+.addOnCartIcon {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  padding: 1rem 2.5rem;
 }
 
 .addon-card,
@@ -2775,32 +2772,7 @@ video {
 }
 
 .addon-quantity-show {
-  border: 1px solid #eee;
-    border-radius: 5px;
-    background-color: #f4f4f4;
-    height: 28px;
-    color: #000;
-    width: 90px;
-    display: flex;
-}
-.addon-add-sub{
-  background-color: #fff;
-  width: calc(100% - 33.33%);
-}
-.addon-sub{
-
-}
-.addon-add{
-
-}
-.addon-sub,
-.addon-add{
-  height: 28px;
-  width: calc(100% - 33.33%);
-}
-.addon-sub svg,
-.addon-add svg{
-
+  margin-top: 10px;
 }
 .add_icon_image {
   width: 2rem !important;
@@ -2810,6 +2782,17 @@ video {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+
+.addon-add-sub {
+  border-radius: 2px;
+  border: 1.5px solid #b9b9b9;
+  background-color: rgba(7, 7, 7, 0.04);
+  padding: 0 4px;
+  margin-left: 6px;
+  margin-right: 6px;
+  opacity: 0.8;
+  font-size: 12px;
 }
 
 .skip_button {
@@ -3079,13 +3062,7 @@ video {
   background-attachment: fixed !important;
   transition: background 0s !important;
   background-size: 100%;
-  padding: 2rem;
-  position: sticky;
-  bottom: 0;
-  width: 100%;
-  left: 0;
-  z-index: 1;
-  text-align: right;
+  padding: 2rem 0;
 }
 .addon-bottom-btn {
   padding: 1rem !important;

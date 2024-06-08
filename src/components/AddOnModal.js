@@ -113,109 +113,103 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
   return (
     <>
       <Modal
-        id="addMoreFun"
+        id="login-modal-dialog"
         show={modalIsOpen}
         onHide={closeModal}
-        className={homeStyles["addMoreFunModal"]}
+        className={homeStyles["loginModal"]}
         size="lg"
         centered
       >
-        <div className={homeStyles["addMoreFunModalContent"]}>
-          <div className="container addon-container">
-            <div className="celebration">Add More Fun To Celebration.....</div>
-            <div className="addon-details">
-              <div className="addon-description">
-                {addOns && addOns.length > 0
-                  ? addOns.map((item, index) => (
-                      <div className="addon-card" key={index}>
-                        <div className="addon-image">
-                          {selectedIndexes.includes(index) && (
-                            <span
-                              className="SvgIcons addOnCartIcon"
-                              onClick={() => CreateAddOns(item, index)}
+        <div className="container addon-container">
+          <div className="celebration">Add More Fun To Celebration.....</div>
+          <div className="addon-details">
+            <div className="addon-description">
+              {addOns && addOns.length > 0
+                ? addOns.map((item, index) => (
+                    <div className="addon-card" key={index}>
+                      <div className="addon-image">
+                        {selectedIndexes.includes(index) && (
+                          <span
+                            className="SvgIcons addOnCartIcon"
+                            onClick={() => CreateAddOns(item, index)}
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              fill="currentColor"
+                              className="bi bi-cart"
+                              viewBox="0 0 16 16"
                             >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                fill="currentColor"
-                                className="bi bi-cart"
-                                viewBox="0 0 16 16"
-                              >
-                                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                              </svg>
-                            </span>
-                          )}
-
-                          <img
-                            src={AppConfig.cdn + "products/" + item.addon_image}
-                            alt="Magic Candles Set"
-                            className="img-fluid v-align-bottom ls-is-cached lazyloaded addOnCardImage"
-                            title="Magic Candles Set"
-                          />
-                        </div>
-                        <div className="addon-overlap">
-                          <span className="addon-title" title={item.addon_name}>
-                            {item.addon_name}
+                              <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                            </svg>
                           </span>
-                          <div className="title-price-icon mt-2">
-                            <div className="title-price">
-                              <span className="addon-price">
-                                <img
-                                  src="https://media.bakingo.com/bakingo-ssr/static/media/rupees.ac282a46.svg"
-                                  width="0"
-                                  height="0"
-                                />{" "}
-                                ₹{item.cost}{" "}
+                        )}
+
+                        <img
+                          src={AppConfig.cdn + "products/" + item.addon_image}
+                          alt="Magic Candles Set"
+                          className="img-fluid v-align-bottom ls-is-cached lazyloaded addOnCardImage"
+                          title="Magic Candles Set"
+                        />
+                      </div>
+                      <div className="addon-overlap">
+                        <span className="addon-title" title={item.addon_name}>
+                          {item.addon_name}
+                        </span>
+                        <div className="title-price-icon mt-2">
+                          <div className="title-price">
+                            <span className="addon-price">
+                              <img
+                                src="https://media.bakingo.com/bakingo-ssr/static/media/rupees.ac282a46.svg"
+                                width="0"
+                                height="0"
+                              />{" "}
+                              ₹{item.cost}{" "}
+                            </span>
+                          </div>
+                          {!selectedIndexes.includes(index) && (
+                            <div className="add_icon_image">
+                              <img
+                                src="https://media.bakingo.com/bakingo-ssr/static/media/add_icon.1b323ad6.svg"
+                                alt="add"
+                                onClick={() => toggleSelection(index)}
+                              />
+                            </div>
+                          )}
+                          {selectedIndexes.includes(index) && (
+                            <div className="addon-quantity-show">
+                              <span
+                                className="addon-sub"
+                                onClick={() => decrementQuantity(index)}
+                              >
+                                -{" "}
+                              </span>
+                              <span className="addon-add-sub">
+                                {quantities[index]}
+                              </span>
+                              <span
+                                className="addon-add"
+                                onClick={() => incrementQuantity(index)}
+                              >
+                                +{" "}
                               </span>
                             </div>
-                            {!selectedIndexes.includes(index) && (
-                              <div className="add_icon_image">
-                                <img
-                                  src="https://media.bakingo.com/bakingo-ssr/static/media/add_icon.1b323ad6.svg"
-                                  alt="add"
-                                  onClick={() => toggleSelection(index)}
-                                />
-                              </div>
-                            )}
-                            {selectedIndexes.includes(index) && (
-                              <div className="addon-quantity-show">
-                                <div
-                                  className="addon-sub"
-                                  onClick={() => decrementQuantity(index)}
-                                >
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
-    <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
-  </svg>
-                                </div>
-                                <div className="addon-add-sub">
-                                  {quantities[index]}
-                                </div>
-                                <div
-                                  className="addon-add"
-                                  onClick={() => incrementQuantity(index)}
-                                >
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-  </svg>
-                                </div>
-                              </div>
-                            )}
-                          </div>
+                          )}
                         </div>
                       </div>
-                    ))
-                  : ""}
-              </div>
+                    </div>
+                  ))
+                : ""}
             </div>
           </div>
-          <div className="addon-bottom-btn-div">
-            <Link href={`/${city}/cart`}>
-              <div className="btn btn-secondary addon-bottom-btn">Skip</div>
-            </Link>{" "}
-            <div className="btn btn-primary continue-btn addon-bottom-btn" onClick={handleProductModal}>
-              Continue
-            </div>
+        </div>
+        <div className="text-center addon-bottom-btn-div">
+          <Link href={`/${city}/cart`}>
+            <div className="btn btn-secondary mb-4 addon-bottom-btn">Skip</div>
+          </Link>{" "}
+          <div className="btn btn-primary mb-4 continue-btn addon-bottom-btn" onClick={handleProductModal}>
+            Continue
           </div>
         </div>
       </Modal>
