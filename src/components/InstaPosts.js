@@ -5,7 +5,7 @@ const InstaPosts = () => {
     <div className="advInstaWrap">
     <Container fluid>
       <div className="headerTitle">
-        <h2>INSTAGRAM</h2>
+        <h2 style={{fontFamily:"revicons"}}>INSTAGRAM</h2>
         <div className="testimonialUnderLine">
           <div className="testimonialUnder">
             <div className="underLine"></div>
@@ -18,7 +18,7 @@ const InstaPosts = () => {
           <div className="advInstaContentBox">
             <div className="advInstaContentBoxImg">
               <img
-                src="https://dolcino.qodeinteractive.com/wp-content/uploads/2018/10/port-1-img-2-650x650.jpg"
+                src="https://fama.b-cdn.net/RnB/port-1-img-2-650x650.webp"
                 alt="No image found"
               />
             </div>
@@ -37,7 +37,7 @@ const InstaPosts = () => {
           <div className="advInstaContentBox">
             <div className="advInstaContentBoxImg">
               <img
-                src="https://dolcino.qodeinteractive.com/wp-content/uploads/2018/10/port-1-img-5-650x650.jpg"
+                src="https://fama.b-cdn.net/RnB/port-1-img-5-650x650.webp"
                 alt="No image found"
               />
             </div>
@@ -56,7 +56,7 @@ const InstaPosts = () => {
           <div className="advInstaContentBox">
             <div className="advInstaContentBoxImg">
               <img
-                src="https://dolcino.qodeinteractive.com/wp-content/uploads/2018/10/port-1-img-7-650x650.jpg"
+                src="https://fama.b-cdn.net/RnB/port-1-img-7-650x650.webp"
                 alt="No image found"
               />
             </div>
@@ -75,7 +75,7 @@ const InstaPosts = () => {
           <div className="advInstaContentBox">
             <div className="advInstaContentBoxImg">
               <img
-                src="https://dolcino.qodeinteractive.com/wp-content/uploads/2018/10/port-1-img-4-650x650.jpg"
+                src="https://fama.b-cdn.net/RnB/port-1-img-4-650x650.webp"
                 alt="No image found"
               />
             </div>
@@ -97,7 +97,7 @@ const InstaPosts = () => {
           <div className="advInstaContentBox">
             <div className="advInstaContentBoxImg">
               <img
-                src="https://dolcino.qodeinteractive.com/wp-content/uploads/2018/10/port-1-img-6-650x650.jpg"
+                src="https://fama.b-cdn.net/RnB/port-1-img-6-650x650.webp"
                 alt="No image found"
               />
             </div>
@@ -119,7 +119,7 @@ const InstaPosts = () => {
           <div className="advInstaContentBox">
             <div className="advInstaContentBoxImg">
               <img
-                src="https://dolcino.qodeinteractive.com/wp-content/uploads/2018/10/port-1-img-2-650x650.jpg"
+                src="https://fama.b-cdn.net/RnB/port-1-img-2-650x650.webp"
                 alt="No image found"
               />
             </div>
@@ -138,7 +138,7 @@ const InstaPosts = () => {
           <div className="advInstaContentBox">
             <div className="advInstaContentBoxImg">
               <img
-                src="https://dolcino.qodeinteractive.com/wp-content/uploads/2018/10/port-1-img-5-650x650.jpg"
+                src="https://fama.b-cdn.net/RnB/port-1-img-5-650x650.webp"
                 alt="No image found"
               />
             </div>
@@ -157,7 +157,7 @@ const InstaPosts = () => {
           <div className="advInstaContentBox">
             <div className="advInstaContentBoxImg">
               <img
-                src="https://dolcino.qodeinteractive.com/wp-content/uploads/2018/10/port-1-img-7-650x650.jpg"
+                src="https://fama.b-cdn.net/RnB/port-1-img-7-650x650.webp"
                 alt="No image found"
               />
             </div>
@@ -176,7 +176,7 @@ const InstaPosts = () => {
           <div className="advInstaContentBox">
             <div className="advInstaContentBoxImg">
               <img
-                src="https://dolcino.qodeinteractive.com/wp-content/uploads/2018/10/port-1-img-4-650x650.jpg"
+                src="https://fama.b-cdn.net/RnB/port-1-img-4-650x650.webp"
                 alt="No image found"
               />
             </div>

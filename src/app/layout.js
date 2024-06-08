@@ -8,7 +8,7 @@ import AuthOtpContext from "@/components/authContext";
 export const metadata = {
   title: "Ribbons and Balloons",
   description:
-    "Welcome to Gamewitted, your ultimate destination for immersive gaming and captivating anime content! Dive into a world where pixels meet passion, as we bring you the latest updates, reviews, and insights from the gaming and anime realms.",
+    "Buy & Order Cakes Online and Send Cakes anywhere in Mumbai. Ribbons & Balloons is an Online Cakes Shop in Mumbai, we make your Occasions special for your friends, family and you. Order Best Quality cakes online and we deliver it on your doorsteps.",
   openGraph: {
     images: [
       {
@@ -36,44 +36,6 @@ export default function RootLayout({ children }) {
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
-        {/* <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="https://ribbonsandballoons.com/frontassets/images/fav.png"
-        /> */}
-        {/* <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="https://ribbonsandballoons.com/frontassets/images/fav.png"
-        /> */}
-        {/* <link
-          rel="icon"
-          type="image/png"
-          sizes="194x194"
-          href="https://ribbonsandballoons.com/frontassets/images/fav.png"
-        /> */}
-        {/* <link
-          rel="icon"
-          type="image/png"
-          sizes="192x192"
-          href="https://ribbonsandballoons.com/frontassets/images/fav.png"
-        /> */}
-        {/* <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon/favicon-16x16.png"
-        /> */}
-        {/* <link
-          rel="manifest"
-          href="https://ribbonsandballoons.com/frontassets/images/fav.png"
-        />
-        <link
-          rel="mask-icon"
-          href="https://ribbonsandballoons.com/frontassets/images/fav.png"
-          color="#000000"
-        /> */}
         <meta name="msapplication-TileColor" content="#000000" />
         <meta name="msapplication-TileImage" content="/mstile-144x144.png" />
         <meta name="theme-color" content="#ffffff" />
@@ -82,27 +44,10 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
-
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         ></link>
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
-        />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
-        />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Agbalumo&family=Handjet&family=Kenia&family=Nabla&family=Poppins:ital,wght@1,700&family=Whisper&display=swap"
-        />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
-        />
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Cormorant&display=swap"
@@ -112,8 +57,15 @@ export default function RootLayout({ children }) {
           href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
         />
         <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        {/* <link rel="preconnect" href="https://img.freepik.com" /> */}
+        <link
+          rel="preload"
+          href="https://fama.b-cdn.net/RnB/Stripes.webp"
+          as="image"
+        />
+        <link rel="preconnect" href="https://static.cure.fit" />
+        <link rel="preconnect" href="https://rnbapi.alphadigitall.com" />
+        <link rel="preconnect" href="https://alphadigitall.com" />
       </head>
       <body className={inter.className}>
         <AuthProvider>

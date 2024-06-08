@@ -17,7 +17,7 @@ export const axiosGet = async (url, config = {}) => {
     const response = await axiosInstance.get(url, config);
     return response.data;
   } catch (error) {
-    handleAxiosError(error)
+    handleAxiosError(error);
   }
 };
 
@@ -26,8 +26,7 @@ export const axiosPost = async (url, data, config = {}) => {
     const response = await axiosInstance.post(url, data, config);
     return response.data;
   } catch (error) {
-    handleAxiosError(error)
-
+    handleAxiosError(error);
   }
 };
 
@@ -36,13 +35,12 @@ export const axiosGetAll = async (url, config = {}) => {
     const response = await axiosInstance.get(url, config);
     return response.data;
   } catch (error) {
-    handleAxiosError(error)
+    handleAxiosError(error);
   }
 };
 
-
 const handleAxiosError = (error) => {
-  if (error.response) {  
+  if (error.response) {
     const { status, data } = error.response;
     toast.error(`Error: ${status} - ${data.message}`);
   } else if (error.request) {

@@ -1,77 +1,93 @@
-import React from 'react'
-import { axiosPost } from '@/api';
-import CategoryComponent from "@/components/CategoryandSubcategory"
-import { cookies } from 'next/headers'; 
-
-
+import React from "react";
+import { axiosPost } from "@/api";
+import CategoryComponent from "@/components/CategoryandSubcategory";
+import { cookies } from "next/headers";
+import { getCities } from "@/utils/commoncity";
+import { redirect } from "next/navigation";
 export async function generateMetadata({ params }) {
-    return {
-      title: params.subcategory  + " | Ribbons and balloons",
-      description:"Welcome to AshGamewitted, your ultimate destination for immersive gaming and captivating anime content! Dive into a world where pixels meet passion, as we bring you the latest updates, reviews, and insights from the gaming and anime realms.",
-      openGraph: {
-        // images: [
-        //   {
-        //     url: "https://ribbonsandballoons.com/frontassets/images/fav.png",
-        //     height: 1200,
-        //     width: 600,
-        //     alt: "Alt",
-        //   },
-        // ],
-        // icons:{
-        //   icon:[
-        //     "/favicon/favicon.ico"
-        //   ],
-        //   shortcut:[
-        //     "/favicon/favicon.ico"
-        //   ],
-        // }
-      },
-    };
+  return {
+    title: params.subcategory + " | Ribbons and balloons",
+    description:
+      "Welcome to AshGamewitted, your ultimate destination for immersive gaming and captivating anime content! Dive into a world where pixels meet passion, as we bring you the latest updates, reviews, and insights from the gaming and anime realms.",
+    openGraph: {
+      // images: [
+      //   {
+      //     url: "https://ribbonsandballoons.com/frontassets/images/fav.png",
+      //     height: 1200,
+      //     width: 600,
+      //     alt: "Alt",
+      //   },
+      // ],
+      // icons:{
+      //   icon:[
+      //     "/favicon/favicon.ico"
+      //   ],
+      //   shortcut:[
+      //     "/favicon/favicon.ico"
+      //   ],
+      // }
+    },
+  };
 }
-async function getCategoryData(categoryName,subcategory,city) {
-    const subcatgoryName = subcategory.split("-").join(" ")
-    const categoryStr = categoryName.split("-").join(" ")
-    try {
-        const obj = {
-          category_name: categoryStr || "",
-          sub_category_name: subcatgoryName || "",
-          city_name: city,
-        };
-    
-        const [response, category] = await Promise.all([
-            axiosPost("/ProductMaster/GetB2CProducts", obj),
-            axiosPost("/Category/GetAllCategories", { city_name: city })
-          ]);
-      
-          return {
-            data: response,
-            category: category,
-          };
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        return {
-            data: null,
-            additionalData: null,
-        };
-      }
-  }
+async function getCategoryData(categoryName, subcategory, city) {
+  const subcatgoryName = subcategory.split("-").join(" ");
+  const categoryStr = categoryName.split("-").join(" ");
+  try {
+    const obj = {
+      category_name: categoryStr || "",
+      sub_category_name: subcatgoryName || "",
+      city_name: city,
+    };
 
-const page = async({params}) => {
-    const categoryName = params.category
-    const nextCookies = cookies();
-    const cityObj = await nextCookies.get('city')
-    const city = cityObj?.value ? cityObj?.value : params.city
-    const subcategory = params.subcategory
- const {data,category} = await getCategoryData(categoryName,subcategory,city)
+    const [response, category] = await Promise.all([
+      axiosPost("/ProductMaster/GetB2CProducts", obj),
+      axiosPost("/Category/GetAllCategories", { city_name: city }),
+    ]);
+
+    return {
+      data: response,
+      category: category,
+    };
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return {
+      data: null,
+      additionalData: null,
+    };
+  }
+}
+
+const page = async ({ params }) => {
+  const categoryName = params.category;
+  const cities = await getCities();
+  const isValidCity = (cityName) => {
+    return cities.some(
+      (city) => city.city_name.toLowerCase() === cityName.toLowerCase()
+    );
+  };
+  const nextCookies = cookies();
+  const cityObj = await nextCookies.get('city');
+  let city = params.city;
+
+  if (!isValidCity(city)) {
+    city = cityObj?.value || city; 
+    redirect(`/${city}/l/`+ categoryName);
+  }
+  const subcategory = params.subcategory;
+  const { data, category } = await getCategoryData(
+    categoryName,
+    subcategory,
+    city
+  );
   return (
     <CategoryComponent
-    category={category}
-    subcategoryName={subcategory}
-    data={data}
-    categoryName={categoryName}
-    city={city}
-  />
-  )
-}
+      category={category}
+      subcategoryName={subcategory}
+      data={data}
+      categoryName={categoryName}
+      city={city}
+    />
+  );
+};
 
-export default page
+export default page;

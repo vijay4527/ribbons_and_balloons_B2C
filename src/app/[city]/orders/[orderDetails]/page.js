@@ -186,9 +186,9 @@ const page = async ({ params }) => {
                       </li>
                       <li>
                         <h4>Offer Discount</h4>
-                        <h5 className={styles.discountAmt}>- ₹1198.8</h5>
+                        <h5 className={styles.discountAmt}>₹{orderInfo?.discount ? orderInfo?.discount : 0 }</h5>
                       </li>
-                      <li>
+                      {/* <li>
                         <h4>Promocode Discount</h4>
                         <h5 className={styles.discountAmt}>- ₹799.3</h5>
                       </li>
@@ -197,7 +197,7 @@ const page = async ({ params }) => {
                         <h5 className={styles.discountAmt}>
                           ₹{orderInfo.total_price}
                         </h5>
-                      </li>
+                      </li> */}
                     </ul>
                     <div className={styles.cartShippingPriceAmt}>
                       <h4>Total Amount</h4>

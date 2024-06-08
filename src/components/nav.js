@@ -4,14 +4,15 @@ import Navbar from "react-bootstrap/Navbar";
 import { axiosPost } from "@/api";
 import Link from "next/link";
 import NavComponent from "./navComponent";
-import { cookies } from 'next/headers'; 
-
+import { cookies } from "next/headers";
+import { headers } from "next/headers";
+import { getCities } from "@/utils/commoncity";
 const getCategories = async (city) => {
   try {
     const categoryObj = { city_name: city };
     const data = await axiosPost("Category/GetAllCategories", categoryObj);
     if (data) {
-      return {data,city};
+      return { data, city };
     }
   } catch (error) {
     console.error("Error fetching categories:", error);
@@ -20,11 +21,22 @@ const getCategories = async (city) => {
 
 const Nav = async () => {
   const nextCookies = cookies();
-  const cityObj = await nextCookies.get('city')
-  const city = cityObj?.value
-  const categoryData = await getCategories(city);
-  const categories= categoryData.data
-  const newCity = categoryData.city
+  const cityObj = await nextCookies.get("city");
+  const cookiecity = cityObj?.value;
+  const categoryData = await getCategories(cookiecity);
+  const categories = categoryData?.data;
+  const headerList = headers();
+  const pathname = headerList.get("x-current-path");
+  const Cityname = pathname ? pathname.split("/")[1] : "";
+  let isCity = false;
+  const cities = await getCities();
+  if (cities.length > 0) {
+    if (cities.includes(Cityname)) {
+      isCity = true;
+    }
+  }
+
+  const city = isCity ? cookiecity : Cityname;
   return (
     <div>
       <Container>
@@ -35,14 +47,14 @@ const Nav = async () => {
                 <div className="flipper">
                   <div className="front">
                     <img
-                      src="https://ribbonsandballoons.com/frontassets/images/logo3.png"
+                      src="https://fama.b-cdn.net/RnB/logo3.webp"
                       className="d-inline-block align-top"
                       alt="React Bootstrap logo"
                     />
                   </div>
                   <div className="back">
                     <img
-                      src="https://fama.b-cdn.net/RnB/Logo-Golden.png"
+                      src="https://fama.b-cdn.net/RnB/Logo-Golden.webp"
                       className="d-inline-block align-top"
                       alt="React Bootstrap logo"
                     />
@@ -76,14 +88,14 @@ const Nav = async () => {
                   <div className="subNavbar_body">
                     <div className={`sub_nav`}>
                       <div className={"sub_navbtn"}>
-                        <Link href={`/${city ?city : newCity}`} prefetch={true}>
+                        <Link href={`/${city}`} prefetch={true}>
                           <h4 className="category-title">Home</h4>
                         </Link>
                       </div>
                     </div>
                     <div className={`sub_nav`}>
                       <div className={"sub_navbtn"}>
-                        <Link href={`/${city ?city : newCity}/about-us`} prefetch={true}>
+                        <Link href={`/${city}`} prefetch={true}>
                           <h4 className="category-title">About Us</h4>
                         </Link>
                       </div>
@@ -94,7 +106,7 @@ const Nav = async () => {
                         <div className={`sub_nav `} key={index}>
                           <div className="sub_navbtn">
                             <Link
-                              href={`/${city ?city : newCity}/l/${category.category_name.replaceAll(
+                              href={`/${city}/l/${category.category_name.replaceAll(
                                 " ",
                                 "-"
                               )}`}
@@ -122,7 +134,7 @@ const Nav = async () => {
                           </div>
                           <div className="MobileSub_navbtn sub_navbtn">
                             <Link
-                              href={`/${city ?city : newCity}/l/${category.category_name.replaceAll(
+                              href={`/${city}/l/${category.category_name.replaceAll(
                                 " ",
                                 "-"
                               )}`}
@@ -172,7 +184,7 @@ const Nav = async () => {
                                       className="category-sub-title"
                                     >
                                       <Link
-                                        href={`/${city ?city : newCity}/l/${category.category_name.replaceAll(
+                                        href={`/${city}/l/${category.category_name.replaceAll(
                                           " ",
                                           "-"
                                         )}/${

@@ -3,7 +3,7 @@ import { axiosPost,axiosGet } from '@/api';
 import CategoryComponent from "@/components/CategoryandSubcategory"
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers'; 
-
+import { getCities } from '@/utils/commoncity';
 export async function generateMetadata({ params }) {
   const {data,category} = await getCategoryData(params.category,params.subcategory,params.city);
   if (data) {
@@ -61,27 +61,39 @@ async function getCategoryData(categoryName,subcategory,city) {
       }
   }
 
-  async function getCities() {
-    try {
+  // async function getCities() {
+  //   try {
    
-        const cities = await axiosGet("RNBCity/GetAllRNBCity");
-        if (cities) {
-          return cities;
-        }  
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      return {
-        data: null,
-      };
-    }
-  }
+  //       const cities = await axiosGet("RNBCity/GetAllRNBCity");
+  //       if (cities) {
+  //         return cities;
+  //       }  
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //     return {
+  //       data: null,
+  //     };
+  //   }
+  // }
 
 const page = async({params}) => {
-  // const cities = await getCities()
-    const categoryName = params.category
-    const nextCookies = cookies();
-    const cityObj = await nextCookies.get('city')
-    const city = cityObj?.value ? cityObj?.value : params.city
+  const cities = await getCities();
+  const isValidCity = (cityName) => {
+    return cities.some(
+      (city) => city.city_name.toLowerCase() === cityName.toLowerCase()
+    );
+  };
+
+
+  const categoryName = params.category;
+  const nextCookies = cookies();
+  const cityObj = await nextCookies.get('city');
+  let city = params.city;
+
+  if (!isValidCity(city)) {
+    city = cityObj?.value || city; 
+    redirect(`/${city}/l/`+ categoryName);
+  }
     const subcategory = params.subcategory
     // const isValidCity = cities.some(
     //   (c) => c.city_name.toLowerCase() === city.toLowerCase()

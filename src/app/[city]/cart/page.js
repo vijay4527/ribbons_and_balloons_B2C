@@ -72,6 +72,7 @@ const page = ({ params }) => {
       setGrandTotal(newPrice);
       if (cart.length == 1) {
         try {
+          setCart([])
           Cookies.remove("cartId")
           sessionStorage.removeItem("cartId");
           cartId = "";

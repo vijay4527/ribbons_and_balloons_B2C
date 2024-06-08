@@ -4,18 +4,19 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {  axiosGet } from "@/api";
+import { axiosGet } from "@/api";
 import { AuthOtpContext } from "@/components/authContext";
 import ProductModal from "@/components/productFilterModal";
 import LoginModal from "@/components/loginModal";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+
 const navComponent = () => {
-  const router= useRouter()
+  const router = useRouter();
   const path = usePathname();
   const pathname = path;
   const pathSegments = pathname.split("/");
-  const city = pathSegments[1];
+  const Cityname = pathSegments[1];
   const [isLoactionActive, setIsLoactionActive] = useState(false);
   const [isSearchActive, setSearchActive] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -27,6 +28,14 @@ const navComponent = () => {
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [filteredProduct, setFilteredProduct] = useState([]);
+  const cookiecity = Cookies.get("city");
+  const isValidCity = (cityName) => {
+    return cities.some(
+      (city) => city.city_name.toLowerCase() === cityName.toLowerCase()
+    );
+  };
+
+  const city = isValidCity(Cityname) ? Cityname : cookiecity;
 
   const loactionToggle = () => {
     if (!(pathname.includes("checkout") || pathname.includes("cart"))) {
@@ -39,7 +48,7 @@ const navComponent = () => {
 
   useEffect(() => {
     getCities();
-    //  const city = Cookies.get("city")
+
     if (city) {
       setSelectedCity(city);
     }
@@ -50,7 +59,6 @@ const navComponent = () => {
       ? JSON.parse(sessionStorage.getItem("userData"))
       : null;
 
-
   useEffect(() => {
     if (session?.userData?.isLogin === false) {
       setIsLoginModalOpen(true);
@@ -59,18 +67,21 @@ const navComponent = () => {
       session?.userData?.isLogin == true
     ) {
       sessionStorage.setItem("userData", JSON.stringify(session.userData));
-      if(!sessionStorage.getItem("cartId") && session.userData.cart_id !== null){
-        sessionStorage.setItem("cartId",session.userData.cart_id)
-        Cookies.set("cartId",session.userData.cart_id)
+      if (
+        !sessionStorage.getItem("cartId") &&
+        session.userData.cart_id !== null
+      ) {
+        sessionStorage.setItem("cartId", session.userData.cart_id);
+        Cookies.set("cartId", session.userData.cart_id);
       }
-     
+
       sessionStorage.setItem("isLoggedIn", true);
     }
   }, [session, isLoggedIn]);
 
   const loggedIn =
     typeof window !== "undefined" ? sessionStorage.getItem("isLoggedIn") : "";
-    
+
   useEffect(() => {
     if (loggedIn || session?.userData?.isLogin || isLogged) {
       setIsLoggedIn(true);
@@ -93,8 +104,6 @@ const navComponent = () => {
     };
   }, []);
 
-  
-
   const getCities = async () => {
     try {
       const cityResponse = await axiosGet("RNBCity/GetAllRNBCity");
@@ -106,12 +115,11 @@ const navComponent = () => {
     }
   };
 
-  
   const Logout = () => {
     sessionStorage.removeItem("userData");
     sessionStorage.removeItem("isLoggedIn");
-    sessionStorage.removeItem("cartId")
-    Cookies.remove("cartId")
+    sessionStorage.removeItem("cartId");
+    Cookies.remove("cartId");
     signOut();
     // router.push("/"+ city)
   };
@@ -162,19 +170,17 @@ const navComponent = () => {
     }
   };
 
-
-  const handleCityChange = async(cityName)=>{
+  const handleCityChange = async (cityName) => {
     if (cityName) {
-      setSelectedCity(cityName)
+      setSelectedCity(cityName);
       const lowercaseCityName = cityName.toLowerCase();
-      console.log(Cookies.get("city"));
       Cookies.remove("city");
       Cookies.set("city", lowercaseCityName);
-      loactionToggle()
-      router.push(`/${lowercaseCityName}`)
-      router.refresh()
+      loactionToggle();
+      router.push(`/${lowercaseCityName}`);
+      router.refresh();
     }
-  }
+  };
 
   return (
     <div className="navAction">
@@ -226,24 +232,26 @@ const navComponent = () => {
                   cities.length > 0 &&
                   cities.map((e) => (
                     // <Link href={`/${e.city_name.toLowerCase()}`} key={e.rnb_city_id}>
-                      <li key={e.rnb_city_id} onClick={() => handleCityChange(e.city_name)}>
-                        <h4 onClick={(e) => handleCityChange(e.city_name)}>
-                          {e.city_name}
-                        </h4>
-                        <img
-                          src="https://static.cure.fit/assets/images/back-arrow-white.svg"
-                          alt="No image found"
-                        />
-                      </li>
+                    <li
+                      key={e.rnb_city_id}
+                      onClick={() => handleCityChange(e.city_name)}
+                    >
+                      <h4 onClick={(e) => handleCityChange(e.city_name)}>
+                        {e.city_name}
+                      </h4>
+                      <img
+                        src="https://static.cure.fit/assets/images/back-arrow-white.svg"
+                        alt="No image found"
+                      />
+                    </li>
                     // </Link>
-                  ))
-                  }
+                  ))}
               </ul>
             </div>
           </div>
           <div
             className={`backdropLoaction ${
-              isLoactionActive==true ? "activeClass" : ""
+              isLoactionActive == true ? "activeClass" : ""
             }`}
             onClick={loactionToggle}
           ></div>
@@ -297,12 +305,20 @@ const navComponent = () => {
               {isLoggedIn == true && (
                 <>
                   <Dropdown.Item>
-                    <Link className="drpItemProfile" href={`/${city}/profile`}>
+                    <Link
+                      className="drpItemProfile"
+                      href={`/${city}/profile`}
+                      aria-label="my account"
+                    >
                       My Account
                     </Link>
                   </Dropdown.Item>
                   <Dropdown.Item>
-                    <Link className="drpItemProfile" href={`/${city}/orders`}>
+                    <Link
+                      className="drpItemProfile"
+                      href={`/${city}/orders`}
+                      aria-label="order history"
+                    >
                       Order History
                     </Link>
                   </Dropdown.Item>
@@ -322,7 +338,12 @@ const navComponent = () => {
           </Dropdown>
         </li>
         <li>
-          <Link href={`/${city}/cart`} className="cartButton" prefetch={true}>
+          <Link
+            href={`/${city}/cart`}
+            className="cartButton"
+            prefetch={true}
+            aria-label="cart"
+          >
             <span className="SvgIcons">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -347,6 +368,7 @@ const navComponent = () => {
             href={`/${city}/favourites`}
             className="cartButton"
             prefetch={true}
+            aria-label="Favourite"
           >
             <span className="SvgIcons">
               <svg

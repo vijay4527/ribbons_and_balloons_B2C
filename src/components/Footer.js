@@ -5,25 +5,21 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Link from "next/link";
 import * as yup from "yup";
-import { axiosGet, axiosPost, axiosGetAll } from "@/api";
-import { useRouter } from "next/navigation";
-
-const validationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Invalid email format")
-    .required("Email is required"),
-});
-
+import { axiosPost } from "@/api";
+import { usePathname } from "next/navigation";
+import { newsLetterSchema } from "./validation";
+import Cookies from "js-cookie";
 export default function Footer() {
   const [errors, setErrors] = useState({});
   const [email, setEmail] = useState("");
-  const router = useRouter();
-  const  city  = "mumbai";
+  const router = usePathname();
+  const cityname = router.split("/")[1]
+  const cookieCity = Cookies.get("city")
+  const city = cityname == "paymentfailed" || cityname == "paymentfailed" ? cookieCity : cityname
   const [status, setStatus] = useState(false);
   const saveNewsLetter = async () => {
     try {
-      await validationSchema.validate({ email }, { abortEarly: false });
+      await newsLetterSchema.validate({ email }, { abortEarly: false });
       var obj = {
         news_letter_id: "",
         email: email,
@@ -74,14 +70,14 @@ export default function Footer() {
                 <Col md={3}>
                   <div className="footerLogos">
                     <img
-                      src="https://fama.b-cdn.net/RnB/Logo-Golden.png"
+                      src="https://fama.b-cdn.net/RnB/Logo-Golden.webp"
                       alt="No image found"
                     />
                   </div>
                   <div className="footerSocial">
                     <ul>
                       <li>
-                        <Link href="/">
+                        <Link href="/" aria-label="Footer Links">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -95,7 +91,7 @@ export default function Footer() {
                         </Link>
                       </li>
                       <li>
-                        <Link href="/">
+                        <Link href="/" aria-label="Footer Links">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -109,7 +105,7 @@ export default function Footer() {
                         </Link>
                       </li>
                       <li>
-                        <Link href="/">
+                        <Link href="/" aria-label="Footer Links">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -130,22 +126,22 @@ export default function Footer() {
                     <h2>Useful Links</h2>
                     <ul>
                       <li>
-                        <Link href="/">Signature Cakes</Link>
+                        <Link href={`/${city}/l/Cakes`} aria-label="Signature Cakes">Signature Cakes</Link>
                       </li>
                       <li>
-                        <Link href="/">Ready Regulars</Link>
+                        <Link href={`/${city}/l/Cakes`} aria-label="Ready Regulars">Ready Regulars</Link>
                       </li>
                       <li>
-                        <Link href="/">Fancy Cakes</Link>
+                        <Link href={`/${city}/l/Cakes`} aria-label="Fancy Cakes">Fancy Cakes</Link>
                       </li>
                       <li>
-                        <Link href="/">Sinful Collections</Link>
+                        <Link href={`/${city}/l/Cakes`} aria-label="Sinful Collections">Sinful Collections</Link>
                       </li>
                       <li>
-                        <Link href="/">Photo Cakes</Link>
+                        <Link href={`/${city}/l/Cakes`} aria-label="Photo Cakes">Photo Cakes</Link>
                       </li>
                       <li>
-                        <Link href="/">Sensational Cakes</Link>
+                        <Link href={`/${city}/l/Cakes`} aria-label="Sensational Cakes">Sensational Cakes</Link>
                       </li>
                     </ul>
                   </div>
@@ -155,22 +151,25 @@ export default function Footer() {
                     <h2>Favourite</h2>
                     <ul>
                       <li>
-                        <Link href="/">Get Franchise</Link>
+                        <Link href={`/${city}`} aria-label="Get Franchise">Get Franchise</Link>
                       </li>
                       <li>
-                        <Link href="/">Store Location</Link>
+                        <Link href={`/${city}`} aria-label="Store Location">Store Location</Link>
                       </li>
                       <li>
-                        <Link href="/">Privacy policy</Link>
+                        <Link href={`/${city}`} aria-label="Privacy policy">Privacy policy</Link>
                       </li>
                       <li>
-                        <Link href="/">Disclaimer</Link>
+                        <Link href={`/${city}`} aria-label="Desclaimer">Disclaimer</Link>
                       </li>
                       <li>
-                        <Link href="/">Delivery Policy</Link>
+                        <Link href={`/${city}`} aria-label="Delivery Policy">Delivery Policy</Link>
                       </li>
                       <li>
-                        <Link href="/">Terms & Conditions </Link>
+                        <Link href={`/${city}`} aria-label="Terms and Condition">Terms & Conditions </Link>
+                      </li>
+                      <li>
+                        <Link href={`/${city}/about-us`} aria-label="About Us">About Us </Link>
                       </li>
                     </ul>
                   </div>

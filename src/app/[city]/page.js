@@ -5,9 +5,17 @@ import InstaPosts from "@/components/InstaPosts";
 import NewLaunches from "@/components/newLaunched";
 import MediaCollaborators from "@/components/mediaCollaborators";
 import EnquiryModal from "@/components/EnquiryModal";
-import { axiosGet } from "@/api";
-import { redirect } from 'next/navigation'
+import CakeOfTheMonth from "@/components/CakeOfTheMonth";
+import { axiosGet, axiosPost } from "@/api";
+import { redirect } from "next/navigation";
 import SetCookies from "@/components/setCookies";
+import dynamic from "next/dynamic";
+import {getCities} from "@/utils/commoncity"
+const ClientScrollEffect = dynamic(
+  () => import("@/components/ScrollComponent"),
+  { ssr: false }
+);
+import Head from "next/head";
 export async function generateMetadata({ params }) {
   return {
     title: "Home | Ribbons and Balloons",
@@ -30,40 +38,64 @@ export async function generateMetadata({ params }) {
   };
 }
 
-async function getCities() {
+// async function getCities() {
+//   try {
+//     const cities = await axiosGet("RNBCity/GetAllRNBCity");
+//     if (cities) {
+//       return cities;
+//     }
+//   } catch (error) {
+//     console.error("Error fetching data:", error);
+//     return {
+//       data: null,
+//     };
+//   }
+// }
+
+async function fetchMedia(city) {
   try {
-      const cities = await axiosGet("RNBCity/GetAllRNBCity");
-      if (cities) {
-        return cities;
-      }  
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return {
-      data: null,
+    const obj = {
+      city_name: city,
     };
+    const bannerData = await axiosPost("BannerMaster/GetBannerByCityName", obj,{ cache: 'force-cache',next: {revalidate:180}, });
+    if (bannerData) {
+      return bannerData;
+    }
+  } catch (err) {
+    console.log(err);
   }
 }
 
 
-const page = async({params}) => {
-  const city = params.city 
-   const cities = await getCities();
-  if (!Array.isArray(cities)) {
-    console.error("Cities data is not an array.");
-  }
+
+
+const page = async ({ params }) => {
+  const city = params.city;
+  const cities = await getCities();
+
   const isValidCity = cities.some(
     (c) => c.city_name.toLowerCase() === city.toLowerCase()
   );
   if (!isValidCity) {
-    redirect('/mumbai')
+    redirect("/mumbai");
   }
+
+  const media = await fetchMedia(city);
   return (
     <>
-      <Banner />
+      <Head>
+        <link
+          rel="preload"
+          href="https://fama.b-cdn.net/RnB/Stripes.webp"
+          as="image"
+        />
+      </Head>
+      <Banner city={city} data={media?.Banner} />
+      <ClientScrollEffect />
       <Testimonials />
-      <InstaPosts />
-      <NewLaunches />
-      <div className="cakeOfMonthWrap">
+      <InstaPosts city={city} data={media} />
+      <NewLaunches city={city} data={media?.New_Launches} />
+      {/* <div className="cakeOfMonthWrap">
         <div className="headerTitle">
           <h2>Cake of the month</h2>
           <div className="testimonialUnderLine">
@@ -75,19 +107,8 @@ const page = async({params}) => {
         </div>
         <div className="cakeOfMonthBody">
           <div className="wrapper">
-            {/* <video
-              muted
-              autoPlay
-              loop
-              className="backdrop"
-              style={{ width: "100%" }}
-            >
-              <source
-                src="https://fama.b-cdn.net/PalmExpo/palmExpo.mp4"
-                type="video/mp4"
-              />
-            </video> */}
-            <div className="backdrop"></div>
+           
+            <div className="backdrop" style={{ backgroundImage: `url(${AppConfig.cdn}${media?.Cake_Of_The_Month[0].img_url})` }}></div>
             <div className="stage_floor"></div>
             <div className="stage_highlight"></div>
             <div className="spotlight_swivel">
@@ -96,8 +117,9 @@ const page = async({params}) => {
             </div>
           </div>
         </div>
-      </div>
-      <MediaCollaborators />
+      </div> */}
+      <CakeOfTheMonth city={city} data={media?.Cake_Of_The_Month} />
+      <MediaCollaborators city={city} data={media?.Media_Collaborator} />
       <div className="enquiryWrapper">
         <EnquiryModal />
       </div>
