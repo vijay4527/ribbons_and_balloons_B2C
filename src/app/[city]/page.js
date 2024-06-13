@@ -4,18 +4,19 @@ import Testimonials from "@/components/testimonial";
 import InstaPosts from "@/components/InstaPosts";
 import NewLaunches from "@/components/newLaunched";
 import MediaCollaborators from "@/components/mediaCollaborators";
-import EnquiryModal from "@/components/EnquiryModal";
 import CakeOfTheMonth from "@/components/CakeOfTheMonth";
-import { axiosGet, axiosPost } from "@/api";
+import { axiosPost } from "@/api";
 import { redirect } from "next/navigation";
 import SetCookies from "@/components/setCookies";
 import dynamic from "next/dynamic";
 import {getCities} from "@/utils/commoncity"
+const EnquiryModal = dynamic(() => import('@/components/EnquiryModal'), {
+  ssr: false,
+});
 const ClientScrollEffect = dynamic(
   () => import("@/components/ScrollComponent"),
   { ssr: false }
 );
-import Head from "next/head";
 export async function generateMetadata({ params }) {
   return {
     title: "Home | Ribbons and Balloons",
@@ -38,19 +39,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-// async function getCities() {
-//   try {
-//     const cities = await axiosGet("RNBCity/GetAllRNBCity");
-//     if (cities) {
-//       return cities;
-//     }
-//   } catch (error) {
-//     console.error("Error fetching data:", error);
-//     return {
-//       data: null,
-//     };
-//   }
-// }
 
 async function fetchMedia(city) {
   try {
@@ -83,41 +71,11 @@ const page = async ({ params }) => {
   const media = await fetchMedia(city);
   return (
     <>
-      <Head>
-        <link
-          rel="preload"
-          href="https://fama.b-cdn.net/RnB/Stripes.webp"
-          as="image"
-        />
-      </Head>
       <Banner city={city} data={media?.Banner} />
       <ClientScrollEffect />
       <Testimonials />
       <InstaPosts city={city} data={media} />
       <NewLaunches city={city} data={media?.New_Launches} />
-      {/* <div className="cakeOfMonthWrap">
-        <div className="headerTitle">
-          <h2>Cake of the month</h2>
-          <div className="testimonialUnderLine">
-            <div className="testimonialUnder">
-              <div className="ux`nderLine"></div>
-              <div className="shapLine"></div>
-            </div>
-          </div>
-        </div>
-        <div className="cakeOfMonthBody">
-          <div className="wrapper">
-           
-            <div className="backdrop" style={{ backgroundImage: `url(${AppConfig.cdn}${media?.Cake_Of_The_Month[0].img_url})` }}></div>
-            <div className="stage_floor"></div>
-            <div className="stage_highlight"></div>
-            <div className="spotlight_swivel">
-              <div className="lamp"></div>
-              <div className="spotlight"></div>
-            </div>
-          </div>
-        </div>
-      </div> */}
       <CakeOfTheMonth city={city} data={media?.Cake_Of_The_Month} />
       <MediaCollaborators city={city} data={media?.Media_Collaborator} />
       <div className="enquiryWrapper">

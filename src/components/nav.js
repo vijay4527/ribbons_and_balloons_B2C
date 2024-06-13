@@ -10,7 +10,7 @@ import { getCities } from "@/utils/commoncity";
 const getCategories = async (city) => {
   try {
     const categoryObj = { city_name: city };
-    const data = await axiosPost("Category/GetAllCategories", categoryObj);
+    const data = await axiosPost("Category/GetAllCategories", categoryObj,{ cache: 'force-cache',next: {revalidate:180}});
     if (data) {
       return { data, city };
     }
@@ -21,7 +21,7 @@ const getCategories = async (city) => {
 
 const Nav = async () => {
   const nextCookies = cookies();
-  const cityObj = await nextCookies.get("city");
+  const cityObj = nextCookies.get("city");
   const cookiecity = cityObj?.value;
   const categoryData = await getCategories(cookiecity);
   const categories = categoryData?.data;
@@ -47,6 +47,7 @@ const Nav = async () => {
                 <div className="flipper">
                   <div className="front">
                     <img
+                    rel="preload"
                       src="https://fama.b-cdn.net/RnB/logo3.webp"
                       className="d-inline-block align-top"
                       alt="React Bootstrap logo"
@@ -54,6 +55,7 @@ const Nav = async () => {
                   </div>
                   <div className="back">
                     <img
+                    rel="preload"
                       src="https://fama.b-cdn.net/RnB/Logo-Golden.webp"
                       className="d-inline-block align-top"
                       alt="React Bootstrap logo"

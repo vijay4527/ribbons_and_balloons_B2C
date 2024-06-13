@@ -3152,6 +3152,9 @@ input[name="contact"] {
   cursor: pointer;
 }
 
+
+/* Modal Css */
+
 .selectSearchMapBody input {
   border: 1px solid rgb(235, 235, 235);
   display: flex;
@@ -3164,16 +3167,6 @@ input[name="contact"] {
   font-size: 1.4rem;
 }
 
-.selectLocationWrap,
-.selectSearchMapItemWrap {
-  display: none;
-  position: absolute;
-  right: 15%;
-  top: 100%;
-  background-color: var(--theme-seconary);
-  z-index: 30;
-}
-
 .headerWrap {
   background-color: var(--headerBg);
   color: var(--headerColor);
@@ -3181,23 +3174,7 @@ input[name="contact"] {
   display: flex;
   align-items: center;
 }
-.headerWrap a {
-  text-transform: uppercase;
-  color: var(--headerColor);
-  font-size: 1.6rem;
-  text-decoration: none;
-}
-.headerWrap a:hover,
-.headerWrap a:focus,
-.headerWrap a:active,
-.headerWrap a.active,
-.headerWrap a.show {
-  color: var(--headerColor) !important;
-  background-color: var(--headerBg);
-}
-.headerDropdown [data-bs-popper="static"] {
-  background-color: var(--headerBg);
-}
+
 .extraHeaderWrap {
   display: flex;
   align-items: center;
@@ -3205,8 +3182,8 @@ input[name="contact"] {
 .searchHeaderWrap {
   position: relative;
 }
-.searchInput {
-}
+
+
 .searchInput input {
   background-color: var(--headerSearchBg);
   color: var(--headerSearchColor);
@@ -3232,7 +3209,6 @@ input[name="contact"] {
 .searchInput input:active,
 .searchInput input:focus {
   background-color: var(--headerSearchBg);
-  /* color: var(--headerSearchColor); */
   border-color: var(--headerSearchColor);
   box-shadow: unset;
 }
@@ -3257,12 +3233,9 @@ input[name="contact"] {
   height: 25px;
   width: 25px;
 }
-.headerlink,
-.searchHeaderWrap,
-.headerMenuWrap,
-.headerDropdown {
+
+.searchHeaderWrap{
   width: 100%;
-  margin-right: 15px;
 }
 
 .currentLocation {
@@ -3321,67 +3294,27 @@ input[name="contact"] {
   align-items: center !important;
 }
 
-/* .mapModal{
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  width: 100% !important;
-  height: 100%;
-} */
 
-.mapModal .modal-dialog {
+.locationModal .modal-content {
   width: 100%;
-  border-radius: 15px;
-}
-
-.mapModal .modal-content {
   border-radius: 4rem !important;
 }
 
-.mapModal .modal-header {
-  background: transparent !important; /* Make header background transparent */
-  padding: 15px; /* Add padding to the header */
+.locationModal .modal-header {
+  background: transparent !important;
+  padding: 1.5rem 2.5rem; 
   border: none;
 }
 
-.mapModal .modal-content {
-  border-radius: 15px;
-}
-
-.mapModal .modal-body {
+.locationModal .modal-body {
   padding: 0.5rem 2.5rem 2.5rem 2.5rem;
+ 
 }
 
 .mapInput {
   border-radius: 10px !important;
 }
 
-.css-1dbjc4n {
-  -ms-flex-align: stretch;
-  -ms-flex-direction: column;
-  -ms-flex-negative: 0;
-  -ms-flex-preferred-size: auto;
-  -webkit-align-items: stretch;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  /* display: flex; */
-  /* flex-basis: auto; */
-  flex-direction: column;
-  flex-shrink: 0;
-  margin-bottom: 0px;
-  margin-left: 0px;
-  margin-right: 0px;
-  margin-top: 0px;
-  min-height: 0px;
-  min-width: 0px;
-  padding-bottom: 0px;
-  padding-left: 0px;
-  padding-right: 0px;
-  padding-top: 0px;
-  position: relative;
-  z-index: 0;
-}
 
 .searchPlacesResult {
   display: flex;
@@ -3411,30 +3344,6 @@ input[name="contact"] {
   border-right-style: solid;
   border-top-style: solid;
 }
-.css-1dbjc4n {
-  -ms-flex-align: stretch;
-  -ms-flex-direction: column;
-  -ms-flex-negative: 0;
-  -ms-flex-preferred-size: auto;
-  -webkit-align-items: stretch;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  margin-bottom: 0px;
-  margin-left: 0px;
-  margin-right: 0px;
-  margin-top: 0px;
-  min-height: 0px;
-  min-width: 0px;
-  padding-bottom: 0px;
-  padding-left: 0px;
-  padding-right: 0px;
-  padding-top: 0px;
-  position: relative;
-  z-index: 0;
-}
 
 .placeName {
   display: flex;
@@ -3457,31 +3366,9 @@ input[name="contact"] {
   font-size: 1.3rem;
 }
 
-
-
 .fullAddress{
   display: flex;
   justify-content: start;
-}
-
-
-.css-1dbjc4n {
-  -webkit-box-align: stretch;
-  -webkit-box-direction: normal;
-  -webkit-box-orient: vertical;
-  align-items: stretch;
-  border: 0px solid black;
-  box-sizing: border-box;
-  display: flex;
-  flex-basis: auto;
-  flex-direction: column;
-  flex-shrink: 0;
-  margin: 0px;
-  min-height: 0px;
-  min-width: 0px;
-  padding: 0px;
-  position: relative;
-  z-index: 0;
 }
 
 .r-13qz1uu {
@@ -3507,7 +3394,6 @@ input[name="contact"] {
   box-shadow: none !important;
 }
 
-
 .flatInput{
   height: 4.5rem !important;
   font-size: 1.5rem !important;
@@ -3515,7 +3401,6 @@ input[name="contact"] {
   display: flex;
   align-items: center !important;
 }
-
 
 .address{
   color : rgb(84, 84, 84) !important
@@ -3525,18 +3410,35 @@ input[name="contact"] {
   color: black;
 }
 
-.mapModal .modal-dialog {
-  top: 11rem !important;
+.locationModal .modal-dialog {
+  top: 15rem !important;
 }
+
+.searchResults{
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+
+.mapModal{
+  top: 11rem !important
+
+}
+
+.mapModal .modal-content{
+  border-radius: 4rem !important;
+  
+}
+
+.mapModal .modal-body{
+  padding: 3rem;
+}
+
 
 
 
 @media only screen and (max-width: 767px) {
-  .mapModal .modal-dialog {
+  .locationModal .modal-dialog {
     right: 0.5rem !important;
   }
 }
-
-/* .btnChange:focus{
-  box-shadow: none !important;
-} */

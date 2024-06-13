@@ -1,6 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
-import { Modal, Button, Form, InputGroup } from "react-bootstrap";
+import { useState } from "react";
+import { Modal, Form} from "react-bootstrap";
 
 const LocationSearchModal = ({ show, onClose, onSelectLocation }) => {
   const [query, setQuery] = useState("");
@@ -72,7 +72,7 @@ const LocationSearchModal = ({ show, onClose, onSelectLocation }) => {
   return (
     <>
       <div className="mapDiv">
-        <Modal show={show} onHide={onClose} size="lg" className="mapModal">
+        <Modal show={show} onHide={onClose} size="lg" className="locationModal">
           <Modal.Header closeButton>
             <Modal.Title>Search Location</Modal.Title>
           </Modal.Header>
