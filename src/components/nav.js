@@ -36,7 +36,7 @@ const Nav = async () => {
     }
   }
 
-  const city = isCity ? cookiecity : Cityname;
+  const city = isCity ?  Cityname:  cookiecity;
   return (
     <div>
       <Container>
@@ -95,7 +95,7 @@ const Nav = async () => {
                     </div>
                     <div className={`sub_nav`}>
                       <div className={"sub_navbtn"}>
-                        <Link href={`/${city}`} prefetch={true}>
+                        <Link href={`/${city}/about-us`} prefetch={true}>
                           <h4 className="category-title">About Us</h4>
                         </Link>
                       </div>

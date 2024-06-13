@@ -414,7 +414,6 @@ const page = ({ params }) => {
               const remainingAddress = formattedAddress
                 .replace(`${city}, ${state} ${zipCode}, ${country}`, "")
                 .trim();
-
               setFormValues({
                 ...formValues,
                 city: city,

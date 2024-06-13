@@ -515,15 +515,14 @@ ul.selectLocationOption a {
   font-size: 1.4rem;
 }
 
-.selectSearchContent{
-
+.selectSearchContent {
 }
 .selectSearchList {
   max-height: 325px;
   overflow: hidden;
   overflow-y: auto;
 }
-.selectSearchList .searchResultContainer{
+.selectSearchList .searchResultContainer {
   display: flex;
   align-items: start !important;
   text-decoration: none;
@@ -533,17 +532,17 @@ ul.selectLocationOption a {
 .selectSearchList .searchResultContainer:not(:last-child) {
   border-bottom: 1px solid #fafaff;
 }
-.selectSearchList img{
+.selectSearchList img {
   height: 75px;
 }
 .searchItemInfo {
   text-align: left;
   padding-left: 20px;
 }
-.selectSearchList h2{
+.selectSearchList h2 {
   font-size: 1.6rem;
 }
-.selectSearchList h3{
+.selectSearchList h3 {
   font-size: 1.7rem;
 }
 .myProfileItems {
@@ -1963,8 +1962,12 @@ ul.selectLocationOption a {
   width: 100%;
   height: 100%;
   overflow: hidden;
-   background-image: linear-gradient(#000000, rgba(25,53,93,1) 90%, rgba(25,53,93,1)); 
-    background-image: url(https://fama.b-cdn.net/RnB/combg.png);   
+  background-image: linear-gradient(
+    #000000,
+    rgba(25, 53, 93, 1) 90%,
+    rgba(25, 53, 93, 1)
+  );
+  background-image: url(https://fama.b-cdn.net/RnB/combg.png);
   background-image: linear-gradient(
     #000000,
     rgba(25, 53, 93, 1) 90%,
@@ -2776,31 +2779,28 @@ video {
 
 .addon-quantity-show {
   border: 1px solid #eee;
-    border-radius: 5px;
-    background-color: #f4f4f4;
-    height: 28px;
-    color: #000;
-    width: 90px;
-    display: flex;
+  border-radius: 5px;
+  background-color: #f4f4f4;
+  height: 28px;
+  color: #000;
+  width: 90px;
+  display: flex;
 }
-.addon-add-sub{
+.addon-add-sub {
   background-color: #fff;
   width: calc(100% - 33.33%);
 }
-.addon-sub{
-
+.addon-sub {
 }
-.addon-add{
-
+.addon-add {
 }
 .addon-sub,
-.addon-add{
+.addon-add {
   height: 28px;
   width: calc(100% - 33.33%);
 }
 .addon-sub svg,
-.addon-add svg{
-
+.addon-add svg {
 }
 .add_icon_image {
   width: 2rem !important;
@@ -3145,10 +3145,398 @@ input[name="contact"] {
   display: flex;
   justify-content: end;
   padding-right: 10px;
-  padding-top:10px
-  
+  padding-top: 10px;
 }
 
-.enquiryCrossIcon i{
-  cursor:pointer
+.enquiryCrossIcon i {
+  cursor: pointer;
 }
+
+.selectSearchMapBody input {
+  border: 1px solid rgb(235, 235, 235);
+  display: flex;
+  width: 18vw;
+  padding: 10px 10px 10px 52px;
+  align-items: center;
+  border-radius: 6px;
+  background: #f4f4f4;
+  height: 50px;
+  font-size: 1.4rem;
+}
+
+.selectLocationWrap,
+.selectSearchMapItemWrap {
+  display: none;
+  position: absolute;
+  right: 15%;
+  top: 100%;
+  background-color: var(--theme-seconary);
+  z-index: 30;
+}
+
+.headerWrap {
+  background-color: var(--headerBg);
+  color: var(--headerColor);
+  height: 7rem;
+  display: flex;
+  align-items: center;
+}
+.headerWrap a {
+  text-transform: uppercase;
+  color: var(--headerColor);
+  font-size: 1.6rem;
+  text-decoration: none;
+}
+.headerWrap a:hover,
+.headerWrap a:focus,
+.headerWrap a:active,
+.headerWrap a.active,
+.headerWrap a.show {
+  color: var(--headerColor) !important;
+  background-color: var(--headerBg);
+}
+.headerDropdown [data-bs-popper="static"] {
+  background-color: var(--headerBg);
+}
+.extraHeaderWrap {
+  display: flex;
+  align-items: center;
+}
+.searchHeaderWrap {
+  position: relative;
+}
+.searchInput {
+}
+.searchInput input {
+  background-color: var(--headerSearchBg);
+  color: var(--headerSearchColor);
+  border-color: var(--headerSearchColor);
+  font-size: 1.6rem;
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--bs-body-color);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-clip: padding-box;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  padding-left: 5.2rem;
+  height: 4.5rem;
+}
+.searchInput input:hover,
+.searchInput input:active,
+.searchInput input:focus {
+  background-color: var(--headerSearchBg);
+  /* color: var(--headerSearchColor); */
+  border-color: var(--headerSearchColor);
+  box-shadow: unset;
+}
+.searchIcon {
+  position: absolute;
+  top: 1.4rem;
+  left: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+.searchIcon svg {
+  height: 2rem;
+  width: 2rem;
+  color: black;
+}
+.headerMenuWrap {
+  display: flex;
+  align-items: center;
+}
+.headerMenuWrap svg {
+  height: 25px;
+  width: 25px;
+}
+.headerlink,
+.searchHeaderWrap,
+.headerMenuWrap,
+.headerDropdown {
+  width: 100%;
+  margin-right: 15px;
+}
+
+.currentLocation {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-basis: auto;
+  flex-direction: column;
+  flex-shrink: 0;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  min-height: 0px;
+  min-width: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  position: relative;
+  z-index: 0;
+}
+
+.currentLocation {
+  overflow-x: visible;
+  overflow-y: visible;
+}
+
+.currentLocation:hover {
+  cursor: pointer;
+}
+
+.locationSvg {
+  width: 2rem !important;
+}
+
+.locationDiv {
+  display: flex;
+  padding: 1rem !important;
+}
+
+.CurrentLocationText {
+  margin-left: 2rem !important;
+}
+
+.CurrentLocationText p {
+  color: black;
+}
+
+.mapDiv .modal-lg {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+/* .mapModal{
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  height: 100%;
+} */
+
+.mapModal .modal-dialog {
+  width: 100%;
+  border-radius: 15px;
+}
+
+.mapModal .modal-content {
+  border-radius: 4rem !important;
+}
+
+.mapModal .modal-header {
+  background: transparent !important; /* Make header background transparent */
+  padding: 15px; /* Add padding to the header */
+  border: none;
+}
+
+.mapModal .modal-content {
+  border-radius: 15px;
+}
+
+.mapModal .modal-body {
+  padding: 0.5rem 2.5rem 2.5rem 2.5rem;
+}
+
+.mapInput {
+  border-radius: 10px !important;
+}
+
+.css-1dbjc4n {
+  -ms-flex-align: stretch;
+  -ms-flex-direction: column;
+  -ms-flex-negative: 0;
+  -ms-flex-preferred-size: auto;
+  -webkit-align-items: stretch;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  /* display: flex; */
+  /* flex-basis: auto; */
+  flex-direction: column;
+  flex-shrink: 0;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  min-height: 0px;
+  min-width: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  position: relative;
+  z-index: 0;
+}
+
+.searchPlacesResult {
+  display: flex;
+}
+
+.r-13yce4e {
+  border-top-width: 0px;
+}
+.r-cb25cm {
+  background-color: rgba(245, 245, 245, 1);
+}
+.r-3da1kt {
+  height: 8px;
+}
+.r-ve2vwf {
+  border-color: rgb(234, 234, 234);
+}
+.r-1yadl64 {
+  border-bottom-width: 0px;
+  border-left-width: 0px;
+  border-right-width: 0px;
+  border-top-width: 0px;
+}
+.r-1phboty {
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-right-style: solid;
+  border-top-style: solid;
+}
+.css-1dbjc4n {
+  -ms-flex-align: stretch;
+  -ms-flex-direction: column;
+  -ms-flex-negative: 0;
+  -ms-flex-preferred-size: auto;
+  -webkit-align-items: stretch;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  min-height: 0px;
+  min-width: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  position: relative;
+  z-index: 0;
+}
+
+.placeName {
+  display: flex;
+}
+
+.places .locationIcon {
+  width: 3rem;
+  background-color: white;
+}
+
+.place {
+  color: rgba(15, 15, 15, 1) !important;
+  margin-left: 2rem;
+  margin-bottom: 0px;
+}
+
+.mapAddress {
+  color: rgb(84, 84, 84) !important;
+  margin-left: 2rem;
+  font-size: 1.3rem;
+}
+
+
+
+.fullAddress{
+  display: flex;
+  justify-content: start;
+}
+
+
+.css-1dbjc4n {
+  -webkit-box-align: stretch;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  align-items: stretch;
+  border: 0px solid black;
+  box-sizing: border-box;
+  display: flex;
+  flex-basis: auto;
+  flex-direction: column;
+  flex-shrink: 0;
+  margin: 0px;
+  min-height: 0px;
+  min-width: 0px;
+  padding: 0px;
+  position: relative;
+  z-index: 0;
+}
+
+.r-13qz1uu {
+  width: 100%;
+}
+
+.r-bztko3 {
+  overflow: visible;
+}
+
+.Locations:hover{
+  cursor: pointer;
+}
+
+
+.flate{
+  color: black;
+}
+
+
+.flatInput:focus{
+  border-color: none !important;
+  box-shadow: none !important;
+}
+
+
+.flatInput{
+  height: 4.5rem !important;
+  font-size: 1.5rem !important;
+  border-radius: 8px !important;
+  display: flex;
+  align-items: center !important;
+}
+
+
+.address{
+  color : rgb(84, 84, 84) !important
+}
+
+.mapPlace{
+  color: black;
+}
+
+.mapModal .modal-dialog {
+  top: 11rem !important;
+}
+
+
+
+@media only screen and (max-width: 767px) {
+  .mapModal .modal-dialog {
+    right: 0.5rem !important;
+  }
+}
+
+/* .btnChange:focus{
+  box-shadow: none !important;
+} */
