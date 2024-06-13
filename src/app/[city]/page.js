@@ -1,14 +1,38 @@
 import React from "react";
-import Banner from "@/components/banner";
-import Testimonials from "@/components/testimonial";
-import InstaPosts from "@/components/InstaPosts";
-import NewLaunches from "@/components/newLaunched";
-import MediaCollaborators from "@/components/mediaCollaborators";
-import CakeOfTheMonth from "@/components/CakeOfTheMonth";
+// import Banner from "@/components/banner";
+// import Testimonials from "@/components/testimonial";
+// import InstaPosts from "@/components/InstaPosts";
+// import NewLaunches from "@/components/newLaunched";
+// import MediaCollaborators from "@/components/mediaCollaborators";
+// import CakeOfTheMonth from "@/components/CakeOfTheMonth";
 import { axiosPost } from "@/api";
 import { redirect } from "next/navigation";
 import SetCookies from "@/components/setCookies";
 import dynamic from "next/dynamic";
+const Banner = dynamic(() => import('@/components/banner'), {
+  ssr: true,
+  loading: () => <p>loading</p>
+});
+const Testimonials = dynamic(() => import('@/components/testimonial'), {
+  ssr: true,
+  loading: () => <p>loading</p>
+});
+const InstaPosts = dynamic(() => import('@/components/InstaPosts'), {
+  ssr: true,
+  loading: () => <p>loading</p>
+});
+const NewLaunches = dynamic(() => import('@/components/newLaunched'), {
+  ssr: true,
+  loading: () => <p>loading</p>
+});
+const MediaCollaborators = dynamic(() => import('@/components/mediaCollaborators'), {
+  ssr: true,
+  loading: () => <p>loading</p>
+});
+const CakeOfTheMonth = dynamic(() => import('@/components/CakeOfTheMonth'), {
+  ssr: true,
+  loading: () => <p>loading</p>
+});
 import {getCities} from "@/utils/commoncity"
 const EnquiryModal = dynamic(() => import('@/components/EnquiryModal'), {
   ssr: false,
