@@ -1,15 +1,11 @@
 "use client";
 import React from "react";
-import axios from "axios";
 import { useState, useEffect } from "react";
 import styles from "@/app/[city]/p/[productbyname]/page.module.css";
 import https from "https";
 import useSharedStore from "@/components/calculatedPrice";
 import ServingInfo from "@/components/ServingInfo";
-const httpsAgent = new https.Agent({
-  rejectUnauthorized: false,
-});
-axios.defaults.httpsAgent = httpsAgent;
+
 function getProductDetails({ data }) {
   const {
     Variable,

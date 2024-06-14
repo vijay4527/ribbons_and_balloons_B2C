@@ -3,12 +3,10 @@ import React, { useState, useEffect, useContext } from "react";
 import Modal from "react-bootstrap/Modal";
 import { useRouter } from "next/navigation";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { axiosPost } from "@/api";
 import * as yup from "yup";
 import { loginSchema } from "@/components/validation";
 import { otpSchema } from "@/components/validation";
 import homeStyles from "@/app/home.module.css";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Head from "next/head";
 import { AuthOtpContext } from "@/components/authContext";
@@ -32,6 +30,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
   const [hitApi, setHitApi] = useState(false);
   const { isLogged, setIsLogged } = useContext(AuthOtpContext);
   const [userObject, setUserObject] = useState({});
+  const apiUrl = process.env.API_URL;
 
   const user =
     typeof window !== "undefined" ? sessionStorage.getItem("userData") : "";
@@ -47,7 +46,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
   }, [user]);
 
   const closeModal = () => {
-    setShowLoginInput(true)
+    setShowLoginInput(true);
     setModalIsOpen(false);
     signOut();
     onRequestClose();
@@ -55,7 +54,6 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
   };
 
   const submitHandler = async () => {
-   
     try {
       var loginData = {
         mobile: mobile,
@@ -71,12 +69,19 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
         otp: "",
       };
       await loginSchema.validate({ mobile }, { abortEarly: false });
-      const response = await axiosPost("/User/LoginCheck", loginData);
+      const responseData = await fetch(apiUrl + "User/LoginCheck", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginData),
+      });
+      const response = await responseData.json();
       if (response.resp === true) {
         sessionStorage.removeItem("userData");
-        if(response.respObj.cart_id && (!sessionStorage.getItem("cartId"))){
-          Cookies.set("cartId",response.respObj.cart_id)
-          sessionStorage.setItem("cartId",response.respObj.cart_id)
+        if (response.respObj.cart_id && !sessionStorage.getItem("cartId")) {
+          Cookies.set("cartId", response.respObj.cart_id);
+          sessionStorage.setItem("cartId", response.respObj.cart_id);
         }
         setLoginError("");
         setUserObject(response.respObj);
@@ -94,7 +99,6 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
     }
   };
 
- 
   useEffect(() => {
     inputs.forEach((id, index) => {
       const input = document.getElementById(id);
@@ -142,9 +146,16 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
           otp: otpValue,
           userId: userObject ? userObject?.user_id : "",
         };
-        const data = await axiosPost("OtpDetails/VerifyUserOtp", loginData);
+        const responseData = await fetch(apiUrl + "OtpDetails/VerifyUserOtp", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(loginData),
+        });
+        const  data = await responseData.json()
         if (data.resp == true) {
-          setLoginError("")
+          setLoginError("");
           sessionStorage.setItem("userData", JSON.stringify(data.respObj));
           sessionStorage.setItem("isLoggedIn", "true");
           toggleShowA();
@@ -167,7 +178,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
     signIn("google");
   };
   const handleOTpNotRecieved = async () => {
-    setLoginError('')
+    setLoginError("");
     setShowOtpSection(false);
     setShowLoginInput(true);
   };
@@ -191,7 +202,10 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
       >
         <div className="login-modal-flex">
           <div className="login-modal-img-div">
-            <img src="https://img.freepik.com/free-photo/front-view-cake-with-slice-cut-out_23-2148485343.jpg?t=st=1713786533~exp=1713790133~hmac=79ef04caa8f89924e1ae13d93f572083f1c1d58d1da15c1bc857d64dc0a5d211&w=360" alt="login modal image"></img>
+            <img
+              src="https://img.freepik.com/free-photo/front-view-cake-with-slice-cut-out_23-2148485343.jpg?t=st=1713786533~exp=1713790133~hmac=79ef04caa8f89924e1ae13d93f572083f1c1d58d1da15c1bc857d64dc0a5d211&w=360"
+              alt="login modal image"
+            ></img>
           </div>
           <div className="container login-container container-fluid">
             {showloginInput && !user ? (
@@ -243,7 +257,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
                         className="btn facebookLogin"
                         onClick={() => signIn("facebook")}
                       >
-                         <i className="fab fa-facebook"></i>
+                        <i className="fab fa-facebook"></i>
                       </button>
                     </div>
                   </div>
@@ -302,7 +316,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
         delay={3000}
         position="top-end"
         progressbar={true}
-        style={{borderRadius:"4px"}}
+        style={{ borderRadius: "4px" }}
       >
         <Toast.Body className="LoginToaster">
           You have logged In successfully!

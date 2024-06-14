@@ -4,9 +4,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { axiosGet } from "@/api";
 import { AuthOtpContext } from "@/components/authContext";
-import ProductModal from "@/components/productFilterModal";
 import LoginModal from "@/components/loginModal";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
@@ -30,6 +28,7 @@ const navComponent = () => {
   const [filteredProduct, setFilteredProduct] = useState([]);
   const cookiecity = Cookies.get("city");
   const inputRef = useRef(null); // Create a ref for the input element
+  const apiUrl = process.env.API_URL;
 
   const [shouldFocusInput, setShouldFocusInput] = useState(false); // State to manage input focus
 
@@ -110,7 +109,8 @@ const navComponent = () => {
 
   const getCities = async () => {
     try {
-      const cityResponse = await axiosGet("RNBCity/GetAllRNBCity");
+      const data  = await fetch(apiUrl+"RNBCity/GetAllRNBCity");
+      const cityResponse= await data.json()
       if (cityResponse) {
         setCities(cityResponse);
       }
@@ -171,9 +171,10 @@ const navComponent = () => {
       // setIsProductModalOpen(true);
       if (event.length > 0) {
         var searchedTerm = event.split("/").join("");
-        const data = await axiosGet(
-          `/ProductMaster/GetAllProductByName/${searchedTerm}/${city}`
+        const respData = await fetch(
+          apiUrl+`ProductMaster/GetAllProductByName/${searchedTerm}/${city}`
         );
+        const data= await respData.json(0)
         if (data.length > 0) {
           setFilteredProduct(data);
         }

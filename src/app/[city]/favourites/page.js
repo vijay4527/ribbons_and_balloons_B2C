@@ -5,30 +5,15 @@ import styles from "@/app/[city]/cart/page.module.css";
 import homeStyles from "@/app/home.module.css";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { axiosGet, axiosPost } from "@/api";
 import AppConfig from "@/AppConfig";
-import Head from "next/head";
-import ServingInfo from "@/components/ServingInfo";
-import OrderSummary from "@/components/OrderSummary";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const page = ({ params }) => {
-  const { data: session, status } = useSession();
   const [cart, setCart] = useState([]);
   const router = useRouter();
   const city = params.city;
   const [grandTotal, setGrandTotal] = useState(0);
-  const [isUserLoggedIn,setIsUserLoggedIn] =useState(null)
-
-  var userInfo =
-    typeof window !== "undefined"
-      ? JSON.parse(sessionStorage.getItem("userData"))
-      : "";
-  useEffect(() => {
-    if (userInfo) {
-      setIsUserLoggedIn(true);
-    }
-  }, [userInfo]);
+  const apiUrl = process.env.API_URL;
   let cartId =
     typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
   const userObject =
@@ -47,14 +32,21 @@ const page = ({ params }) => {
           cart_id: cartId ? cartId : "",
           user_id: userObject ? userObject.user_id : "",
           city_name: city ? city : "",
-          type: "WL",
-          coupon_id:""
+          type: "WL", 
+          coupon_id: "",
         };
 
-        const response = await axiosPost("/CartMaster/GetCartDetails", obj);
+        const responseData = await fetch(apiUrl + "CartMaster/GetCartDetails", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(obj),
+        });
+        const response = await responseData.json()
         if (response) {
           setCart(response.result);
-          setGrandTotal(response.final_amount)
+          setGrandTotal(response.final_amount);
         }
       }
     } catch (error) {
@@ -74,9 +66,16 @@ const page = ({ params }) => {
         value: item.value.toString(),
         msg_cake: item.msg_cake,
         type: "AC",
-        product_type:"P"
+        product_type: "P",
       };
-      const response = await axiosPost(`/CartMaster/SaveCartDetails`, cartItem);
+      const responseData = await fetch(apiUrl + `CartMaster/SaveCartDetails`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(cartItem),
+      });
+      const response = await responseData.json();
       if (response.resp == true) {
         if (!cartId) {
           sessionStorage.setItem("cartId", response.respObj.cart_id);
@@ -90,12 +89,13 @@ const page = ({ params }) => {
         });
       }
     } catch (error) {
-      console.error("Error storing cartId in session storage:", error);
+      console.error("Error storing cartId in session storage:", error) ;
     }
   };
 
   const removeFromCart = async (cpId, itemCost) => {
-    const response = await axiosGet(`/CartMaster/RemoveCart/${cpId}`);
+    const responseData = await fetch(apiUrl+`CartMaster/RemoveCart/${cpId}`);
+    const response= await responseData.json()
     if (response.resp == true) {
       var newPrice = grandTotal - itemCost;
       setGrandTotal(newPrice);
@@ -178,11 +178,10 @@ const page = ({ params }) => {
                 )}
               </div>
             </div>
-          
           </div>
         </div>
       </div>
-      
+
       <ToastContainer />
     </div>
   );

@@ -1,6 +1,4 @@
 import React from "react";
-import { axiosGet, axiosPost, axiosGetAll } from "@/api";
-import Product from "@/components/product";
 import styles from "@/app/[city]/p/[productbyname]/page.module.css";
 import homeStyles from "@/app/home.module.css";
 import Link from "next/link";
@@ -37,8 +35,6 @@ export async function generateMetadata({ params }) {
   }
 }
 async function getCategoryData(category, city) {
-
-
   try {
     if (category) {
       const obj = {
@@ -46,7 +42,14 @@ async function getCategoryData(category, city) {
         sub_category_name: "",
         city_name: city,
       };
-      const getData = await axiosPost("/ProductMaster/GetB2CProducts", obj);
+      const respData = await fetch(process.env.API_URL+"ProductMaster/GetB2CProducts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
+      });
+      const getData= await respData.json() 
       if (getData) {
         return getData;
       }
@@ -68,9 +71,10 @@ async function getCategoryData(category, city) {
 async function GetProductData(productname, city) {
   const Name = productname.split("-").join(" ");
   try {
-    const response = await axiosGet(
-      `/productMaster/GetProductByName/${city}/${Name}`
+    const respData = await fetch(
+      process.env.API_URL+ `productMaster/GetProductByName/${city}/${Name}`
     );
+    const response = await respData.json()
     if (response) {
       return response;
     }
@@ -79,19 +83,7 @@ async function GetProductData(productname, city) {
   }
 }
 
-// async function getCities() {
-//   try {
-//     const cities = await axiosGet("RNBCity/GetAllRNBCity");
-//     if (cities) {
-//       return cities;
-//     }
-//   } catch (error) {
-//     console.error("Error fetching data:", error);
-//     return {
-//       data: null,
-//     };
-//   }
-// }
+
 const productbyname = async ({ params }) => {
   const cities = await getCities();
   const newcity = params.city;
@@ -100,7 +92,7 @@ const productbyname = async ({ params }) => {
   const cityObj = await nextCookies.get("city");
   const cookiecity = cityObj?.value;
   const city = cities.includes(newcity) ? newcity : cookiecity;
-  
+
   const isValidCity = cities.some(
     (c) => c.city_name.toLowerCase() === newcity.toLowerCase()
   );

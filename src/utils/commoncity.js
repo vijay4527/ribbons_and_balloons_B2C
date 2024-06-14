@@ -1,8 +1,9 @@
-import { axiosGet, axiosPost } from "@/api";
 
   export async function getCities() {
     try {
-      const response = await axiosGet('/RNBCity/GetAllRNBCity');
+      const apiUrl = process.env.API_URL
+      const responseData  = await fetch(apiUrl+'RNBCity/GetAllRNBCity');
+      const response = await responseData.json()
       return response; 
     } catch (error) {
       console.error('Error fetching data:', error);

@@ -4,13 +4,12 @@ import styles from "@/app/[city]/p/[productbyname]/page.module.css";
 import { useState, useEffect, useContext } from "react";
 import useSharedStore from "@/components/calculatedPrice";
 import { useRouter } from "next/navigation";
-import { axiosPost } from "@/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthOtpContext } from "@/components/authContext";
 import AddOnModal from "@/components/AddOnModal";
 // import { cookies } from 'next/headers'
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 const addToCartButton = ({ data, city }) => {
   const { Variable, Variety, Unit, Value, Message } = useSharedStore();
@@ -19,6 +18,8 @@ const addToCartButton = ({ data, city }) => {
   const [isLoading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const { isLogged } = useContext(AuthOtpContext);
+  const apiUrl = process.env.API_URL;
+
   const cartId =
     typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
   useEffect(() => {
@@ -45,18 +46,22 @@ const addToCartButton = ({ data, city }) => {
         value: Value.toString(),
         msg_cake: Message,
         type: "AC",
-        product_type:"P"
+        product_type: "P",
       };
-      const response = await axiosPost(`/CartMaster/SaveCartDetails`, cartItem);
+      const responseData = await fetch(apiUrl + `CartMaster/SaveCartDetails`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(cartItem),
+      });
+      const response = await responseData.json()
       if (response.resp == true) {
         if (!cartId) {
-          Cookies.set('cartId', response.respObj.cart_id);
+          Cookies.set("cartId", response.respObj.cart_id);
           sessionStorage.setItem("cartId", response.respObj.cart_id);
         }
         setOpenModal(true);
-        // setTimeout(() => {
-        //   router.push(`/${city}/cart`);
-        // }, 3000);
       }
     } catch (error) {
       console.error("Error storing cartId in session storage:", error);

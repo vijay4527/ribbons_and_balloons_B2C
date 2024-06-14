@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { axiosPost } from "@/api";
 import homeStyles from "@/app/home.module.css";
 import Modal from "react-bootstrap/Modal";
 import { useState, useEffect } from "react";

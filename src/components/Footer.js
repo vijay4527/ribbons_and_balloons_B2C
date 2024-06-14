@@ -5,7 +5,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Link from "next/link";
 import * as yup from "yup";
-import { axiosPost } from "@/api";
 import { usePathname } from "next/navigation";
 import { newsLetterSchema } from "./validation";
 import Cookies from "js-cookie";
@@ -17,6 +16,7 @@ export default function Footer() {
   const cookieCity = Cookies.get("city")
   const city = cityname == "paymentfailed" || cityname == "paymentfailed" ? cookieCity : cityname
   const [status, setStatus] = useState(false);
+  const apiUrl = process.env.API_URL
   const saveNewsLetter = async () => {
     try {
       await newsLetterSchema.validate({ email }, { abortEarly: false });
@@ -31,10 +31,15 @@ export default function Footer() {
         updated_by: "",
         is_deleted: true,
       };
-      const newsLetterResponse = await axiosPost(
-        "NewsLetter/SaveNewsLetter",
-        obj
+      const newsLetterData = await fetch(
+        apiUrl+"NewsLetter/SaveNewsLetter",
+        {  method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(obj),}
       );
+      const newsLetterResponse = await newsLetterData.json()
       if (newsLetterResponse) {
         setEmail("");
         setStatus(true);

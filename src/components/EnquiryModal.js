@@ -3,13 +3,14 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import { axiosPost } from "@/api";
 import { ToastContainer, toast } from "react-toastify";
 import * as yup from "yup";
 import { enquirySchema } from "@/components/validation";
 function EnquiryModal() {
   const [show, setShow] = useState(false);
   const [errors, setErrors] = useState(null);
+  const apiUrl = process.env.API_URL;
+
   const handleClose = () => {
     setEnquiryObj({
       firstName: "",
@@ -43,7 +44,17 @@ function EnquiryModal() {
         updated_by: "",
         is_deleted: true,
       };
-      const enquiryResponse = await axiosPost("EnquiryMaster/SaveEnquiry", obj);
+      const enquiryData = await fetch(
+        apiUrl + "EnquiryMaster/SaveEnquiry",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(obj),
+        }
+      );
+      const enquiryResponse = await enquiryData.json()
       if (enquiryResponse) {
         toast("Your enquiry has been sent", {
           autoClose: 3000,

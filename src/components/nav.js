@@ -1,16 +1,154 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
-import { axiosPost } from "@/api";
 import Link from "next/link";
-import NavComponent from "./navComponent";
+// import NavComponent from "./navComponent";
+import dynamic from "next/dynamic";
+const NavComponent = dynamic(() => import("@/components/navComponent"), {
+  ssr: false,
+  loading: () => <p>loading</p>,
+});
 import { cookies } from "next/headers";
 import { headers } from "next/headers";
 import { getCities } from "@/utils/commoncity";
-const getCategories = async (city) => {
+const getCategories = async (api, city) => {
   try {
     const categoryObj = { city_name: city };
-    const data = await axiosPost("Category/GetAllCategories", categoryObj,{ cache: 'force-cache',next: {revalidate:180}});
+    // const responseData = await fetch(
+    //   api + "Category/GetAllCategories",
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(categoryObj),
+    //   },
+    //   { cache: "force-cache", next: { revalidate: 180 } }
+    // );
+    const responseData = [
+      {
+        category_id: "2310201149089346187",
+        category_name: "Puff",
+        is_active: true,
+        sub_category: "",
+        json_sub_category: [
+          {
+            sub_category_id: "2310201226295767688",
+            category_id: "2310201149089346187",
+            sub_category_name: "Cream Puffs",
+          },
+          {
+            sub_category_id: "2403190526461722394",
+            category_id: "2310201149089346187",
+            sub_category_name: "Paneer Puffs",
+          },
+        ],
+      },
+      {
+        category_id: "2310201148507145625",
+        category_name: "Cakes",
+        is_active: true,
+        sub_category: "",
+        json_sub_category: [
+          {
+            sub_category_id: "2310201150278818607",
+            category_id: "2310201148507145625",
+            sub_category_name: "Sponge Cakes",
+          },
+          {
+            sub_category_id: "2310201151008038128",
+            category_id: "2310201148507145625",
+            sub_category_name: "Fruit Cakes",
+          },
+          {
+            sub_category_id: "2310201151205755377",
+            category_id: "2310201148507145625",
+            sub_category_name: "Ice Cream Cakes",
+          },
+          {
+            sub_category_id: "2310201150454427153",
+            category_id: "2310201148507145625",
+            sub_category_name: "Chocolate Cakes",
+          },
+          {
+            sub_category_id: "2403121130294740086",
+            category_id: "2310201148507145625",
+            sub_category_name: "Caramel",
+          },
+        ],
+      },
+      {
+        category_id: "2310201149221893525",
+        category_name: "Savoury",
+        is_active: true,
+        sub_category: "",
+        json_sub_category: [
+          {
+            sub_category_id: "2310201230426341538",
+            category_id: "2310201149221893525",
+            sub_category_name: "Savoury Bites",
+          },
+        ],
+      },
+      {
+        category_id: "2405300629551869725",
+        category_name: "Event Cakes",
+        is_active: true,
+        sub_category: "",
+        json_sub_category: [
+          {
+            sub_category_id: "2405300631423943391",
+            category_id: "2405300629551869725",
+            sub_category_name: "Anniversary Celebration",
+          },
+        ],
+      },
+      {
+        category_id: "2404231340572772071",
+        category_name: "Biscuits",
+        is_active: true,
+        sub_category: "",
+        json_sub_category: [
+          {
+            sub_category_id: "2406050811536878579",
+            category_id: "2404231340572772071",
+            sub_category_name: "Chocolate",
+          },
+        ],
+      },
+      {
+        category_id: "2404231344007111935",
+        category_name: "Ready Regulars",
+        is_active: true,
+        sub_category: "",
+        json_sub_category: [
+          {
+            sub_category_id: "2404231344541267834",
+            category_id: "2404231344007111935",
+            sub_category_name: "Black Forest Cakes",
+          },
+        ],
+      },
+      {
+        category_id: "2403181503488745928",
+        category_name: "Pastry",
+        is_active: true,
+        sub_category: "",
+        json_sub_category: [
+          {
+            sub_category_id: "2403181504231036054",
+            category_id: "2403181503488745928",
+            sub_category_name: "Strawberry Pastry",
+          },
+          {
+            sub_category_id: "2403181547256082468",
+            category_id: "2403181503488745928",
+            sub_category_name: "Chocolate Pastry",
+          },
+        ],
+      },
+    ];
+    const data = await responseData;
     if (data) {
       return { data, city };
     }
@@ -20,10 +158,11 @@ const getCategories = async (city) => {
 };
 
 const Nav = async () => {
+  const apiUrl = process.env.API_URL;
   const nextCookies = cookies();
   const cityObj = nextCookies.get("city");
   const cookiecity = cityObj?.value;
-  const categoryData = await getCategories(cookiecity);
+  const categoryData = await getCategories(apiUrl, cookiecity);
   const categories = categoryData?.data;
   const headerList = headers();
   const pathname = headerList.get("x-current-path");
@@ -36,7 +175,7 @@ const Nav = async () => {
     }
   }
 
-  const city = isCity ?  Cityname:  cookiecity;
+  const city = isCity ? Cityname : cookiecity;
   return (
     <div>
       <Container>
@@ -47,7 +186,7 @@ const Nav = async () => {
                 <div className="flipper">
                   <div className="front">
                     <img
-                    rel="preload"
+                      rel="preload"
                       src="https://fama.b-cdn.net/RnB/logo3.webp"
                       className="d-inline-block align-top"
                       alt="React Bootstrap logo"
@@ -55,7 +194,7 @@ const Nav = async () => {
                   </div>
                   <div className="back">
                     <img
-                    rel="preload"
+                      rel="preload"
                       src="https://fama.b-cdn.net/RnB/Logo-Golden.webp"
                       className="d-inline-block align-top"
                       alt="React Bootstrap logo"

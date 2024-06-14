@@ -1,7 +1,7 @@
-import { axiosGet } from "./api";
 async function getCities() {
     try {
-      const cities = await axiosGet("RNBCity/GetAllRNBCity");
+      const apiUrl = process.env.API_URL
+      const cities = await fetch(apiUrl+"RNBCity/GetAllRNBCity",{ next: { revalidate: 180 },});
       if (cities) {
         return cities;
       }

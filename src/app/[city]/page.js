@@ -5,36 +5,38 @@ import React from "react";
 // import NewLaunches from "@/components/newLaunched";
 // import MediaCollaborators from "@/components/mediaCollaborators";
 // import CakeOfTheMonth from "@/components/CakeOfTheMonth";
-import { axiosPost } from "@/api";
 import { redirect } from "next/navigation";
 import SetCookies from "@/components/setCookies";
 import dynamic from "next/dynamic";
-const Banner = dynamic(() => import('@/components/banner'), {
+const Banner = dynamic(() => import("@/components/banner"), {
   ssr: true,
-  loading: () => <p>loading</p>
+  loading: () => <p>loading</p>,
 });
-const Testimonials = dynamic(() => import('@/components/testimonial'), {
+const Testimonials = dynamic(() => import("@/components/testimonial"), {
   ssr: true,
-  loading: () => <p>loading</p>
+  loading: () => <p>loading</p>,
 });
-const InstaPosts = dynamic(() => import('@/components/InstaPosts'), {
+const InstaPosts = dynamic(() => import("@/components/InstaPosts"), {
   ssr: true,
-  loading: () => <p>loading</p>
+  loading: () => <p>loading</p>,
 });
-const NewLaunches = dynamic(() => import('@/components/newLaunched'), {
+const NewLaunches = dynamic(() => import("@/components/newLaunched"), {
   ssr: true,
-  loading: () => <p>loading</p>
+  loading: () => <p>loading</p>,
 });
-const MediaCollaborators = dynamic(() => import('@/components/mediaCollaborators'), {
+const MediaCollaborators = dynamic(
+  () => import("@/components/mediaCollaborators"),
+  {
+    ssr: true,
+    loading: () => <p>loading</p>,
+  }
+);
+const CakeOfTheMonth = dynamic(() => import("@/components/CakeOfTheMonth"), {
   ssr: true,
-  loading: () => <p>loading</p>
+  loading: () => <p>loading</p>,
 });
-const CakeOfTheMonth = dynamic(() => import('@/components/CakeOfTheMonth'), {
-  ssr: true,
-  loading: () => <p>loading</p>
-});
-import {getCities} from "@/utils/commoncity"
-const EnquiryModal = dynamic(() => import('@/components/EnquiryModal'), {
+import { getCities } from "@/utils/commoncity";
+const EnquiryModal = dynamic(() => import("@/components/EnquiryModal"), {
   ssr: false,
 });
 const ClientScrollEffect = dynamic(
@@ -63,25 +65,112 @@ export async function generateMetadata({ params }) {
   };
 }
 
-
-async function fetchMedia(city) {
+async function fetchMedia(apiUrl, city) {
   try {
     const obj = {
       city_name: city,
     };
-    const bannerData = await axiosPost("BannerMaster/GetBannerByCityName", obj,{ cache: 'force-cache',next: {revalidate:180}, });
+    // const bannerData = await fetch(apiUrl + "BannerMaster/GetBannerByCityName", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(obj),
+    // },{ next: { revalidate: 180 }});
+    const bannerData = {
+      Banner: [
+        {
+          img_url: "media/20240530131957734.webp",
+          seq_no: 1,
+          redirect_url: "",
+        },
+        {
+          img_url: "media/20240530132023274.webp",
+          seq_no: 2,
+          redirect_url: "",
+        },
+        {
+          img_url: "media/20240530132036970.webp",
+          seq_no: 3,
+          redirect_url: "",
+        },
+        {
+          img_url: "media/20240530132053894.webp",
+          seq_no: 4,
+          redirect_url: "",
+        },
+        {
+          img_url: "media/20240530132111776.webp",
+          seq_no: 5,
+          redirect_url: "",
+        },
+      ],
+      Cake_Of_The_Month: [
+        {
+          img_url: "media/20240531065241337.webp",
+          seq_no: 1,
+          redirect_url: "",
+        },
+      ],
+      Media_Collaborator: [
+        {
+          img_url: "media/20240528130236823.png",
+          seq_no: 1,
+          redirect_url: "",
+        },
+        {
+          img_url: "media/20240528130411451.png",
+          seq_no: 4,
+          redirect_url: "",
+        },
+        {
+          img_url: "media/20240528130348815.png",
+          seq_no: 3,
+          redirect_url: "https://www.localsamosa.com",
+        },
+        {
+          img_url: "media/20240528130310225.png",
+          seq_no: 2,
+          redirect_url: "https://www.livemint.com/",
+        },
+      ],
+      New_Launches: [
+        {
+          img_url: "media/20240614060710991.webp",
+          seq_no: 1,
+          redirect_url: "/mumbai/l/Cakes",
+        },
+        {
+          img_url: "media/20240614060738049.webp",
+          seq_no: 2,
+          redirect_url: "",
+        },
+        {
+          img_url: "media/20240614060753335.webp",
+          seq_no: 3,
+          redirect_url: "",
+        },
+        {
+          img_url: "media/20240614060806862.webp",
+          seq_no: 4,
+          redirect_url: "",
+        },
+      ],
+    };
+
     if (bannerData) {
+
       return bannerData;
+
+      // return bannerData.json();
     }
   } catch (err) {
     console.log(err);
   }
 }
 
-
-
-
 const page = async ({ params }) => {
+  const apiUrl = process.env.API_URL;
   const city = params.city;
   const cities = await getCities();
 
@@ -92,7 +181,7 @@ const page = async ({ params }) => {
     redirect("/mumbai");
   }
 
-  const media = await fetchMedia(city);
+  const media = await fetchMedia(apiUrl, city);
   return (
     <>
       <Banner city={city} data={media?.Banner} />

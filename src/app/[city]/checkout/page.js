@@ -3,7 +3,6 @@ import React from "react";
 import { useEffect, useState, useContext } from "react";
 import styles from "@/app/[city]/checkout/page.module.css";
 import homeStyles from "@/app/home.module.css";
-import { axiosGet, axiosPost } from "@/api";
 import Head from "next/head";
 import Form from "react-bootstrap/Form";
 import { ToastContainer, toast } from "react-toastify";
@@ -15,7 +14,6 @@ import OrderSummary from "@/components/OrderSummary";
 import { AuthOtpContext } from "@/components/authContext";
 import Cookies from "js-cookie";
 import { validationSchema } from "@/components/validation";
-import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 
 const page = ({ params }) => {
@@ -41,6 +39,7 @@ const page = ({ params }) => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [displayCancelButton, setDisplayCancelButton] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const apiUrl = process.env.API_URL;
   const [formValues, setFormValues] = useState({
     firstName: "",
     lastName: "",
@@ -80,9 +79,10 @@ const page = ({ params }) => {
 
   const getAllCoupons = async () => {
     try {
-      const data = await axiosGet(
-        "CouponMaster/GetAllCouponByCity?city=" + city
+      const response = await fetch(
+        apiUrl + "CouponMaster/GetAllCouponByCity?city=" + city
       );
+      const data = await response.json()
       if (data) {
         setFilteredCoupon(data);
       }
@@ -101,7 +101,14 @@ const page = ({ params }) => {
           type: "AC",
           coupon_id: couponId ? couponId : "",
         };
-        const response = await axiosPost("/CartMaster/GetCartDetails", obj);
+        const responseData = await fetch(apiUrl + "CartMaster/GetCartDetails", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(obj),
+        });
+        const response = await responseData.json();
         if (response) {
           setProducts(response.result);
           setFinalAmount(response.final_amount);
@@ -126,10 +133,14 @@ const page = ({ params }) => {
           city_name: city,
           param: lastWord,
         };
-        const stores = await axiosPost(
-          "/StoreMaster/GetPickupDetails",
-          apiRequestData
-        );
+        const storesData = await fetch("/StoreMaster/GetPickupDetails", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(apiRequestData),
+        });
+        const stores = await storesData.json();
         if (stores) {
           setFranchise(stores);
         }
@@ -160,9 +171,10 @@ const page = ({ params }) => {
   const GetAddress = async () => {
     try {
       if (user.user_id) {
-        const addressData = await axiosGet(
-          `ShippingAddress/GetShippingAddressByUserId/${user.user_id}`
+        const addressResponse = await fetch(
+          apiUrl + `ShippingAddress/GetShippingAddressByUserId/${user.user_id}`
         );
+        const addressData = await addressResponse.json();
         if (addressData) {
           setUserAddress(addressData);
         }
@@ -215,7 +227,14 @@ const page = ({ params }) => {
         order_status: null,
       };
       if (products.length > 0) {
-        const order = await axiosPost("Order/SaveOrder", orderobj);
+        const orderData = await fetch(apiUrl + "Order/SaveOrder", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(orderobj),
+        });
+        const order = await orderData.json();
         if (order && order?.resp == true) {
           setProducts([]);
           Cookies.remove("cartId");
@@ -283,7 +302,14 @@ const page = ({ params }) => {
         pincode: formValues.pinCode,
         country: formValues.country,
       };
-      const data = await axiosPost("ShippingAddress/SaveShippingAddress", obj);
+      const responseData = await fetch(apiUrl + "ShippingAddress/SaveShippingAddress", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
+      });
+      const data =await responseData.json()
       if (data.resp == true) {
         toast("Your address has been saved", {
           autoClose: 3000,
@@ -387,7 +413,7 @@ const page = ({ params }) => {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           try {
-            const response = await axios.get(
+            const response = await fetch(
               `https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=AIzaSyBpti7QuC_QXwWE90MT0RkfMPlET1KbhS4&libraries=places`
             );
             if (response.data.results.length > 0) {

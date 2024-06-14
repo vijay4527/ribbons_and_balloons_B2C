@@ -4,7 +4,6 @@ import Head from "next/head";
 import styles from "@/app/[city]/orders/page.module.css";
 import homeStyles from "@/app/home.module.css";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { axiosGet, axiosPost, axiosGetAll } from "@/api";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -14,6 +13,8 @@ const page = ({ params }) => {
   const [user, setUser] = useState({});
   const { data, status } = useSession();
   const [orders, setOrders] = useState([]);
+   const apiUrl = process.env.API_URL;
+
   var userInfo =
     typeof window !== "undefined"
       ? JSON.parse(sessionStorage.getItem("userData"))
@@ -26,10 +27,10 @@ const page = ({ params }) => {
 
   const getAllOrders = async () => {
     try {
-      const Orders = await axiosGet(
-        `Order/GetOrderByUserId/${userInfo.user_id}`
+      const data = await fetch(
+        apiUrl+`Order/GetOrderByUserId/${userInfo.user_id}`
       );
-      console.log("Orders", Orders);
+      const Orders= await data.json()
       if (Orders) {
         const sortedOrders = Orders.sort((a, b) => {
           return new Date(b.created_on) - new Date(a.created_on);

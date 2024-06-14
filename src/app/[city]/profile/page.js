@@ -2,7 +2,6 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { useSession } from "next-auth/react";
-import { axiosGet, axiosGetAll, axiosPost } from "@/api";
 import { useRouter } from "next/navigation"; // Import useRouter hook
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,6 +16,7 @@ const page = () => {
   const { data } = useSession();
   const [errors, setErrors] = useState({});
   const city = Cookies.get("city");
+  const apiUrl = process.env.API_URL;
 
   const [userCity, setUserCity] = useState(city);
 
@@ -81,7 +81,14 @@ const page = () => {
         updated_by: "",
       };
 
-      const data = await axiosPost("UserProfile/SaveUserProfile", obj);
+      const respData = await fetch(apiUrl + "UserProfile/SaveUserProfile", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
+      });
+      const data= await respData.json()
       if (data.resp == true) {
         setFormValues({
           firstName: "",
@@ -116,7 +123,7 @@ const page = () => {
     <>
       <div className="container profile-container">
         <div className="m-4 form-wrap">
-          <div className={`row ${!hasErrors ? "mt-2": ""}`}>
+          <div className={`row ${!hasErrors ? "mt-2" : ""}`}>
             <div className="col-lg-6">
               <label>First Name</label>
               <input
@@ -144,7 +151,7 @@ const page = () => {
               )}
             </div>
           </div>
-          <div className={`row ${!hasErrors ? "mt-2": ""}`}>
+          <div className={`row ${!hasErrors ? "mt-2" : ""}`}>
             <div className="col-lg-6">
               <label>Email</label>
               <input
@@ -171,7 +178,7 @@ const page = () => {
             </div>
           </div>
 
-          <div className={`row ${!hasErrors ? "mt-2": ""}`}>
+          <div className={`row ${!hasErrors ? "mt-2" : ""}`}>
             <div className="col-lg-6">
               <label>Address 1</label>
               <input
@@ -199,7 +206,7 @@ const page = () => {
               )} */}
             </div>
           </div>
-          <div className={`row ${!hasErrors ? "mt-2": ""}`}>
+          <div className={`row ${!hasErrors ? "mt-2" : ""}`}>
             <div className="col-lg-6">
               <label>Pin Code</label>
               <input
@@ -225,7 +232,7 @@ const page = () => {
               {errors.city && <div className="text-danger">{errors.city}</div>}
             </div>
           </div>
-          <div className={`row ${!hasErrors ? "mt-2": ""}`}>
+          <div className={`row ${!hasErrors ? "mt-2" : ""}`}>
             <div className="col-lg-6">
               <label>State</label>
               <input

@@ -1,7 +1,5 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-
-import { axiosPost } from "@/api";
 import { cookies } from 'next/headers'
 
 const handler = NextAuth({
@@ -21,6 +19,8 @@ const handler = NextAuth({
         token.error = "";
         token.cartId =""
         const cartId = cookies().get("cartId")?.value ?? "";
+        const apiUrl = process.env.API_URL
+        console.log("api_url",apiUrl)
         try {
           var userObject = {
             mobile: "",
@@ -28,17 +28,31 @@ const handler = NextAuth({
             cart_id: cartId ? cartId : "",
             g_id: account.provider === "google" ? account.access_token : "",
             otp: "",
-          }
-          const response = await axiosPost("/User/LoginCheck", userObject);
-          if (response.respObj) {
-            token.userData = response.respObj;
-            token.cartId = response.respObj.cart_id          
+          };
+        
+          const response = await fetch(apiUrl+"User/LoginCheck", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userObject),
+          });
+        
+          if (response.ok) {
+            const responseData = await response.json();
+            if (responseData.respObj) {
+              token.userData = responseData.respObj;
+              token.cartId = responseData.respObj.cart_id;
+            } else {
+              token.error = "something went wrong while login";
+            }
           } else {
-            token.error = "something went wrong while login";
+            throw new Error("Network response was not ok.");
           }
         } catch (error) {
           console.error("Error checking login:", error);
         }
+        
       }
       return token;
     },

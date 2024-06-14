@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import { axiosPost } from "@/api";
 import Modal from "react-bootstrap/Modal";
 import Link from "next/link";
 import AppConfig from "@/AppConfig";
@@ -17,7 +16,9 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
   const { isLogged } = useContext(AuthOtpContext);
   const [user, setUser] = useState(null);
   const [showCartButton, setShowCartbutton] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
+  const apiUrl = process.env.API_URL;
+
   const cartId =
     typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
   useEffect(() => {
@@ -36,7 +37,14 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
     var obj = {
       city_name: city,
     };
-    const data = await axiosPost("AddonMaster/GetAddonByCityName", obj);
+    const respData = await fetch(apiUrl + "AddonMaster/GetAddonByCityName", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(obj),
+    });
+    const data = await respData.json();
     if (data) {
       setAddOns(data);
       setQuantities(new Array(data.length).fill(1));
@@ -77,7 +85,8 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
 
   const incrementQuantity = (index) => {
     if (quantities[index] < 10) {
-      const newQuantities = [...quantities];3
+      const newQuantities = [...quantities];
+      3;
       newQuantities[index] += 1;
       setQuantities(newQuantities);
     }
@@ -89,14 +98,21 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
       cart_id: cartId ? cartId : "",
       product_id: item.addon_id,
       variety_id: "",
-      city: city,        
+      city: city,
       unit: "PCS",
       value: quantities[index].toString(),
       msg_cake: "",
       type: "AC",
       product_type: "A",
     };
-    const response = await axiosPost(`/CartMaster/SaveCartDetails`, obj);
+    const responseData = await fetch(apiUrl + `CartMaster/SaveCartDetails`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(obj),
+    });
+    const response = await responseData.json();
     if (response.resp == true) {
       toast("Your product added to the cart", {
         autoClose: 3000,
@@ -105,11 +121,11 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
     }
   };
 
-  const handleProductModal = ()=>{
-    setQuantities([])
-    setModalIsOpen(false)
-    router.push(`/${city}/cart`)
-  }
+  const handleProductModal = () => {
+    setQuantities([]);
+    setModalIsOpen(false);
+    router.push(`/${city}/cart`);
+  };
   return (
     <>
       <Modal
@@ -208,7 +224,10 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
           <Link href={`/${city}/cart`}>
             <div className="btn btn-secondary mb-4 addon-bottom-btn">Skip</div>
           </Link>{" "}
-          <div className="btn btn-primary mb-4 continue-btn addon-bottom-btn" onClick={handleProductModal}>
+          <div
+            className="btn btn-primary mb-4 continue-btn addon-bottom-btn"
+            onClick={handleProductModal}
+          >
             Continue
           </div>
         </div>

@@ -1,17 +1,14 @@
 "use client";
 import React from "react";
 import styles from "@/app/[city]/l/[category]/page.module.css";
-import { axiosPost } from "@/api";
-import { useRouter } from "next/navigation";
 import useSharedStore from "@/components/calculatedPrice";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Toast from "react-bootstrap/Toast";
 import Head from "next/head";
 import Cookies from 'js-cookie';
 
-import { useState } from "react";
 export default function AddToFavoritesButton({ productData, city }) {
   const { Variable, Variety, Unit, Value, Message } = useSharedStore();
+  const apiUrl = process.env.API_URL;
   const addToFavourite = async (data) => {
     const cartId =
       typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
@@ -32,7 +29,14 @@ export default function AddToFavoritesButton({ productData, city }) {
         type: "WL",
         product_type:"P"
       };
-      const favouriteData = await axiosPost("/CartMaster/SaveCartDetails", obj);
+      const responseData = await fetch(apiUrl + `CartMaster/SaveCartDetails`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
+      });
+      const favouriteData = await responseData.json()
       if (favouriteData.resp == true) {
         if (!cartId) {
           Cookies.set('cartId', favouriteData.respObj.cart_id);

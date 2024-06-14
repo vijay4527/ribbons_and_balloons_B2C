@@ -2,12 +2,13 @@ import React from "react";
 import Head from "next/head";
 import styles from "@/app/[city]/orders/[orderDetails]/page.module.css";
 import homeStyles from "@/app/home.module.css";
-import { axiosGet } from "@/api";
 
 async function fetchOrderDetails(orderId) {
   try {
     if (orderId) {
-      const response = await axiosGet("Order/GetOrderByOrderId/" + orderId);
+      const apiUrl = process.env.API_URL
+      const responseData = await fetch(apiUrl+"Order/GetOrderByOrderId/" + orderId);
+      const response = await responseData.json()
       if (response) {
         console.log("Response", response);
         return response;

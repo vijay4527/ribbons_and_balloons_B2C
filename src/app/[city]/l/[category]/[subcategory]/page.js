@@ -1,5 +1,4 @@
 import React from "react";
-import { axiosPost } from "@/api";
 import CategoryComponent from "@/components/CategoryandSubcategory";
 import { cookies } from "next/headers";
 import { getCities } from "@/utils/commoncity";
@@ -29,7 +28,7 @@ export async function generateMetadata({ params }) {
     },
   };
 }
-async function getCategoryData(categoryName, subcategory, city) {
+async function getCategoryData(apiUrl,categoryName, subcategory, city) {
   const subcatgoryName = subcategory.split("-").join(" ");
   const categoryStr = categoryName.split("-").join(" ");
   try {
@@ -38,16 +37,32 @@ async function getCategoryData(categoryName, subcategory, city) {
       sub_category_name: subcatgoryName || "",
       city_name: city,
     };
+    const cityObj = { city_name: city };
 
-    const [response, category] = await Promise.all([
-      axiosPost("/ProductMaster/GetB2CProducts", obj),
-      axiosPost("/Category/GetAllCategories", { city_name: city }),
-    ]);
+    const responseData = await fetch(apiUrl + "ProductMaster/GetB2CProducts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(obj),
+    });
 
-    return {
-      data: response,
-      category: category,
-    };
+    const categoryData = await fetch(apiUrl + "Category/GetAllCategories", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(cityObj),
+    });
+
+    const response = await responseData.json();
+    const category = await categoryData.json();
+    if (response && category) {
+      return {
+        data: response,
+        category: category,
+      };
+    }
   } catch (error) {
     console.error("Error fetching data:", error);
     return {
@@ -73,8 +88,10 @@ const page = async ({ params }) => {
     city = cityObj?.value || city; 
     redirect(`/${city}/l/`+ categoryName);
   }
+  const apiUrl = process.env.API_URL
   const subcategory = params.subcategory;
   const { data, category } = await getCategoryData(
+    apiUrl,
     categoryName,
     subcategory,
     city

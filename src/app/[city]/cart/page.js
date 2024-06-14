@@ -6,7 +6,6 @@ import homeStyles from "@/app/home.module.css";
 import { useRouter } from "next/navigation";
 import LoginModal from "@/components/loginModal";
 import { useSession} from "next-auth/react";
-import { axiosGet, axiosPost} from "@/api";
 import AppConfig from "@/AppConfig";
 import Head from "next/head";
 import ServingInfo from "@/components/ServingInfo";
@@ -26,6 +25,8 @@ const page = ({ params }) => {
   const [user, setUser] = useState(null);
   const { isLogged } = useContext(AuthOtpContext);
   const city =  Cookies.get("city");
+  const apiUrl = process.env.API_URL
+
   var userInfo =
   typeof window !== "undefined"
     ? JSON.parse(sessionStorage.getItem("userData"))
@@ -54,7 +55,14 @@ const page = ({ params }) => {
           type: "AC",
           coupon_id:""
         };
-        const response = await axiosPost("/CartMaster/GetCartDetails", obj);
+        const responseData = await fetch(apiUrl + "CartMaster/GetCartDetails",{
+          method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(obj),
+        });
+        const response =await responseData.json()
         if (response) {
           setCart(response.result);
           setGrandTotal(response.final_amount)
@@ -66,7 +74,8 @@ const page = ({ params }) => {
   };
 
   const removeFromCart = async (cpId, itemCost) => {
-    const response = await axiosGet(`/CartMaster/RemoveCart/${cpId}`);
+    const responseData = await fetch(apiUrl+`CartMaster/RemoveCart/${cpId}`);
+    const response = await responseData.json()
     if (response?.resp == true) {
       var newPrice = grandTotal - itemCost;
       setGrandTotal(newPrice);
