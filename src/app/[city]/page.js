@@ -1,5 +1,5 @@
 import React from "react";
-// import Banner from "@/components/banner";
+import Banner from "@/components/banner";
 // import Testimonials from "@/components/testimonial";
 // import InstaPosts from "@/components/InstaPosts";
 // import NewLaunches from "@/components/newLaunched";
@@ -8,10 +8,7 @@ import React from "react";
 import { redirect } from "next/navigation";
 import SetCookies from "@/components/setCookies";
 import dynamic from "next/dynamic";
-const Banner = dynamic(() => import("@/components/banner"), {
-  ssr: true,
-  loading: () => <p>loading</p>,
-});
+
 const Testimonials = dynamic(() => import("@/components/testimonial"), {
   ssr: true,
   loading: () => <p>loading</p>,

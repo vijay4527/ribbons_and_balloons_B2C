@@ -6,7 +6,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 const NavComponent = dynamic(() => import("@/components/navComponent"), {
   ssr: false,
-  loading: () => <p>loading</p>,
+  loading: () => <></>,
 });
 import { cookies } from "next/headers";
 import { headers } from "next/headers";

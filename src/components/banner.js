@@ -3,6 +3,7 @@ import Container from "react-bootstrap/Container";
 // import React, { useEffect, useState } from "react";
 import AppConfig from "@/AppConfig";
 import Link from "next/link";
+import Image from "next/image";
 
 const Banner = ({ city, data }) => {
   // const [scrollPosition, setScrollPosition] = useState(0);
@@ -62,7 +63,7 @@ const Banner = ({ city, data }) => {
                   alt="No image found"
                 /> */}
                 <Link href={`/${firstImage?.redirect_url}`}>
-                  <img src={AppConfig.cdn+firstImage?.img_url} alt="No image found" />
+                  <Image src={AppConfig.cdn+firstImage?.img_url} alt="No image found"  height={403} width={597} priority/>
                 </Link>
               </div>
               <div
@@ -75,7 +76,7 @@ const Banner = ({ city, data }) => {
                   alt="No image found"
                 /> */}
                 <Link href={`/${secondImage?.redirect_url}`}>
-                  <img src={AppConfig.cdn+secondImage?.img_url} alt="No image found" />
+                <Image src={AppConfig.cdn+secondImage?.img_url} alt="No image found"  height={428} width={601} priority/>
                 </Link>
               </div>
             </div>
@@ -90,7 +91,7 @@ const Banner = ({ city, data }) => {
                   alt="No image found"
                 /> */}
                 <Link href={`/${thirdImage?.redirect_url}`}>
-                  <img src={AppConfig.cdn+thirdImage?.img_url} alt="No image found" />
+                <Image src={AppConfig.cdn+thirdImage?.img_url} alt="No image found"  height={629} width={931} priority/>
                 </Link>
               </div>
             </div>
@@ -105,7 +106,9 @@ const Banner = ({ city, data }) => {
                   alt="No image found"
                 /> */}
                 <Link href={`/${fourthImage?.redirect_url}`}>
-                  <img src={AppConfig.cdn+fourthImage?.img_url} alt="No image found" />
+                <Image src={AppConfig.cdn+fourthImage?.img_url} alt="No image found"  height={403} width={596} priority/>
+
+                  {/* <img src={AppConfig.cdn+fourthImage?.img_url} alt="No image found" /> */}
                 </Link>
               </div>
               <div
@@ -118,7 +121,9 @@ const Banner = ({ city, data }) => {
                   alt="No image found"
                 /> */}
                 <Link href={`/${fifthImage?.redirect_url}`}>
-                  <img src={AppConfig.cdn+fifthImage?.img_url} alt="No image found" />
+                <Image src={AppConfig.cdn+fifthImage?.img_url} alt="No image found"  height={428} width={633} priority/>
+
+                  {/* <img src={AppConfig.cdn+fifthImage?.img_url} alt="No image found" /> */}
                 </Link>
               </div>
             </div>
