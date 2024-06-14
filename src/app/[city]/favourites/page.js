@@ -81,7 +81,7 @@ const page = ({ params }) => {
         if (!cartId) {
           sessionStorage.setItem("cartId", response.respObj.cart_id);
         }
-        toast("Product added to favourites", {
+        toast("Product added to your cart", {
           autoClose: 3000,
           closeButton: true,
           onClose: () => {
@@ -178,31 +178,11 @@ const page = ({ params }) => {
                 )}
               </div>
             </div>
-            <div>
-              <div className={styles.cartPriceBox}>
-                <div className={styles.cartOrderSummary}>
-                  <h4>Order summary</h4>
-                  <ServingInfo />
-                </div>
-
-                <OrderSummary data={cart} finalAmount={grandTotal}/>
-                <button
-                  className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`}
-                >
-                  <span>Checkout</span>
-                </button>
-              </div>
-            </div>
+          
           </div>
         </div>
       </div>
-      {/* {!isUserLoggedIn && (
-          <LoginModal
-            isOpen={isCityModalOpen}
-            onRequestClose={closeCityModal}
-            closeLoginModal={closeCityModal}
-          />
-        )} */}
+      
       <ToastContainer />
     </div>
   );

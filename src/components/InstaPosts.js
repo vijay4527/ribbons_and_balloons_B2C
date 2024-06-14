@@ -18,15 +18,16 @@ const InstaPosts = () => {
           <div className="advInstaContentBox">
             <div className="advInstaContentBoxImg">
               <img
-                src="https://fama.b-cdn.net/RnB/port-1-img-2-650x650.webp"
+                src="https://fama.b-cdn.net/RnB/post1.webp"
                 alt="No image found"
+                rel="preload"
               />
             </div>
             <div className="advInstaContentBoxHover">
               <div className="advInstaContentBoxTrap">
                 <div className="advInstaContentBoxborder">
                   <div className="advInstaContentInfo">
-                    <img src="" alt="No image found" />
+                    <img src="" alt="No image found" rel="preload"/>
                     <h3>Calisson</h3>
                     <p>$15</p>
                   </div>
@@ -37,15 +38,16 @@ const InstaPosts = () => {
           <div className="advInstaContentBox">
             <div className="advInstaContentBoxImg">
               <img
-                src="https://fama.b-cdn.net/RnB/port-1-img-5-650x650.webp"
+                src="https://fama.b-cdn.net/RnB/post3.webp"
                 alt="No image found"
+                rel="preload"
               />
             </div>
             <div className="advInstaContentBoxHover">
               <div className="advInstaContentBoxTrap">
                 <div className="advInstaContentBoxborder">
                   <div className="advInstaContentInfo">
-                    <img src="" alt="No image found" />
+                    <img src="" alt="No image found" rel="preload"/>
                     <h3>Calisson</h3>
                     <p>$15</p>
                   </div>
@@ -56,15 +58,16 @@ const InstaPosts = () => {
           <div className="advInstaContentBox">
             <div className="advInstaContentBoxImg">
               <img
-                src="https://fama.b-cdn.net/RnB/port-1-img-7-650x650.webp"
+                src="https://fama.b-cdn.net/RnB/post2.webp"
                 alt="No image found"
+                rel="preload"
               />
             </div>
             <div className="advInstaContentBoxHover">
               <div className="advInstaContentBoxTrap">
                 <div className="advInstaContentBoxborder">
                   <div className="advInstaContentInfo">
-                    <img src="" alt="No image found" />
+                    <img src="" alt="No image found" rel="preload"/>
                     <h3>Calisson</h3>
                     <p>$15</p>
                   </div>
@@ -75,15 +78,16 @@ const InstaPosts = () => {
           <div className="advInstaContentBox">
             <div className="advInstaContentBoxImg">
               <img
-                src="https://fama.b-cdn.net/RnB/port-1-img-4-650x650.webp"
+                src="https://fama.b-cdn.net/RnB/post4.webp"
                 alt="No image found"
+                rel="preload"
               />
             </div>
             <div className="advInstaContentBoxHover">
               <div className="advInstaContentBoxTrap">
                 <div className="advInstaContentBoxborder">
                   <div className="advInstaContentInfo">
-                    <img src="" alt="No image found" />
+                    <img src="" alt="No image found" rel="preload"/>
                     <h3>Calisson</h3>
                     <p>$15</p>
                   </div>
@@ -97,8 +101,9 @@ const InstaPosts = () => {
           <div className="advInstaContentBox">
             <div className="advInstaContentBoxImg">
               <img
-                src="https://fama.b-cdn.net/RnB/port-1-img-6-650x650.webp"
+                src="https://fama.b-cdn.net/RnB/post5.webp"
                 alt="No image found"
+                rel="preload"
               />
             </div>
             <div className="advInstaContentBoxHover">
@@ -119,8 +124,29 @@ const InstaPosts = () => {
           <div className="advInstaContentBox">
             <div className="advInstaContentBoxImg">
               <img
-                src="https://fama.b-cdn.net/RnB/port-1-img-2-650x650.webp"
+                src="https://fama.b-cdn.net/RnB/post1.webp"
                 alt="No image found"
+                rel="preload"
+              />
+            </div>
+            <div className="advInstaContentBoxHover">
+              <div className="advInstaContentBoxTrap">
+                <div className="advInstaContentBoxborder">
+                  <div className="advInstaContentInfo">
+                    <img src="" alt="No image found" rel="preload"/>
+                    <h3>Calisson</h3>
+                    <p>$15</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="advInstaContentBox">
+            <div className="advInstaContentBoxImg">
+              <img
+                src="https://fama.b-cdn.net/RnB/post3.webp"
+                alt="No image found"
+                rel="preload"
               />
             </div>
             <div className="advInstaContentBoxHover">
@@ -138,15 +164,16 @@ const InstaPosts = () => {
           <div className="advInstaContentBox">
             <div className="advInstaContentBoxImg">
               <img
-                src="https://fama.b-cdn.net/RnB/port-1-img-5-650x650.webp"
+                src="https://fama.b-cdn.net/RnB/post2.webp"
                 alt="No image found"
+                rel="preload"
               />
             </div>
             <div className="advInstaContentBoxHover">
               <div className="advInstaContentBoxTrap">
                 <div className="advInstaContentBoxborder">
                   <div className="advInstaContentInfo">
-                    <img src="" alt="No image found" />
+                    <img src="" alt="No image found" rel="preload"/>
                     <h3>Calisson</h3>
                     <p>$15</p>
                   </div>
@@ -157,7 +184,8 @@ const InstaPosts = () => {
           <div className="advInstaContentBox">
             <div className="advInstaContentBoxImg">
               <img
-                src="https://fama.b-cdn.net/RnB/port-1-img-7-650x650.webp"
+              rel="preload"
+                src="https://fama.b-cdn.net/RnB/post4.webp"
                 alt="No image found"
               />
             </div>
@@ -165,26 +193,7 @@ const InstaPosts = () => {
               <div className="advInstaContentBoxTrap">
                 <div className="advInstaContentBoxborder">
                   <div className="advInstaContentInfo">
-                    <img src="" alt="No image found" />
-                    <h3>Calisson</h3>
-                    <p>$15</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="advInstaContentBox">
-            <div className="advInstaContentBoxImg">
-              <img
-                src="https://fama.b-cdn.net/RnB/port-1-img-4-650x650.webp"
-                alt="No image found"
-              />
-            </div>
-            <div className="advInstaContentBoxHover">
-              <div className="advInstaContentBoxTrap">
-                <div className="advInstaContentBoxborder">
-                  <div className="advInstaContentInfo">
-                    <img src="" alt="No image found" />
+                    <img src="" alt="No image found" rel="preload"/>
                     <h3>Calisson</h3>
                     <p>$15</p>
                   </div>
