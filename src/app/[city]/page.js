@@ -170,9 +170,9 @@ const page = async ({ params }) => {
   const apiUrl = process.env.API_URL;
   const city = params.city;
   const cities = await getCities();
-
+  console.log(cities)
   const isValidCity = cities.some(
-    (c) => c.city_name.toLowerCase() === city.toLowerCase()
+    (c) => c.city_name.toLowerCase() == city.toLowerCase()
   );
   if (!isValidCity) {
     redirect("/mumbai");

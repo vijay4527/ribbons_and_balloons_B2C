@@ -159,10 +159,27 @@ const getCategories = async (api, city) => {
 
 const Nav = async () => {
   const apiUrl = process.env.API_URL;
+  // const nextCookies = cookies();
+  // const cityObj = nextCookies.get("city");
+  // const cookiecity = cityObj?.value;
+  // const categoryData = await getCategories(apiUrl, cookiecity);
+  // const categories = categoryData?.data;
+  // const headerList = headers();
+  // const pathname = headerList.get("x-current-path");
+  // const Cityname = pathname ? pathname.split("/")[1] : "";
+  // let isCity = false;
+  // const cities = await getCities();
+  // if (cities.length > 0) {
+  //   if (cities.includes(Cityname)) {
+  //     isCity = true;
+  //   }
+  // }
+
+  // const city = isCity ? Cityname : cookiecity;
   const nextCookies = cookies();
-  const cityObj = nextCookies.get("city");
+  const cityObj = await nextCookies.get("city");
   const cookiecity = cityObj?.value;
-  const categoryData = await getCategories(apiUrl, cookiecity);
+  const categoryData = await getCategories(apiUrl,cookiecity);
   const categories = categoryData?.data;
   const headerList = headers();
   const pathname = headerList.get("x-current-path");
@@ -175,7 +192,7 @@ const Nav = async () => {
     }
   }
 
-  const city = isCity ? Cityname : cookiecity;
+  const city = isCity ? cookiecity : Cityname;
   return (
     <div>
       <Container>
