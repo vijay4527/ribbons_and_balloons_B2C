@@ -14,141 +14,19 @@ import { getCities } from "@/utils/commoncity";
 const getCategories = async (api, city) => {
   try {
     const categoryObj = { city_name: city };
-    // const responseData = await fetch(
-    //   api + "Category/GetAllCategories",
-    //   {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(categoryObj),
-    //   },
-    //   { cache: "force-cache", next: { revalidate: 180 } }
-    // );
-    const responseData = [
+    const responseData = await fetch(
+      api + "Category/GetAllCategories",
       {
-        category_id: "2310201149089346187",
-        category_name: "Puff",
-        is_active: true,
-        sub_category: "",
-        json_sub_category: [
-          {
-            sub_category_id: "2310201226295767688",
-            category_id: "2310201149089346187",
-            sub_category_name: "Cream Puffs",
-          },
-          {
-            sub_category_id: "2403190526461722394",
-            category_id: "2310201149089346187",
-            sub_category_name: "Paneer Puffs",
-          },
-        ],
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(categoryObj),
       },
-      {
-        category_id: "2310201148507145625",
-        category_name: "Cakes",
-        is_active: true,
-        sub_category: "",
-        json_sub_category: [
-          {
-            sub_category_id: "2310201150278818607",
-            category_id: "2310201148507145625",
-            sub_category_name: "Sponge Cakes",
-          },
-          {
-            sub_category_id: "2310201151008038128",
-            category_id: "2310201148507145625",
-            sub_category_name: "Fruit Cakes",
-          },
-          {
-            sub_category_id: "2310201151205755377",
-            category_id: "2310201148507145625",
-            sub_category_name: "Ice Cream Cakes",
-          },
-          {
-            sub_category_id: "2310201150454427153",
-            category_id: "2310201148507145625",
-            sub_category_name: "Chocolate Cakes",
-          },
-          {
-            sub_category_id: "2403121130294740086",
-            category_id: "2310201148507145625",
-            sub_category_name: "Caramel",
-          },
-        ],
-      },
-      {
-        category_id: "2310201149221893525",
-        category_name: "Savoury",
-        is_active: true,
-        sub_category: "",
-        json_sub_category: [
-          {
-            sub_category_id: "2310201230426341538",
-            category_id: "2310201149221893525",
-            sub_category_name: "Savoury Bites",
-          },
-        ],
-      },
-      {
-        category_id: "2405300629551869725",
-        category_name: "Event Cakes",
-        is_active: true,
-        sub_category: "",
-        json_sub_category: [
-          {
-            sub_category_id: "2405300631423943391",
-            category_id: "2405300629551869725",
-            sub_category_name: "Anniversary Celebration",
-          },
-        ],
-      },
-      {
-        category_id: "2404231340572772071",
-        category_name: "Biscuits",
-        is_active: true,
-        sub_category: "",
-        json_sub_category: [
-          {
-            sub_category_id: "2406050811536878579",
-            category_id: "2404231340572772071",
-            sub_category_name: "Chocolate",
-          },
-        ],
-      },
-      {
-        category_id: "2404231344007111935",
-        category_name: "Ready Regulars",
-        is_active: true,
-        sub_category: "",
-        json_sub_category: [
-          {
-            sub_category_id: "2404231344541267834",
-            category_id: "2404231344007111935",
-            sub_category_name: "Black Forest Cakes",
-          },
-        ],
-      },
-      {
-        category_id: "2403181503488745928",
-        category_name: "Pastry",
-        is_active: true,
-        sub_category: "",
-        json_sub_category: [
-          {
-            sub_category_id: "2403181504231036054",
-            category_id: "2403181503488745928",
-            sub_category_name: "Strawberry Pastry",
-          },
-          {
-            sub_category_id: "2403181547256082468",
-            category_id: "2403181503488745928",
-            sub_category_name: "Chocolate Pastry",
-          },
-        ],
-      },
-    ];
-    const data = await responseData;
+      { cache: "force-cache", next: { revalidate: 180 } }
+    );
+ 
+    const data = await responseData.json();
     if (data) {
       return { data, city };
     }

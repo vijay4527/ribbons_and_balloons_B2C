@@ -67,99 +67,15 @@ async function fetchMedia(apiUrl, city) {
     const obj = {
       city_name: city,
     };
-    // const bannerData = await fetch(apiUrl + "BannerMaster/GetBannerByCityName", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(obj),
-    // },{ next: { revalidate: 180 }});
-    const bannerData = {
-      Banner: [
-        {
-          img_url: "media/20240530131957734.webp",
-          seq_no: 1,
-          redirect_url: "",
-        },
-        {
-          img_url: "media/20240530132023274.webp",
-          seq_no: 2,
-          redirect_url: "",
-        },
-        {
-          img_url: "media/20240530132036970.webp",
-          seq_no: 3,
-          redirect_url: "",
-        },
-        {
-          img_url: "media/20240530132053894.webp",
-          seq_no: 4,
-          redirect_url: "",
-        },
-        {
-          img_url: "media/20240530132111776.webp",
-          seq_no: 5,
-          redirect_url: "",
-        },
-      ],
-      Cake_Of_The_Month: [
-        {
-          img_url: "media/20240531065241337.webp",
-          seq_no: 1,
-          redirect_url: "",
-        },
-      ],
-      Media_Collaborator: [
-        {
-          img_url: "media/20240528130236823.png",
-          seq_no: 1,
-          redirect_url: "",
-        },
-        {
-          img_url: "media/20240528130411451.png",
-          seq_no: 4,
-          redirect_url: "",
-        },
-        {
-          img_url: "media/20240528130348815.png",
-          seq_no: 3,
-          redirect_url: "https://www.localsamosa.com",
-        },
-        {
-          img_url: "media/20240528130310225.png",
-          seq_no: 2,
-          redirect_url: "https://www.livemint.com/",
-        },
-      ],
-      New_Launches: [
-        {
-          img_url: "media/20240614060710991.webp",
-          seq_no: 1,
-          redirect_url: "/mumbai/l/Cakes",
-        },
-        {
-          img_url: "media/20240614060738049.webp",
-          seq_no: 2,
-          redirect_url: "",
-        },
-        {
-          img_url: "media/20240614060753335.webp",
-          seq_no: 3,
-          redirect_url: "",
-        },
-        {
-          img_url: "media/20240614060806862.webp",
-          seq_no: 4,
-          redirect_url: "",
-        },
-      ],
-    };
-
+    const bannerData = await fetch(apiUrl + "BannerMaster/GetBannerByCityName", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(obj),
+    },{ next: { revalidate: 180 }});
     if (bannerData) {
-
-      return bannerData;
-
-      // return bannerData.json();
+       return bannerData.json();
     }
   } catch (err) {
     console.log(err);
@@ -170,7 +86,6 @@ const page = async ({ params }) => {
   const apiUrl = process.env.API_URL;
   const city = params.city;
   const cities = await getCities();
-  console.log(cities)
   const isValidCity = cities.some(
     (c) => c.city_name.toLowerCase() == city.toLowerCase()
   );
