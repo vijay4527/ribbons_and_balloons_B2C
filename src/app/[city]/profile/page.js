@@ -103,6 +103,11 @@ const page = () => {
           autoClose: 3000,
           closeButton: true,
         });
+      }else{
+        toast.error(data.respMsg, {
+          autoClose: 3000,
+          closeButton: true,
+        });
       }
     } catch (validationError) {
       if (validationError instanceof yup.ValidationError) {
