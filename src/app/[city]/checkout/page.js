@@ -133,7 +133,7 @@ const page = ({ params }) => {
           city_name: city,
           param: lastWord,
         };
-        const storesData = await fetch("/StoreMaster/GetPickupDetails", {
+        const storesData = await fetch(apiUrl+"StoreMaster/GetPickupDetails", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
