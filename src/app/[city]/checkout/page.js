@@ -82,7 +82,7 @@ const page = ({ params }) => {
       const response = await fetch(
         apiUrl + "CouponMaster/GetAllCouponByCity?city=" + city
       );
-      const data = await response.json()
+      const data = await response.json();
       if (data) {
         setFilteredCoupon(data);
       }
@@ -133,13 +133,16 @@ const page = ({ params }) => {
           city_name: city,
           param: lastWord,
         };
-        const storesData = await fetch(apiUrl+"StoreMaster/GetPickupDetails", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(apiRequestData),
-        });
+        const storesData = await fetch(
+          apiUrl + "StoreMaster/GetPickupDetails",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(apiRequestData),
+          }
+        );
         const stores = await storesData.json();
         if (stores) {
           setFranchise(stores);
@@ -302,14 +305,17 @@ const page = ({ params }) => {
         pincode: formValues.pinCode,
         country: formValues.country,
       };
-      const responseData = await fetch(apiUrl + "ShippingAddress/SaveShippingAddress", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(obj),
-      });
-      const data =await responseData.json()
+      const responseData = await fetch(
+        apiUrl + "ShippingAddress/SaveShippingAddress",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(obj),
+        }
+      );
+      const data = await responseData.json();
       if (data.resp == true) {
         toast("Your address has been saved", {
           autoClose: 3000,
@@ -352,6 +358,8 @@ const page = ({ params }) => {
     }
   };
 
+  const [isBtnVisible, setIsBtnVisible] = useState(false);
+
   const handleClose = () => {
     setFormValues({
       firstName: "",
@@ -381,10 +389,11 @@ const page = ({ params }) => {
   };
 
   const hanldeCoupon = (res) => {
+    setIsBtnVisible(true);
     setDisplayCancelButton(true);
     setSelectedCoupon(res.coupon_id);
     GetAllCart(res.coupon_id);
-    // closeModal()
+  
   };
 
   const fitlerCoupon = (e) => {
@@ -946,6 +955,7 @@ const page = ({ params }) => {
           <div className={styles.modalCartPriceBox}>
             <div className={styles.cartOrderSummary}>
               <h4>Add Coupons</h4>{" "}
+              <button className="btn btn-primary" onClick={closeModal}>close</button>
             </div>
             <div className={homeStyles["form_group"]}>
               <input
@@ -1022,6 +1032,13 @@ const page = ({ params }) => {
                   </>
                 ))}
             </div>
+            {isBtnVisible && (
+              <div className="btnCoupon">
+                <button className="btn btn-primary" onClick={closeModal}>
+                  Add
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </Modal>

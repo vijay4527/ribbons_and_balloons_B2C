@@ -3442,3 +3442,11 @@ input[name="contact"] {
     right: 0.5rem !important;
   }
 }
+
+
+
+.btnCoupon{
+  display: flex;
+  justify-content: center;
+  
+}
