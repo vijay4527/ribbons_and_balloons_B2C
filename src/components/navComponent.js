@@ -23,14 +23,13 @@ const navComponent = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const { isLogged } = useContext(AuthOtpContext);
   const [selectedCity, setSelectedCity] = useState("");
-  const [isProductModalOpen, setIsProductModalOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [filteredProduct, setFilteredProduct] = useState([]);
+  const [hoveredCity,setHoveredCity] = useState("")
   const cookiecity = Cookies.get("city");
-  const inputRef = useRef(null); // Create a ref for the input element
+  const inputRef = useRef(null); 
   const apiUrl = process.env.API_URL;
 
-  const [shouldFocusInput, setShouldFocusInput] = useState(false); // State to manage input focus
 
   const isValidCity = (cityName) => {
     return cities.some(
@@ -168,7 +167,6 @@ const navComponent = () => {
     setSearchValue(event);
 
     try {
-      // setIsProductModalOpen(true);
       if (event.length > 0) {
         var searchedTerm = event.split("/").join("");
         const respData = await fetch(
@@ -203,6 +201,11 @@ const navComponent = () => {
     setSearchValue("");
   };
 
+  const hoveredOnCity = (cityName)=>{
+    let newCity = cityName.toLowerCase()
+       setHoveredCity(newCity)
+  }
+
   return (
     <div className="navAction">
       <ul>
@@ -221,25 +224,25 @@ const navComponent = () => {
           >
             <div className="selectLocationBody">
               <div className="selectLocationImg">
-                {selectedCity == "pune" && (
+                {hoveredCity == "pune" && (
                   <img
                     src="https://ribbonsandballoons.com/frontassets/images/pune1.png"
                     alt="No image found"
                   />
                 )}
-                {selectedCity == "mumbai" && (
+                {hoveredCity == "mumbai" && (
                   <img
                     src="https://cdn-images.cure.fit/www-curefit-com/image/upload/e_replace_color:black,o_60//image/cities/mumbai_selected.png"
                     alt="No image found"
                   />
                 )}
-                {selectedCity == "mangaluru" && (
+                {hoveredCity == "mangaluru" && (
                   <img
                     src="https://ribbonsandballoons.com/frontassets/images/manglore1.png"
                     alt="No image found"
                   />
                 )}
-                {selectedCity == "patna" && (
+                {hoveredCity == "patna" && (
                   <img
                     src="	https://ribbonsandballoons.com/frontassets/images/Patna.png"
                     alt="No image found"
@@ -252,10 +255,10 @@ const navComponent = () => {
                 {cities &&
                   cities.length > 0 &&
                   cities.map((e) => (
-                    // <Link href={`/${e.city_name.toLowerCase()}`} key={e.rnb_city_id}>
                     <li
                       key={e.rnb_city_id}
                       onClick={() => handleCityChange(e.city_name)}
+                      onMouseEnter={()=>hoveredOnCity(e.city_name)}
                     >
                       <h4 onClick={(e) => handleCityChange(e.city_name)}>
                         {e.city_name}
@@ -265,7 +268,6 @@ const navComponent = () => {
                         alt="No image found"
                       />
                     </li>
-                    // </Link>
                   ))}
               </ul>
             </div>
@@ -404,11 +406,6 @@ const navComponent = () => {
                 <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
               </svg>
             </span>
-            {/* {countCart === 0 ? (
-              ""
-            ) : (
-              <span className="cartCountNotification"> {countCart}</span>
-            )} */}
           </Link>
         </li>
         <li>
@@ -440,16 +437,6 @@ const navComponent = () => {
           closeLoginModal={() => setIsLoginModalOpen(false)}
         />
       )}
-      {/* {isProductModalOpen && setSearchValue.length > 0 && (
-        <ProductModal
-          isOpen={isProductModalOpen}
-          onRequestClose={() => setIsProductModalOpen(false)}
-          closeModal={() => setIsProductModalOpen(false)}
-          city={selectedCity}
-          searchTerm={searchValue}
-          data={filteredProduct}
-        ></ProductModal>
-      )} */}
     </div>
   );
 };
