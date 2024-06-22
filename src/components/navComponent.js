@@ -25,10 +25,10 @@ const navComponent = () => {
   const [selectedCity, setSelectedCity] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [filteredProduct, setFilteredProduct] = useState([]);
-  const [hoveredCity,setHoveredCity] = useState("")
   const cookiecity = Cookies.get("city");
   const inputRef = useRef(null); 
   const apiUrl = process.env.API_URL;
+  const [hoveredCity,setHoveredCity] = useState(cookiecity)
 
 
   const isValidCity = (cityName) => {
