@@ -330,8 +330,8 @@ const navComponent = () => {
                           alt={productName}
                         />
                         <div className="searchItemInfo">
-                          <h2>{item.product_name}</h2>
                           <h3>Sinful Collections</h3>
+                          <h2>{item.product_name}</h2>
                         </div>
                       </Link>
                     );

@@ -98,6 +98,7 @@ const Nav = async () => {
                   <div className="clear"></div>
                 </div>
               </div>
+              <NavComponent />
             </Navbar>
           </div>
           <nav className="subNavbar_wrapper navbar navbar-expand-lg navbar-light mt-2">
@@ -245,7 +246,6 @@ const Nav = async () => {
                   </div>
                 </div>
               </div>
-              <NavComponent />
             </div>
           </nav>
         </div>

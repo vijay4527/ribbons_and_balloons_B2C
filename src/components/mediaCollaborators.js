@@ -31,7 +31,7 @@ const MediaCollaborators = ({ city, data }) => {
       <Container fluid>
         <div className="testimonialsBody">
           <div className="headerTitle">
-            <h2 style={{ fontFamily: "revicons" }}>MEDIA COLLABORATIONS</h2>
+            <h2>MEDIA COLLABORATIONS</h2>
             <div className="testimonialUnderLine">
               <div className="testimonialUnder">
                 <div className="underLine"></div>

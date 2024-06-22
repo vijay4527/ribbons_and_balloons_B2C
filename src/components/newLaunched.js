@@ -32,7 +32,7 @@ const Testimonial = ({ city, data }) => {
           <div className="testimonialsBody">
             <div className="headerTitle">
               <p className=""> you said about us </p>
-              <h2 style={{ fontFamily: "revicons" }}>New Launches</h2>
+              <h2>New Launches</h2>
               <div className="testimonialUnderLine">
                 <div className="testimonialUnder">
                   <div className="underLine"></div>

@@ -65,6 +65,13 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://static.cure.fit" />
         <link rel="preconnect" href="https://rnbapi.alphadigitall.com" />
         <link rel="preconnect" href="https://alphadigitall.com" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Cormorant&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&display=swap" rel="stylesheet" />
       </head>
       <body className={inter.className}>
         <AuthProvider>
