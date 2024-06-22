@@ -670,7 +670,6 @@ ul.selectLocationOption a {
 .sub_navbtn {
   flex-direction: row;
 }
-
 .sub_navbtn.active .category-dropIcon {
   display: none;
 }

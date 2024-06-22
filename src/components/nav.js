@@ -154,7 +154,7 @@ const Nav = async () => {
                                 {category.category_name}{" "}
                               </h4>
                             </Link>
-                            <span className="category-dropIcon">
+                            {/* <span className="category-dropIcon">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="9"
@@ -167,7 +167,7 @@ const Nav = async () => {
                                   d="M8.177 1.25 4.355 5.663a.1.1 0 0 1-.15 0L.382 1.25"
                                 />
                               </svg>
-                            </span>
+                            </span> */}
                           </div>
                           <div className="MobileSub_navbtn sub_navbtn">
                             <Link
