@@ -520,6 +520,41 @@ ul.selectLocationOption a {
 }
 
 .selectSearchContent {
+
+}
+.selectSearchListPopular h3{
+  width: 100%;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 17px;
+  color: #fff;
+  padding: 10px 25px;
+  margin-bottom: 0;
+  text-align: left;
+}
+.selectSearchListPopular ul{
+  padding: 0 10px;
+    margin-bottom: 5px;
+    flex-wrap: wrap;
+}
+
+.selectSearchListPopular ul li{
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+.selectSearchListPopular ul li a{
+  width: 100%;
+  padding: 7px 25px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: #5b5572;
+}
+.selectSearchListPopularIcon{
+  margin-right: 10px;
 }
 .selectSearchList {
   max-height: 370px;
@@ -767,7 +802,7 @@ ul.selectLocationOption a {
   display: block;
   overflow: hidden;
   overflow-y: auto;
-  background-color: var(--theme-seconary);
+  background-color: transparent;
   height: 310px;
 }
 
@@ -804,16 +839,20 @@ ul.selectLocationOption a {
   height: 0;
   transition: height 0.3s ease-in-out;
 }
-
+.subnav-Body{
+  padding: 10px;
+  background-color: var(--theme-seconary);
+}
 .submenu-list {
   width: 100%;
   min-width: 100%;
-  padding: 0;
+  padding: 10px;
   list-style: none;
   margin: 0;
   display: flex;
   flex-wrap: wrap;
   height: fit-content;
+  border: 1px solid var(--theme-primary);
 }
 
 .category-sub-title {
@@ -831,14 +870,13 @@ ul.selectLocationOption a {
   font-stretch: normal;
   letter-spacing: normal;
   color: #ffffff;
-  padding: 6px 15px;
+  padding: 5px;
   font-size: 1.4rem;
   font-family: Montserrat, sans-serif;
 }
 
 .category-sub-title a:hover {
-  color: var(--theme-seconary);
-  background-color: var(--theme-primary);
+  color: var(--theme-primary);
 }
 
 .MobileSub_navbtn {
@@ -2612,55 +2650,17 @@ video {
   /* 
   CSS Gradient - complete browser support from http://www.colorzilla.com/gradient-editor/ 
   */
-  background: -moz-linear-gradient(
-    left,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(128, 186, 232, 0) 99%,
-    rgba(125, 185, 232, 0) 100%
-  );
+  background: -moz-linear-gradient(90deg, hsla(0, 0%, 100%, 0) 0, hsl(0deg 0% 100% / 33%) 50%, rgba(128, 186, 232, 0) 99%, rgba(125, 185, 232, 0));
   /* FF3.6+ */
-  background: -webkit-gradient(
-    linear,
-    left top,
-    right top,
-    color-stop(0%, rgba(255, 255, 255, 0)),
-    color-stop(50%, rgba(255, 255, 255, 0.8)),
-    color-stop(99%, rgba(128, 186, 232, 0)),
-    color-stop(100%, rgba(125, 185, 232, 0))
-  );
+  background: -webkit-gradient(90deg, hsla(0, 0%, 100%, 0) 0, hsl(0deg 0% 100% / 33%) 50%, rgba(128, 186, 232, 0) 99%, rgba(125, 185, 232, 0));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(
-    left,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(128, 186, 232, 0) 99%,
-    rgba(125, 185, 232, 0) 100%
-  );
+  background: -webkit-linear-gradient(90deg, hsla(0, 0%, 100%, 0) 0, hsl(0deg 0% 100% / 33%) 50%, rgba(128, 186, 232, 0) 99%, rgba(125, 185, 232, 0));
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(
-    left,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(128, 186, 232, 0) 99%,
-    rgba(125, 185, 232, 0) 100%
-  );
+  background: -o-linear-gradient(90deg, hsla(0, 0%, 100%, 0) 0, hsl(0deg 0% 100% / 33%) 50%, rgba(128, 186, 232, 0) 99%, rgba(125, 185, 232, 0));
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(
-    left,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(128, 186, 232, 0) 99%,
-    rgba(125, 185, 232, 0) 100%
-  );
+  background: -ms-linear-gradient(90deg, hsla(0, 0%, 100%, 0) 0, hsl(0deg 0% 100% / 33%) 50%, rgba(128, 186, 232, 0) 99%, rgba(125, 185, 232, 0));
   /* IE10+ */
-  background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(128, 186, 232, 0) 99%,
-    rgba(125, 185, 232, 0) 100%
-  );
+  background: linear-gradient(90deg, hsla(0, 0%, 100%, 0) 0, hsl(0deg 0% 100% / 33%) 50%, rgba(128, 186, 232, 0) 99%, rgba(125, 185, 232, 0));
   /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#007db9e8', GradientType=1);
 }

@@ -313,6 +313,31 @@ const navComponent = () => {
               />
             </div>
             <div className="selectSearchContent">
+              <div className="selectSearchListPopular">
+                <h3>Popular Searches</h3>
+                <ul>
+                  <li>
+                    <a>
+                      <span className="selectSearchListPopularIcon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 18 18"><path stroke="#888" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".7" stroke-width="1.2" d="m15.75 5.25-6 6-3-3-4.5 4.5m13.5-7.5h-4.5m4.5 0v4.5"/></svg>
+                      </span>
+                      <span className="selectSearchListPopularText">
+                        Cake
+                      </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a>
+                      <span className="selectSearchListPopularIcon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 18 18"><path stroke="#888" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".7" stroke-width="1.2" d="m15.75 5.25-6 6-3-3-4.5 4.5m13.5-7.5h-4.5m4.5 0v4.5"/></svg>
+                      </span>
+                      <span className="selectSearchListPopularText">
+                      Savoury
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
               <div className="selectSearchList">
                 {filteredProduct &&
                   filteredProduct.length > 0 &&
