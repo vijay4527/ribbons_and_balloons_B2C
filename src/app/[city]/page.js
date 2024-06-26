@@ -1,14 +1,9 @@
 import React from "react";
 import Banner from "@/components/banner";
-// import Testimonials from "@/components/testimonial";
-// import InstaPosts from "@/components/InstaPosts";
-// import NewLaunches from "@/components/newLaunched";
-// import MediaCollaborators from "@/components/mediaCollaborators";
-// import CakeOfTheMonth from "@/components/CakeOfTheMonth";
 import { redirect } from "next/navigation";
 import SetCookies from "@/components/setCookies";
 import dynamic from "next/dynamic";
-
+import { Agent } from "https";
 const Testimonials = dynamic(() => import("@/components/testimonial"), {
   ssr: true,
   loading: () => <p>loading</p>,
@@ -40,6 +35,10 @@ const ClientScrollEffect = dynamic(
   () => import("@/components/ScrollComponent"),
   { ssr: false }
 );
+
+
+
+
 export async function generateMetadata({ params }) {
   return {
     title: "Home | Ribbons and Balloons",
@@ -64,24 +63,23 @@ export async function generateMetadata({ params }) {
 
 async function fetchMedia(apiUrl, city) {
   try {
-    const obj = {
-      city_name: city,
-    };
-    const bannerData = await fetch(apiUrl + "BannerMaster/GetBannerByCityName", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(obj),
-    },{ next: { revalidate: 180 }});
+    const agent = new Agent({
+      rejectUnauthorized: false,
+    });
+
+    const bannerInfo = await fetch(apiUrl + "BannerMaster/GetBannerByCityName?city_name=" + city, {
+      agent,
+      next: { revalidate: 180 },
+    });
+
+    const bannerData = await bannerInfo.json();
     if (bannerData) {
-       return bannerData.json();
+      return bannerData;
     }
   } catch (err) {
     console.log(err);
   }
 }
-
 const page = async ({ params }) => {
   const apiUrl = process.env.API_URL;
   const city = params.city;

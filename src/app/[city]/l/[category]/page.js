@@ -47,23 +47,16 @@ async function getCategoryData(apiUrl, categoryName, subcategory, city) {
       sub_category_name: subcategory || "",
       city_name: city,
     };
-    const cityObj = { city_name: city };
 
-    const responseData = await fetch(apiUrl + "ProductMaster/GetB2CProducts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(obj),
-    });
-
-    const categoryData = await fetch(apiUrl + "Category/GetAllCategories", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(cityObj),
-    });
+    const responseData = await fetch(
+      apiUrl +
+        `ProductMaster/GetB2CProducts?category_name=${
+          categoryStr ? categoryStr : ""
+        }&sub_category_name=${subcategory ? subcategory : ""}&city_name=${city}`
+    );
+    const categoryData = await fetch(
+      apiUrl + "/Category/GetAllCategories?city_name=" + city
+    );
 
     const response = await responseData.json();
     const category = await categoryData.json();
@@ -81,7 +74,6 @@ async function getCategoryData(apiUrl, categoryName, subcategory, city) {
     };
   }
 }
-
 
 const page = async ({ params }) => {
   const cities = await getCities();

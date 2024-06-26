@@ -32,29 +32,10 @@ async function getCategoryData(apiUrl,categoryName, subcategory, city) {
   const subcatgoryName = subcategory.split("-").join(" ");
   const categoryStr = categoryName.split("-").join(" ");
   try {
-    const obj = {
-      category_name: categoryStr || "",
-      sub_category_name: subcatgoryName || "",
-      city_name: city,
-    };
-    const cityObj = { city_name: city };
-
-    const responseData = await fetch(apiUrl + "ProductMaster/GetB2CProducts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(obj),
-    });
-
-    const categoryData = await fetch(apiUrl + "Category/GetAllCategories", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(cityObj),
-    });
-
+    const responseData = await fetch(apiUrl + `ProductMaster/GetB2CProducts?category_name=${categoryStr}&sub_category_name=${subcatgoryName}&city_name=${city}`);
+    const categoryData = await fetch(
+      apiUrl + "Category/GetAllCategories?city_name=" + city
+    );
     const response = await responseData.json();
     const category = await categoryData.json();
     if (response && category) {

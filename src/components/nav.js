@@ -16,14 +16,7 @@ const getCategories = async (api, city) => {
     const categoryObj = { city_name: city };
     const responseData = await fetch(
       api + "Category/GetAllCategories",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(categoryObj),
-      },
-      { cache: "force-cache", next: { revalidate: 180 } }
+      {next: { revalidate: 180 } }
     );
  
     const data = await responseData.json();
