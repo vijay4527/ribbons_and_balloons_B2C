@@ -367,6 +367,13 @@
   z-index: 50;
 }
 
+.couponsModal{
+  width: 60%;
+    margin: auto;
+    height: 100%;
+    color: #000;
+    font-family: var(--font-family);
+}
 
 .input {
   width: 52px;
