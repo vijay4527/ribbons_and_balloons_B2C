@@ -204,35 +204,37 @@ const Nav = async () => {
                           </div>
 
                           <div className="subnav-content">
-                            <ul className="submenu-list">
-                              {category.json_sub_category &&
-                                category.json_sub_category.length > 0 &&
-                                category.json_sub_category.map(
-                                  (subcategory, index) => (
-                                    <li
-                                      key={index}
-                                      className="category-sub-title"
-                                    >
-                                      <Link
-                                        href={`/${city}/l/${category.category_name.replaceAll(
-                                          " ",
-                                          "-"
-                                        )}/${
-                                          subcategory.sub_category_name
-                                            ? subcategory.sub_category_name.replaceAll(
-                                                " ",
-                                                "-"
-                                              )
-                                            : ""
-                                        }`}
-                                        prefetch={true}
+                            <div className="subnav-Body">
+                              <ul className="submenu-list">
+                                {category.json_sub_category &&
+                                  category.json_sub_category.length > 0 &&
+                                  category.json_sub_category.map(
+                                    (subcategory, index) => (
+                                      <li
+                                        key={index}
+                                        className="category-sub-title"
                                       >
-                                        {subcategory.sub_category_name}
-                                      </Link>
-                                    </li>
-                                  )
-                                )}
-                            </ul>
+                                        <Link
+                                          href={`/${city}/l/${category.category_name.replaceAll(
+                                            " ",
+                                            "-"
+                                          )}/${
+                                            subcategory.sub_category_name
+                                              ? subcategory.sub_category_name.replaceAll(
+                                                  " ",
+                                                  "-"
+                                                )
+                                              : ""
+                                          }`}
+                                          prefetch={true}
+                                        >
+                                          {subcategory.sub_category_name}
+                                        </Link>
+                                      </li>
+                                    )
+                                  )}
+                              </ul>
+                            </div>
                           </div>
                         </div>
                       ))}
