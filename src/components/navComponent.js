@@ -302,7 +302,7 @@ const navComponent = () => {
             <div className="selectSearchBody">
               <div className={`headerSearchIcon searchInput ${isSearchActive ? "activeClass" : ""}`} ></div>
               <input
-                ref={inputRef} // Attach ref to the input element
+                ref={inputRef} 
                 type="search"
                 id="inputSearch"
                 placeholder="Search for cakes, occasion, flavor and more"
@@ -319,7 +319,7 @@ const navComponent = () => {
                   <li>
                     <a>
                       <span className="selectSearchListPopularIcon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 18 18"><path stroke="#888" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".7" stroke-width="1.2" d="m15.75 5.25-6 6-3-3-4.5 4.5m13.5-7.5h-4.5m4.5 0v4.5"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 18 18"><path stroke="#888" strokeLinecap="round" strokeLinejoin="round" strokeOpacity=".7" strokeWidth="1.2" d="m15.75 5.25-6 6-3-3-4.5 4.5m13.5-7.5h-4.5m4.5 0v4.5"/></svg>
                       </span>
                       <span className="selectSearchListPopularText">
                         Cake
@@ -329,7 +329,7 @@ const navComponent = () => {
                   <li>
                     <a>
                       <span className="selectSearchListPopularIcon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 18 18"><path stroke="#888" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".7" stroke-width="1.2" d="m15.75 5.25-6 6-3-3-4.5 4.5m13.5-7.5h-4.5m4.5 0v4.5"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 18 18"><path stroke="#888" strokeLinecap="round" strokeLinejoin="round" strokeOpacity=".7" strokeWidth="1.2" d="m15.75 5.25-6 6-3-3-4.5 4.5m13.5-7.5h-4.5m4.5 0v4.5"/></svg>
                       </span>
                       <span className="selectSearchListPopularText">
                       Savoury

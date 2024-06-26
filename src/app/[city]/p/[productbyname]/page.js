@@ -42,14 +42,14 @@ async function getCategoryData(category, city) {
         sub_category_name: "",
         city_name: city,
       };
-      const respData = await fetch(process.env.API_URL+"ProductMaster/GetB2CProducts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(obj),
-      });
-      const getData= await respData.json() 
+      const respData = await fetch(
+        process.env.API_URL +
+          `ProductMaster/GetB2CProducts?category_name=${
+            category ? category : ""
+          }&sub_category_name=null&city_name=${city}`,
+        { next: { revalidate: 180 } }
+      );
+      const getData = await respData.json();
       if (getData) {
         return getData;
       }
@@ -72,9 +72,9 @@ async function GetProductData(productname, city) {
   const Name = productname.split("-").join(" ");
   try {
     const respData = await fetch(
-      process.env.API_URL+ `productMaster/GetProductByName/${city}/${Name}`
+      process.env.API_URL + `productMaster/GetProductByName/${city}/${Name}`
     );
-    const response = await respData.json()
+    const response = await respData.json();
     if (response) {
       return response;
     }
@@ -82,7 +82,6 @@ async function GetProductData(productname, city) {
     console.log(error);
   }
 }
-
 
 const productbyname = async ({ params }) => {
   const cities = await getCities();

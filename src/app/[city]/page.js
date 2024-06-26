@@ -63,8 +63,12 @@ export async function generateMetadata({ params }) {
 
 async function fetchMedia(apiUrl, city) {
   try {
+    if (process.env.NODE_ENV === "development") {
+      process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+    }
+
     const agent = new Agent({
-      rejectUnauthorized: false,
+      rejectUnauthorized: process.env.NODE_ENV !== "development",
     });
 
     const bannerInfo = await fetch(apiUrl + "BannerMaster/GetBannerByCityName?city_name=" + city, {
@@ -80,6 +84,7 @@ async function fetchMedia(apiUrl, city) {
     console.log(err);
   }
 }
+
 const page = async ({ params }) => {
   const apiUrl = process.env.API_URL;
   const city = params.city;
