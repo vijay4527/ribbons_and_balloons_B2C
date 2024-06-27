@@ -78,7 +78,7 @@ const page = ({ params }) => {
   const getAllCoupons = async () => {
     try {
       const response = await fetch(
-        apiUrl + "CouponMaster/GetAllCouponByCity?city=" + city
+        apiUrl + "CouponMaster/GetAllCouponByCity?city=" + city,{ next: { revalidate: 180 },}
       );
       const data = await response.json();
       if (data) {

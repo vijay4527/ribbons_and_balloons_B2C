@@ -51,7 +51,7 @@ async function getCategoryData(apiUrl, categoryName, subcategory, city) {
       }&city_name=${city}`;
     const responseData = await fetch(listingUrl, { next: { revalidate: 180 } });
     const categoryData = await fetch(
-      apiUrl + "Category/GetAllCategories?city_name=" + city
+      apiUrl + "Category/GetAllCategories?city_name=" + city,{ next: { revalidate: 180 },}
     );
 
     const response = await responseData.json();

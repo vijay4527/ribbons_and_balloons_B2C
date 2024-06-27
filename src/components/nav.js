@@ -13,7 +13,6 @@ import { headers } from "next/headers";
 import { getCities } from "@/utils/commoncity";
 const getCategories = async (api, city) => {
   try {
-    const categoryObj = { city_name: city };
     const responseData = await fetch(
       api + "Category/GetAllCategories",
       {next: { revalidate: 180 } }

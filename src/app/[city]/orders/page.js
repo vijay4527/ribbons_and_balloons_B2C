@@ -28,7 +28,7 @@ const page = ({ params }) => {
   const getAllOrders = async () => {
     try {
       const data = await fetch(
-        apiUrl+`Order/GetOrderByUserId/${userInfo.user_id}`
+        apiUrl+`Order/GetOrderByUserId/${userInfo.user_id}`,{ next: { revalidate: 180 },}
       );
       const Orders= await data.json()
       if (Orders) {

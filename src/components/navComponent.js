@@ -108,7 +108,7 @@ const navComponent = () => {
 
   const getCities = async () => {
     try {
-      const data  = await fetch(apiUrl+"RNBCity/GetAllRNBCity");
+      const data  = await fetch(apiUrl+"RNBCity/GetAllRNBCity",{ next: { revalidate: 180 },});
       const cityResponse= await data.json()
       if (cityResponse) {
         setCities(cityResponse);

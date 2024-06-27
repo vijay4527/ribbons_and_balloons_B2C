@@ -32,9 +32,9 @@ async function getCategoryData(apiUrl,categoryName, subcategory, city) {
   const subcatgoryName = subcategory.split("-").join(" ");
   const categoryStr = categoryName.split("-").join(" ");
   try {
-    const responseData = await fetch(apiUrl + `ProductMaster/GetB2CProducts?category_name=${categoryStr}&sub_category_name=${subcatgoryName}&city_name=${city}`);
+    const responseData = await fetch(apiUrl + `ProductMaster/GetB2CProducts?category_name=${categoryStr}&sub_category_name=${subcatgoryName}&city_name=${city}`,{ next: { revalidate: 180 },});
     const categoryData = await fetch(
-      apiUrl + "Category/GetAllCategories?city_name=" + city
+      apiUrl + "Category/GetAllCategories?city_name=" + city,{ next: { revalidate: 180 },}
     );
     const response = await responseData.json();
     const category = await categoryData.json();
