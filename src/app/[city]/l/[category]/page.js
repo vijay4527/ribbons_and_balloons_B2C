@@ -42,20 +42,16 @@ async function getCategoryData(apiUrl, categoryName, subcategory, city) {
   const categoryStr = await categoryName.split("-").join(" ");
 
   try {
-    const obj = {
-      category_name: categoryStr || "",
-      sub_category_name: subcategory || "",
-      city_name: city,
-    };
-
-    const responseData = await fetch(
+    let listingUrl =
       apiUrl +
-        `ProductMaster/GetB2CProducts?category_name=${
-          categoryStr ? categoryStr : ""
-        }&sub_category_name=${subcategory ? subcategory : ""}&city_name=${city}`
-    );
+      `ProductMaster/GetB2CProducts?category_name=${
+        categoryStr ? categoryStr : ""
+      }${
+        subcategory ? "&sub_category_name=" + subcategory : ""
+      }&city_name=${city}`;
+    const responseData = await fetch(listingUrl, { next: { revalidate: 180 } });
     const categoryData = await fetch(
-      apiUrl + "/Category/GetAllCategories?city_name=" + city
+      apiUrl + "Category/GetAllCategories?city_name=" + city
     );
 
     const response = await responseData.json();

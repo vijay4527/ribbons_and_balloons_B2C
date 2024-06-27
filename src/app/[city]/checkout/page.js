@@ -29,8 +29,6 @@ const page = ({ params }) => {
   const [selectedCoupon, setSelectedCoupon] = useState("");
   const [filteredCoupon, setFilteredCoupon] = useState([]);
   const [couponMessage, setCouponMessage] = useState("");
-  const [coupon, setCoupon] = useState([]);
-  const [isDisplayCoupon, setIsDisplayCoupon] = useState(false);
   const { isLogged } = useContext(AuthOtpContext);
   const accessCode = process.env.ACCESS_CODE;
   const redirectUrl = process.env.form_Action_Url;
@@ -247,7 +245,6 @@ const page = ({ params }) => {
           form.method = "post";
           form.name = "redirect";
           form.action = redirectUrl;
-          // Create input elements and set their values
           const encRequestInput = document.createElement("input");
           encRequestInput.type = "hidden";
           encRequestInput.name = "encRequest";
@@ -402,10 +399,8 @@ const page = ({ params }) => {
       coupon.coupon_name.toLowerCase().includes(searchTerm)
     );
     if (filteredCoupons.length > 0) {
-      setIsDisplayCoupon(true);
       setFilteredCoupon(filteredCoupons);
     } else {
-      setIsDisplayCoupon(false);
       setCouponMessage("No Coupon Found");
       setSelectedCoupon("");
     }
@@ -418,64 +413,68 @@ const page = ({ params }) => {
     getLocation();
   };
   const getLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          try {
-            const response = await fetch(
-              `https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=AIzaSyBpti7QuC_QXwWE90MT0RkfMPlET1KbhS4&libraries=places`
-            );
-            if (response.data.results.length > 0) {
-              let city = "";
-              let state = "";
-              let zipCode = "";
-              let country = "";
-              const formattedAddress =
-                response.data.results[0].formatted_address;
-              for (let component of response.data.results[0]
-                .address_components) {
-                if (component.types.includes("locality")) {
-                  city = component.long_name;
-                } else if (
-                  component.types.includes("administrative_area_level_1")
-                ) {
-                  state = component.long_name;
-                } else if (component.types.includes("postal_code")) {
-                  zipCode = component.long_name;
-                } else if (component.types.includes("country")) {
-                  country = component.long_name;
+    try{
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            try {
+              const responseData = await fetch(
+                `https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=AIzaSyBpti7QuC_QXwWE90MT0RkfMPlET1KbhS4&libraries=places`
+              );
+              const response =await  responseData.json()
+              if (response?.results.length > 0) {
+                let city = "";
+                let state = "";
+                let zipCode = "";
+                let country = "";
+                const formattedAddress =
+                  response.results[0].formatted_address;
+                for (let component of response?.results[0]
+                  .address_components) {
+                  if (component.types.includes("locality")) {
+                    city = component.long_name;
+                  } else if (
+                    component.types.includes("administrative_area_level_1")
+                  ) {
+                    state = component.long_name;
+                  } else if (component.types.includes("postal_code")) {
+                    zipCode = component.long_name;
+                  } else if (component.types.includes("country")) {
+                    country = component.long_name;
+                  }
                 }
+                const remainingAddress = formattedAddress
+                  .replace(`${city}, ${state} ${zipCode}, ${country}`, "")
+                  .trim();
+                setFormValues({
+                  ...formValues,
+                  city: city,
+                  state: state,
+                  country: country,
+                  address: remainingAddress,
+                  pinCode: zipCode,
+                });
+                setLocation({
+                  latitude: position.coords.latitude,
+                  longitude: position.coords.longitude,
+                });
+                setError(null);
+              } else {
+                setError("Unable to find address for this location");
               }
-              const remainingAddress = formattedAddress
-                .replace(`${city}, ${state} ${zipCode}, ${country}`, "")
-                .trim();
-              setFormValues({
-                ...formValues,
-                city: city,
-                state: state,
-                country: country,
-                address: remainingAddress,
-                pinCode: zipCode,
-              });
-              setLocation({
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude,
-              });
-              setError(null);
-            } else {
-              setError("Unable to find address for this location");
+            } catch (error) {
+              setError("Error retrieving address");
             }
-          } catch (error) {
-            setError("Error retrieving address");
+          },
+          (error) => {
+            setError("Unable to retrieve your location");
           }
-        },
-        (error) => {
-          setError("Unable to retrieve your location");
-        }
-      );
-    } else {
-      setError("Geolocation is not supported by your browser");
+        );
+      }
+    }catch(error){
+      console.log(error)
     }
+ 
   };
 
   const closeModal = () => {
@@ -965,7 +964,7 @@ const page = ({ params }) => {
                 placeholder="Search Coupon if any"
               />
               {filteredCoupon.length > 0 &&
-                filteredCoupon.map((res) => (
+                filteredCoupon.map((res,index) => (
                   <>
                     <label
                       htmlFor={`Franchise${res.coupon_id}`}
@@ -974,7 +973,7 @@ const page = ({ params }) => {
                           ? `${styles.active}`
                           : ""
                       }`}
-                      key={res.coupon_id}
+                      key={index}
                     >
                       <div className={styles.pickUpFranchiseInput}>
                         <input
