@@ -344,7 +344,16 @@ img {
   margin-right: 5px;
   font-family: var(--font-family);
 }
+.selectLocation:hover h4{
+  color: var(--theme-primary);
+}
+.selectLocation:hover img {
 
+}
+.selectSearchItem:hover .SvgIcons svg,
+.navAction ul li a:hover .SvgIcons svg {
+  fill: var(--theme-primary);
+}
 .selectLocation,
 .selectSearchItem {
   cursor: pointer;
@@ -756,7 +765,9 @@ ul.selectLocationOption a {
   display: flex;
   align-items: center;
 }
-
+.sub_navbtn:hover .category-title{
+  color: var(--theme-primary);
+}
 .category-title {
   margin-right: 5px;
   margin-bottom: 0px;
@@ -2585,7 +2596,8 @@ video {
 }
 
 .login-container {
-  background-image: url("https://fama.b-cdn.net/RnB/Stripes.webp");
+  /* background-image: url("https://fama.b-cdn.net/RnB/Stripes.webp"); */
+  background-color: var(--theme-seconary);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

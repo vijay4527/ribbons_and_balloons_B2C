@@ -144,7 +144,6 @@
 }
 
 .pickUpSearchResultItem {
-    border-top: 1px solid #ecedeb;
     border-left: 5px solid transparent;
     padding: 1rem 1.6rem 1rem 0px;
     width: 100%;
@@ -186,7 +185,14 @@
     justify-content: inherit;
     padding: 0 1rem 0 1rem;
 }
-
+.couponBody{
+    margin-top: 20px;
+}
+.couponItem{
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #ecedeb;
+}
 .pickUpFranchiseInput input {
     top: 0;
     left: 0;
@@ -195,10 +201,12 @@
     opacity: 0;
     padding: 0;
     z-index: 1;
+    display: none !important;
 }
 
 .pickUpFranchiseInputIcon {
     position: relative;
+    width: min-content;
 }
 
 .pickUpFranchiseInputIcon svg {
@@ -212,7 +220,9 @@
     user-select: none;
 }
 
-.pickUpFranchiseDetails {}
+.pickUpFranchiseDetails {
+    width: 100%;
+}
 
 .pickUpFranchiseInfo {
     display: grid;
@@ -372,7 +382,8 @@
 }
 
 .giftBox{
-    width: 30% !important;
+    width: 60px !important;
+    margin-right: 25px;
 }
 
 .modalBox{
@@ -381,6 +392,8 @@
 
 
 .modalCartPriceBox{
+    background-color: var(--theme-seconary);
+    color: #fff;
     padding: 1.6rem;
     font-family: var(--font-family);
     border-radius: 10px;
@@ -395,4 +408,12 @@
 
 .couponDetails{
     margin-left: 20px !important;
+}
+.addCouponItem{
+    margin: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 1.8rem !important;
+    text-transform: capitalize !important;
 }
