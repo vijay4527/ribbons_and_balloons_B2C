@@ -78,7 +78,8 @@ const page = ({ params }) => {
   const getAllCoupons = async () => {
     try {
       const response = await fetch(
-        apiUrl + "CouponMaster/GetAllCouponByCity?city=" + city,{ next: { revalidate: 180 },}
+        apiUrl + "CouponMaster/GetAllCouponByCity?city=" + city,
+        { next: { revalidate: 180 } }
       );
       const data = await response.json();
       if (data) {
@@ -390,7 +391,6 @@ const page = ({ params }) => {
     setDisplayCancelButton(true);
     setSelectedCoupon(res.coupon_id);
     GetAllCart(res.coupon_id);
-  
   };
 
   const fitlerCoupon = (e) => {
@@ -413,7 +413,7 @@ const page = ({ params }) => {
     getLocation();
   };
   const getLocation = () => {
-    try{
+    try {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           async (position) => {
@@ -421,16 +421,14 @@ const page = ({ params }) => {
               const responseData = await fetch(
                 `https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=AIzaSyBpti7QuC_QXwWE90MT0RkfMPlET1KbhS4&libraries=places`
               );
-              const response =await  responseData.json()
+              const response = await responseData.json();
               if (response?.results.length > 0) {
                 let city = "";
                 let state = "";
                 let zipCode = "";
                 let country = "";
-                const formattedAddress =
-                  response.results[0].formatted_address;
-                for (let component of response?.results[0]
-                  .address_components) {
+                const formattedAddress = response.results[0].formatted_address;
+                for (let component of response?.results[0].address_components) {
                   if (component.types.includes("locality")) {
                     city = component.long_name;
                   } else if (
@@ -471,10 +469,9 @@ const page = ({ params }) => {
           }
         );
       }
-    }catch(error){
-      console.log(error)
+    } catch (error) {
+      console.log(error);
     }
- 
   };
 
   const closeModal = () => {
@@ -919,25 +916,29 @@ const page = ({ params }) => {
                     </button>
                   </div>
                 </div>
-                <div className="" style={{ width: "100%", marginTop: "10px" }}>
-                  <div className={styles.cartPriceBox}>
-                    <div
-                      className={`${styles.cartOrderSummary} m-0`}
-                    >
-                      <h4 className={styles.addCouponItem}
-                        onClick={() => {
-                          setModalIsOpen(true);
-                        }}
-                      >
-                        <img
-                          src="https://assets.landmarkshops.in/website_images/in/checkout/gift-box.png"
-                          className={styles.giftBox}
-                        />
-                        Add Offers
-                      </h4>{" "}
+                {filteredCoupon.length > 0 && (
+                  <div
+                    className=""
+                    style={{ width: "100%", marginTop: "10px" }}
+                  >
+                    <div className={styles.cartPriceBox}>
+                      <div className={`${styles.cartOrderSummary} m-0`}>
+                        <h4
+                          className={styles.addCouponItem}
+                          onClick={() => {
+                            setModalIsOpen(true);
+                          }}
+                        >
+                          <img
+                            src="https://assets.landmarkshops.in/website_images/in/checkout/gift-box.png"
+                            className={styles.giftBox}
+                          />
+                          Add Offers
+                        </h4>{" "}
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </div>
@@ -954,7 +955,9 @@ const page = ({ params }) => {
           <div className={styles.modalCartPriceBox}>
             <div className={styles.cartOrderSummary}>
               <h4>Add Coupons</h4>{" "}
-              <button className="btn btn-primary" onClick={closeModal}>close</button>
+              <button className="btn btn-primary" onClick={closeModal}>
+                close
+              </button>
             </div>
             <div className={homeStyles["form_group"]}>
               <input
@@ -964,76 +967,79 @@ const page = ({ params }) => {
                 placeholder="Search Coupon if any"
               />
               <div className={styles.couponBody}>
-              {filteredCoupon.length > 0 &&
-                filteredCoupon.map((res,index) => (
-                  <>
-                    <div className={styles.couponItem}>
-                      <label
-                        htmlFor={`Franchise${res.coupon_id}`}
-                        className={`${styles.pickUpSearchResultItem} ${
-                          selectedCoupon === res.coupon_id
-                            ? `${styles.active}`
-                            : ""
-                        }`}
-                        key={res.coupon_id}
-                      >
-                        <div className={styles.pickUpFranchiseInput}>
-                          <input
-                            id={`Franchise${res.coupon_id}`}
-                            className="form-check-input"
-                            type="radio"
-                            value="pickup"
-                            checked={selectedCoupon === res.coupon_id}
-                            onChange={() => {
-                              hanldeCoupon(res);
-                            }}
-                          />
-                          <div className={styles.pickUpFranchiseInputIcon}>
-                            <svg
-                              className={styles.roundedIcon}
-                              focusable="false"
-                              viewBox="0 0 24 24"
-                              aria-hidden="true"
-                            >
-                              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
-                            </svg>
-                            <svg
-                              className={styles.solidIcon}
-                              focusable="false"
-                              viewBox="0 0 24 24"
-                              aria-hidden="true"
-                            >
-                              <path d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"></path>
-                            </svg>
-                          </div>
-                        </div>
-                        <div
-                          className={`${styles.pickUpFranchiseDetails} ${styles.couponDetails}`}
+                {filteredCoupon.length > 0 &&
+                  filteredCoupon.map((res, index) => (
+                    <>
+                      <div className={styles.couponItem}>
+                        <label
+                          htmlFor={`Franchise${res.coupon_id}`}
+                          className={`${styles.pickUpSearchResultItem} ${
+                            selectedCoupon === res.coupon_id
+                              ? `${styles.active}`
+                              : ""
+                          }`}
+                          key={res.coupon_id}
                         >
-                          <div className={styles.modalCouponName}>
-                            <h4>{res.coupon_name}</h4>
+                          <div className={styles.pickUpFranchiseInput}>
+                            <input
+                              id={`Franchise${res.coupon_id}`}
+                              className="form-check-input"
+                              type="radio"
+                              value="pickup"
+                              checked={selectedCoupon === res.coupon_id}
+                              onChange={() => {
+                                hanldeCoupon(res);
+                              }}
+                            />
+                            <div className={styles.pickUpFranchiseInputIcon}>
+                              <svg
+                                className={styles.roundedIcon}
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                              >
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
+                              </svg>
+                              <svg
+                                className={styles.solidIcon}
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                              >
+                                <path d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"></path>
+                              </svg>
+                            </div>
                           </div>
-                          {selectedCoupon === res.coupon_id &&
-                            displayCancelButton && (
-                              <div className={`${styles.pickUpFranchiseInfo}`}>
-                                <h6>{couponMessage}</h6>
-                              </div>
-                            )}
-                        </div>
-                      </label>
-                      
-                      {selectedCoupon === res.coupon_id &&
-                        displayCancelButton && (
-                          <button
-                              className="btn btn-primary"
-                            onClick={removeCoupon}
+                          <div
+                            className={`${styles.pickUpFranchiseDetails} ${styles.couponDetails}`}
                           >
-                            Remove
-                          </button>
-                        )}
-                    </div>
-                  </>
-                ))}
+                            <div className={styles.modalCouponName}>
+                              <h4>{res.coupon_name}</h4>
+                            </div>
+                            <span>shop for minimum {res.applicable_amt} and get discount upto {res.dist_max_amt}</span>
+                            {selectedCoupon === res.coupon_id &&
+                              displayCancelButton && (
+                                <div
+                                  className={`${styles.pickUpFranchiseInfo}`}
+                                >
+                                  <h6>{couponMessage}</h6>
+                                </div>
+                              )}
+                          </div>
+                        </label>
+
+                        {selectedCoupon === res.coupon_id &&
+                          displayCancelButton && (
+                            <button
+                              className="btn btn-primary"
+                              onClick={removeCoupon}
+                            >
+                              Remove
+                            </button>
+                          )}
+                      </div>
+                    </>
+                  ))}
               </div>
             </div>
             {isBtnVisible && (

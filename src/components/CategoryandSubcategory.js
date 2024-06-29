@@ -104,31 +104,40 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
         <div className={homeStyles["container_fluid"]}>
           <div className={styles.plpPageWrap}>
             <div className={styles.plpPageFilter}>
-              <div className={styles.plpFilterAction}>
-                <h4 className={styles.plpFilterInfoAction}>PRICE FILTER</h4>
-                <div className={styles.underLinecenter}>
-                  <div className={"testimonialUnder"}>
-                    <div className={"underLine"}></div>
-                    <div className={"shapLine"}></div>
+              {minRange !== maxRange && (
+                <div className={styles.plpFilterAction}>
+                  <h4 className={styles.plpFilterInfoAction}>PRICE FILTER</h4>
+                  <div className={styles.underLinecenter}>
+                    <div className={"testimonialUnder"}>
+                      <div className={"underLine"}></div>
+                      <div className={"shapLine"}></div>
+                    </div>
+                  </div>
+                  <div className={styles.plpFilterDescAction}>
+                    <span className={styles.plpPriceLeft}>
+                      Rs: {selectedMinRange}
+                    </span>
+                    <div className={styles.plpPriceRange}>
+                      <RangeSlider
+                        min={minRange}
+                        max={maxRange}
+                        defaultValue={{ start: minRange, end: maxRange }}
+                        value={[selectedMinRange, selectedMaxRange]}
+                        onInput={(values) =>
+                          handleRangeChange({
+                            start: values[0],
+                            end: values[1],
+                          })
+                        }
+                      />
+                    </div>
+                    <span className={styles.plpPriceRight}>
+                      Rs: {selectedMaxRange}
+                    </span>
                   </div>
                 </div>
-                <div
-                  className={styles.plpFilterDescAction}>
-                  <span className={styles.plpPriceLeft}>Rs: {selectedMinRange}</span>
-                  <div className={styles.plpPriceRange}>
-                    <RangeSlider
-                      min={minRange}
-                      max={maxRange}
-                      defaultValue={{ start: minRange, end: maxRange }}
-                      value={[selectedMinRange, selectedMaxRange]}
-                      onInput={(values) =>
-                        handleRangeChange({ start: values[0], end: values[1] })
-                      }
-                    />
-                  </div>
-                  <span className={styles.plpPriceRight}>Rs: {selectedMaxRange}</span>
-                </div>
-              </div>
+              )}
+
               <div className={styles.plpFilterAction}>
                 <h4 className={styles.plpFilterInfoAction}>CATEGORIES</h4>
                 <div className={styles.underLinecenter}>
@@ -141,18 +150,17 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
                   <ul>
                     {category && category.length > 0
                       ? category.map((item, index) => (
-                        <li key={index}>
-                          <Link
-                            href={`/${city}/l/${item.category_name
-                              .split(" ")
-                              .join("-")}`}
-                            key={index}
-                            className="categoryLink"
-                          >
-                            {item.category_name}
-                          </Link>
+                          <li key={index}>
+                            <Link
+                              href={`/${city}/l/${item.category_name
+                                .split(" ")
+                                .join("-")}`}
+                              key={index}
+                              className="categoryLink"
+                            >
+                              {item.category_name}
+                            </Link>
                           </li>
-                          
                         ))
                       : ""}
                   </ul>
@@ -192,14 +200,14 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
                     return (
                       <div className={styles.item} key={item.product_id}>
                         <Link
-                            key={item.product_id}
-                            href={`/${city}/p/${productName}`}
-                            className={styles.itemCard}
-                            prefetch={true}
-                          >
-                        <div className={styles.itemInfo}>
-                          {/* <AddToFavoriteButton  productData={item} city={city}/> */}
-                          
+                          key={item.product_id}
+                          href={`/${city}/p/${productName}`}
+                          className={styles.itemCard}
+                          prefetch={true}
+                        >
+                          <div className={styles.itemInfo}>
+                            {/* <AddToFavoriteButton  productData={item} city={city}/> */}
+
                             <div className={`${styles.imgHvr}`}>
                               <img
                                 className={styles.plpProdctImg}
@@ -207,14 +215,13 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
                                 alt="No image found"
                               />
                             </div>
-                        
-                          <div className={`${styles["itemDesc"]}`}>
-                            <h1>{item.product_name}</h1>
-                            <h4>Sinful Collections</h4>
-                            <p>₹ {item.cost}</p>
-                          </div>
 
-                        </div>
+                            <div className={`${styles["itemDesc"]}`}>
+                              <h1>{item.product_name}</h1>
+                              <h4>Sinful Collections</h4>
+                              <p>₹ {item.cost}</p>
+                            </div>
+                          </div>
                         </Link>
                       </div>
                     );

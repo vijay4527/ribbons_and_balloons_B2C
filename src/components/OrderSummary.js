@@ -41,10 +41,10 @@ export default function OrderSummary({
             </li>
           ))}
       </ul>
-      <div className={styles.cartPriceTotalAmt}>
+      {/* <div className={styles.cartPriceTotalAmt}>
         <h4>Total</h4>
         <h5>₹ {totalAmount}</h5>
-      </div>
+      </div> */}
       <div className="d-flex justify-content-sm-between">
         <h4>Discount Amount</h4>
         <h5>₹ {discountAmount ? discountAmount : 0}</h5>

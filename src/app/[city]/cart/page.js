@@ -5,7 +5,7 @@ import styles from "@/app/[city]/cart/page.module.css";
 import homeStyles from "@/app/home.module.css";
 import { useRouter } from "next/navigation";
 import LoginModal from "@/components/loginModal";
-import { useSession} from "next-auth/react";
+import { useSession } from "next-auth/react";
 import AppConfig from "@/AppConfig";
 import Head from "next/head";
 import ServingInfo from "@/components/ServingInfo";
@@ -24,19 +24,19 @@ const page = ({ params }) => {
   const [isCityModalOpen, setCityModalOpen] = useState(false);
   const [user, setUser] = useState(null);
   const { isLogged } = useContext(AuthOtpContext);
-  const city =  Cookies.get("city");
-  const apiUrl = process.env.API_URL
+  const city = Cookies.get("city");
+  const apiUrl = process.env.API_URL;
 
   var userInfo =
-  typeof window !== "undefined"
-    ? JSON.parse(sessionStorage.getItem("userData"))
-    : "";
+    typeof window !== "undefined"
+      ? JSON.parse(sessionStorage.getItem("userData"))
+      : "";
   useEffect(() => {
     if (userInfo) {
       setIsUserLoggedIn(true);
       setUser(userInfo);
     }
-  }, [session,isLogged,userInfo?.user_id]);
+  }, [session, isLogged, userInfo?.user_id]);
   let cartId = "";
   if (typeof window !== "undefined") {
     cartId = sessionStorage.getItem("cartId") || Cookies.get("cartId") || "";
@@ -53,19 +53,19 @@ const page = ({ params }) => {
           user_id: user ? user.user_id : "",
           city_name: city ? city : "",
           type: "AC",
-          coupon_id:""
+          coupon_id: "",
         };
-        const responseData = await fetch(apiUrl + "CartMaster/GetCartDetails",{
+        const responseData = await fetch(apiUrl + "CartMaster/GetCartDetails", {
           method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(obj),
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(obj),
         });
-        const response =await responseData.json()
+        const response = await responseData.json();
         if (response) {
           setCart(response.result);
-          setGrandTotal(response.final_amount)
+          setGrandTotal(response.final_amount);
         }
       }
     } catch (error) {
@@ -74,15 +74,15 @@ const page = ({ params }) => {
   };
 
   const removeFromCart = async (cpId, itemCost) => {
-    const responseData = await fetch(apiUrl+`CartMaster/RemoveCart/${cpId}`);
-    const response = await responseData.json()
+    const responseData = await fetch(apiUrl + `CartMaster/RemoveCart/${cpId}`);
+    const response = await responseData.json();
     if (response?.resp == true) {
       var newPrice = grandTotal - itemCost;
       setGrandTotal(newPrice);
       if (cart.length == 1) {
         try {
-          setCart([])
-          Cookies.remove("cartId")
+          setCart([]);
+          Cookies.remove("cartId");
           sessionStorage.removeItem("cartId");
           cartId = "";
         } catch (error) {
@@ -119,7 +119,6 @@ const page = ({ params }) => {
     console.log("Closing modal");
     setCityModalOpen(false);
   };
-
 
   return (
     <>
@@ -169,9 +168,12 @@ const page = ({ params }) => {
                                   </div>
                                 </div>
                                 <div className="cart-msg-info">
-                                  <h4 className="msg-on-cake">
-                                    Message on Cake : {item.msg_cake}
-                                  </h4>
+                                  {item.product_type !== "5" && item?.msg_cake !== null && (
+                                    <h4 className="msg-on-cake">
+                                      Message on Cake : {item.msg_cake}
+                                    </h4>
+                                  )}
+
                                   <h5></h5>
                                   <div className="trash-flex">
                                     <h4>
@@ -182,7 +184,14 @@ const page = ({ params }) => {
                                       )}
                                     </h4>
                                     <div className="trash-icon-div">
-                                      <img className="" src="https://fama.b-cdn.net/RnB/gold-trash%20(2).png" onClick={()=>removeFromCart(item.cp_id, item.cost)} alt="icon"/>
+                                      <img
+                                        className=""
+                                        src="https://fama.b-cdn.net/RnB/gold-trash%20(2).png"
+                                        onClick={() =>
+                                          removeFromCart(item.cp_id, item.cost)
+                                        }
+                                        alt="icon"
+                                      />
                                     </div>
                                   </div>
                                 </div>
@@ -203,7 +212,7 @@ const page = ({ params }) => {
                     <h4>Order summary</h4>
                     <ServingInfo />
                   </div>
-                  <OrderSummary data={cart} finalAmount={grandTotal}/>
+                  <OrderSummary data={cart} finalAmount={grandTotal} />
                   <button
                     className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`}
                     onClick={handleProducts}

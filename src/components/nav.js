@@ -64,7 +64,7 @@ const Nav = async () => {
 
   const city = isCity ? cookiecity : Cityname;
   return (
-    <div>
+    <div className="navbarDiv">
       <Container>
         <div className="navbar_body">
           <div className="navbar_logo">
@@ -115,20 +115,20 @@ const Nav = async () => {
                 </div>
                 <div className="Brands_navbody">
                   <div className="subNavbar_body">
-                    <div className={`sub_nav`}>
+                    {/* <div className={`sub_nav`}>
                       <div className={"sub_navbtn"}>
                         <Link href={`/${city}`} prefetch={true}>
                           <h4 className="category-title">Home</h4>
                         </Link>
                       </div>
-                    </div>
-                    <div className={`sub_nav`}>
+                    </div> */}
+                    {/* <div className={`sub_nav`}>
                       <div className={"sub_navbtn"}>
                         <Link href={`/${city}/about-us`} prefetch={true}>
                           <h4 className="category-title">About Us</h4>
                         </Link>
                       </div>
-                    </div>
+                    </div> */}
                     {categories &&
                       categories.length > 0 &&
                       categories.map((category, index) => (
@@ -237,6 +237,13 @@ const Nav = async () => {
                           </div>
                         </div>
                       ))}
+                    <div className={`sub_nav`}>
+                      <div className={"sub_navbtn"}>
+                        <Link href={`/${city}/blogs`} prefetch={true}>
+                          <h4 className="category-title">Blogs</h4>
+                        </Link>
+                      </div>
+                    </div>  
                   </div>
                 </div>
               </div>

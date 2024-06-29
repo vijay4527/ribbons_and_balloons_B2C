@@ -33,7 +33,7 @@ function getProductDetails({ data }) {
   const [selectedProduct, setSelectedProduct] = useState({});
   const [activeFlavour, setActiveFlavour] = useState("");
   const [activeWeight, setActiveWeight] = useState("");
-
+  const [isChecked,setIsChecked] = useState(false)
   useEffect(() => {
     const interval = setInterval(() => {
       if (index < placeholder.length) {
@@ -129,12 +129,7 @@ function getProductDetails({ data }) {
 
   const [isLoading, setLoading] = useState(false);
 
-  const handleClick = () => {
-    if (!isLoading) {
-      setLoading(true);
-      setTimeout(() => setLoading(false), 3700);
-    }
-  };
+
   const handleProductTypeChange = (event) => {
     const selectedType = event;
     updateVariety(selectedType);
@@ -248,6 +243,11 @@ function getProductDetails({ data }) {
     updateMessage(e);
     setMessageOnCake(e);
   };
+
+
+  const ToggleChange = async()=>{
+    setIsChecked(!isChecked)
+  }
   if (product && Object.keys(product).length > 0) {
     return (
       <div className={styles.pdp_DetailAction}>
@@ -431,26 +431,6 @@ function getProductDetails({ data }) {
               <div className={styles.pdp_SelectFlavour}>
                 <div className="input-group">
                   <span
-                    className="input-group-text"
-                    style={{
-                      padding: "4px 10px 4px 10px",
-                      backgroundColor: "#51171d",
-                      borderRadius: "4px 0px 0px 4px",
-                      cursor: "pointer",
-                      color: "white",
-                    }}
-                    onClick={handleIncrementQuantity}
-                  >
-                    +
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control"
-                    max={20}
-                    min={1}
-                    value={values}
-                  />{" "}
-                  <span
                     className="input-group-text decrement"
                     style={{
                       padding: "4px 10px 4px 10px",
@@ -462,6 +442,26 @@ function getProductDetails({ data }) {
                     onClick={handleDecrementQuantity}
                   >
                     -
+                  </span>
+                  <input
+                    type="text"
+                    className="form-control"
+                    max={20}
+                    min={1}
+                    value={values}
+                  />{" "}
+                  <span
+                    className="input-group-text"
+                    style={{
+                      padding: "4px 10px 4px 10px",
+                      backgroundColor: "#51171d",
+                      borderRadius: "4px 0px 0px 4px",
+                      cursor: "pointer",
+                      color: "white",
+                    }}
+                    onClick={handleIncrementQuantity}
+                  >
+                    +
                   </span>
                 </div>
               </div>
@@ -541,53 +541,62 @@ function getProductDetails({ data }) {
           </>
         )}
 
-        {product.type_id !== 5 && product.type_id !== 6 &&(
+        {product.type_id !== 5 && product.type_id !== 6 && (
           <>
-            <div className={styles.pdp_SelectInfo}>
-              <div className={styles.pdp_shortInfo}>
-                <h4 className={styles.pdp_DetailInfoTitle}>Upload Image*</h4>
-              </div>
-              <div className={styles.pdp_SelectUploadImage}>
-                <label
-                  htmlFor="FileUpload"
-                  className={styles.pdp_SelectUploadLabel}
-                >
-                  <input
-                    type="file"
-                    id="FileUpload"
-                    className={styles.pdp_SelectUploadInput}
-                  />
-                  <div className={styles.image_uploading_content}>
-                    <div className={styles.choose_file_circle}>
-                      <span></span>
-                      Choose file
+          <div className="d-flex">
+          <input type="checkbox" id="isChecked" onChange={ToggleChange}/>
+           <label htmlFor="" className="ml-4"> upload image</label>
+          </div>
+            {isChecked && (
+              <div className={styles.pdp_SelectInfo}>
+                <div className={styles.pdp_shortInfo}>
+                  <h4 className={styles.pdp_DetailInfoTitle}>Upload Image*</h4>
+                </div>
+                <div className={styles.pdp_SelectUploadImage}>
+                  <label
+                    htmlFor="FileUpload"
+                    className={styles.pdp_SelectUploadLabel}
+                  >
+                    <input
+                      type="file"
+                      id="FileUpload"
+                      className={styles.pdp_SelectUploadInput}
+                    />
+                    <div className={styles.image_uploading_content}>
+                      <div className={styles.choose_file_circle}>
+                        <span></span>
+                        Choose file
+                      </div>
+                      <div className={styles.image_uploading_Icon}>
+                        <img
+                          src="https://bkmedia.bakingo.com/images/common/upload.svg"
+                          alt="upload"
+                        />
+                      </div>
                     </div>
-                    <div className={styles.image_uploading_Icon}>
+                  </label>
+                  <div className={styles.photo_uploaded}>
+                    <div className={styles.Photo_UploadedImg}>
                       <img
-                        src="https://bkmedia.bakingo.com/images/common/upload.svg"
-                        alt="upload"
+                        src="https://media.bakingo.com/bk/photo-cake/1693661314.423.jpeg"
+                        alt="No image found"
                       />
                     </div>
-                  </div>
-                </label>
-                <div className={styles.photo_uploaded}>
-                  <div className={styles.Photo_UploadedImg}>
-                    <img
-                      src="https://media.bakingo.com/bk/photo-cake/1693661314.423.jpeg"
-                      alt="No image found"
-                    />
-                  </div>
-                  <div className={styles.Photo_UploadedAction}>
-                    <div className={styles.Photo_UploadedText}>
-                      Photo Uploaded
+                    <div className={styles.Photo_UploadedAction}>
+                      <div className={styles.Photo_UploadedText}>
+                        Photo Uploaded
+                      </div>
+                      <label
+                        htmlFor="FileUpload"
+                        className={styles.reUploadImg}
+                      >
+                        Change Photo
+                      </label>
                     </div>
-                    <label htmlFor="FileUpload" className={styles.reUploadImg}>
-                      Change Photo
-                    </label>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
             <div className={styles.pdp_SelectInfo}>
               <div className={styles.pdp_shortInfo}>
                 <h4

@@ -1,5 +1,5 @@
-"use client"
-import React, { useState } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -11,12 +11,16 @@ import Cookies from "js-cookie";
 export default function Footer() {
   const [errors, setErrors] = useState({});
   const [email, setEmail] = useState("");
+  const [categories, setCategories] = useState([]);
   const router = usePathname();
-  const cityname = router.split("/")[1]
-  const cookieCity = Cookies.get("city")
-  const city = cityname == "paymentfailed" || cityname == "paymentfailed" ? cookieCity : cityname
+  const cityname = router.split("/")[1];
+  const cookieCity = Cookies.get("city");
+  const city =
+    cityname == "paymentfailed" || cityname == "paymentfailed"
+      ? cookieCity
+      : cityname;
   const [status, setStatus] = useState(false);
-  const apiUrl = process.env.API_URL
+  const apiUrl = process.env.API_URL;
   const saveNewsLetter = async () => {
     try {
       await newsLetterSchema.validate({ email }, { abortEarly: false });
@@ -31,15 +35,14 @@ export default function Footer() {
         updated_by: "",
         is_deleted: true,
       };
-      const newsLetterData = await fetch(
-        apiUrl+"NewsLetter/SaveNewsLetter",
-        {  method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(obj),}
-      );
-      const newsLetterResponse = await newsLetterData.json()
+      const newsLetterData = await fetch(apiUrl + "NewsLetter/SaveNewsLetter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
+      });
+      const newsLetterResponse = await newsLetterData.json();
       if (newsLetterResponse) {
         setEmail("");
         setStatus(true);
@@ -57,11 +60,31 @@ export default function Footer() {
         setStatus(false);
         setErrors(newErrors);
         setTimeout(() => {
-            setErrors({});
+          setErrors({});
         }, 3000);
       } else {
         console.error(validationError);
       }
+    }
+  };
+
+  useEffect(() => {
+    GetAllCategories();
+  }, [city]);
+
+  const GetAllCategories = async () => {
+    try {
+      const responseData = await fetch(
+        process.env.API_URL + "Category/GetAllCategories",
+        { next: { revalidate: 180 } }
+      );
+
+      const data = await responseData.json();
+      if (data) {
+        setCategories(data);
+      }
+    } catch (error) {
+      console.error("Error fetching categories:", error);
     }
   };
 
@@ -130,7 +153,7 @@ export default function Footer() {
                   <div className="footerLinks">
                     <h2>Useful Links</h2>
                     <ul>
-                      <li>
+                      {/* <li>
                         <Link href={`/${city}/l/Cakes`} aria-label="Signature Cakes">Signature Cakes</Link>
                       </li>
                       <li>
@@ -147,7 +170,22 @@ export default function Footer() {
                       </li>
                       <li>
                         <Link href={`/${city}/l/Cakes`} aria-label="Sensational Cakes">Sensational Cakes</Link>
-                      </li>
+                      </li> */}
+                      {categories &&
+                        categories.length > 0 &&
+                        categories.map((ele, index) => (
+                          <li>
+                            <Link
+                              href={`/${city}/l/${ele.category_name.replaceAll(
+                                " ",
+                                "-"
+                              )}`}
+                              aria-label="Photo Cakes"
+                            >
+                              {ele.category_name}
+                            </Link>
+                          </li>
+                        ))}
                     </ul>
                   </div>
                 </Col>
@@ -156,26 +194,49 @@ export default function Footer() {
                     <h2>Favourite</h2>
                     <ul>
                       <li>
-                        <Link href={`/${city}`} aria-label="Get Franchise">Get Franchise</Link>
+                        <Link href={`/${city}`} prefetch={true}>
+                          Home
+                        </Link> 
                       </li>
                       <li>
-                        <Link href={`/${city}`} aria-label="Store Location">Store Location</Link>
+                        <Link href={`/${city}/about-us`} prefetch={true}>
+                          About Us
+                        </Link> 
                       </li>
                       <li>
-                        <Link href={`/${city}`} aria-label="Privacy policy">Privacy policy</Link>
+                        <Link href={`/${city}`} aria-label="Get Franchise">
+                          Get Franchise
+                        </Link>
                       </li>
                       <li>
-                        <Link href={`/${city}`} aria-label="Desclaimer">Disclaimer</Link>
+                        <Link href={`/${city}`} aria-label="Store Location">
+                          Store Location
+                        </Link>
                       </li>
                       <li>
-                        <Link href={`/${city}`} aria-label="Delivery Policy">Delivery Policy</Link>
+                        <Link href={`/${city}`} aria-label="Privacy policy">
+                          Privacy policy
+                        </Link>
                       </li>
                       <li>
-                        <Link href={`/${city}`} aria-label="Terms and Condition">Terms & Conditions </Link>
+                        <Link href={`/${city}`} aria-label="Desclaimer">
+                          Disclaimer
+                        </Link>
                       </li>
                       <li>
-                        <Link href={`/${city}/about-us`} aria-label="About Us">About Us </Link>
+                        <Link href={`/${city}`} aria-label="Delivery Policy">
+                          Delivery Policy
+                        </Link>
                       </li>
+                      <li>
+                        <Link
+                          href={`/${city}`}
+                          aria-label="Terms and Condition"
+                        >
+                          Terms & Conditions{" "}
+                        </Link>
+                      </li>
+                     
                     </ul>
                   </div>
                 </Col>

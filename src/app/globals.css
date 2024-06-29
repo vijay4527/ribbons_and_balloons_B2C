@@ -1557,7 +1557,7 @@ ul.selectLocationOption a {
   margin-bottom: 0px;
   font-style: normal;
   font-weight: 600;
-  font-family: cursive;
+  font-family: ui-monospace;
   text-transform: uppercase;
   letter-spacing: 5.6px;
 }
@@ -3469,3 +3469,8 @@ input[name="contact"] {
   justify-content: center;
   
 }
+
+
+.navbarDiv{
+  color: #301a0f;
+} 
