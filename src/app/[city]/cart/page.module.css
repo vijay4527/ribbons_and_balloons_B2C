@@ -41,7 +41,15 @@
   grid-template-columns: calc(66.666667% - 2.6rem) 33.333333%;
   grid-column-gap: 2.6rem;
 }
-
+@media screen and (max-width: 768px) { 
+  .cartMainBody {
+    grid-template-columns: 1fr;
+    padding: 0;
+  }
+  .cartTotalCount{
+    padding: 0;
+  }
+}
 .cartBoxContent {
   display: flex;
 }

@@ -671,6 +671,24 @@
         transform: scaleX(0);
         transition: .4s cubic-bezier(.165,.84,.44,1);
     }
+    
+   
+    @media screen and (max-width: 768px) {
+      .plpPageWrap {
+        flex-wrap: wrap;
+        flex-direction: column-reverse;
+      }
+      .plpPageFilter {
+        width: 100%;
+        margin-top: 2rem;
+      }
+      .plpPageBody{
+        width: 100%;
+      }
+      .plpTiles{
+        grid-template-columns: 1fr;
+      }
+    }
     .imgHvr {
       position: relative;
       overflow: hidden;
