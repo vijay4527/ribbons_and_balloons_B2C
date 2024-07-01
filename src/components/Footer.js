@@ -219,12 +219,12 @@ export default function Footer() {
                         </Link>
                       </li>
                       <li>
-                        <Link href={`/${city}`} aria-label="Desclaimer">
+                        <Link href={`/${city}/desclaimer`} aria-label="Desclaimer">
                           Disclaimer
                         </Link>
                       </li>
                       <li>
-                        <Link href={`/${city}`} aria-label="Delivery Policy">
+                        <Link href={`/${city}/delivery-policy`} aria-label="Delivery Policy">
                           Delivery Policy
                         </Link>
                       </li>
