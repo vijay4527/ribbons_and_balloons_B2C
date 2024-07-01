@@ -1,0 +1,19 @@
+.quote:after {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    bottom: 5px;
+    width: 5px;
+    background-color: #f3f1ef;
+    content: '';
+}
+
+.quote {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 24px;
+    font-weight: 300;
+    padding-left: 18px;
+    margin: 20px 0 10px 0;
+    position: relative;
+    line-height: 1.4;
+}

@@ -214,7 +214,7 @@ export default function Footer() {
                         </Link>
                       </li>
                       <li>
-                        <Link href={`/${city}`} aria-label="Privacy policy">
+                        <Link href={`/${city}/privacy-and-policy`} aria-label="Privacy policy">
                           Privacy policy
                         </Link>
                       </li>
@@ -230,7 +230,7 @@ export default function Footer() {
                       </li>
                       <li>
                         <Link
-                          href={`/${city}`}
+                          href={`/${city}/terms-and-condition`}
                           aria-label="Terms and Condition"
                         >
                           Terms & Conditions{" "}
