@@ -15,6 +15,8 @@ import { AuthOtpContext } from "@/components/authContext";
 import Cookies from "js-cookie";
 import { validationSchema } from "@/components/validation";
 import Modal from "react-bootstrap/Modal";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const page = ({ params }) => {
   const [products, setProducts] = useState([]);
@@ -37,6 +39,9 @@ const page = ({ params }) => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [displayCancelButton, setDisplayCancelButton] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(null);
+
   const apiUrl = process.env.API_URL;
   const [formValues, setFormValues] = useState({
     firstName: "",
@@ -227,6 +232,7 @@ const page = ({ params }) => {
         city: city,
         user_id: user.user_id,
         order_status: null,
+        date:selectedDate
       };
       if (products.length > 0) {
         const orderData = await fetch(apiUrl + "Order/SaveOrder", {
@@ -412,6 +418,14 @@ const page = ({ params }) => {
     setEnableAddress(true);
     getLocation();
   };
+
+  const handleDateChange = (date) => {
+    setStartDate(date);
+  };
+
+  const minDate = new Date();
+  minDate.setDate(minDate.getDate() + 1);
+
   const getLocation = () => {
     try {
       if (navigator.geolocation) {
@@ -894,7 +908,20 @@ const page = ({ params }) => {
                 </div>
               </div>
               <div className={styles.checkoutQctOrderSummary}>
-                <div className="" style={{ width: "100%" }}>
+                <div className={styles.cartPriceBox}>
+                  <div className={`${styles.cartOrderSummary} m-0`}>
+                  <h4>Select Date</h4>
+                    <DatePicker
+                      selected={startDate}
+                      onChange={handleDateChange}
+                      showTimeSelect
+                      minDate={minDate}
+                      dateFormat="MMMM d, yyyy h:mm aa"
+                      className="form-control"
+                    />
+                  </div>
+                </div>
+                <div className="" style={{ width: "100%",marginTop:"10px" }}>
                   <div className={styles.cartPriceBox}>
                     <div className={styles.cartOrderSummary}>
                       <h4>Order summary</h4>
@@ -1016,7 +1043,10 @@ const page = ({ params }) => {
                             <div className={styles.modalCouponName}>
                               <h4>{res.coupon_name}</h4>
                             </div>
-                            <span>shop for minimum {res.applicable_amt} and get discount upto {res.dist_max_amt}</span>
+                            <span>
+                              shop for minimum {res.applicable_amt} and get
+                              discount upto {res.dist_max_amt}
+                            </span>
                             {selectedCoupon === res.coupon_id &&
                               displayCancelButton && (
                                 <div

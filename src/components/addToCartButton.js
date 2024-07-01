@@ -61,7 +61,9 @@ const addToCartButton = ({ data, city }) => {
           Cookies.set("cartId", response.respObj.cart_id);
           sessionStorage.setItem("cartId", response.respObj.cart_id);
         }
-        setOpenModal(true);
+        setTimeout(() => {
+          setOpenModal(true);
+        }, 3500);
       }
     } catch (error) {
       console.error("Error storing cartId in session storage:", error);

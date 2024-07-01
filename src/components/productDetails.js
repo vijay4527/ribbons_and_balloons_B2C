@@ -33,7 +33,6 @@ function getProductDetails({ data }) {
   const [selectedProduct, setSelectedProduct] = useState({});
   const [activeFlavour, setActiveFlavour] = useState("");
   const [activeWeight, setActiveWeight] = useState("");
-  const [isChecked,setIsChecked] = useState(false)
   useEffect(() => {
     const interval = setInterval(() => {
       if (index < placeholder.length) {
@@ -245,9 +244,6 @@ function getProductDetails({ data }) {
   };
 
 
-  const ToggleChange = async()=>{
-    setIsChecked(!isChecked)
-  }
   if (product && Object.keys(product).length > 0) {
     return (
       <div className={styles.pdp_DetailAction}>
@@ -543,11 +539,11 @@ function getProductDetails({ data }) {
 
         {product.type_id !== 5 && product.type_id !== 6 && (
           <>
-          <div className="d-flex">
+          {/* <div className="d-flex">
           <input type="checkbox" id="isChecked" onChange={ToggleChange}/>
            <label htmlFor="" className="ml-4"> upload image</label>
-          </div>
-            {isChecked && (
+          </div> */}
+            {product?.isUploadImage && (
               <div className={styles.pdp_SelectInfo}>
                 <div className={styles.pdp_shortInfo}>
                   <h4 className={styles.pdp_DetailInfoTitle}>Upload Image*</h4>

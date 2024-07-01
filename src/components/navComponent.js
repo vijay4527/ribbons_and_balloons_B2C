@@ -391,6 +391,15 @@ const navComponent = () => {
                   <Dropdown.Item>
                     <Link
                       className="drpItemProfile"
+                      href={`/${city}/address`}
+                      aria-label="order history"
+                    >
+                      Your Address
+                    </Link>
+                  </Dropdown.Item>
+                  <Dropdown.Item>
+                    <Link
+                      className="drpItemProfile"
                       href={`/${city}/orders`}
                       aria-label="order history"
                     >

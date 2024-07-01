@@ -45,10 +45,13 @@ export default function OrderSummary({
         <h4>Total</h4>
         <h5>₹ {totalAmount}</h5>
       </div> */}
-      <div className="d-flex justify-content-sm-between">
-        <h4>Discount Amount</h4>
-        <h5>₹ {discountAmount ? discountAmount : 0}</h5>
-      </div>
+      {discountAmount !== 0 && discountAmount !== undefined && (
+        <div className="d-flex justify-content-sm-between">
+          <h4>Discount Amount</h4>
+          <h5>₹ {discountAmount}</h5>
+        </div>
+      )}
+
       <div className={styles.cartPriceTotalAmt}>
         <h4>Final Amount</h4>
         <h5>₹ {totalPrice}</h5>

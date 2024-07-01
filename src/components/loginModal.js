@@ -30,6 +30,8 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
   const [hitApi, setHitApi] = useState(false);
   const { isLogged, setIsLogged } = useContext(AuthOtpContext);
   const [userObject, setUserObject] = useState({});
+  const [timer, setTimer] = useState(30);
+
   const apiUrl = process.env.API_URL;
 
   const user =
@@ -153,7 +155,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
           },
           body: JSON.stringify(loginData),
         });
-        const  data = await responseData.json()
+        const data = await responseData.json();
         if (data.resp == true) {
           setLoginError("");
           sessionStorage.setItem("userData", JSON.stringify(data.respObj));
@@ -177,11 +179,34 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
     setHitApi(true);
     signIn("google");
   };
-  const handleOTpNotRecieved = async () => {
+  const handleOtpNotRecieved = async () => {
     setLoginError("");
     setShowOtpSection(false);
     setShowLoginInput(true);
+    setTimer(30);
   };
+
+  useEffect(() => {
+    if (showOtpSection) {
+      inputs.forEach((id, index) => {
+        const input = document.getElementById(id);
+        if (input) {
+          addListener(input, index);
+        }
+      });
+      let timerInterval = setInterval(() => {
+        setTimer((prevTimer) => {
+          if (prevTimer > 0) {
+            return prevTimer - 1;
+          } else {
+            clearInterval(timerInterval);
+            return 0;
+          }
+        });
+      }, 1000);
+      return () => clearInterval(timerInterval);
+    }
+  }, [showOtpSection]);
 
   return (
     <div>
@@ -292,14 +317,28 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
                 >
                   verify
                 </button>
-                <p
+                {/* <p
                   onClick={handleOTpNotRecieved}
                   className="text-center mt-5 otp-p"
                   style={{ cursor: "pointer" }}
                 >
                   {" "}
                   Didnt Recieved Otp ? Click here to check Mobile Number{" "}
-                </p>
+                </p> */}
+                {timer !== 0 && (
+                  <p className="text-center mt-5 otp-p">
+                    We've sent your code. Try again in {timer} seconds
+                  </p>
+                )}
+                {timer === 0 && (
+                  <p
+                    className="text-center mt-3 otp-p"
+                    onClick={handleOtpNotRecieved}
+                    style={{ cursor: "pointer" }}
+                  >
+                    didn't received ? resend
+                  </p>
+                )}{" "}
               </div>
             )}
           </div>

@@ -288,7 +288,7 @@ img {
   margin: auto;
   max-width: 75%;
 }
-.navAction{
+.navAction {
   position: absolute;
   right: 0;
 }
@@ -320,7 +320,7 @@ img {
   align-items: center;
   justify-content: center;
 }
-.navbar_logo .navbar{
+.navbar_logo .navbar {
   width: 100%;
   justify-content: center;
 }
@@ -344,11 +344,10 @@ img {
   margin-right: 5px;
   font-family: var(--font-family);
 }
-.selectLocation:hover h4{
+.selectLocation:hover h4 {
   color: var(--theme-primary);
 }
 .selectLocation:hover img {
-
 }
 .selectSearchItem:hover .SvgIcons svg,
 .navAction ul li a:hover .SvgIcons svg {
@@ -529,9 +528,8 @@ ul.selectLocationOption a {
 }
 
 .selectSearchContent {
-
 }
-.selectSearchListPopular h3{
+.selectSearchListPopular h3 {
   width: 100%;
   font-weight: 600;
   font-size: 15px;
@@ -541,28 +539,28 @@ ul.selectLocationOption a {
   margin-bottom: 0;
   text-align: left;
 }
-.selectSearchListPopular ul{
+.selectSearchListPopular ul {
   padding: 0 10px;
-    margin-bottom: 5px;
-    flex-wrap: wrap;
+  margin-bottom: 5px;
+  flex-wrap: wrap;
 }
 
-.selectSearchListPopular ul li{
+.selectSearchListPopular ul li {
   width: 100%;
   padding: 0;
   margin: 0;
 }
-.selectSearchListPopular ul li a{
+.selectSearchListPopular ul li a {
   width: 100%;
   padding: 7px 25px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    color: #5b5572;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #5b5572;
 }
-.selectSearchListPopularIcon{
+.selectSearchListPopularIcon {
   margin-right: 10px;
 }
 .selectSearchList {
@@ -570,9 +568,9 @@ ul.selectLocationOption a {
   overflow: hidden;
   overflow-y: auto;
   display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 10px;
-    padding: 10px;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  padding: 10px;
 }
 .selectSearchList .searchResultContainer {
   align-items: start !important;
@@ -765,7 +763,7 @@ ul.selectLocationOption a {
   display: flex;
   align-items: center;
 }
-.sub_navbtn:hover .category-title{
+.sub_navbtn:hover .category-title {
   color: var(--theme-primary);
 }
 .category-title {
@@ -850,7 +848,7 @@ ul.selectLocationOption a {
   height: 0;
   transition: height 0.3s ease-in-out;
 }
-.subnav-Body{
+.subnav-Body {
   padding: 10px;
   background-color: var(--theme-seconary);
 }
@@ -2662,17 +2660,53 @@ video {
   /* 
   CSS Gradient - complete browser support from http://www.colorzilla.com/gradient-editor/ 
   */
-  background: -moz-linear-gradient(90deg, hsla(0, 0%, 100%, 0) 0, hsl(0deg 0% 100% / 33%) 50%, rgba(128, 186, 232, 0) 99%, rgba(125, 185, 232, 0));
+  background: -moz-linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0) 0,
+    hsl(0deg 0% 100% / 33%) 50%,
+    rgba(128, 186, 232, 0) 99%,
+    rgba(125, 185, 232, 0)
+  );
   /* FF3.6+ */
-  background: -webkit-gradient(90deg, hsla(0, 0%, 100%, 0) 0, hsl(0deg 0% 100% / 33%) 50%, rgba(128, 186, 232, 0) 99%, rgba(125, 185, 232, 0));
+  background: -webkit-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0) 0,
+    hsl(0deg 0% 100% / 33%) 50%,
+    rgba(128, 186, 232, 0) 99%,
+    rgba(125, 185, 232, 0)
+  );
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(90deg, hsla(0, 0%, 100%, 0) 0, hsl(0deg 0% 100% / 33%) 50%, rgba(128, 186, 232, 0) 99%, rgba(125, 185, 232, 0));
+  background: -webkit-linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0) 0,
+    hsl(0deg 0% 100% / 33%) 50%,
+    rgba(128, 186, 232, 0) 99%,
+    rgba(125, 185, 232, 0)
+  );
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(90deg, hsla(0, 0%, 100%, 0) 0, hsl(0deg 0% 100% / 33%) 50%, rgba(128, 186, 232, 0) 99%, rgba(125, 185, 232, 0));
+  background: -o-linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0) 0,
+    hsl(0deg 0% 100% / 33%) 50%,
+    rgba(128, 186, 232, 0) 99%,
+    rgba(125, 185, 232, 0)
+  );
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(90deg, hsla(0, 0%, 100%, 0) 0, hsl(0deg 0% 100% / 33%) 50%, rgba(128, 186, 232, 0) 99%, rgba(125, 185, 232, 0));
+  background: -ms-linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0) 0,
+    hsl(0deg 0% 100% / 33%) 50%,
+    rgba(128, 186, 232, 0) 99%,
+    rgba(125, 185, 232, 0)
+  );
   /* IE10+ */
-  background: linear-gradient(90deg, hsla(0, 0%, 100%, 0) 0, hsl(0deg 0% 100% / 33%) 50%, rgba(128, 186, 232, 0) 99%, rgba(125, 185, 232, 0));
+  background: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0) 0,
+    hsl(0deg 0% 100% / 33%) 50%,
+    rgba(128, 186, 232, 0) 99%,
+    rgba(125, 185, 232, 0)
+  );
   /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#007db9e8', GradientType=1);
 }
@@ -3171,7 +3205,6 @@ input[name="contact"] {
   cursor: pointer;
 }
 
-
 /* Modal Css */
 
 .selectSearchMapBody input {
@@ -3201,7 +3234,6 @@ input[name="contact"] {
 .searchHeaderWrap {
   position: relative;
 }
-
 
 .searchInput input {
   background-color: var(--headerSearchBg);
@@ -3253,7 +3285,7 @@ input[name="contact"] {
   width: 25px;
 }
 
-.searchHeaderWrap{
+.searchHeaderWrap {
   width: 100%;
 }
 
@@ -3313,7 +3345,6 @@ input[name="contact"] {
   align-items: center !important;
 }
 
-
 .locationModal .modal-content {
   width: 100%;
   border-radius: 4rem !important;
@@ -3321,19 +3352,17 @@ input[name="contact"] {
 
 .locationModal .modal-header {
   background: transparent !important;
-  padding: 1.5rem 2.5rem; 
+  padding: 1.5rem 2.5rem;
   border: none;
 }
 
 .locationModal .modal-body {
   padding: 0.5rem 2.5rem 2.5rem 2.5rem;
- 
 }
 
 .mapInput {
   border-radius: 10px !important;
 }
-
 
 .searchPlacesResult {
   display: flex;
@@ -3385,7 +3414,7 @@ input[name="contact"] {
   font-size: 1.3rem;
 }
 
-.fullAddress{
+.fullAddress {
   display: flex;
   justify-content: start;
 }
@@ -3398,22 +3427,20 @@ input[name="contact"] {
   overflow: visible;
 }
 
-.Locations:hover{
+.Locations:hover {
   cursor: pointer;
 }
 
-
-.flate{
+.flate {
   color: black;
 }
 
-
-.flatInput:focus{
+.flatInput:focus {
   border-color: none !important;
   box-shadow: none !important;
 }
 
-.flatInput{
+.flatInput {
   height: 4.5rem !important;
   font-size: 1.5rem !important;
   border-radius: 8px !important;
@@ -3421,11 +3448,11 @@ input[name="contact"] {
   align-items: center !important;
 }
 
-.address{
-  color : rgb(84, 84, 84) !important
+.address {
+  color: rgb(84, 84, 84) !important;
 }
 
-.mapPlace{
+.mapPlace {
   color: black;
 }
 
@@ -3433,28 +3460,22 @@ input[name="contact"] {
   top: 15rem !important;
 }
 
-.searchResults{
+.searchResults {
   max-height: 300px;
   overflow-y: auto;
 }
 
-
-.mapModal{
-  top: 11rem !important
-
+.mapModal {
+  top: 11rem !important;
 }
 
-.mapModal .modal-content{
+.mapModal .modal-content {
   border-radius: 4rem !important;
-  
 }
 
-.mapModal .modal-body{
+.mapModal .modal-body {
   padding: 3rem;
 }
-
-
-
 
 @media only screen and (max-width: 767px) {
   .locationModal .modal-dialog {
@@ -3462,15 +3483,13 @@ input[name="contact"] {
   }
 }
 
-
-
-.btnCoupon{
+.btnCoupon {
   display: flex;
   justify-content: center;
-  
 }
 
-
-.navbarDiv{
+.navbarDiv {
   color: #301a0f;
-} 
+}
+
+  

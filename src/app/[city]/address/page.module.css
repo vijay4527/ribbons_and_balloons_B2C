@@ -1,0 +1,27 @@
+.addressSection {
+  color: black;
+  border-color: white;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  padding: 3rem !important;
+}
+
+.addressContainer {
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.address {
+  border: 1px solid rgb(220, 220, 220);
+  border-radius: 0.375rem;
+}
+
+.addressImageContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.saveAddressSetion {
+  font-weight: 700;
+  color: rgba(24, 24, 24, 1);
+}

@@ -6,9 +6,11 @@ import homeStyles from "@/app/home.module.css";
 async function fetchOrderDetails(orderId) {
   try {
     if (orderId) {
-      const apiUrl = process.env.API_URL
-      const responseData = await fetch(apiUrl+"Order/GetOrderByOrderId/" + orderId);
-      const response = await responseData.json()
+      const apiUrl = process.env.API_URL;
+      const responseData = await fetch(
+        apiUrl + "Order/GetOrderByOrderId/" + orderId
+      );
+      const response = await responseData.json();
       if (response) {
         console.log("Response", response);
         return response;
@@ -24,7 +26,7 @@ async function fetchOrderDetails(orderId) {
 const page = async ({ params }) => {
   const orderId = params.orderDetails;
   const orderInfo = await fetchOrderDetails(orderId);
-  console.log("order info",orderInfo)
+  console.log("order info", orderInfo);
   return (
     <>
       <Head>
@@ -185,10 +187,15 @@ const page = async ({ params }) => {
                         <h4>Total MRP</h4>
                         <h5>₹{orderInfo.total_price}</h5>
                       </li>
-                      <li>
-                        <h4>Offer Discount</h4>
-                        <h5 className={styles.discountAmt}>₹{orderInfo?.discount ? orderInfo?.discount : 0 }</h5>
-                      </li>
+                      {orderInfo.discount !==0  && (
+                        <li>
+                          <h4>Offer Discount</h4>
+                          <h5 className={styles.discountAmt}>
+                            ₹{orderInfo?.discount}
+                          </h5>
+                        </li>
+                      )}
+
                       {/* <li>
                         <h4>Promocode Discount</h4>
                         <h5 className={styles.discountAmt}>- ₹799.3</h5>
@@ -205,10 +212,10 @@ const page = async ({ params }) => {
                       <h5>₹{orderInfo.total_price}</h5>
                     </div>
 
-                    <div className={styles.cartShippingPricePaymentAmt}>
+                    {/* <div className={styles.cartShippingPricePaymentAmt}>
                       <h4>Payment method:</h4>
                       <h5>Cash On Delivery</h5>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
                 <div className={styles.cartShippingDetail}>

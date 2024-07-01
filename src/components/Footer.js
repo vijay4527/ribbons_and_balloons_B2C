@@ -174,7 +174,7 @@ export default function Footer() {
                       {categories &&
                         categories.length > 0 &&
                         categories.map((ele, index) => (
-                          <li>
+                          <li key={index}>
                             <Link
                               href={`/${city}/l/${ele.category_name.replaceAll(
                                 " ",
