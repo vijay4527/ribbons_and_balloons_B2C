@@ -25,3 +25,13 @@
   font-weight: 700;
   color: rgba(24, 24, 24, 1);
 }
+
+
+.addressSectionHeader{
+  display: flex;
+  justify-content: space-between;
+}
+
+.arrowIcon{
+  font-size: 1.6rem;
+}
