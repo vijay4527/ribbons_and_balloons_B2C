@@ -342,18 +342,12 @@ img {
   margin-bottom: 0px;
   text-transform: capitalize;
   margin-right: 5px;
-  color: #ffffff;
   font-family: var(--font-family);
 }
 .selectLocation:hover h4 {
   color: var(--theme-primary);
 }
 .selectLocation:hover img {
-}
-
-.selectSearchItem .SvgIcons svg,
-.navAction ul li a .SvgIcons svg {
-  fill: #fff;
 }
 .selectSearchItem:hover .SvgIcons svg,
 .navAction ul li a:hover .SvgIcons svg {
@@ -368,9 +362,8 @@ img {
   /* padding: 7px 15px; */
   border-radius: var(--border-radius);
   transition: all 100ms ease;
-  color:white
 }
-.selectSearchItem
+
 .selectLocationWrap.activeClass,
 .selectSearchItemWrap.activeClass {
   display: block;
@@ -565,9 +558,6 @@ ul.selectLocationOption a {
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  color: #5b5572;
-}
-.selectSearchListPopularText{
   color: #5b5572;
 }
 .selectSearchListPopularIcon {
@@ -780,7 +770,7 @@ ul.selectLocationOption a {
   margin-right: 5px;
   margin-bottom: 0px;
   font-size: 1.4rem;
-  text-transform: uppercase;
+  text-transform: capitalize;
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
@@ -891,8 +881,7 @@ ul.selectLocationOption a {
   color: #ffffff;
   padding: 5px;
   font-size: 1.4rem;
-  /* font-family: Montserrat, sans-serif; */
-  font-family: Cormorant, serif;
+  font-family: Montserrat, sans-serif;
 }
 
 .category-sub-title a:hover {
@@ -1564,8 +1553,9 @@ ul.selectLocationOption a {
   font-size: 3.5rem;
   line-height: 3.5rem;
   margin-bottom: 0px;
-  font-family: var(--font-family);
-    font-weight: bold;
+  font-style: normal;
+  font-weight: 600;
+  font-family: ui-monospace;
   text-transform: uppercase;
   letter-spacing: 5.6px;
 }
@@ -3052,10 +3042,9 @@ video {
   height: 2.5rem;
   cursor: pointer;
 }
-.trash-icon-div span svg{
-  fill: var(--theme-primary);
-  width: 25px;
-  height: 25px;
+.trash-icon-div img {
+  width: 100%;
+  height: 100%;
 }
 .trash-flex {
   display: flex;

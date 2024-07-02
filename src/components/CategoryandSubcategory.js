@@ -216,7 +216,7 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
 
                             <div className={`${styles["itemDesc"]}`}>
                               <h1>{item.product_name}</h1>
-                              <h4>Sinful Collections</h4>
+                              {/* <h4>Sinful Collections</h4> */}
                               <p>₹ {item.cost}</p>
                             </div>
                           </div>
