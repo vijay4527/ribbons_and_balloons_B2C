@@ -780,7 +780,7 @@ ul.selectLocationOption a {
   margin-right: 5px;
   margin-bottom: 0px;
   font-size: 1.4rem;
-  text-transform: capitalize;
+  text-transform: uppercase;
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
@@ -891,7 +891,8 @@ ul.selectLocationOption a {
   color: #ffffff;
   padding: 5px;
   font-size: 1.4rem;
-  font-family: Montserrat, sans-serif;
+  /* font-family: Montserrat, sans-serif; */
+  font-family: Cormorant, serif;
 }
 
 .category-sub-title a:hover {

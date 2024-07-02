@@ -103,7 +103,7 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
       <section className={styles.plpPageMain}>
         <div className={homeStyles["container_fluid"]}>
           <div className={styles.plpPageWrap}>
-            <div className={styles.plpPageFilter}>
+            {/* <div className={styles.plpPageFilter}>
               {minRange !== maxRange && (
                 <div className={styles.plpFilterAction}>
                   <h4 className={styles.plpFilterInfoAction}>PRICE FILTER</h4>
@@ -166,13 +166,13 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
                   </ul>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className={styles.plpPageBody}>
               <div className={styles.plpPagetemsAction}>
                 <h4 className={styles.plpItemsCount}>
                   Showing 1-{filteredData.length} of {data.length} results
                 </h4>
-                <div className={styles.plpSortby}>
+                {/* <div className={styles.plpSortby}>
                   <select
                     className={"form-control"}
                     defaultValue="Default sorting"
@@ -180,9 +180,7 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
                     onChange={(e) => sortProducts(e.target.value)}
                   >
                     <option value="Default sorting">Default sorting</option>
-                    {/* <option  value="Sort by popularity">Sort by popularity</option>
-                    <option  value="Sort by average rating">Sort by average rating</option>
-                    <option  value="Sort by latest">Sort by latest</option> */}
+                    
                     <option value="Sort by price: low to high">
                       Sort by price: low to high
                     </option>
@@ -190,7 +188,7 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
                       Sort by price: high to low
                     </option>
                   </select>
-                </div>
+                </div> */}
               </div>
               <div className={styles.plpTiles}>
                 {filteredData && filteredData.length > 0 ? (

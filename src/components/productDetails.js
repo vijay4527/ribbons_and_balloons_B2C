@@ -128,7 +128,6 @@ function getProductDetails({ data }) {
 
   const [isLoading, setLoading] = useState(false);
 
-
   const handleProductTypeChange = (event) => {
     const selectedType = event;
     updateVariety(selectedType);
@@ -243,10 +242,21 @@ function getProductDetails({ data }) {
     setMessageOnCake(e);
   };
 
-
   if (product && Object.keys(product).length > 0) {
     return (
       <div className={styles.pdp_DetailAction}>
+        <div className={styles.pdp_SelectInfo}>
+          <div className={styles.pdp_shortInfo}>
+            <h4 className={styles.pdp_DetailInfoTitle}>Product Description</h4>
+          </div>
+          <div className={styles.pdp_SelectMessage}>
+            <ul className={styles.pdp_ProductDesc}>
+              <li>
+                <span>{product.description}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
         {product.type_id == 1 && (
           <>
             <div className={styles.pdp_SelectInfo}>
@@ -492,11 +502,10 @@ function getProductDetails({ data }) {
                     min={1}
                     style={{
                       Width: "100px !important",
-                      textAlign: "center"
+                      textAlign: "center",
                     }}
                     value={values}
                   />{" "}
-                  
                   <span
                     className="input-group-text"
                     style={{
@@ -544,7 +553,7 @@ function getProductDetails({ data }) {
 
         {product.type_id !== 5 && product.type_id !== 6 && (
           <>
-          {/* <div className="d-flex">
+            {/* <div className="d-flex">
           <input type="checkbox" id="isChecked" onChange={ToggleChange}/>
            <label htmlFor="" className="ml-4"> upload image</label>
           </div> */}
@@ -623,19 +632,6 @@ function getProductDetails({ data }) {
         )}
 
         <div className={styles.underLineSeperator}></div>
-
-        <div className={styles.pdp_SelectInfo}>
-          <div className={styles.pdp_shortInfo}>
-            <h4 className={styles.pdp_DetailInfoTitle}>Product Description</h4>
-          </div>
-          <div className={styles.pdp_SelectMessage}>
-            <ul className={styles.pdp_ProductDesc}>
-              <li>
-                <span>{product.description}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
 
         <div className={styles.fassalDiv}>
           <img

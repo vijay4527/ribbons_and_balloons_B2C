@@ -25,11 +25,11 @@ const navComponent = () => {
   const [selectedCity, setSelectedCity] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [filteredProduct, setFilteredProduct] = useState([]);
+  const [isPopularSearchVisible, setIsPopularSearchVisible] = useState(true);
   const cookiecity = Cookies.get("city");
-  const inputRef = useRef(null); 
+  const inputRef = useRef(null);
   const apiUrl = process.env.API_URL;
-  const [hoveredCity,setHoveredCity] = useState(cookiecity)
-
+  const [hoveredCity, setHoveredCity] = useState(cookiecity);
 
   const isValidCity = (cityName) => {
     return cities.some(
@@ -108,8 +108,10 @@ const navComponent = () => {
 
   const getCities = async () => {
     try {
-      const data  = await fetch(apiUrl+"RNBCity/GetAllRNBCity",{ next: { revalidate: 180 },});
-      const cityResponse= await data.json()
+      const data = await fetch(apiUrl + "RNBCity/GetAllRNBCity", {
+        next: { revalidate: 180 },
+      });
+      const cityResponse = await data.json();
       if (cityResponse) {
         setCities(cityResponse);
       }
@@ -117,7 +119,6 @@ const navComponent = () => {
       console.log("error", error);
     }
   };
-
 
   useEffect(() => {
     if (isSearchActive && inputRef.current) {
@@ -165,18 +166,21 @@ const navComponent = () => {
 
   const handleKeyPress = async (event) => {
     setSearchValue(event);
-
+    setIsPopularSearchVisible(false)
     try {
       if (event.length > 0) {
         var searchedTerm = event.split("/").join("");
         const respData = await fetch(
-          apiUrl+`ProductMaster/GetAllProductByName/${searchedTerm}/${city}`
+          apiUrl + `ProductMaster/GetAllProductByName/${searchedTerm}/${city}`
         );
-        const data= await respData.json(0)
+        const data = await respData.json();
         if (data.length > 0) {
           setFilteredProduct(data);
+        } else {
+          setFilteredProduct([]);
         }
       } else {
+        setIsPopularSearchVisible(true)
         setFilteredProduct([]);
       }
     } catch (error) {
@@ -197,14 +201,14 @@ const navComponent = () => {
   };
 
   const handleProductClick = (productName) => {
-    setFilteredProduct([])
+    setFilteredProduct([]);
     setSearchValue("");
   };
 
-  const hoveredOnCity = (cityName)=>{
-    let newCity = cityName.toLowerCase()
-       setHoveredCity(newCity)
-  }
+  const hoveredOnCity = (cityName) => {
+    let newCity = cityName.toLowerCase();
+    setHoveredCity(newCity);
+  };
 
   return (
     <div className="navAction">
@@ -258,7 +262,7 @@ const navComponent = () => {
                     <li
                       key={e.rnb_city_id}
                       onClick={() => handleCityChange(e.city_name)}
-                      onMouseEnter={()=>hoveredOnCity(e.city_name)}
+                      onMouseEnter={() => hoveredOnCity(e.city_name)}
                     >
                       <h4 onClick={(e) => handleCityChange(e.city_name)}>
                         {e.city_name}
@@ -300,9 +304,13 @@ const navComponent = () => {
             }`}
           >
             <div className="selectSearchBody">
-              <div className={`headerSearchIcon searchInput ${isSearchActive ? "activeClass" : ""}`} ></div>
+              <div
+                className={`headerSearchIcon searchInput ${
+                  isSearchActive ? "activeClass" : ""
+                }`}
+              ></div>
               <input
-                ref={inputRef} 
+                ref={inputRef}
                 type="search"
                 id="inputSearch"
                 placeholder="Search for cakes, occasion, flavor and more"
@@ -315,28 +323,60 @@ const navComponent = () => {
             <div className="selectSearchContent">
               <div className="selectSearchListPopular">
                 <h3>Popular Searches</h3>
-                <ul>
-                  <li>
-                    <a>
-                      <span className="selectSearchListPopularIcon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 18 18"><path stroke="#888" strokeLinecap="round" strokeLinejoin="round" strokeOpacity=".7" strokeWidth="1.2" d="m15.75 5.25-6 6-3-3-4.5 4.5m13.5-7.5h-4.5m4.5 0v4.5"/></svg>
-                      </span>
-                      <span className="selectSearchListPopularText">
-                        Cake
-                      </span>
-                    </a>
-                  </li>
-                  <li>
-                    <a>
-                      <span className="selectSearchListPopularIcon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 18 18"><path stroke="#888" strokeLinecap="round" strokeLinejoin="round" strokeOpacity=".7" strokeWidth="1.2" d="m15.75 5.25-6 6-3-3-4.5 4.5m13.5-7.5h-4.5m4.5 0v4.5"/></svg>
-                      </span>
-                      <span className="selectSearchListPopularText">
-                      Savoury
-                      </span>
-                    </a>
-                  </li>
-                </ul>
+                {isPopularSearchVisible && (
+                  <ul>
+                    <li>
+                      <a onClick={() => handleKeyPress("Cakes")}>
+                        <span className="selectSearchListPopularIcon">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            fill="none"
+                            viewBox="0 0 18 18"
+                          >
+                            <path
+                              stroke="#888"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeOpacity=".7"
+                              strokeWidth="1.2"
+                              d="m15.75 5.25-6 6-3-3-4.5 4.5m13.5-7.5h-4.5m4.5 0v4.5"
+                            />
+                          </svg>
+                        </span>
+                        <span className="selectSearchListPopularText">
+                          Cake
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <a onClick={() => handleKeyPress("Savoury")}>
+                        <span className="selectSearchListPopularIcon">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            fill="none"
+                            viewBox="0 0 18 18"
+                          >
+                            <path
+                              stroke="#888"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeOpacity=".7"
+                              strokeWidth="1.2"
+                              d="m15.75 5.25-6 6-3-3-4.5 4.5m13.5-7.5h-4.5m4.5 0v4.5"
+                            />
+                          </svg>
+                        </span>
+                        <span className="selectSearchListPopularText">
+                          Savoury
+                        </span>
+                      </a>
+                    </li>
+                  </ul>
+                )}
               </div>
               <div className="selectSearchList">
                 {filteredProduct &&
@@ -347,7 +387,9 @@ const navComponent = () => {
                     return (
                       <Link
                         className="searchResultContainer"
-                        href={`/${city}/p/${productName}`} passHref key={item.id}
+                        href={`/${city}/p/${productName}`}
+                        passHref
+                        key={item.id}
                         onClick={() => handleProductClick(productName)}
                       >
                         <img
