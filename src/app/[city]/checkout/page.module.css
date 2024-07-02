@@ -9,7 +9,11 @@
 .checkOutQctWrap {
     padding: 1.6rem 0px 2.5rem;
 }
+.checkoutQctShippingWrap{
 
+    margin-right: 2.6rem;
+    width: calc(65% - 2.6rem);
+}
 .checkoutQctTitle {
     color: #fff;
     width: 100%;
@@ -29,11 +33,11 @@
 }
 
 .checkoutQctShipping {
-    width: calc(65% - 2.6rem);
-    margin-right: 2.6rem;
+    width: 100%;
     border: 1px solid #c19f5f;
     background-color: #25130f;
     border-radius: 10px;
+    margin-bottom: 15px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
@@ -350,7 +354,7 @@
 .cartPriceBoxSpan {
     position: relative;
     color: #25130f !important;
-    z-index: 3;
+    z-index: 0;
     background-image: url(https://img.freepik.com/premium-vector/gold-metal-backgrounds-metal-texture_508524-33.jpg);
     background-position: center;
     background-repeat: no-repeat;

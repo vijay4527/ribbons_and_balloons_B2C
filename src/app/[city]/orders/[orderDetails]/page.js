@@ -38,7 +38,7 @@ const page = async ({ params }) => {
       <section className={styles.CheckOutQct}>
         <div className="container">
           <div className={styles.checkoutQctTitle}>
-            <h1>Order Details</h1>
+          Order Details
           </div>
         </div>
         <div
