@@ -770,7 +770,7 @@ ul.selectLocationOption a {
   margin-right: 5px;
   margin-bottom: 0px;
   font-size: 1.4rem;
-  text-transform: capitalize;
+  text-transform: uppercase;
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
@@ -779,7 +779,8 @@ ul.selectLocationOption a {
   text-align: left;
   color: #ffffff;
   white-space: nowrap;
-  font-family: var(--font-family);
+  /* font-family: var(--font-family); */
+  font-family: Montserrat, sans-serif;
 }
 
 .sub_nav.show,
@@ -880,8 +881,8 @@ ul.selectLocationOption a {
   letter-spacing: normal;
   color: #ffffff;
   padding: 5px;
-  font-size: 1.4rem;
-  font-family: Montserrat, sans-serif;
+  font-size: 1.6rem;
+  font-family: Cormorant, serif;
 }
 
 .category-sub-title a:hover {
