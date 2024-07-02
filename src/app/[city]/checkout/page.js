@@ -39,8 +39,18 @@ const page = ({ params }) => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [displayCancelButton, setDisplayCancelButton] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [time,setTime]  = useState("00:00")
+
+  const formatDateForInput = (date) => {
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-indexed
+    const year = date.getFullYear();
+    return `${year}-${month}-${day}`;
+  };
+  const currentDate = new Date();
+  const nextDate = new Date(currentDate);
+  nextDate.setDate(currentDate.getDate() + 1);
+  const [startDate, setStartDate] = useState(formatDateForInput(nextDate));
 
   const apiUrl = process.env.API_URL;
   const [formValues, setFormValues] = useState({
@@ -232,7 +242,7 @@ const page = ({ params }) => {
         city: city,
         user_id: user.user_id,
         order_status: null,
-        date:selectedDate
+        date: selectedDate,
       };
       if (products.length > 0) {
         const orderData = await fetch(apiUrl + "Order/SaveOrder", {
@@ -419,12 +429,7 @@ const page = ({ params }) => {
     getLocation();
   };
 
-  const handleDateChange = (date) => {
-    setStartDate(date);
-  };
 
-  const minDate = new Date();
-  minDate.setDate(minDate.getDate() + 1);
 
   const getLocation = () => {
     try {
@@ -509,6 +514,65 @@ const page = ({ params }) => {
         <div className={homeStyles["container"]}>
           <div className={styles.checkOutQctWrap}>
             <div className={styles.checkoutQctTitle}>Shipping & Payment</div>
+            <div className={styles.checkoutQctShipping}>
+              <div className={styles.checkoutQctShippingMethod}>
+                <div className={styles.checkoutQctShippingHeader}>
+                  <h4 className={styles.checkoutQctShippingTitle}>
+                    Select Date and Time
+                  </h4>
+                  <ul className={styles.checkoutQctShippingTabs}>
+                    {/* <li
+                      className={`${styles.active}`}
+                      onClick={() => handleOptionChange("delivery")}
+                    >
+                      <h4>Select Date </h4>
+                      <p>(Get your prod uct delivered to your home)</p>
+                    </li> */}
+                  </ul>
+                  <div className={styles.checkoutQctShippingContents}>
+                    <div
+                      className={`${styles.checkoutQctShippingContent} ${styles.active}`}
+                    >
+                      {/* <DatePicker
+                        selected={startDate}
+                        onChange={handleDateChange}
+                        showTimeSelect
+                        minDate={minDate}
+                        dateFormat="MMMM d, yyyy h:mm aa"
+                        className="form-control"
+                      /> */}
+                      <div className={styles.dateContiner}>
+                        <div className={styles.dateDiv}>
+                          <label>Select a date:</label>
+                          <input
+                            type="date"
+                            id="datePicker"
+                            className="form-control"
+                            value={startDate}
+                            onChange={(e)=>setStartDate(e.target.value)}
+                          />
+                        </div>
+                        <div className={styles.dateDiv}>
+                          <label>Select a time:</label>
+                          <select className="form-select" name="" id="" onChange={(e)=>setTime(e.target.value)}>
+                          <option value="" disabled selected>select a time</option>
+                            <option value="">11:30am to 3:30 pm</option>
+                            <option value="">11:30pm to 5:30 pm</option>
+                          </select>
+                          {/* <input
+                            type="time"
+                            id="timePicker"
+                            className="form-control"
+                            value={time}
+                            onChange={(e)=>setTime(e.target.value)}
+                          /> */}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className={styles.checkoutQctBody}>
               <div className={styles.checkoutQctShipping}>
                 <div className={styles.checkoutQctShippingMethod}>
@@ -908,9 +972,9 @@ const page = ({ params }) => {
                 </div>
               </div>
               <div className={styles.checkoutQctOrderSummary}>
-                <div className={styles.cartPriceBox}>
+                {/* <div className={styles.cartPriceBox}>
                   <div className={`${styles.cartOrderSummary} m-0`}>
-                  <h4>Select Date</h4>
+                    <h4>Select Date</h4>
                     <DatePicker
                       selected={startDate}
                       onChange={handleDateChange}
@@ -920,8 +984,8 @@ const page = ({ params }) => {
                       className="form-control"
                     />
                   </div>
-                </div>
-                <div className="" style={{ width: "100%",marginTop:"10px" }}>
+                </div> */}
+                <div className="" style={{ width: "100%", marginTop: "10px" }}>
                   <div className={styles.cartPriceBox}>
                     <div className={styles.cartOrderSummary}>
                       <h4>Order summary</h4>

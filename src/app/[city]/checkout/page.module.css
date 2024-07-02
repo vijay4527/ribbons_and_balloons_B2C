@@ -417,3 +417,19 @@
     font-size: 1.8rem !important;
     text-transform: capitalize !important;
 }
+
+.dateContiner{
+    display: flex;
+    justify-content: space-between;
+}
+
+.dateDiv{
+    width: 100%;
+    padding: 10px;
+}
+
+
+.dateDiv input,.dateDiv select{
+    height: 4rem;
+    font-size: 1.5rem;
+}

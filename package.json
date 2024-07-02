@@ -9,9 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    
     "@react-google-maps/api": "^2.19.3",
     "aos": "^2.3.4",
     "bootstrap": "^5.3.3",
+    "dayjs": "^1.11.11",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.3",
     "js-cookie": "^3.0.5",
