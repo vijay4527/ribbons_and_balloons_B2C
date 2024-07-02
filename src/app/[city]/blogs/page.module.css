@@ -1,0 +1,13 @@
+.card-title{
+font-size: 1.6rem;
+font-weight: 700;
+text-transform: uppercase;
+}
+
+.blogCardDiv{
+    margin-top: 10px;
+}
+
+.blogCard img {
+    border: 3px solid black !important;
+}

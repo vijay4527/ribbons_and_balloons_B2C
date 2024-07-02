@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import AppConfig from "@/AppConfig";
-
+import styles from "@/app/[city]/blogs/page.module.css"
 async function getBlog(city) {
   try {
     const response = await fetch(
@@ -28,20 +28,20 @@ const Page = async ({ params }) => {
       <div className="row">
         {data && data.length > 0 ? (
           data.map((ele, index) => (
-            <div className="col-lg-4" key={index}>
+            <div className={`col-lg-4 ${styles.blogCardDiv}`} key={index}>
               <Link
                 href={`/${city}/blogs/${ele?.seo_slug.split(" ").join("-")}`}
                 className="categoryLink"
                 prefetch={true}
               >
-                <div className="card">
+                <div className={`card ${styles.blogCard}`}>
                   <img
                     src={AppConfig.cdn+ele.image}
                     className="card-img-top"
                     alt={ele.title}
                   />
                   <div className="card-body">
-                    <h5 className="card-title">{ele.title}</h5>
+                    <h5 className={`${styles["card-title"]}`}>{ele.title}</h5>
                   </div>
                 </div>
               </Link>
