@@ -242,7 +242,7 @@ const page = ({ params }) => {
         city: city,
         user_id: user.user_id,
         order_status: null,
-        date: startDate,
+        date: startDate ? startDate : "",
       };
       if (products.length > 0) {
         const orderData = await fetch(apiUrl + "Order/SaveOrder", {
