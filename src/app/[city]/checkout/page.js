@@ -553,28 +553,30 @@ const page = ({ params }) => {
                                 onChange={(e) => setStartDate(e.target.value)}
                               />
                             </div>
-                            <div className={styles.dateDiv}>
-                              <label>Select a time:</label>
-                              <select
-                                className="form-select"
-                                name=""
-                                id=""
-                                onChange={(e) => setTime(e.target.value)}
-                              >
-                                <option value="" disabled selected>
-                                  select a time
-                                </option>
-                                <option value="">11:30am to 3:30 pm</option>
-                                <option value="">11:30pm to 5:30 pm</option>
-                              </select>
-                              {/* <input
-                            type="time"
-                            id="timePicker"
-                            className="form-control"
-                            value={time}
-                            onChange={(e)=>setTime(e.target.value)}
-                          /> */}
-                            </div>
+                            {selectedOption == "pickup" && (
+                              <div className={styles.dateDiv}>
+                                <label>Select a time:</label>
+                                <select
+                                  className="form-select"
+                                  name=""
+                                  id=""
+                                  onChange={(e) => setTime(e.target.value)}
+                                >
+                                  <option value="" disabled selected>
+                                    select a time
+                                  </option>
+                                  <option value="">11:30am to 3:30 pm</option>
+                                  <option value="">11:30pm to 5:30 pm</option>
+                                </select>
+                                {/* <input
+                              type="time"
+                              id="timePicker"
+                              className="form-control"
+                              value={time}
+                              onChange={(e)=>setTime(e.target.value)}
+                            /> */}
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>
