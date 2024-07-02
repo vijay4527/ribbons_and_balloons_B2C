@@ -362,6 +362,7 @@ img {
   /* padding: 7px 15px; */
   border-radius: var(--border-radius);
   transition: all 100ms ease;
+  color:white
 }
 
 .selectLocationWrap.activeClass,
