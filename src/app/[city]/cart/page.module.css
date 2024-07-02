@@ -201,7 +201,7 @@
 .cartPriceBoxSpan {
   position: relative;
   color: #25130f !important;
-  z-index: 3;
+  z-index: 0;
   background-image: url(https://img.freepik.com/premium-vector/gold-metal-backgrounds-metal-texture_508524-33.jpg);
   background-position: center;
   background-repeat: no-repeat;

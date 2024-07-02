@@ -24,7 +24,7 @@ const Page = async ({ params }) => {
   const data = await getBlog(city);
   return (
     <div className="container">
-      <h2>Blogs</h2>
+      <h2 className={styles.headings}>Blogs</h2>
       <div className="row">
         {data && data.length > 0 ? (
           data.map((ele, index) => (

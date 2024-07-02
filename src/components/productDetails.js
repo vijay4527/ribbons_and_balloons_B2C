@@ -473,7 +473,7 @@ function getProductDetails({ data }) {
               <div className={styles.pdp_SelectFlavour}>
                 <div className="input-group">
                   <span
-                    className="input-group-text"
+                    className="input-group-text decrement"
                     style={{
                       padding: "4px 10px 4px 10px",
                       backgroundColor: "#51171d",
@@ -481,19 +481,24 @@ function getProductDetails({ data }) {
                       cursor: "pointer",
                       color: "white",
                     }}
-                    onClick={handleIncrementQuantity}
+                    onClick={handleDecrementQuantity}
                   >
-                    +
+                    -
                   </span>
                   <input
                     type="text"
                     className="form-control"
                     max={20}
                     min={1}
+                    style={{
+                      Width: "100px !important",
+                      textAlign: "center"
+                    }}
                     value={values}
                   />{" "}
+                  
                   <span
-                    className="input-group-text decrement"
+                    className="input-group-text"
                     style={{
                       padding: "4px 10px 4px 10px",
                       backgroundColor: "#51171d",
@@ -501,9 +506,9 @@ function getProductDetails({ data }) {
                       cursor: "pointer",
                       color: "white",
                     }}
-                    onClick={handleDecrementQuantity}
+                    onClick={handleIncrementQuantity}
                   >
-                    -
+                    +
                   </span>
                 </div>
               </div>
