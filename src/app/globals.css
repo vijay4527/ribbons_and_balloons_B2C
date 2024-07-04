@@ -343,6 +343,7 @@ img {
   text-transform: capitalize;
   margin-right: 5px;
   font-family: var(--font-family);
+  color: white;
 }
 .selectLocation:hover h4 {
   color: var(--theme-primary);
@@ -645,6 +646,7 @@ ul.selectLocationOption a {
 .SvgIcons svg {
   height: 20px;
   width: 20px;
+  color: white;
 }
 
 /*  */
@@ -881,8 +883,8 @@ ul.selectLocationOption a {
   letter-spacing: normal;
   color: #ffffff;
   padding: 5px;
-  font-size: 1.6rem;
-  font-family: Cormorant, serif;
+  font-size: 1.4rem;
+  font-family: Montserrat, sans-serif;
 }
 
 .category-sub-title a:hover {
@@ -1556,7 +1558,7 @@ ul.selectLocationOption a {
   margin-bottom: 0px;
   font-style: normal;
   font-weight: 600;
-  font-family: ui-monospace;
+  font-family: Montserrat, sans-serif;
   text-transform: uppercase;
   letter-spacing: 5.6px;
 }

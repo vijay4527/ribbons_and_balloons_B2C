@@ -602,13 +602,15 @@
       padding-right: 15px;
     }
     .plpPageBody{
-      width: 75%;
+      width: 92%;
     }
     .plpTiles{
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr;
       grid-column-gap: 15px;
       grid-row-gap: 30px;
+      gap: 4rem;
+      row-gap: 6rem;
     }
     .plpFilterAction{
       margin-bottom: 35px;
@@ -693,6 +695,7 @@
     .imgHvr {
       position: relative;
       overflow: hidden;
+      height: 29rem;
     }
     .add_to_cart_button{
       text-decoration: none !important;
@@ -756,7 +759,7 @@
   }
   .itemDesc {
     text-align: center;
-    padding-top: 10px;
+    padding-top: 20px;
   }
   .itemDesc h1{
     font-size: 1.6rem;
