@@ -13,8 +13,7 @@ export default function Home() {
     setLocationType(type)
     setIsSearchModalOpen(false);
     setIsMapModalOpen(true);
-    console.log("type in main page", type);
-    console.log("location on main page", location);
+
   };
 
   const handleLocationModal = () => {
@@ -24,9 +23,7 @@ export default function Home() {
   const handleCloseMapModal = (data) => {
     setIsMapModalOpen(false);
     setIsSearchModalOpen(true);
-    if (data) {
-      console.log("Data from MapModal:", data);
-    }
+  
   };
 
   return (

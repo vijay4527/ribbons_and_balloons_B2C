@@ -29,23 +29,6 @@ const getCategories = async (api, city) => {
 
 const Nav = async () => {
   const apiUrl = process.env.API_URL;
-  // const nextCookies = cookies();
-  // const cityObj = nextCookies.get("city");
-  // const cookiecity = cityObj?.value;
-  // const categoryData = await getCategories(apiUrl, cookiecity);
-  // const categories = categoryData?.data;
-  // const headerList = headers();
-  // const pathname = headerList.get("x-current-path");
-  // const Cityname = pathname ? pathname.split("/")[1] : "";
-  // let isCity = false;
-  // const cities = await getCities();
-  // if (cities.length > 0) {
-  //   if (cities.includes(Cityname)) {
-  //     isCity = true;
-  //   }
-  // }
-
-  // const city = isCity ? Cityname : cookiecity;
   const nextCookies = cookies();
   const cityObj = await nextCookies.get("city");
   const cookiecity = cityObj?.value;
@@ -115,20 +98,7 @@ const Nav = async () => {
                 </div>
                 <div className="Brands_navbody">
                   <div className="subNavbar_body">
-                    {/* <div className={`sub_nav`}>
-                      <div className={"sub_navbtn"}>
-                        <Link href={`/${city}`} prefetch={true}>
-                          <h4 className="category-title">Home</h4>
-                        </Link>
-                      </div>
-                    </div> */}
-                    {/* <div className={`sub_nav`}>
-                      <div className={"sub_navbtn"}>
-                        <Link href={`/${city}/about-us`} prefetch={true}>
-                          <h4 className="category-title">About Us</h4>
-                        </Link>
-                      </div>
-                    </div> */}
+                    
                     {categories &&
                       categories.length > 0 &&
                       categories.map((category, index) => (
@@ -146,20 +116,7 @@ const Nav = async () => {
                                 {category.category_name}{" "}
                               </h4>
                             </Link>
-                            {/* <span className="category-dropIcon">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="9"
-                                height="7"
-                                fill="none"
-                                viewBox="0 0 9 7"
-                              >
-                                <path
-                                  stroke="#000"
-                                  d="M8.177 1.25 4.355 5.663a.1.1 0 0 1-.15 0L.382 1.25"
-                                />
-                              </svg>
-                            </span> */}
+                           
                           </div>
                           <div className="MobileSub_navbtn sub_navbtn">
                             <Link

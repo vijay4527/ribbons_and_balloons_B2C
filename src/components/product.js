@@ -10,7 +10,6 @@ import Link from "next/link";
 import AddToFavoritesButton from "@/components/AddToFavoritesButton";
 import ShowCaseSlider from "@/components/ShowCaseSlider";
 import { useState, useEffect } from "react";
-import ProductImages from "./productImages";
 const product = ({ data, city }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   let image = data.product_image.split(",");
@@ -118,10 +117,10 @@ const product = ({ data, city }) => {
                 </div>
               </div>
             </div>
-            <div className={styles.pdp_otherContent}>
+            {/* <div className={styles.pdp_otherContent}>
               <div className={homeStyles["container_fluid"]}>
                 <div className={styles.reviewSection}>
-                  {/* {data ? (
+                  {data ? (
                     <ShowCaseSlider
                       sliderName="You may also like"
                       sliderData={data}
@@ -129,10 +128,10 @@ const product = ({ data, city }) => {
                     />
                   ) : (
                     ""
-                  )} */}
+                  )}
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         ) : (
           <>

@@ -11,7 +11,7 @@ const useRouteInfo = () => {
 
   useEffect(() => {
     setCity(newCity);
-  }, [path]); // Update city if the path changes
+  }, [path]); 
 
   return {
     city,

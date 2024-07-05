@@ -79,28 +79,21 @@ const page = ({ params }) => {
     if (response?.resp == true) {
       var newPrice = grandTotal - itemCost;
       setGrandTotal(newPrice);
-      if (cart.length == 1) {
-        try {
-          setCart([]);
-          Cookies.remove("cartId");
-          sessionStorage.removeItem("cartId");
-          cartId = "";
-        } catch (error) {
-          console.error("Error removing cartId from session storage:", error);
-        }
-      }
+      // if (cart.length == 1) {
+      //   try {
+      //     setCart([]);
+      //     // Cookies.remove("cartId");
+      //     sessionStorage.removeItem("cartId");
+      //     cartId = "";
+      //   } catch (error) {
+      //     console.error("Error removing cartId from session storage:", error);
+      //   }
+      // }
       GetAllCart();
     }
   };
 
-  // useEffect(() => {
-  //   if (cart.length > 0) {
-  //     const total = cart.reduce((accumulator, item) => {
-  //       return accumulator + item.cost;
-  //     }, 0);
-  //     setGrandTotal(total);
-  //   }
-  // }, [cart]);
+
 
   const handleProducts = () => {
     if (!isUserLoggedIn || !user) {
@@ -116,7 +109,6 @@ const page = ({ params }) => {
   };
 
   const closeCityModal = () => {
-    console.log("Closing modal");
     setCityModalOpen(false);
   };
 

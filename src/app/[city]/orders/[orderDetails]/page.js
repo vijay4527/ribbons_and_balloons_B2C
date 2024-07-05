@@ -12,7 +12,6 @@ async function fetchOrderDetails(orderId) {
       );
       const response = await responseData.json();
       if (response) {
-        console.log("Response", response);
         return response;
       } else {
         return null;
@@ -26,7 +25,6 @@ async function fetchOrderDetails(orderId) {
 const page = async ({ params }) => {
   const orderId = params.orderDetails;
   const orderInfo = await fetchOrderDetails(orderId);
-  console.log("order info", orderInfo);
   return (
     <>
       <Head>
@@ -47,7 +45,6 @@ const page = async ({ params }) => {
           {orderInfo && orderInfo?.orderProducts ? (
             <>
               <div className={styles.checkOutQctWrap}>
-                {/* <div className={styles.checkoutQctTitle}>Order Details</div> */}
                 {orderInfo?.orderProducts &&
                   orderInfo.orderProducts.map((product, index) => (
                     <div className={styles.checkoutQctBody} key={index}>
@@ -105,76 +102,6 @@ const page = async ({ params }) => {
                       <div className={styles.checkoutQctOrderSummary}></div>
                     </div>
                   ))}
-
-                {/* <div className={styles.cartShippingWrap}>
-              <div className={styles.cartShippingDetail}>
-                <div className={styles.cartShippingTitleDetail}>
-                  {orderInfo.order_type == "delivery"
-                    ? "Shipping details"
-                    : "Pick Up Details"}
-                </div>
-                <div className={styles.cartShippingInfo}>
-                  {orderInfo && (
-                    <h4 className={styles.cartShippingTitleName}>
-                      {orderInfo.full_name}
-                    </h4>
-                  )}
-                  {orderInfo && (
-                    <>
-                      <p className={styles.cartShippingTitleAddress}>
-                        {orderInfo.shipping_address}
-                      </p>
-                      {orderInfo.created_on &&
-                        typeof orderInfo.created_on === "string" && (
-                          <p className={styles.cartShippingTitleAddress}>
-                            {orderInfo.created_on.split("T")[0]}
-                          </p>
-                        )}
-                    </>
-                  )}
-                </div>
-                <div className={styles.cartShippingNoDetail}>
-                  <h4>Mobile Number</h4>
-                  {orderInfo.mobile_number && <p>{orderInfo.mobile_number}</p>}
-                </div>
-              </div>
-              <div className={styles.cartShippingPriceDetail}>
-                <div className={styles.cartShippingTitleDetail}>
-                  Price details of your order
-                </div>
-                <div className={styles.cartShippingPriceWrap}>
-                  <ul>
-                    <li>
-                      <h4>Total MRP</h4>
-                      <h5>₹{orderInfo.total_price}</h5>
-                    </li>
-                    <li>
-                      <h4>Offer Discount</h4>
-                      <h5 className={styles.discountAmt}>- ₹1198.8</h5>
-                    </li>
-                    <li>
-                      <h4>Promocode Discount</h4>
-                      <h5 className={styles.discountAmt}>- ₹799.3</h5>
-                    </li>
-                    <li>
-                      <h4>Total MRP</h4>
-                      <h5 className={styles.discountAmt}>
-                        ₹{orderInfo.total_price}
-                      </h5>
-                    </li>
-                  </ul>
-                  <div className={styles.cartShippingPriceAmt}>
-                    <h4>Total Amount</h4>
-                    <h5>₹{orderInfo.total_price}</h5>
-                  </div>
-
-                  <div className={styles.cartShippingPricePaymentAmt}>
-                    <h4>Payment method:</h4>
-                    <h5>Cash On Delivery</h5>
-                  </div>
-                </div>
-              </div>
-            </div> */}
               </div>
               <div className={styles.cartShippingWrap}>
                 <div className={styles.cartShippingPriceDetail}>
@@ -195,27 +122,11 @@ const page = async ({ params }) => {
                           </h5>
                         </li>
                       )}
-
-                      {/* <li>
-                        <h4>Promocode Discount</h4>
-                        <h5 className={styles.discountAmt}>- ₹799.3</h5>
-                      </li>
-                      <li>
-                        <h4>Total MRP</h4>
-                        <h5 className={styles.discountAmt}>
-                          ₹{orderInfo.total_price}
-                        </h5>
-                      </li> */}
                     </ul>
                     <div className={styles.cartShippingPriceAmt}>
                       <h4>Total Amount</h4>
                       <h5>₹{orderInfo.total_price}</h5>
                     </div>
-
-                    {/* <div className={styles.cartShippingPricePaymentAmt}>
-                      <h4>Payment method:</h4>
-                      <h5>Cash On Delivery</h5>
-                    </div> */}
                   </div>
                 </div>
                 <div className={styles.cartShippingDetail}>

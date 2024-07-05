@@ -45,7 +45,6 @@ const LocationSearchModal = ({ show, onClose, onSelectLocation }) => {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
-          console.log("Location", location.lat, location.lng);
           onSelectLocation("latLong", location);
         }
       });
