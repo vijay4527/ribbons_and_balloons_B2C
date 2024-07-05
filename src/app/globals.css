@@ -368,6 +368,8 @@ img {
 .selectLocationWrap.activeClass,
 .selectSearchItemWrap.activeClass {
   display: block;
+  border-radius: 10px ;
+  overflow: hidden;
 }
 
 .selectLocationWrap,
@@ -393,6 +395,23 @@ img {
   overflow: auto;
   color: white;
 }
+
+
+.selectLocationBody::-webkit-scrollbar {
+  width: 0.5rem !important; /* Width of the scrollbar */
+}
+
+/* Style the scrollbar track (background) */
+.selectLocationBody::-webkit-scrollbar-track {
+  background-color: #5c3420 !important; /* Color of the track */
+}
+
+/* Style the draggable part of the scrollbar (thumb) */
+.selectLocationBody::-webkit-scrollbar-thumb {
+  background-color: #c19d56 !important; /* Color of the thumb */
+}
+
+
 
 .selectLocationImg img {
   width: 89px;
@@ -443,6 +462,7 @@ img {
 
 ul.selectLocationOption li {
   margin: 0;
+  border-radius: 5px;
 }
 
 ul.selectLocationOption a {
@@ -490,7 +510,7 @@ ul.selectLocationOption a {
   overflow: hidden;
   outline: 0;
   backdrop-filter: blur(10px);
-  background: rgb(255 255 255 / 0%);
+  background: rgba(14, 13, 13, 0.948);
   transition: opacity 0.15s linear;
 }
 
@@ -573,6 +593,22 @@ ul.selectLocationOption a {
   grid-gap: 10px;
   padding: 10px;
 }
+.selectSearchList::-webkit-scrollbar {
+  width: 0.5rem; /* Width of the scrollbar */
+}
+
+/* Style the scrollbar track (background) */
+.selectSearchList::-webkit-scrollbar-track {
+  background-color: #5c3420; /* Color of the track */
+}
+
+/* Style the draggable part of the scrollbar (thumb) */
+.selectSearchList::-webkit-scrollbar-thumb {
+  background-color: #c19d56 /* Color of the thumb */
+}
+.selectSearchListPopularText {
+  color: white;
+}
 .selectSearchList .searchResultContainer {
   align-items: start !important;
   text-decoration: none;
@@ -582,7 +618,9 @@ ul.selectLocationOption a {
   border: 1px solid #707070;
 }
 .selectSearchList img {
-  height: 230px;
+  height: 175px;
+  width: 100%;
+  object-fit: cover;
 }
 .searchItemInfo {
   text-align: left;
@@ -736,13 +774,12 @@ ul.selectLocationOption a {
 .sub_navbtn::after {
   position: absolute;
   content: "";
-  top: 95%;
-  left: 0;
-  width: 100%;
+  top: 75%;
+  left: 33%;
+  width: 2rem;
   height: 0.125rem;
   background: var(--theme-primary);
   transform: scaleX(0);
-  transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .sub_navbtn a:hover {
@@ -1330,8 +1367,9 @@ ul.selectLocationOption a {
 }
 
 .enquiry_btn {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   background: #efc468;
-  border-radius: 0;
   color: #232323;
   display: inline-block;
   font-size: 1.3rem;
@@ -1937,8 +1975,8 @@ ul.selectLocationOption a {
   width: 100%;
   padding: 21px;
   box-sizing: border-box;
-  background-color: #fff;
   text-align: center;
+  backdrop-filter: blur(10px);
 }
 
 .advInstaContentBoxborder {
