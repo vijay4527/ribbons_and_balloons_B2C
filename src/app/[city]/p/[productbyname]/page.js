@@ -46,7 +46,7 @@ async function getCategoryData(category, city) {
         process.env.API_URL +
           `ProductMaster/GetB2CProducts?category_name=${
             category ? category : ""
-          }&sub_category_name=null&city_name=${city}`,
+          }&sub_category_name=&city_name=${city}`,
         { next: { revalidate: 180 } }
       );
       const getData = await respData.json();
@@ -54,11 +54,6 @@ async function getCategoryData(category, city) {
         return getData;
       }
     }
-
-    return {
-      data: response,
-      category: category,
-    };
   } catch (error) {
     console.error("Error fetching data:", error);
     return {
@@ -77,6 +72,8 @@ async function GetProductData(productname, city) {
     const response = await respData.json();
     if (response) {
       return response;
+    } else {
+      return [];
     }
   } catch (error) {
     console.log(error);
@@ -87,18 +84,18 @@ const productbyname = async ({ params }) => {
   // const cities = await getCities();
   const city = params.city;
   const productname = params.productbyname;
-//   const nextCookies = cookies();
-//   const cityObj = await nextCookies.get("city");
-//   const cookiecity = cityObj?.value;
-//   const isValidCity = cities.some(
-//     (c) => c.city_name.toLowerCase() === newcity.toLowerCase()
-//   );
+  //   const nextCookies = cookies();
+  //   const cityObj = await nextCookies.get("city");
+  //   const cookiecity = cityObj?.value;
+  //   const isValidCity = cities.some(
+  //     (c) => c.city_name.toLowerCase() === newcity.toLowerCase()
+  //   );
 
-//   const city = isValidCity ? newcity : (cities.includes(cookiecity) ? cookiecity : newcity);
+  //   const city = isValidCity ? newcity : (cities.includes(cookiecity) ? cookiecity : newcity);
 
-//  if (!isValidCity) {
-//     redirect(`/${city}/p/${productname}`);
-//   }
+  //  if (!isValidCity) {
+  //     redirect(`/${city}/p/${productname}`);
+  //   }
   const data = await GetProductData(productname, city);
   if (data) {
     let image = data.product_image.split(",");
@@ -106,7 +103,7 @@ const productbyname = async ({ params }) => {
 
     return (
       <>
-        {data && categoryProduct && (
+        {data  && categoryProduct && (
           <div className={styles.pdp_WrapContent}>
             <div className={styles.common_header}>
               <div className={homeStyles["container_fluid"]}>
@@ -176,11 +173,7 @@ const productbyname = async ({ params }) => {
                         categoryProduct && categoryProduct.length > 0 && (
                           <ShowCaseSlider data={categoryProduct} city={city} />
                         )
-                        // categoryProduct.map((item,index) => {
-                        //   <div key={item.id || index} className={styles.slide}>
-                        //     <img src={`${AppConfig.cdn}products/${item.product_image.split(",")[0]}`} alt={`Slide ${index}`} />
-                        //   </div>
-                        // })
+                        
                       }
                     </div>
                   </div>
@@ -198,6 +191,18 @@ const productbyname = async ({ params }) => {
           </div>
         )}
       </>
+    );
+  } else {
+    return (
+      <div className="display-flex-center">
+        <span className="text-center">
+          No Products Found for {productname}
+        </span>
+        <img
+          src="https://static.vecteezy.com/system/resources/thumbnails/006/549/647/small/404-landing-page-free-vector.jpg"
+          alt="No image found"
+        />
+      </div>
     );
   }
 };

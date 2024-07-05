@@ -641,6 +641,14 @@ function getProductDetails({ data }) {
         </div>
       </div>
     );
+  } else {
+    <div className="display-flex-center">
+      <span className="text-center">No Products Found</span>
+      <img
+        src="https://static.vecteezy.com/system/resources/thumbnails/006/549/647/small/404-landing-page-free-vector.jpg"
+        alt="No image found"
+      />
+    </div>;
   }
 }
 
