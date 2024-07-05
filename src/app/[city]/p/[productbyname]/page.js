@@ -84,21 +84,21 @@ async function GetProductData(productname, city) {
 }
 
 const productbyname = async ({ params }) => {
-  const cities = await getCities();
-  const newcity = params.city;
+  // const cities = await getCities();
+  const city = params.city;
   const productname = params.productbyname;
-  const nextCookies = cookies();
-  const cityObj = await nextCookies.get("city");
-  const cookiecity = cityObj?.value;
-  const city = cities.includes(newcity) ? newcity : cookiecity;
+//   const nextCookies = cookies();
+//   const cityObj = await nextCookies.get("city");
+//   const cookiecity = cityObj?.value;
+//   const isValidCity = cities.some(
+//     (c) => c.city_name.toLowerCase() === newcity.toLowerCase()
+//   );
 
-  const isValidCity = cities.some(
-    (c) => c.city_name.toLowerCase() === newcity.toLowerCase()
-  );
+//   const city = isValidCity ? newcity : (cities.includes(cookiecity) ? cookiecity : newcity);
 
-  if (!isValidCity) {
-    redirect(`/${city}/p/` + productname);
-  }
+//  if (!isValidCity) {
+//     redirect(`/${city}/p/${productname}`);
+//   }
   const data = await GetProductData(productname, city);
   if (data) {
     let image = data.product_image.split(",");
