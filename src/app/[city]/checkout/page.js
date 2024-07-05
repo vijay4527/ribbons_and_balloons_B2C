@@ -15,7 +15,6 @@ import { AuthOtpContext } from "@/components/authContext";
 import Cookies from "js-cookie";
 import { validationSchema } from "@/components/validation";
 import Modal from "react-bootstrap/Modal";
-import "react-datepicker/dist/react-datepicker.css";
 
 const page = ({ params }) => {
   const [products, setProducts] = useState([]);
