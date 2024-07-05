@@ -98,14 +98,14 @@ const page = ({ params }) => {
     if (response.resp == true) {
       var newPrice = grandTotal - itemCost;
       setGrandTotal(newPrice);
-      if (cart.length == 1) {
-        try {
-          sessionStorage.removeItem("cartId");
-          cartId = "";
-        } catch (error) {
-          console.error("Error removing cartId from session storage:", error);
-        }
-      }
+      // if (cart.length == 1) {
+      //   try {
+      //     sessionStorage.removeItem("cartId");
+      //     cartId = "";
+      //   } catch (error) {
+      //     console.error("Error removing cartId from session storage:", error);
+      //   }
+      // }
       GetAllCart();
     }
   };
