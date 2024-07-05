@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import styles from "@/app/[city]/cart/page.module.css";
 import homeStyles from "@/app/home.module.css";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 import AppConfig from "@/AppConfig";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

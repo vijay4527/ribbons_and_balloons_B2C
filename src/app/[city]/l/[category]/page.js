@@ -89,15 +89,7 @@ const page = async ({ params }) => {
     redirect(`/${city}/l/` + categoryName);
   }
   const subcategory = params.subcategory;
-  // const isValidCity = cities.some(
-  //   (c) => c.city_name.toLowerCase() === city.toLowerCase()
-  // );
-
-  // if (!isValidCity) {
-  //   redirect('/mumbai/l/'+categoryName)
-  // }
   const apiUrl = process.env.API_URL;
-  console.log("Api Url", apiUrl);
 
   const { data, category } = await getCategoryData(
     apiUrl,

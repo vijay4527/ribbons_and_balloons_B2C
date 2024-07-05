@@ -68,16 +68,7 @@ const MediaCollaborators = ({ city, data }) => {
                       />
                     </div>
                   </div>
-                  {/* <div className="item" key={e.banner_id}>
-                    <div className="itemNewLunch">
-                      <div className="itemNewLunchImg">
-                        <img
-                          src={AppConfig.cdn + e.img_url}
-                          alt="No image found"
-                        />
-                      </div>
-                    </div>
-                  </div> */}
+                 
                 </Link>
               ))}
           </Carousel>

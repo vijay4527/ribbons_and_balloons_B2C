@@ -15,7 +15,6 @@ import { AuthOtpContext } from "@/components/authContext";
 import Cookies from "js-cookie";
 import { validationSchema } from "@/components/validation";
 import Modal from "react-bootstrap/Modal";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const page = ({ params }) => {
@@ -521,27 +520,11 @@ const page = ({ params }) => {
                       <h4 className={styles.checkoutQctShippingTitle}>
                         Select Date and Time
                       </h4>
-                      <ul className={styles.checkoutQctShippingTabs}>
-                        {/* <li
-                      className={`${styles.active}`}
-                      onClick={() => handleOptionChange("delivery")}
-                    >
-                      <h4>Select Date </h4>
-                      <p>(Get your prod uct delivered to your home)</p>
-                    </li> */}
-                      </ul>
+
                       <div className={styles.checkoutQctShippingContents}>
                         <div
                           className={`${styles.checkoutQctShippingContent} ${styles.active}`}
                         >
-                          {/* <DatePicker
-                        selected={startDate}
-                        onChange={handleDateChange}
-                        showTimeSelect
-                        minDate={minDate}
-                        dateFormat="MMMM d, yyyy h:mm aa"
-                        className="form-control"
-                      /> */}
                           <div className={styles.dateContiner}>
                             <div className={styles.dateDiv}>
                               <label>Select a date:</label>
@@ -568,13 +551,6 @@ const page = ({ params }) => {
                                   <option value="">11:30am to 3:30 pm</option>
                                   <option value="">11:30pm to 5:30 pm</option>
                                 </select>
-                                {/* <input
-                              type="time"
-                              id="timePicker"
-                              className="form-control"
-                              value={time}
-                              onChange={(e)=>setTime(e.target.value)}
-                            /> */}
                               </div>
                             )}
                           </div>
@@ -1002,19 +978,6 @@ const page = ({ params }) => {
                 </div>
               </div>
               <div className={styles.checkoutQctOrderSummary}>
-                {/* <div className={styles.cartPriceBox}>
-                  <div className={`${styles.cartOrderSummary} m-0`}>
-                    <h4>Select Date</h4>
-                    <DatePicker
-                      selected={startDate}
-                      onChange={handleDateChange}
-                      showTimeSelect
-                      minDate={minDate}
-                      dateFormat="MMMM d, yyyy h:mm aa"
-                      className="form-control"
-                    />
-                  </div>
-                </div> */}
                 <div className="" style={{ width: "100%", marginTop: "10px" }}>
                   <div className={styles.cartPriceBox}>
                     <div className={styles.cartOrderSummary}>

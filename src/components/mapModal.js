@@ -27,7 +27,6 @@ const MapModal = ({ show, location, type, onClose }) => {
       userName,
       isChangePressed,
     };
-    console.log("full address", addressData);
     onClose(addressData);
   };
 
@@ -68,9 +67,7 @@ const MapModal = ({ show, location, type, onClose }) => {
           size="xl"
           className="mapModal"
         >
-          {/* <Modal.Header closeButton>
-        <Modal.Title>Search Location</Modal.Title>
-      </Modal.Header> */}
+         
           <Modal.Body>
             <div className="row">
               <div className="col-lg-7">

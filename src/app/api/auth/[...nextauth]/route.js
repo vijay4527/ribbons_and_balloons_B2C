@@ -20,7 +20,6 @@ const handler = NextAuth({
         token.cartId =""
         const cartId = cookies().get("cartId")?.value ?? "";
         const apiUrl = process.env.API_URL
-        console.log("api_url",apiUrl)
         try {
           var userObject = {
             mobile: "",

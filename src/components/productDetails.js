@@ -61,17 +61,16 @@ function getProductDetails({ data }) {
         productData.productTypeData.length > 0
       ) {
         const initialProductType = productData.productTypeData[0];
-        setSelectedProductType(initialProductType.variety_id);
-        setProductPrice(initialProductType.cost);
+        // setSelectedProductType(initialProductType.variety_id);
         updateVariable(initialProductType.cost);
-        setVariety(productData.productTypeData[0].variety_id);
+        // setVariety(productData.productTypeData[0].variety_id);
         updateVariety(productData.productTypeData[0].variety_id);
         setQuantity(productData.min);
 
         switch (productData.type_id) {
           case 1:
             if (productData.type_id == 1) {
-              setUnit("KG");
+              // setUnit("KG");
               updateUnit("KG");
               setValues("0.5");
               updateValue("0.5");
@@ -131,7 +130,7 @@ function getProductDetails({ data }) {
   const handleProductTypeChange = (event) => {
     const selectedType = event;
     updateVariety(selectedType);
-    setSelectedProductType(selectedType);
+    // setSelectedProductType(selectedType);
     const selectProduct = product.productTypeData.find(
       (productType) => productType.variety_id === selectedType
     );
@@ -164,28 +163,28 @@ function getProductDetails({ data }) {
       if (weight == "0.5") {
         setValues("0.5");
         updateValue("0.5");
-        setUnit("gram");
+        // setUnit("gram");
         updateUnit("gram");
         updateVariable(product.productTypeData[0].cost);
       } else {
         setValues("1");
         updateValue("1");
-        setUnit("KG");
+        // setUnit("KG");
         updateUnit("KG");
-        setProductPrice(product.productTypeData[0].cost * 2 - 10);
+        // setProductPrice(product.productTypeData[0].cost * 2 - 10);
         updateVariable(product.productTypeData[0].cost * 2 - 10);
       }
     }
     if (product.type_id == 2) {
       setValues(weight);
       updateValue(weight);
-      setProductPrice(product.productTypeData[0].cost * 2 * weight);
+      // setProductPrice(product.productTypeData[0].cost * 2 * weight);
       updateVariable(product.productTypeData[0].cost * 2 * weight);
     }
     if (product.type_id == 3) {
       setValues(weight);
       updateValue(weight);
-      setProductPrice(product.productTypeData[0].cost * weight - 10);
+      // setProductPrice(product.productTypeData[0].cost * weight - 10);
       updateVariable(product.productTypeData[0].cost * 2 * weight - 10);
     }
     if (product.type_id == 4) {

@@ -42,7 +42,6 @@ const page = () => {
         );
         const addressData = await addressResponse.json();
         if (addressData) {
-          console.log(addressData);
           setAddress(addressData);
         }
       }

@@ -37,11 +37,7 @@ export async function generateMetadata({ params }) {
 async function getCategoryData(category, city) {
   try {
     if (category) {
-      const obj = {
-        category_name: category || "",
-        sub_category_name: "",
-        city_name: city,
-      };
+
       const respData = await fetch(
         process.env.API_URL +
           `ProductMaster/GetB2CProducts?category_name=${

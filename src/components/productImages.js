@@ -1,7 +1,6 @@
 "use client"
 import React from "react";
 import styles from "@/app/[city]/p/[productbyname]/page.module.css";
-import homeStyles from "@/app/home.module.css";
 import ProductImageZoom from "@/components/productImageZoom";
 import AppConfig from "@/AppConfig";
 import AddToFavoritesButton from "@/components/AddToFavoritesButton";

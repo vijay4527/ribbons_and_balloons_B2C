@@ -15,7 +15,7 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
   const [quantities, setQuantities] = useState([]);
   const { isLogged } = useContext(AuthOtpContext);
   const [user, setUser] = useState(null);
-  const [showCartButton, setShowCartbutton] = useState(false);
+  // const [showCartButton, setShowCartbutton] = useState(false);
   const router = useRouter();
   const apiUrl = process.env.API_URL;
 
@@ -52,7 +52,7 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
   };
 
   const toggleSelection = (index) => {
-    setShowCartbutton(true);
+ 
     const updatedIndexes = [...selectedIndexes];
     if (updatedIndexes.includes(index)) {
       updatedIndexes.splice(updatedIndexes.indexOf(index), 1);

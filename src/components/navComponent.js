@@ -317,7 +317,6 @@ const navComponent = () => {
                 value={searchValue}
                 className="form-control"
                 onChange={(e) => handleKeyPress(e.target.value)}
-                // onKeyDown={handleKeyPress}
               />
             </div>
             <div className="selectSearchContent">

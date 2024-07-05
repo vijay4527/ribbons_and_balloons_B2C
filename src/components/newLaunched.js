@@ -72,33 +72,7 @@ const Testimonial = ({ city, data }) => {
                   </Link>
                 ))}
 
-              {/* <div className="item">
-                <Link href={`/${secondImage.redirect_url}`}>
-                  <div className="itemNewLunch">
-                    <div className="itemNewLunchImg">
-                      <img src={AppConfig.cdn+secondImage.img_url} alt="No image found" />
-                    </div>
-                  </div>
-                </Link>
-              </div>
-              <div className="item">
-                <Link href={`/${thirdImage.redirect_url}`}>
-                  <div className="itemNewLunch">
-                    <div className="itemNewLunchImg">
-                      <img src={AppConfig.cdn+thirdImage.img_url} alt="No image found" />
-                    </div>
-                  </div>
-                </Link>
-              </div>
-              <div className="item">
-                <Link href={`/${fourthImage.redirect_url}`}>
-                  <div className="itemNewLunch">
-                    <div className="itemNewLunchImg">
-                      <img src={AppConfig.cdn+fourthImage.img_url} alt="No image found" />
-                    </div>
-                  </div>
-                </Link>
-              </div> */}
+              
             </Carousel>
           </div>
         </Container>

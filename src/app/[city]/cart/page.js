@@ -93,14 +93,7 @@ const page = ({ params }) => {
     }
   };
 
-  // useEffect(() => {
-  //   if (cart.length > 0) {
-  //     const total = cart.reduce((accumulator, item) => {
-  //       return accumulator + item.cost;
-  //     }, 0);
-  //     setGrandTotal(total);
-  //   }
-  // }, [cart]);
+
 
   const handleProducts = () => {
     if (!isUserLoggedIn || !user) {
@@ -116,7 +109,6 @@ const page = ({ params }) => {
   };
 
   const closeCityModal = () => {
-    console.log("Closing modal");
     setCityModalOpen(false);
   };
 

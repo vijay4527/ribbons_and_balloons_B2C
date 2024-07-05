@@ -3,15 +3,10 @@ import React from "react";
 import Head from "next/head";
 import styles from "@/app/[city]/orders/page.module.css";
 import homeStyles from "@/app/home.module.css";
-import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 const page = ({ params }) => {
-  const router = useRouter();
   const city = params.city;
-  const [user, setUser] = useState({});
-  const { data, status } = useSession();
   const [orders, setOrders] = useState([]);
    const apiUrl = process.env.API_URL;
 
