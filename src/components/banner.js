@@ -62,7 +62,7 @@ const Banner = ({ city, data }) => {
                   src="https://swissdelight.qodeinteractive.com/wp-content/uploads/2021/02/h2-img-7.jpg"
                   alt="No image found"
                 /> */}
-                <Link href={`/${firstImage?.redirect_url}`}>
+                <Link href={`/${firstImage.redirect_url ? firstImage.redirect_url : "/"}`}>
                   <Image src={AppConfig.cdn+firstImage?.img_url} alt="No image found"  height={403} width={597} priority/>
                 </Link>
               </div>
@@ -75,7 +75,7 @@ const Banner = ({ city, data }) => {
                   src="https://swissdelight.qodeinteractive.com/wp-content/uploads/2021/02/h2-img-1-729x1024.png"
                   alt="No image found"
                 /> */}
-                <Link href={`/${secondImage?.redirect_url}`}>
+                <Link href={`/${secondImage.redirect_url ? secondImage?.redirect_url : "/"}`}>
                 <Image src={AppConfig.cdn+secondImage?.img_url} alt="No image found"  height={428} width={601} priority/>
                 </Link>
               </div>
@@ -90,7 +90,7 @@ const Banner = ({ city, data }) => {
                   src="https://swissdelight.qodeinteractive.com/wp-content/uploads/2021/02/h2-img-8.jpg"
                   alt="No image found"
                 /> */}
-                <Link href={`/${thirdImage?.redirect_url}`}>
+                <Link href={`/${thirdImage.redirect_url ? thirdImage.redirect_url : "/"}`}>
                 <Image src={AppConfig.cdn+thirdImage?.img_url} alt="No image found"  height={629} width={931} priority/>
                 </Link>
               </div>
@@ -105,7 +105,7 @@ const Banner = ({ city, data }) => {
                   src="https://swissdelight.qodeinteractive.com/wp-content/uploads/2021/02/h2-img-10.jpg"
                   alt="No image found"
                 /> */}
-                <Link href={`/${fourthImage?.redirect_url}`}>
+                <Link href={`/${fourthImage.redirect_url ? fourthImage.redirect_url: "/"}`}>
                 <Image src={AppConfig.cdn+fourthImage?.img_url} alt="No image found"  height={403} width={596} priority/>
 
                   {/* <img src={AppConfig.cdn+fourthImage?.img_url} alt="No image found" /> */}
@@ -120,7 +120,7 @@ const Banner = ({ city, data }) => {
                   src="https://swissdelight.qodeinteractive.com/wp-content/uploads/2021/02/h2-img-9.jpg"
                   alt="No image found"
                 /> */}
-                <Link href={`/${fifthImage?.redirect_url}`}>
+                <Link href={`/${fifthImage.redirect_url ? fifthImage.redirect_url : "/"}`}>
                 <Image src={AppConfig.cdn+fifthImage?.img_url} alt="No image found"  height={428} width={633} priority/>
 
                   {/* <img src={AppConfig.cdn+fifthImage?.img_url} alt="No image found" /> */}

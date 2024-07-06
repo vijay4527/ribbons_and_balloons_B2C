@@ -59,7 +59,7 @@ const MediaCollaborators = ({ city, data }) => {
             {data &&
               data.length > 0 &&
               data.map((e, i) => (
-                <Link href={`${e?.redirect_url}`} key={i}>
+                <Link href={`${e.redirect_url ? e.redirect_url : "/"}`} key={i}>
                   <div className="item">
                     <div className="MediaContentImg">
                       <img
