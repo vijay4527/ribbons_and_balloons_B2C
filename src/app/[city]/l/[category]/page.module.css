@@ -695,7 +695,7 @@
     .imgHvr {
       position: relative;
       overflow: hidden;
-      height: 29rem;
+      height: 26rem;
     }
     .add_to_cart_button{
       text-decoration: none !important;
@@ -780,6 +780,7 @@
   .plpProdctImg{
     width: 100%;
     height: 100%;
+    object-fit: cover;
   }
   .itemCard,
   .itemCard:hover{
