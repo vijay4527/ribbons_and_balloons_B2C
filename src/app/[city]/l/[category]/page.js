@@ -103,7 +103,7 @@ const page = async ({ params }) => {
       subcategoryName={subcategory}
       data={data}
       categoryName={categoryName}
-      city={city}
+      City={city}
     />
   );
 };
