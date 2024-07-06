@@ -55,11 +55,17 @@ const newsLetterSchema = yup.object().shape({
 const enquirySchema = yup.object().shape({
   firstName: yup
     .string()
-    .matches(/^[a-zA-Z]+$/, "Only alphabets without spaces and special characters are allowed")
+    .matches(
+      /^[a-zA-Z]+$/,
+      "Only alphabets without spaces and special characters are allowed"
+    )
     .required("This field is required"),
   lastName: yup
     .string()
-    .matches(/^[a-zA-Z]+$/, "Last Name should contain only alphabets without spaces or special characters")
+    .matches(
+      /^[a-zA-Z]+$/,
+      "Last Name should contain only alphabets without spaces or special characters"
+    )
     .required("This field is required"),
   email: yup
     .string()
@@ -68,5 +74,18 @@ const enquirySchema = yup.object().shape({
   message: yup.string().required("This field is required"),
 });
 
+const locationSchema = yup.object().shape({
+  flate: yup.string().required("this field is required"),
+  landmark: yup.string().required("this field is required"),
+  name: yup.string().required("this field is required"),
+});
 
-export {loginSchema, otpSchema, profileSchema, validationSchema,newsLetterSchema,enquirySchema};
+export {
+  loginSchema,
+  otpSchema,
+  profileSchema,
+  validationSchema,
+  newsLetterSchema,
+  enquirySchema,
+  locationSchema
+};

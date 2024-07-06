@@ -43,15 +43,15 @@ export default function RootLayout({ children }) {
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/css/bootstrap.min.css"
           rel="stylesheet"
         />
-        <script rel="preload" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
+        {/* <script rel="preload" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/js/bootstrap.bundle.min.js"></script> */}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         ></link>
-        <link
+        {/* <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Cormorant&display=swap"
-        />
+        /> */}
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"

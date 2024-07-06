@@ -22,9 +22,15 @@ export default function Home() {
 
   const handleCloseMapModal = (data) => {
     setIsMapModalOpen(false);
-    setIsSearchModalOpen(true);
+    setIsSearchModalOpen(false);
   
   };
+
+  const handleMapLocation = (data)=>{
+    setIsSearchModalOpen(data.isChangePressed)
+    setIsMapModalOpen(data.isChangePressed)
+    console.log("got the data",data)
+  } 
 
   return (
     <div>
@@ -36,12 +42,13 @@ export default function Home() {
           onSelectLocation={handleSelectLocation}
         />
       )}
-      {isMapModalOpen && location && (
+      {isMapModalOpen && location && !isSearchModalOpen && (
         <MapModal
           show={isMapModalOpen}
           location={location}
           type={locationType}
           onClose={handleCloseMapModal}
+          onSelectLocation={handleMapLocation}
         />
       )}
     </div>

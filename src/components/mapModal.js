@@ -1,33 +1,60 @@
 "use client";
 import { GoogleMap, Marker, LoadScript } from "@react-google-maps/api";
 import { Modal, Button, Form } from "react-bootstrap";
-
+import * as yup from "yup";
+import { locationSchema } from "@/components/validation";
 import { useState, useEffect } from "react";
-const MapModal = ({ show, location, type, onClose }) => {
+
+const MapModal = ({ show, location, type, onClose, onSelectLocation }) => {
   const containerStyle = {
     width: "100%",
     height: "100%",
   };
 
-  const [flat, setFlate] = useState("");
-  const [landmark, setLandMark] = useState("");
-  const [userName, setUserName] = useState("");
-  const [isChangePressed, setIsChangePressed] = useState(false);
+  // const [flat, setFlate] = useState("");
+  // const [landmark, setLandMark] = useState("");
+  // const [userName, setUserName] = useState("");
+  // const [isChangePressed, setIsChangePressed] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [locationData, setLocationData] = useState({
+    flate: "",
+    landmark: "",
+    name: "",
+    isChangePressed: false,
+  });
   const [currentLocation, setCurrentLocation] = useState(null);
 
-  const handleChange = () => {
-    setIsChangePressed(true);
-    onClose();
+  const handleChange = async () => {
+    try {
+      setLocationData((prevData) => {
+        const updatedData = { ...prevData, isChangePressed: true };
+        onSelectLocation(updatedData);
+        return updatedData;
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
-  const handleSave = (e) => {
-    e.preventDefault();
-    const addressData = {
-      flat,
-      landmark,
-      userName,
-      isChangePressed,
-    };
-    onClose(addressData);
+  const handleSave = async (e) => {
+    try {
+      await locationSchema.validate(locationData, { abortEarly: false });
+      location.isChangePressed = true;
+      // const addressData = {
+      //  locationData,
+      // };
+      onSelectLocation(locationData);
+      onClose(locationData);
+    } catch (validationError) {
+      if (validationError instanceof yup.ValidationError) {
+        const newErrors = {};
+        validationError.inner.forEach((error) => {
+          newErrors[error.path] = error.message;
+        });
+        setErrors(newErrors);
+      } else {
+        console.error(validationError);
+      }
+    }
   };
 
   useEffect(() => {
@@ -58,6 +85,14 @@ const MapModal = ({ show, location, type, onClose }) => {
       alert("Geolocation is not supported by this browser.");
     }
   };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setLocationData({ ...locationData, [name]: value });
+    if (value.trim() !== "") {
+      setErrors({ ...errors, [name]: "" });
+    }
+  };
   return (
     <>
       <div className="mapModalDiv">
@@ -67,7 +102,6 @@ const MapModal = ({ show, location, type, onClose }) => {
           size="xl"
           className="mapModal"
         >
-         
           <Modal.Body>
             <div className="row">
               <div className="col-lg-7">
@@ -113,11 +147,18 @@ const MapModal = ({ show, location, type, onClose }) => {
                     <Form.Label className="flate">Flate / House</Form.Label>
                     <Form.Control
                       type="text"
-                      value={flat}
-                      onChange={(e) => setFlate(e.target.value)}
-                      className="flatInput"
+                      value={locationData.flate}
+                      onChange={handleInputChange}
+                      className={`flatInput ${errors.flate ? "error" : ""}`}
+                      name="flate"
                     ></Form.Control>
                   </Form.Group>
+                  <div className="errorDiv">
+                    {errors.flate && (
+                      <div className="text-danger">{errors.flate}</div>
+                    )}
+                  </div>
+
                   <Form.Group
                     controlId="formLocationDescription"
                     className="mt-3"
@@ -125,11 +166,17 @@ const MapModal = ({ show, location, type, onClose }) => {
                     <Form.Label className="flate">LandMark</Form.Label>
                     <Form.Control
                       type="text"
-                      className="flatInput"
-                      value={landmark}
-                      onChange={(e) => setLandMark(e.target.value)}
+                      className={`flatInput ${errors.landmark ? "error" : ""}`}
+                      value={locationData.landmark}
+                      onChange={handleInputChange}
+                      name="landmark"
                     />
                   </Form.Group>
+                  <div className="errorDiv">
+                    {errors.landmark && (
+                      <div className="text-danger">{errors.landmark}</div>
+                    )}
+                  </div>
                   <Form.Group
                     controlId="formLocationDescription"
                     className="mt-3"
@@ -137,11 +184,17 @@ const MapModal = ({ show, location, type, onClose }) => {
                     <Form.Label className="flate">Name</Form.Label>
                     <Form.Control
                       type="text"
-                      className="flatInput"
-                      value={userName}
-                      onChange={(e) => setUserName(e.target.value)}
+                      className={`flatInput ${errors.name ? "error" : ""}`}
+                      value={locationData.name}
+                      onChange={handleInputChange}
+                      name="name"
                     />
                   </Form.Group>
+                  <div className="errorDiv">
+                    {errors.name && (
+                      <div className="text-danger">{errors.name}</div>
+                    )}
+                  </div>
                   <Button
                     variant="primary"
                     type="button"

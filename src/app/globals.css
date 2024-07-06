@@ -3495,4 +3495,8 @@ input[name="contact"] {
   color: #301a0f;
 }
 
+
+.error{
+  border-color: red !important;
+}
   
