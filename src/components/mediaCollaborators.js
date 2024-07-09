@@ -6,7 +6,6 @@ import "react-multi-carousel/lib/styles.css";
 import styles from "@/app/[city]/l/[category]/page.module.css";
 import Link from "next/link";
 import AppConfig from "@/AppConfig";
-import Image from "next/image";
 
 const responsive = {
   desktop: {
@@ -63,11 +62,9 @@ const MediaCollaborators = ({ city, data }) => {
                 <Link href={`${e.redirect_url ? e.redirect_url : "/"}`} key={i}>
                   <div className="item">
                     <div className="MediaContentImg">
-                      <Image
+                      <img
                         src={AppConfig.cdn + e?.img_url}
                         alt="No image found"
-                        height={89}
-                        width={354}
                       />
                     </div>
                   </div>

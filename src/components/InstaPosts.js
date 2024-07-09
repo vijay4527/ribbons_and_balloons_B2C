@@ -1,7 +1,5 @@
 import React from 'react'
 import Container from "react-bootstrap/Container";
-import Image from "next/image";
-
 const InstaPosts = () => {
   return (
     <div className="advInstaWrap">
@@ -23,8 +21,6 @@ const InstaPosts = () => {
                 src="https://fama.b-cdn.net/RnB/post1.webp"
                 alt="No image found"
                 rel="preload"
-                height={290}
-                width={290}
               />
             </div>
             <div className="advInstaContentBoxHover">
@@ -41,12 +37,10 @@ const InstaPosts = () => {
           </div>
           <div className="advInstaContentBox">
             <div className="advInstaContentBoxImg">
-              <Image
+              <img
                 src="https://fama.b-cdn.net/RnB/post3.webp"
                 alt="No image found"
                 rel="preload"
-                height={290}
-                width={290}
               />
             </div>
             <div className="advInstaContentBoxHover">
@@ -63,12 +57,10 @@ const InstaPosts = () => {
           </div>
           <div className="advInstaContentBox">
             <div className="advInstaContentBoxImg">
-              <Image
+              <img
                 src="https://fama.b-cdn.net/RnB/post2.webp"
                 alt="No image found"
                 rel="preload"
-                height={290}
-                width={290}
               />
             </div>
             <div className="advInstaContentBoxHover">
@@ -85,12 +77,10 @@ const InstaPosts = () => {
           </div>
           <div className="advInstaContentBox">
             <div className="advInstaContentBoxImg">
-              <Image
+              <img
                 src="https://fama.b-cdn.net/RnB/post4.webp"
                 alt="No image found"
                 rel="preload"
-                height={290}
-                width={290}
               />
             </div>
             <div className="advInstaContentBoxHover">
@@ -110,12 +100,10 @@ const InstaPosts = () => {
         <div className="advInstaContent">
           <div className="advInstaContentBox">
             <div className="advInstaContentBoxImg">
-              <Image
+              <img
                 src="https://fama.b-cdn.net/RnB/post5.webp"
                 alt="No image found"
                 rel="preload"
-                height={609}
-                width={609}
               />
             </div>
             <div className="advInstaContentBoxHover">
@@ -135,12 +123,10 @@ const InstaPosts = () => {
         <div className="advInstaContent2">
           <div className="advInstaContentBox">
             <div className="advInstaContentBoxImg">
-              <Image
+              <img
                 src="https://fama.b-cdn.net/RnB/post1.webp"
                 alt="No image found"
                 rel="preload"
-                height={290}
-                width={290}
               />
             </div>
             <div className="advInstaContentBoxHover">
@@ -157,12 +143,10 @@ const InstaPosts = () => {
           </div>
           <div className="advInstaContentBox">
             <div className="advInstaContentBoxImg">
-              <Image
+              <img
                 src="https://fama.b-cdn.net/RnB/post3.webp"
                 alt="No image found"
                 rel="preload"
-                height={290}
-                width={290}
               />
             </div>
             <div className="advInstaContentBoxHover">
@@ -179,12 +163,10 @@ const InstaPosts = () => {
           </div>
           <div className="advInstaContentBox">
             <div className="advInstaContentBoxImg">
-              <Image
+              <img
                 src="https://fama.b-cdn.net/RnB/post2.webp"
                 alt="No image found"
                 rel="preload"
-                height={290}
-                width={290}
               />
             </div>
             <div className="advInstaContentBoxHover">
@@ -201,12 +183,10 @@ const InstaPosts = () => {
           </div>
           <div className="advInstaContentBox">
             <div className="advInstaContentBoxImg">
-              <Image
+              <img
               rel="preload"
                 src="https://fama.b-cdn.net/RnB/post4.webp"
                 alt="No image found"
-                height={290}
-                width={290}
               />
             </div>
             <div className="advInstaContentBoxHover">

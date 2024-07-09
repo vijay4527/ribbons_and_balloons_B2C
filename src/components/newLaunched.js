@@ -6,7 +6,6 @@ import "react-multi-carousel/lib/styles.css";
 import styles from "@/app/[city]/l/[category]/page.module.css";
 import Link from "next/link";
 import AppConfig from "@/AppConfig";
-import Image from "next/image";
 
 const responsive = {
   desktop: {
@@ -63,11 +62,9 @@ const Testimonial = ({ city, data }) => {
                     <div className="item">
                       <div className="itemNewLunch">
                         <div className="itemNewLunchImg">
-                          <Image
+                          <img
                             src={AppConfig.cdn + e?.img_url}
                             alt="No image found"
-                            height={360}
-                            width={360}
                           />
                         </div>
                       </div>
