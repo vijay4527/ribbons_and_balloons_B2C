@@ -7,6 +7,8 @@ import Link from "next/link";
 import * as yup from "yup";
 import { usePathname } from "next/navigation";
 import { newsLetterSchema } from "./validation";
+import Image from "next/image";
+
 import Cookies from "js-cookie";
 export default function Footer() {
   const [errors, setErrors] = useState({});
@@ -97,9 +99,11 @@ export default function Footer() {
               <Row>
                 <Col md={3}>
                   <div className="footerLogos">
-                    <img
+                    <Image
                       src="https://fama.b-cdn.net/RnB/Logo-Golden.webp"
                       alt="No image found"
+                      height={120}
+                      width={205}
                     />
                   </div>
                   <div className="footerSocial">

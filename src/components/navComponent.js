@@ -325,7 +325,7 @@ const navComponent = () => {
                 {isPopularSearchVisible && (
                   <ul>
                     <li>
-                      <a onClick={() => handleKeyPress("Cakes")}>
+                      <span onClick={() => handleKeyPress("Cakes")}>
                         <span className="selectSearchListPopularIcon">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -347,10 +347,10 @@ const navComponent = () => {
                         <span className="selectSearchListPopularText">
                           Cake
                         </span>
-                      </a>
+                      </span>
                     </li>
                     <li>
-                      <a onClick={() => handleKeyPress("Savoury")}>
+                      <span onClick={() => handleKeyPress("Savoury")}>
                         <span className="selectSearchListPopularIcon">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -372,7 +372,7 @@ const navComponent = () => {
                         <span className="selectSearchListPopularText">
                           Savoury
                         </span>
-                      </a>
+                      </span>
                     </li>
                   </ul>
                 )}
