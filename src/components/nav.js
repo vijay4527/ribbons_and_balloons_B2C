@@ -2,6 +2,8 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Link from "next/link";
+import Image from "next/image";
+
 // import NavComponent from "./navComponent";
 import dynamic from "next/dynamic";
 const NavComponent = dynamic(() => import("@/components/navComponent"), {
@@ -55,19 +57,23 @@ const Nav = async () => {
               <div className="flip-container">
                 <div className="flipper">
                   <div className="front">
-                    <img
+                    <Image
                       rel="preload"
-                      src="https://fama.b-cdn.net/RnB/logo3.webp"
+                      src="https://fama.b-cdn.net/RnB/logo%20rnb.webp"
                       className="d-inline-block align-top"
                       alt="React Bootstrap logo"
+                      height={78}
+                      width={141}
                     />
                   </div>
                   <div className="back">
-                    <img
+                    <Image
                       rel="preload"
-                      src="https://fama.b-cdn.net/RnB/Logo-Golden.webp"
+                      src="https://fama.b-cdn.net/RnB/golden_logo.webp"
                       className="d-inline-block align-top"
                       alt="React Bootstrap logo"
+                      height={88}
+                      width={150}
                     />
                   </div>
                   <div className="clear"></div>

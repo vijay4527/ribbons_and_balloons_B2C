@@ -7,7 +7,7 @@ import AppConfig from "@/AppConfig";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 import Cookies from "js-cookie";
-function CategoryComponent({ category, subcategoryName, data, categoryName }) {
+function CategoryComponent({ category, subcategoryName, data, categoryName ,City}) {
   const [minRange, setMinRange] = useState(0);
   const [maxRange, setMaxRange] = useState(0);
   const [selectedMinRange, setSelectedMinRange] = useState(0);
@@ -15,87 +15,87 @@ function CategoryComponent({ category, subcategoryName, data, categoryName }) {
   const [filteredData, setFilteredData] = useState(data);
   const [sortingType, setSortingType] = useState("Default sorting");
   const [sortingDirection, setSortingDirection] = useState("asc");
-  const city = Cookies.get("city");
-  useEffect(() => {
-    let minCost = Number.MAX_VALUE;
-    let maxCost = Number.MIN_VALUE;
-    if (data && data.length > 0) {
-      data.forEach((item) => {
-        const cost = parseFloat(item.cost);
-        if (cost < minCost) {
-          minCost = cost;
-          setSelectedMinRange(cost);
-        }
-        if (cost > maxCost) {
-          maxCost = cost;
-          setSelectedMaxRange(cost);
-        }
-      });
-      setMinRange(minCost);
-      setMaxRange(maxCost);
-      filterProductsByRange(minCost, maxCost);
-    }
-  }, [data]);
+  const city = Cookies.get("city") ?  Cookies.get("city") : City;
+  // useEffect(() => {
+  //   let minCost = Number.MAX_VALUE;
+  //   let maxCost = Number.MIN_VALUE;
+  //   if (data && data.length > 0) {
+  //     data.forEach((item) => {
+  //       const cost = parseFloat(item.cost);
+  //       if (cost < minCost) {
+  //         minCost = cost;
+  //         setSelectedMinRange(cost);
+  //       }
+  //       if (cost > maxCost) {
+  //         maxCost = cost;
+  //         setSelectedMaxRange(cost);
+  //       }
+  //     });
+  //     setMinRange(minCost);
+  //     setMaxRange(maxCost);
+  //     filterProductsByRange(minCost, maxCost);
+  //   }
+  // }, [data]);
 
-  const filterProductsByRange = (min, max) => {
-    const filteredProducts = data.filter((item) => {
-      const cost = parseFloat(item.cost);
-      return cost >= min && cost <= max;
-    });
-    if (sortingType == "Default sorting") {
-      setFilteredData(filteredProducts);
-    }
-    if (sortingType == "Sort by price: low to high") {
-      const data = filteredProducts.sort(
-        (a, b) => parseFloat(a.cost) - parseFloat(b.cost)
-      );
-      setSortingDirection("asc");
-      setFilteredData(data);
-    }
-    if (sortingType == "Sort by price: high to low") {
-      const data = filteredProducts.sort(
-        (a, b) => parseFloat(b.cost) - parseFloat(a.cost)
-      );
-      setSortingDirection("desc");
-      setFilteredData(data);
-    }
-  };
+  // const filterProductsByRange = (min, max) => {
+  //   const filteredProducts = data.filter((item) => {
+  //     const cost = parseFloat(item.cost);
+  //     return cost >= min && cost <= max;
+  //   });
+  //   if (sortingType == "Default sorting") {
+  //     setFilteredData(filteredProducts);
+  //   }
+  //   if (sortingType == "Sort by price: low to high") {
+  //     const data = filteredProducts.sort(
+  //       (a, b) => parseFloat(a.cost) - parseFloat(b.cost)
+  //     );
+  //     setSortingDirection("asc");
+  //     setFilteredData(data);
+  //   }
+  //   if (sortingType == "Sort by price: high to low") {
+  //     const data = filteredProducts.sort(
+  //       (a, b) => parseFloat(b.cost) - parseFloat(a.cost)
+  //     );
+  //     setSortingDirection("desc");
+  //     setFilteredData(data);
+  //   }
+  // };
 
-  const handleRangeChange = ({ start, end }) => {
-    setSelectedMaxRange(end);
-    setSelectedMinRange(start);
-    filterProductsByRange(start, end);
-  };
+  // const handleRangeChange = ({ start, end }) => {
+  //   setSelectedMaxRange(end);
+  //   setSelectedMinRange(start);
+  //   filterProductsByRange(start, end);
+  // };
 
-  const sortProducts = (sortType) => {
-    let sortedProducts = [...filteredData];
-    switch (sortType) {
-      case "Default sorting":
-        setSortingType(sortType);
-        setFilteredData(data);
-        break;
-      case "Sort by popularity":
-        break;
-      case "Sort by average rating":
-        break;
-      case "Sort by latest":
-        break;
-      case "Sort by price: low to high":
-        sortedProducts.sort((a, b) => parseFloat(a.cost) - parseFloat(b.cost));
-        setSortingDirection("asc");
-        setSortingType(sortType);
-        setFilteredData(sortedProducts);
-        break;
-      case "Sort by price: high to low":
-        sortedProducts.sort((a, b) => parseFloat(b.cost) - parseFloat(a.cost));
-        setSortingDirection("desc");
-        setSortingType(sortType);
-        setFilteredData(sortedProducts);
-        break;
-      default:
-        break;
-    }
-  };
+  // const sortProducts = (sortType) => {
+  //   let sortedProducts = [...filteredData];
+  //   switch (sortType) {
+  //     case "Default sorting":
+  //       setSortingType(sortType);
+  //       setFilteredData(data);
+  //       break;
+  //     case "Sort by popularity":
+  //       break;
+  //     case "Sort by average rating":
+  //       break;
+  //     case "Sort by latest":
+  //       break;
+  //     case "Sort by price: low to high":
+  //       sortedProducts.sort((a, b) => parseFloat(a.cost) - parseFloat(b.cost));
+  //       setSortingDirection("asc");
+  //       setSortingType(sortType);
+  //       setFilteredData(sortedProducts);
+  //       break;
+  //     case "Sort by price: high to low":
+  //       sortedProducts.sort((a, b) => parseFloat(b.cost) - parseFloat(a.cost));
+  //       setSortingDirection("desc");
+  //       setSortingType(sortType);
+  //       setFilteredData(sortedProducts);
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // };
 
   return (
     <>

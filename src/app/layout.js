@@ -43,25 +43,20 @@ export default function RootLayout({ children }) {
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/css/bootstrap.min.css"
           rel="stylesheet"
         />
-        <script rel="preload" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         ></link>
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Cormorant&display=swap"
-        />
+       
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
         />
-        <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-        <link
+        {/* <link
           rel="preload"
           href="https://fama.b-cdn.net/RnB/Stripes.webp"
           as="image"
-        />
+        /> */}
         <link rel="preconnect" href="https://static.cure.fit" />
         <link rel="preconnect" href="https://rnbapi.alphadigitall.com" />
         <link rel="preconnect" href="https://alphadigitall.com" />
@@ -84,6 +79,7 @@ export default function RootLayout({ children }) {
             <Footer />
           </AuthOtpContext>
         </AuthProvider>
+        <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
       </body>
     </html>
   );
