@@ -59,7 +59,7 @@ const Nav = async () => {
                   <div className="front">
                     <Image
                       rel="preload"
-                      src="https://fama.b-cdn.net/RnB/logo3.webp"
+                      src="https://fama.b-cdn.net/RnB/logo%20rnb.webp"
                       className="d-inline-block align-top"
                       alt="React Bootstrap logo"
                       height={78}
@@ -69,7 +69,7 @@ const Nav = async () => {
                   <div className="back">
                     <Image
                       rel="preload"
-                      src="https://fama.b-cdn.net/RnB/Logo-Golden.webp"
+                      src="https://fama.b-cdn.net/RnB/golden_logo.webp"
                       className="d-inline-block align-top"
                       alt="React Bootstrap logo"
                       height={88}

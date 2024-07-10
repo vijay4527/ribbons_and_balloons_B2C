@@ -2275,6 +2275,7 @@ video {
 }
 
 .footerLogos img {
+  margin-top: 10px;
   height: 120px;
 }
 
@@ -2370,7 +2371,7 @@ video {
   border-color: rgb(193, 157, 86);
   /* border: 1px solid #c19d56; */
   text-align: center;
-  transform: rotate(45deg);
+  /* transform: rotate(45deg); */
   -webkit-transition: background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out;
   -moz-transition: background-color 0.15s ease-in-out,

@@ -9,6 +9,8 @@ import LoginModal from "@/components/loginModal";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import AppConfig from "@/AppConfig";
+import UserModal from "@/components/userModal";
+
 const navComponent = () => {
   const router = useRouter();
   const path = usePathname();
@@ -30,6 +32,7 @@ const navComponent = () => {
   const inputRef = useRef(null);
   const apiUrl = process.env.API_URL;
   const [hoveredCity, setHoveredCity] = useState(cookiecity);
+  const [openUserModal, setOpenUserModal] = useState(false);
 
   const isValidCity = (cityName) => {
     return cities.some(
@@ -48,44 +51,46 @@ const navComponent = () => {
     setSearchActive(!isSearchActive);
   };
 
-  useEffect(() => {
-    getCities();
+  // useEffect(() => {
+  //   getCities();
 
-    if (city) {
-      setSelectedCity(city);
-    }
-  }, [city]);
+  //   if (city) {
+  //     setSelectedCity(city);
+  //   }
+  // }, [city]);
 
   const userObject =
     typeof window !== "undefined"
       ? JSON.parse(sessionStorage.getItem("userData"))
       : null;
 
-  useEffect(() => {
-    if (session?.userData?.isLogin === false) {
-      setIsLoginModalOpen(true);
-    } else if (
-      typeof window !== "undefined" &&
-      session?.userData?.isLogin == true
-    ) {
-      sessionStorage.setItem("userData", JSON.stringify(session.userData));
-      if (
-        !sessionStorage.getItem("cartId") &&
-        session.userData.cart_id !== null
-      ) {
-        sessionStorage.setItem("cartId", session.userData.cart_id);
-        Cookies.set("cartId", session.userData.cart_id);
-      }
+  // useEffect(() => {
+  //   if (session?.userData?.isLogin === false) {
+  //     setIsLoginModalOpen(true);
+  //   } else if (
+  //     typeof window !== "undefined" &&
+  //     session?.userData?.isLogin == true
+  //   ) {
+  //     setOpenUserModal(true)
+  //     sessionStorage.setItem("userData", JSON.stringify(session.userData));
+  //     if (
+  //       !sessionStorage.getItem("cartId") &&
+  //       session.userData.cart_id !== null
+  //     ) {
+  //       sessionStorage.setItem("cartId", session.userData.cart_id);
+  //       Cookies.set("cartId", session.userData.cart_id);
+  //     }
 
-      sessionStorage.setItem("isLoggedIn", true);
-    }
-  }, [session, isLoggedIn]);
+  //     sessionStorage.setItem("isLoggedIn", true);
+  //   }
+  // }, [session, isLoggedIn]);
 
   const loggedIn =
     typeof window !== "undefined" ? sessionStorage.getItem("isLoggedIn") : "";
 
   useEffect(() => {
     if (loggedIn || session?.userData?.isLogin || isLogged) {
+      setOpenUserModal(true);
       setIsLoggedIn(true);
     }
   }, [session, userObject?.user_id, isLogged]);
@@ -121,10 +126,15 @@ const navComponent = () => {
   };
 
   useEffect(() => {
+    getCities();
+
+    if (city) {
+      setSelectedCity(city);
+    }
     if (isSearchActive && inputRef.current) {
       inputRef.current.focus();
     }
-  }, [isSearchActive]);
+  }, [isSearchActive, city]);
 
   const Logout = () => {
     sessionStorage.removeItem("userData");
@@ -166,7 +176,7 @@ const navComponent = () => {
 
   const handleKeyPress = async (event) => {
     setSearchValue(event);
-    setIsPopularSearchVisible(false)
+    setIsPopularSearchVisible(false);
     try {
       if (event.length > 0) {
         var searchedTerm = event.split("/").join("");
@@ -180,7 +190,7 @@ const navComponent = () => {
           setFilteredProduct([]);
         }
       } else {
-        setIsPopularSearchVisible(true)
+        setIsPopularSearchVisible(true);
         setFilteredProduct([]);
       }
     } catch (error) {
@@ -200,7 +210,7 @@ const navComponent = () => {
     }
   };
 
-  const handleProductClick = (productName) => {
+  const handleProductClick = () => {
     setFilteredProduct([]);
     setSearchValue("");
   };
@@ -512,6 +522,15 @@ const navComponent = () => {
           closeLoginModal={() => setIsLoginModalOpen(false)}
         />
       )}
+      {/* {openUserModal && (
+        <UserModal
+          isOpen={openUserModal}
+          onRequestClose={() => {
+            setOpenUserModal(false);
+          }}
+          closeLoginModal={() => setOpenUserModal(false)}
+        ></UserModal>
+      )} */}
     </div>
   );
 };

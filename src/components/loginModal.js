@@ -13,25 +13,25 @@ import { AuthOtpContext } from "@/components/authContext";
 import Toast from "react-bootstrap/Toast";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Cookies from "js-cookie";
+
 const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [mobile, setMobile] = useState("");
   const [showloginInput, setShowLoginInput] = useState(true);
-  const [otp, setOTP] = useState(["", "", "", "", ""]);
-  const length = otp.length;
+  // const [otp, setOTP] = useState(["", "", "", "", ""]);
+  // const length = otp.length;
   const [showOtpSection, setShowOtpSection] = useState(false);
   const [loginError, setLoginError] = useState("");
   const inputs = ["input1", "input2", "input3", "input4"];
   const cartId =
     typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
-  const router = useRouter();
-  const currentPath = router.asPath;
-  const [hitApi, setHitApi] = useState(false);
+  // const router = useRouter();
+  // const currentPath = router.asPath;
+  // const [hitApi, setHitApi] = useState(false);
   const { isLogged, setIsLogged } = useContext(AuthOtpContext);
   const [userObject, setUserObject] = useState({});
   const [timer, setTimer] = useState(30);
-
   const apiUrl = process.env.API_URL;
 
   const user =
@@ -176,7 +176,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
   };
 
   const googleLogin = async () => {
-    setHitApi(true);
+    // setHitApi(true);
     signIn("google");
   };
   const handleOtpNotRecieved = async () => {
@@ -317,14 +317,6 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
                 >
                   verify
                 </button>
-                {/* <p
-                  onClick={handleOTpNotRecieved}
-                  className="text-center mt-5 otp-p"
-                  style={{ cursor: "pointer" }}
-                >
-                  {" "}
-                  Didnt Recieved Otp ? Click here to check Mobile Number{" "}
-                </p> */}
                 {timer !== 0 && (
                   <p className="text-center mt-5 otp-p">
                     We've sent your code. Try again in {timer} seconds
@@ -344,6 +336,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
           </div>
         </div>
       </Modal>
+
       <Toast
         show={showA}
         onClose={() => {
