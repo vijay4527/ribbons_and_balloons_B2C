@@ -61,17 +61,35 @@ const navComponent = () => {
     typeof window !== "undefined" ? sessionStorage.getItem("isLoggedIn") : "";
 
   useEffect(() => {
+    if (session?.userData?.isLogin === false) {
+      setIsLoginModalOpen(true);
+    } else if (
+      typeof window !== "undefined" &&
+      session?.userData?.isLogin == true
+    ) {
+      sessionStorage.setItem("userData", JSON.stringify(session.userData));
+      if (
+        !sessionStorage.getItem("cartId") &&
+        session.userData.cart_id !== null
+      ) {
+        sessionStorage.setItem("cartId", session.userData.cart_id);
+        Cookies.set("cartId", session.userData.cart_id);
+      }
+
+      sessionStorage.setItem("isLoggedIn", true);
+    }
+  }, [session, isLoggedIn]);
+  useEffect(() => {
     if (loggedIn || session?.userData?.isLogin || isLogged) {
       setIsLoggedIn(true);
     }
   }, [session, userObject?.user_id, isLogged]);
 
   useEffect(() => {
-    if (userObject && !firstCheckDone) {
+    if (userObject) {
       if (userObject?.first_name == null || userObject?.first_name == "") {
         setOpenUserModal(true);
       }
-      setFirstCheckDone(true);
     }
   }, [userObject?.first_name, firstCheckDone]);
 
@@ -130,7 +148,7 @@ const navComponent = () => {
       className="profileButton"
       aria-label="profilebutton"
       onClick={(e) => {
-        e.preventDefault();
+        // e.preventDefault();
         onClick(e);
       }}
     >

@@ -11,9 +11,6 @@ import Cookies from "js-cookie";
 import * as yup from "yup";
 
 const page = () => {
-  const router = useRouter();
-  const { isLogged } = useContext(AuthOtpContext);
-  const { data } = useSession();
   const [errors, setErrors] = useState({});
   const city = Cookies.get("city");
   const apiUrl = process.env.API_URL;
@@ -33,7 +30,7 @@ const page = () => {
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
   const [contact, setContact] = useState("");
-
+  const [profileData, setProfileData] = useState([]);
   useEffect(() => {
     const fetchUser = async () => {
       const userObject =
@@ -50,6 +47,27 @@ const page = () => {
       setUserCity(city);
     }
   }, []);
+
+  useEffect(() => {
+    getUserProfile();
+  }, [user?.user_id]);
+  const getUserProfile = async () => {
+    if (user.user_id) {
+      try {
+        const data = await fetch(
+          process.env.API_URL + "UserProfile/GetUserProfileById/" + user.user_id
+        );
+        if (data) {
+          const userData = await data.json();
+          if (userData.length > 0) {
+            setProfileData(userData);
+          }
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -88,7 +106,7 @@ const page = () => {
         },
         body: JSON.stringify(obj),
       });
-      const data= await respData.json()
+      const data = await respData.json();
       if (data.resp == true) {
         setFormValues({
           firstName: "",
@@ -103,7 +121,7 @@ const page = () => {
           autoClose: 3000,
           closeButton: true,
         });
-      }else{
+      } else {
         toast.error(data.respMsg, {
           autoClose: 3000,
           closeButton: true,

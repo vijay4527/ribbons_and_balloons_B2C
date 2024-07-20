@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 const userModal = ({ isOpen, closeModal, city }) => {
   const [name, setName] = useState("");
   const [userData, setUserData] = useState(null);
+
   useEffect(() => {
     const fetchUser = async () => {
       const userObject =
@@ -22,9 +23,13 @@ const userModal = ({ isOpen, closeModal, city }) => {
     fetchUser();
   }, [userData?.user_id]);
 
+  const updateSessionStorage = (updatedUser) => {
+    sessionStorage.setItem("userData", JSON.stringify(updatedUser));
+  };
+
   const updateUserProfile = async () => {
     try {
-      console.log(userData)
+      console.log(userData);
       const obj = {
         user_id: userData ? userData?.user_id : "",
         first_name: name,
@@ -55,6 +60,9 @@ const userModal = ({ isOpen, closeModal, city }) => {
       );
       const data = await updateProfile.json();
       if (data.resp == true) {
+        const updatedUser = { ...userData, first_name: name, city: city };
+        setUserData(updatedUser);
+        updateSessionStorage(updatedUser);
         toast("Your Profile has been updated", {
           autoClose: 3000,
           closeButton: true,
@@ -129,7 +137,6 @@ const userModal = ({ isOpen, closeModal, city }) => {
         </div>
         <ToastContainer />
       </Modal>
-     
     </>
   );
 };
