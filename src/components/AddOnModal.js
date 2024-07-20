@@ -7,7 +7,8 @@ import { AuthOtpContext } from "@/components/authContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
-
+import Toast from "react-bootstrap/Toast";
+import "bootstrap/dist/css/bootstrap.min.css";
 const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
   const [modalIsOpen, setModalIsOpen] = useState(isOpen);
   const [addOns, setAddOns] = useState([]);
@@ -15,6 +16,7 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
   const [quantities, setQuantities] = useState([]);
   const { isLogged } = useContext(AuthOtpContext);
   const [user, setUser] = useState(null);
+  const [displayToast, setDisplayToast] = useState(false);
   // const [showCartButton, setShowCartbutton] = useState(false);
   const router = useRouter();
   const apiUrl = process.env.API_URL;
@@ -52,7 +54,6 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
   };
 
   const toggleSelection = (index) => {
- 
     const updatedIndexes = [...selectedIndexes];
     if (updatedIndexes.includes(index)) {
       updatedIndexes.splice(updatedIndexes.indexOf(index), 1);
@@ -114,10 +115,14 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
     });
     const response = await responseData.json();
     if (response.resp == true) {
-      toast("Your product added to the cart", {
-        autoClose: 3000,
-        closeButton: true,
-      });
+      // if (!toast.isActive(item.addon_id.toString())) {
+      //   toast("Your product added to the cart", {
+      //     toastId: response.resp.cart_id,
+      //     autoClose: 3000,
+      //     closeButton: true,
+      //   });
+      // }
+      setDisplayToast(true);
     }
   };
 
@@ -232,7 +237,28 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
           </div>
         </div>
       </Modal>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
+      <Toast
+        show={displayToast}
+     
+        autohide
+        delay={3000}
+        position="top-end"
+        progressbar="true"
+        style={{ borderRadius: "4px" }}
+      >
+        <Toast.Body className="LoginToaster">
+          <span role="img" aria-label="checkmark">
+            ☺
+          </span>{" "}
+          Your product add to the cart!
+          <button
+            type="button"
+            className="btn btn-sm btn-close"
+            onClick={() => setDisplayToast(false)}
+          ></button>
+        </Toast.Body>
+      </Toast>
     </>
   );
 };

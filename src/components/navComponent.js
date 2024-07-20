@@ -33,6 +33,7 @@ const navComponent = () => {
   const apiUrl = process.env.API_URL;
   const [hoveredCity, setHoveredCity] = useState(cookiecity);
   const [openUserModal, setOpenUserModal] = useState(false);
+  const [firstCheckDone, setFirstCheckDone] = useState(false); // New state
 
   const isValidCity = (cityName) => {
     return cities.some(
@@ -51,49 +52,28 @@ const navComponent = () => {
     setSearchActive(!isSearchActive);
   };
 
-  // useEffect(() => {
-  //   getCities();
-
-  //   if (city) {
-  //     setSelectedCity(city);
-  //   }
-  // }, [city]);
-
   const userObject =
     typeof window !== "undefined"
       ? JSON.parse(sessionStorage.getItem("userData"))
       : null;
-
-  // useEffect(() => {
-  //   if (session?.userData?.isLogin === false) {
-  //     setIsLoginModalOpen(true);
-  //   } else if (
-  //     typeof window !== "undefined" &&
-  //     session?.userData?.isLogin == true
-  //   ) {
-  //     setOpenUserModal(true)
-  //     sessionStorage.setItem("userData", JSON.stringify(session.userData));
-  //     if (
-  //       !sessionStorage.getItem("cartId") &&
-  //       session.userData.cart_id !== null
-  //     ) {
-  //       sessionStorage.setItem("cartId", session.userData.cart_id);
-  //       Cookies.set("cartId", session.userData.cart_id);
-  //     }
-
-  //     sessionStorage.setItem("isLoggedIn", true);
-  //   }
-  // }, [session, isLoggedIn]);
 
   const loggedIn =
     typeof window !== "undefined" ? sessionStorage.getItem("isLoggedIn") : "";
 
   useEffect(() => {
     if (loggedIn || session?.userData?.isLogin || isLogged) {
-      setOpenUserModal(true);
       setIsLoggedIn(true);
     }
   }, [session, userObject?.user_id, isLogged]);
+
+  useEffect(() => {
+    if (userObject && !firstCheckDone) {
+      if (userObject?.first_name == null || userObject?.first_name == "") {
+        setOpenUserModal(true);
+      }
+      setFirstCheckDone(true);
+    }
+  }, [userObject?.first_name, firstCheckDone]);
 
   useEffect(() => {
     const handleStorageChange = () => {
@@ -127,7 +107,6 @@ const navComponent = () => {
 
   useEffect(() => {
     getCities();
-
     if (city) {
       setSelectedCity(city);
     }
@@ -522,15 +501,13 @@ const navComponent = () => {
           closeLoginModal={() => setIsLoginModalOpen(false)}
         />
       )}
-      {/* {openUserModal && (
+      {openUserModal && (
         <UserModal
           isOpen={openUserModal}
-          onRequestClose={() => {
-            setOpenUserModal(false);
-          }}
-          closeLoginModal={() => setOpenUserModal(false)}
+          closeModal={() => setOpenUserModal(false)}
+          city={city}
         ></UserModal>
-      )} */}
+      )}
     </div>
   );
 };

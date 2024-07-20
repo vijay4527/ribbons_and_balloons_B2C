@@ -4,7 +4,7 @@ import styles from "@/app/[city]/l/[category]/page.module.css";
 import useSharedStore from "@/components/calculatedPrice";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Head from "next/head";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 export default function AddToFavoritesButton({ productData, city }) {
   const { Variable, Variety, Unit, Value, Message } = useSharedStore();
@@ -27,7 +27,7 @@ export default function AddToFavoritesButton({ productData, city }) {
         value: Value.toString(),
         msg_cake: Message,
         type: "WL",
-        product_type:"P"
+        product_type: "P",
       };
       const responseData = await fetch(apiUrl + `CartMaster/SaveCartDetails`, {
         method: "POST",
@@ -36,10 +36,10 @@ export default function AddToFavoritesButton({ productData, city }) {
         },
         body: JSON.stringify(obj),
       });
-      const favouriteData = await responseData.json()
+      const favouriteData = await responseData.json();
       if (favouriteData.resp == true) {
         if (!cartId) {
-          Cookies.set('cartId', favouriteData.respObj.cart_id);
+          Cookies.set("cartId", favouriteData.respObj.cart_id);
           sessionStorage.setItem("cartId", favouriteData.respObj.cart_id);
         }
         window
@@ -63,17 +63,16 @@ export default function AddToFavoritesButton({ productData, city }) {
   };
   return (
     <>
-    <Head>
-    <link
+      <Head>
+        <link
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/css/bootstrap.min.css"
           rel="stylesheet"
         />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
-    </Head>
+      </Head>
       <div className={styles.addToFavButton} onClick={addToFavourite}>
-      
         <i className={`${styles.HeartIcon} fa-solid fa-heart favBtn-heart`}></i>
       </div>
-      </>
+    </>
   );
 }

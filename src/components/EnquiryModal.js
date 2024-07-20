@@ -104,7 +104,7 @@ function EnquiryModal() {
           </div>
           <Modal.Body className="enquiryBody">
             <div className="enquiryCrossIcon">
-              <i class="fa-solid fa-x" onClick={handleClose}></i>
+              <i className="fa-solid fa-x" onClick={handleClose}></i>
             </div>
             <div className="headerTitle headerTitle-Enquiry">
               <h2>Enquiry Now</h2>

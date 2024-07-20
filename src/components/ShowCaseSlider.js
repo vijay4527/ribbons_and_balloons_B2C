@@ -27,7 +27,7 @@ const ShowCaseSlider = ({ data, city }) => {
   return (
     <>
       <div className="ShowCaseSliderWrap">
-        <div className="ShowCaseSliderTitle">You may also like</div>
+        <div className="ShowCaseSliderTitle">You May Also Like This</div>
         <div className="ShowCaseSliderBody">
           {data && data.length > 0 ? (
             <Carousel

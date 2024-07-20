@@ -3,8 +3,6 @@ import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Link from "next/link";
 import Image from "next/image";
-
-// import NavComponent from "./navComponent";
 import dynamic from "next/dynamic";
 const NavComponent = dynamic(() => import("@/components/navComponent"), {
   ssr: false,
@@ -13,13 +11,13 @@ const NavComponent = dynamic(() => import("@/components/navComponent"), {
 import { cookies } from "next/headers";
 import { headers } from "next/headers";
 import { getCities } from "@/utils/commoncity";
+
 const getCategories = async (api, city) => {
   try {
-    const responseData = await fetch(
-      api + "Category/GetAllCategories",
-      {next: { revalidate: 180 } }
-    );
- 
+    const responseData = await fetch(api + "Category/GetAllCategories", {
+      next: { revalidate: 180 },
+    });
+
     const data = await responseData.json();
     if (data) {
       return { data, city };
@@ -34,7 +32,7 @@ const Nav = async () => {
   const nextCookies = cookies();
   const cityObj = await nextCookies.get("city");
   const cookiecity = cityObj?.value;
-  const categoryData = await getCategories(apiUrl,cookiecity);
+  const categoryData = await getCategories(apiUrl, cookiecity);
   const categories = categoryData?.data;
   const headerList = headers();
   const pathname = headerList.get("x-current-path");
@@ -104,7 +102,6 @@ const Nav = async () => {
                 </div>
                 <div className="Brands_navbody">
                   <div className="subNavbar_body">
-                    
                     {categories &&
                       categories.length > 0 &&
                       categories.map((category, index) => (
@@ -122,7 +119,6 @@ const Nav = async () => {
                                 {category.category_name}{" "}
                               </h4>
                             </Link>
-                           
                           </div>
                           <div className="MobileSub_navbtn sub_navbtn">
                             <Link
@@ -206,7 +202,7 @@ const Nav = async () => {
                           <h4 className="category-title">Blogs</h4>
                         </Link>
                       </div>
-                    </div>  
+                    </div>
                   </div>
                 </div>
               </div>

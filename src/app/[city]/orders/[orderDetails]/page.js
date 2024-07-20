@@ -26,7 +26,7 @@ const page = async ({ params }) => {
   const orderId = params.orderDetails;
   const orderInfo = await fetchOrderDetails(orderId);
   return (
-    <>
+     <>
       <Head>
         <script
           src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyBpti7QuC_QXwWE90MT0RkfMPlET1KbhS4&libraries=places`}

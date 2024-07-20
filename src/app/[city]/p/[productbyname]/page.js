@@ -7,9 +7,6 @@ import ProductImages from "@/components/productImages";
 import AddToCart from "@/components/addToCartButton";
 import ProductDetails from "@/components/productDetails";
 import ShowCaseSlider from "@/components/ShowCaseSlider";
-import { cookies } from "next/headers";
-import { getCities } from "@/utils/commoncity";
-import { redirect } from "next/navigation";
 export async function generateMetadata({ params }) {
   const data = await GetProductData(params.productbyname, params.city);
   if (data) {
@@ -37,7 +34,6 @@ export async function generateMetadata({ params }) {
 async function getCategoryData(category, city) {
   try {
     if (category) {
-
       const respData = await fetch(
         process.env.API_URL +
           `ProductMaster/GetB2CProducts?category_name=${
@@ -60,7 +56,7 @@ async function getCategoryData(category, city) {
 }
 
 async function GetProductData(productname, city) {
-  const Name = productname.split("-").join(" ");
+  const Name = productname.replace(/-/g, " ");
   try {
     const respData = await fetch(
       process.env.API_URL + `productMaster/GetProductByName/${city}/${Name}`
@@ -99,7 +95,7 @@ const productbyname = async ({ params }) => {
 
     return (
       <>
-        {data  && categoryProduct && (
+        {data && categoryProduct && (
           <div className={styles.pdp_WrapContent}>
             <div className={styles.common_header}>
               <div className={homeStyles["container_fluid"]}>
@@ -165,12 +161,9 @@ const productbyname = async ({ params }) => {
                 <div className={styles.pdp_otherContent}>
                   <div className={homeStyles["container_fluid"]}>
                     <div className={styles.reviewSection}>
-                      {
-                        categoryProduct && categoryProduct.length > 0 && (
-                          <ShowCaseSlider data={categoryProduct} city={city} />
-                        )
-                        
-                      }
+                      {categoryProduct && categoryProduct.length > 0 && (
+                        <ShowCaseSlider data={categoryProduct} city={city} />
+                      )}
                     </div>
                   </div>
                 </div>
@@ -191,9 +184,7 @@ const productbyname = async ({ params }) => {
   } else {
     return (
       <div className="display-flex-center">
-        <span className="text-center">
-          No Products Found for {productname}
-        </span>
+        <span className="text-center">No Products Found for {productname}</span>
         <img
           src="https://static.vecteezy.com/system/resources/thumbnails/006/549/647/small/404-landing-page-free-vector.jpg"
           alt="No image found"

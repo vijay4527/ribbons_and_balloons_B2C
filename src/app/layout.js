@@ -48,10 +48,11 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         ></link>
        
-        <link
+        {/* <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
-        />
+        /> */}
+
         {/* <link
           rel="preload"
           href="https://fama.b-cdn.net/RnB/Stripes.webp"
