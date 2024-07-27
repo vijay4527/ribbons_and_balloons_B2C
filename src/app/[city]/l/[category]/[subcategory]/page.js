@@ -29,7 +29,7 @@ export async function generateMetadata({ params }) {
   };
 }
 async function getCategoryData(apiUrl,categoryName, subcategory, city) {
-  const subcatgoryName = subcategory.split("-").join(" ");
+  const subcatgoryName = subcategory.replaceAll("-", " ");
   const categoryStr = categoryName.split("-").join(" ");
   try {
     const responseData = await fetch(apiUrl + `ProductMaster/GetB2CProducts?category_name=${categoryStr}&sub_category_name=${subcatgoryName}&city_name=${city}`,{ next: { revalidate: 180 },});

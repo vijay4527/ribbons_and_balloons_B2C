@@ -39,7 +39,7 @@ export async function generateMetadata({ params }) {
   }
 }
 async function getCategoryData(apiUrl, categoryName, subcategory, city) {
-  const categoryStr = await categoryName.split("-").join(" ");
+  const categoryStr = await categoryName.replaceAll("-", " ");
 
   try {
     let listingUrl =

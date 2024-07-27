@@ -3,9 +3,9 @@ import React from "react";
 import styles from "@/app/[city]/l/[category]/page.module.css";
 import useSharedStore from "@/components/calculatedPrice";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Head from "next/head";
 import Cookies from "js-cookie";
-
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css'; 
 export default function AddToFavoritesButton({ productData, city }) {
   const { Variable, Variety, Unit, Value, Message } = useSharedStore();
   const apiUrl = process.env.API_URL;
@@ -42,9 +42,8 @@ export default function AddToFavoritesButton({ productData, city }) {
           Cookies.set("cartId", favouriteData.respObj.cart_id);
           sessionStorage.setItem("cartId", favouriteData.respObj.cart_id);
         }
-        window
-          .Toastify({
-            text: "Your Product added to Favourite!",
+          Toastify({
+            text: "✅ Your Product added to Favourite! 🎉",
             duration: 3000,
             newWindow: true,
             close: true,
@@ -52,10 +51,8 @@ export default function AddToFavoritesButton({ productData, city }) {
             position: "right",
             backgroundColor: "#47cf73",
             stopOnFocus: true,
-            progressbar: true,
-            onClick: function () {},
-          })
-          .showToast();
+            progressBar: true,
+          }).showToast();
       }
     } catch (error) {
       console.log("error while adding product to favourites", error);
@@ -63,13 +60,6 @@ export default function AddToFavoritesButton({ productData, city }) {
   };
   return (
     <>
-      <Head>
-        <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-        />
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
-      </Head>
       <div className={styles.addToFavButton} onClick={addToFavourite}>
         <i className={`${styles.HeartIcon} fa-solid fa-heart favBtn-heart`}></i>
       </div>

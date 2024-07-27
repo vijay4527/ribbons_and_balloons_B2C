@@ -2,7 +2,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import styles from "@/app/[city]/p/[productbyname]/page.module.css";
-import https from "https";
 import useSharedStore from "@/components/calculatedPrice";
 import ServingInfo from "@/components/ServingInfo";
 
@@ -23,6 +22,7 @@ function getProductDetails({ data }) {
   const [text, setText] = useState("");
   const [index, setIndex] = useState(0);
   const [product, setProduct] = useState({});
+  const [varietyDescription, setvarietyDescription] = useState("");
   // const [selectedProductType, setSelectedProductType] = useState("");
   // const [productPrice, setProductPrice] = useState(0);
   const [messageOnCake, setMessageOnCake] = useState("");
@@ -101,6 +101,7 @@ function getProductDetails({ data }) {
               setSelectedProduct(productData.productTypeData[0]);
               setActiveWeight(productData.min);
               setActiveFlavour(productData.productTypeData[0].variety_id);
+              setvarietyDescription(productData.productTypeData[0].description);
             }
           case 5:
             if (productData.type_id == 5) {
@@ -117,6 +118,7 @@ function getProductDetails({ data }) {
               setQuantity("1");
               setSelectedProduct(productData.productTypeData[0]);
               setActiveFlavour(productData.productTypeData[0].variety_id);
+              setvarietyDescription(productData.productTypeData[0].description);
             }
           default:
             break;
@@ -125,10 +127,11 @@ function getProductDetails({ data }) {
     }
   }, [data]);
 
-  const [isLoading, setLoading] = useState(false);
+  // const [isLoading, setLoading] = useState(false);
 
   const handleProductTypeChange = (event) => {
-    const selectedType = event;
+    const selectedType = event.variety_id;
+    setvarietyDescription(event.description)
     updateVariety(selectedType);
     // setSelectedProductType(selectedType);
     const selectProduct = product.productTypeData.find(
@@ -255,6 +258,18 @@ function getProductDetails({ data }) {
             </ul>
           </div>
         </div>
+        <div className={styles.pdp_SelectInfo}>
+          {/* <div className={styles.pdp_shortInfo}>
+            <h4 className={styles.pdp_DetailInfoTitle}>Flavour Description</h4>
+          </div> */}
+          <div className={styles.pdp_SelectMessage}>
+            <ul className={styles.pdp_ProductDesc}>
+              <li>
+                <span>{varietyDescription}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
         {product.type_id == 1 && (
           <>
             <div className={styles.pdp_SelectInfo}>
@@ -367,7 +382,7 @@ function getProductDetails({ data }) {
                           activeWeight == ele.variety_name ? styles.active : ""
                         }
                         key={ele.variety_id}
-                        onClick={() => handleProductTypeChange(ele.variety_id)}
+                        onClick={() => handleProductTypeChange(ele)}
                       >
                         {`${ele.variety_name}`}
                       </li>
@@ -423,7 +438,7 @@ function getProductDetails({ data }) {
                         }
                         key={ele.variety_id}
                         value={ele.variety_id}
-                        onClick={() => handleProductTypeChange(ele.variety_id)}
+                        onClick={() => handleProductTypeChange(ele)}
                       >
                         {ele.variety_name}
                       </li>
@@ -545,7 +560,7 @@ function getProductDetails({ data }) {
                         }
                         key={ele.variety_id}
                         value={ele.variety_id}
-                        onClick={() => handleProductTypeChange(ele.variety_id)}
+                        onClick={() => handleProductTypeChange(ele)}
                       >
                         {ele.variety_name}
                       </li>
