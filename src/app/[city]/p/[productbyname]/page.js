@@ -56,19 +56,21 @@ async function getCategoryData(category, city) {
 }
 
 async function GetProductData(productname, city) {
-  const Name = productname.replace(/-/g, " ");
+  const Name = productname.replaceAll("-", " ");
   try {
     const respData = await fetch(
       process.env.API_URL + `productMaster/GetProductByName/${city}/${Name}`
     );
-    const response = await respData.json();
-    if (response) {
-      return response;
-    } else {
-      return [];
+    if (respData) {
+      const response = await respData.json();
+      if (response) {
+        return response;
+      } else {
+        return [];
+      }
     }
   } catch (error) {
-    console.log(error);
+    console.log(error); 
   }
 }
 

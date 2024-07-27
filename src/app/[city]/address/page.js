@@ -1,28 +1,32 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useSession, signIn, signOut } from "next-auth/react";
-import { AuthOtpContext } from "@/components/authContext";
 import homeStyles from "@/app/home.module.css";
 import Form from "react-bootstrap/Form";
+import Link from "next/link";
 import * as yup from "yup";
 import { validationSchema } from "@/components/validation";
 import { ToastContainer, toast } from "react-toastify";
 import styles from "@/app/[city]/address/page.module.css";
-const page = () => {
-  const user =
-    typeof window !== "undefined"
-      ? JSON.parse(sessionStorage.getItem("userData"))
-      : null;
-
+import Swal from "sweetalert2";
+const page = ({ params }) => {
   const [address, setAddress] = useState([]);
   const [enableAddress, setEnableAddress] = useState(false);
+  const [activeTab, setActiveTab] = useState("address");
   const [errors, setErrors] = useState({});
-
+  const [user, setUser] = useState(null);
+  const [shippingAddressId, setShippingAddressId] = useState("");
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const userData = JSON.parse(sessionStorage.getItem("userData"));
+      setUser(userData);
+      GetAddress(userData);
+    }
+  }, []);
   const [formValues, setFormValues] = useState({
     firstName: "",
     lastName: "",
     email: "",
-    contact: "",
+    contact: user ? user?.mobile_number : "",
     address: "",
     city: "",
     state: "",
@@ -30,15 +34,12 @@ const page = () => {
     country: "",
   });
 
-  useEffect(() => {
-    GetAddress();
-  }, []);
-  const GetAddress = async () => {
+  const GetAddress = async (userData) => {
     try {
-      if (user.user_id) {
+      if (userData.user_id) {
         const addressResponse = await fetch(
           process.env.API_URL +
-            `ShippingAddress/GetShippingAddressByUserId/${user.user_id}`
+            `ShippingAddress/GetShippingAddressByUserId/${userData.user_id}`
         );
         const addressData = await addressResponse.json();
         if (addressData) {
@@ -58,11 +59,45 @@ const page = () => {
     }
   };
 
+  const deleteAddress = async (id) => {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        const resp = await fetch(
+          `${process.env.API_URL}ShippingAddress/DeleteShippingAddress/${id}`,
+          {
+            method: "POST",
+          }
+        );
+        const response = await resp.json();
+        if (response.resp === true) {
+          await GetAddress(user);
+          await Swal.fire({
+            title: "Deleted!",
+            text: "Your address has been deleted.",
+            icon: "success",
+          });
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
   const saveShippingAddress = async () => {
     try {
       await validationSchema.validate(formValues, { abortEarly: false });
       var obj = {
-        shipping_address_id: "",
+        shipping_address_id: shippingAddressId ? shippingAddressId : "",
         user_id: user.user_id,
         first_name: formValues.firstName,
         last_name: formValues.lastName,
@@ -90,7 +125,7 @@ const page = () => {
           autoClose: 3000,
           closeButton: true,
         });
-        GetAddress();
+        GetAddress(user);
         setEnableAddress(false);
         setFormValues({
           firstName: "",
@@ -118,176 +153,462 @@ const page = () => {
       }
     }
   };
+  const getAddressById = async (id) => {
+    try {
+      setShippingAddressId(id);
+      console.log("id : ", id);
+      setEnableAddress(true);
+      const addressData = await fetch(
+        process.env.API_URL + "ShippingAddress/GetShippingAddressById/" + id
+      );
+      if (addressData) {
+        const data = await addressData.json();
+        setFormValues({
+          firstName: data.first_name,
+          lastName: data.last_name,
+          email: data.email_address,
+          contact: data.mobile_number,
+          address: data.address,
+          city: data.city,
+          state: data.state,
+          pinCode: data.pincode,
+          country: data.country,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
-      <div className={`container  ${styles.addressSection}`}>
-        <div className={styles.addressSectionHeader}>
-          <div className={`mb-4 ${styles.saveAddressSetion}`}>
-            Saved Addresses
-          </div>
-
-          {enableAddress && (
-            <i className={`fa-solid fa-arrow-right ${styles.arrowIcon}`} onClick={()=>setEnableAddress(!enableAddress)}></i>
-          )}
-        </div>
-
-        {enableAddress && (
+      <div className={`container ${styles.userDetailSection}`}>
+        {user && (
           <>
-            <div className="card p-5">
-              <div className={styles.checkoutQctShippingForm}>
-                <div className="row">
-                  <div className="col-lg-6">
+            <div className={styles.contactSection}>
+              <span>
+                <i className="fa fa-user"></i>
+                {user.first_name}
+              </span>
+            </div>
+
+            <div className={styles.contactSection}>
+              <span>
+                <i className="fa fa-envelope"></i>
+                {user.email}
+              </span>
+              <span>
+                <i className="fa fa-phone"></i>
+                {user.mobile_number}
+              </span>
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* <div className={`container  ${styles.addressSection}`}>
+        <div className="row">
+          <div className="col-lg-6"></div>
+          <div className="col-lg-6 p-4">
+            <div className={styles.addressSectionHeader}>
+              <div className={`mb-4 ${styles.saveAddressSetion}`}>
+                Saved Addresses
+              </div>
+
+              {enableAddress && (
+                <i
+                  className={`fa-solid fa-arrow-right ${styles.arrowIcon}`}
+                  onClick={() => setEnableAddress(!enableAddress)}
+                ></i>
+              )}
+            </div>
+
+            {enableAddress && (
+              <>
+                <div className="card p-5">
+                  <div className={styles.checkoutQctShippingForm}>
+                    <div className="row">
+                      <div className="col-lg-6">
+                        <div className={homeStyles["form_group"]}>
+                          <Form.Label>First Name</Form.Label>
+                          <Form.Control
+                            type="text"
+                            name="firstName"
+                            value={formValues.firstName}
+                            onChange={handleInputChange}
+                            placeholder="Enter first name"
+                            required
+                          />
+                          {errors.firstName && (
+                            <div className="text-danger">
+                              {errors.firstName}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="col-lg-6">
+                        <div className={homeStyles["form_group"]}>
+                          <Form.Label>Last Name</Form.Label>
+                          <Form.Control
+                            type="text"
+                            name="lastName"
+                            value={formValues.lastName}
+                            onChange={handleInputChange}
+                            placeholder="Enter last name"
+                            required
+                          />
+                          {errors.lastName && (
+                            <div className="text-danger">{errors.lastName}</div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="row mt-4">
+                      <div className="col-lg-6">
+                        <div className={homeStyles["form_group"]}>
+                          <Form.Label>Email</Form.Label>
+                          <Form.Control
+                            type="text"
+                            name="email"
+                            value={formValues.email}
+                            onChange={handleInputChange}
+                            placeholder="Enter email"
+                          />
+                          {errors.email && (
+                            <div className="text-danger">{errors.email}</div>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="col-lg-6">
+                        <div className={homeStyles["form_group"]}>
+                          <Form.Label>Contact</Form.Label>
+                          <Form.Control
+                            type="text"
+                            placeholder="+91"
+                            name="contact"
+                            value={formValues.contact}
+                            onChange={handleInputChange}
+                            required
+                          />
+                          {errors.contact && (
+                            <div className="text-danger"> {errors.contact}</div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="row mt-4">
+                      <div className="col-lg-6">
+                        <div className={homeStyles["form_group"]}>
+                          <Form.Label>Address</Form.Label>
+                          <Form.Control
+                            type="text"
+                            name="address"
+                            value={formValues.address}
+                            onChange={handleInputChange}
+                            required
+                          />
+                          {errors.address && (
+                            <div className="text-danger">{errors.address}</div>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="col-lg-6">
+                        <div className={homeStyles["form_group"]}>
+                          <Form.Label>Zip Code</Form.Label>
+                          <Form.Control
+                            type="text"
+                            name="pinCode"
+                            value={formValues.pinCode}
+                            onChange={handleInputChange}
+                            required
+                          />
+                          {errors.pinCode && (
+                            <div className="text-danger">{errors.pinCode}</div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="row mt-4">
+                      <div className="col-lg-6">
+                        <div className={homeStyles["form_group"]}>
+                          <Form.Label>City</Form.Label>
+                          <Form.Control
+                            type="text"
+                            name="city"
+                            value={formValues.city}
+                            onChange={handleInputChange}
+                            required
+                          />
+                          {errors.city && (
+                            <div className="text-danger">{errors.city}</div>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="col-lg-6">
+                        <div className={homeStyles["form_group"]}>
+                          <Form.Label>State</Form.Label>
+                          <Form.Control
+                            type="text"
+                            name="state"
+                            value={formValues.state}
+                            onChange={handleInputChange}
+                            required
+                          />
+                          {errors.state && (
+                            <div className="text-danger">{errors.state}</div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
                     <div className={homeStyles["form_group"]}>
-                      <Form.Label>First Name</Form.Label>
+                      <Form.Label>Country</Form.Label>
                       <Form.Control
                         type="text"
-                        name="firstName"
-                        value={formValues.firstName}
+                        name="country"
+                        value={formValues.country}
                         onChange={handleInputChange}
-                        placeholder="Enter first name"
                         required
                       />
-                      {errors.firstName && (
-                        <div className="text-danger">{errors.firstName}</div>
+                      {errors.country && (
+                        <div className="text-danger">{errors.country}</div>
                       )}
                     </div>
                   </div>
-
-                  <div className="col-lg-6">
-                    <div className={homeStyles["form_group"]}>
-                      <Form.Label>Last Name</Form.Label>
-                      <Form.Control
-                        type="text"
-                        name="lastName"
-                        value={formValues.lastName}
-                        onChange={handleInputChange}
-                        placeholder="Enter last name"
-                        required
-                      />
-                      {errors.lastName && (
-                        <div className="text-danger">{errors.lastName}</div>
-                      )}
-                    </div>
+                  <div
+                    className={`${styles.checkoutQctShippingAddress} `}
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      marginTop: "20px",
+                    }}
+                  >
+                    <button
+                      className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`}
+                      onClick={saveShippingAddress}
+                    >
+                      {" "}
+                      <span>ADD ADDRESS</span>
+                    </button>
                   </div>
                 </div>
+              </>
+            )}
 
-                <div className="row mt-4">
-                  <div className="col-lg-6">
-                    <div className={homeStyles["form_group"]}>
-                      <Form.Label>Email</Form.Label>
-                      <Form.Control
-                        type="text"
-                        name="email"
-                        value={formValues.email}
-                        onChange={handleInputChange}
-                        placeholder="Enter email"
-                      />
-                      {errors.email && (
-                        <div className="text-danger">{errors.email}</div>
-                      )}
+            {!enableAddress && (
+              <div className={`${styles.addressContainer}`}>
+                {address &&
+                  address.length > 0 &&
+                  address.map((ele, index) => (
+                    <div className={`mb-3 p-4 ${styles.address}`} key={index}>
+                      <div className={styles.addressImageContainer}>
+                        <div className=""></div>
+                        <div className="d-flex">
+                          <div className="ml-4">
+                            <img
+                              alt="edit address"
+                              src="https://bkmedia.bakingo.com/images/addressbook/edit.svg"
+                            />
+                          </div>
+                          <div className="ml-4">
+                            <img
+                              alt="delete address"
+                              src="https://bkmedia.bakingo.com/images/addressbook/delete.svg"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div>{ele.first_name + " " + ele.last_name}</div>
+                      <div className="mt-2 mb-3">{ele.email_address}</div>
+                      <div className="mt-2 mb-3">
+                        {ele.address} {ele.city},{ele.state} - {ele.pincode}
+                      </div>
+                      <div>+91 {ele.mobile_number}</div>
                     </div>
-                  </div>
-
-                  <div className="col-lg-6">
-                    <div className={homeStyles["form_group"]}>
-                      <Form.Label>Contact</Form.Label>
-                      <Form.Control
-                        type="text"
-                        placeholder="+91"
-                        name="contact"
-                        value={formValues.contact}
-                        onChange={handleInputChange}
-                        required
-                      />
-                      {errors.contact && (
-                        <div className="text-danger"> {errors.contact}</div>
-                      )}
-                    </div>
-                  </div>
+                  ))}
+                <div>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => setEnableAddress(true)}
+                  >
+                    Add Address
+                  </button>
                 </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div> */}
 
-                <div className="row mt-4">
-                  <div className="col-lg-6">
-                    <div className={homeStyles["form_group"]}>
-                      <Form.Label>Address</Form.Label>
-                      <Form.Control
-                        type="text"
-                        name="address"
-                        value={formValues.address}
-                        onChange={handleInputChange}
-                        required
-                      />
-                      {errors.address && (
-                        <div className="text-danger">{errors.address}</div>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="col-lg-6">
-                    <div className={homeStyles["form_group"]}>
-                      <Form.Label>Zip Code</Form.Label>
-                      <Form.Control
-                        type="text"
-                        name="pinCode"
-                        value={formValues.pinCode}
-                        onChange={handleInputChange}
-                        required
-                      />
-                      {errors.pinCode && (
-                        <div className="text-danger">{errors.pinCode}</div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="row mt-4">
-                  <div className="col-lg-6">
-                    <div className={homeStyles["form_group"]}>
-                      <Form.Label>City</Form.Label>
-                      <Form.Control
-                        type="text"
-                        name="city"
-                        value={formValues.city}
-                        onChange={handleInputChange}
-                        required
-                      />
-                      {errors.city && (
-                        <div className="text-danger">{errors.city}</div>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="col-lg-6">
-                    <div className={homeStyles["form_group"]}>
-                      <Form.Label>State</Form.Label>
-                      <Form.Control
-                        type="text"
-                        name="state"
-                        value={formValues.state}
-                        onChange={handleInputChange}
-                        required
-                      />
-                      {errors.state && (
-                        <div className="text-danger">{errors.state}</div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                <div className={homeStyles["form_group"]}>
-                  <Form.Label>Country</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="country"
-                    value={formValues.country}
-                    onChange={handleInputChange}
-                    required
-                  />
-                  {errors.country && (
-                    <div className="text-danger">{errors.country}</div>
-                  )}
-                </div>
+      <ToastContainer />
+      <div className={`container ${styles.addressPage}`}>
+        <div className={styles.displaySection}>
+          <Link href={`/${params.city}/orders`}>
+            <div
+              className={`${styles["shadow-md"]} ${
+                activeTab == "orders" ? "activeTab" : ""
+              }`}
+              onClick={() => setActiveTab("orders")}
+            >
+              My Orders
+            </div>
+          </Link>
+          <Link href={`/${params.city}/address`}>
+            <div
+              className={`${styles["shadow-md"]} ${
+                activeTab === "address" ? styles.activeTab : ""
+              }`}
+              onClick={() => setActiveTab("address")}
+            >
+              Address Book
+            </div>
+          </Link>
+          <Link href={`/${params.city}/profile`}>
+            <div
+              className={`${styles["shadow-md"]} ${
+                activeTab === "profile" ? styles.activeTab : ""
+              }`}
+              onClick={() => setActiveTab("profile")}
+            >
+              My Profile
+            </div>
+          </Link>
+        </div>
+        <div className={styles.addressContainer}>
+          {enableAddress && (
+            <>
+              <div className={styles.arrowIconContainer}>
+                <i
+                  className={`fa-solid fa-arrow-right ${styles.arrowIcon}`}
+                  onClick={() => setEnableAddress(!enableAddress)}
+                ></i>
+              </div>
+              <div className={homeStyles["form_group"]}>
+                <Form.Label className={styles.label}>First Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="firstName"
+                  value={formValues.firstName}
+                  onChange={handleInputChange}
+                  placeholder="Enter first name"
+                  required
+                />
+                {errors.firstName && (
+                  <div className="text-danger">{errors.firstName}</div>
+                )}
+              </div>
+              <div className={homeStyles["form_group"]}>
+                <Form.Label className={styles.label}>Last Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="lastName"
+                  value={formValues.lastName}
+                  onChange={handleInputChange}
+                  placeholder="Enter last name"
+                  required
+                />
+                {errors.lastName && (
+                  <div className="text-danger">{errors.lastName}</div>
+                )}
+              </div>
+              <div className={homeStyles["form_group"]}>
+                <Form.Label className={styles.label}>Email</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="email"
+                  value={formValues.email}
+                  onChange={handleInputChange}
+                  placeholder="Enter email"
+                />
+                {errors.email && (
+                  <div className="text-danger">{errors.email}</div>
+                )}
+              </div>
+              <div className={homeStyles["form_group"]}>
+                <Form.Label className={styles.label}>Contact</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="+91"
+                  name="contact"
+                  value={formValues.contact}
+                  onChange={handleInputChange}
+                  required
+                />
+                {errors.contact && (
+                  <div className="text-danger"> {errors.contact}</div>
+                )}
+              </div>
+              <div className={homeStyles["form_group"]}>
+                <Form.Label className={styles.label}>Address</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="address"
+                  value={formValues.address}
+                  onChange={handleInputChange}
+                  required
+                />
+                {errors.address && (
+                  <div className="text-danger">{errors.address}</div>
+                )}
+              </div>
+              <div className={homeStyles["form_group"]}>
+                <Form.Label className={styles.label}>Zip Code</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="pinCode"
+                  value={formValues.pinCode}
+                  onChange={handleInputChange}
+                  required
+                />
+                {errors.pinCode && (
+                  <div className="text-danger">{errors.pinCode}</div>
+                )}
+              </div>
+              <div className={homeStyles["form_group"]}>
+                <Form.Label className={styles.label}>City</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="city"
+                  value={formValues.city}
+                  onChange={handleInputChange}
+                  required
+                />
+                {errors.city && (
+                  <div className="text-danger">{errors.city}</div>
+                )}
+              </div>
+              <div className={homeStyles["form_group"]}>
+                <Form.Label className={styles.label}>State</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="state"
+                  value={formValues.state}
+                  onChange={handleInputChange}
+                  required
+                />
+                {errors.state && (
+                  <div className="text-danger">{errors.state}</div>
+                )}
+              </div>
+              <div className={homeStyles["form_group"]}>
+                <Form.Label className={styles.label}>Country</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="country"
+                  value={formValues.country}
+                  onChange={handleInputChange}
+                  required
+                />
+                {errors.country && (
+                  <div className="text-danger">{errors.country}</div>
+                )}
               </div>
               <div
                 className={`${styles.checkoutQctShippingAddress} `}
@@ -305,53 +626,69 @@ const page = () => {
                   <span>ADD ADDRESS</span>
                 </button>
               </div>
-            </div>
-          </>
-        )}
+            </>
+          )}
 
-        {!enableAddress && (
-          <div className={`${styles.addressContainer}`}>
-            {address &&
-              address.length > 0 &&
-              address.map((ele, index) => (
-                <div className={`mb-3 p-4 ${styles.address}`} key={index}>
-                  <div className={styles.addressImageContainer}>
-                    <div className=""></div>
-                    <div className="d-flex">
-                      <div className="ml-4">
-                        <img
-                          alt="edit address"
-                          src="https://bkmedia.bakingo.com/images/addressbook/edit.svg"
-                        />
+          {!enableAddress && (
+            <>
+              <h4 className={`${styles.addressTitle} mb-4`}>Saved Address</h4>
+              <div className={`${styles.savedAddress}`}>
+                {address &&
+                  address.length > 0 &&
+                  address.map((ele, index) => (
+                    <div className={`mb-3 p-4 ${styles.address}`} key={index}>
+                      <div className={styles.addressImageContainer}>
+                        <div></div>
+                        <div className="d-flex justify-content-space-between">
+                          <div className="ml-4">
+                            <img
+                              alt="edit address"
+                              src="https://bkmedia.bakingo.com/images/addressbook/edit.svg"
+                              className={styles.btnEdit}
+                              onClick={() => {
+                                getAddressById(ele.shipping_address_id);
+                              }}
+                            />
+                          </div>
+                          <div className="ml-4">
+                            <img
+                              alt="delete address"
+                              src="https://bkmedia.bakingo.com/images/addressbook/delete.svg"
+                              className={styles.btnDelete}
+                              onClick={() =>
+                                deleteAddress(ele.shipping_address_id)
+                              }
+                            />
+                          </div>
+                        </div>
                       </div>
-                      <div className="ml-4">
-                        <img
-                          alt="delete address"
-                          src="https://bkmedia.bakingo.com/images/addressbook/delete.svg"
-                        />
+                      <div className={styles.details}>
+                        {ele.first_name + " " + ele.last_name}
+                      </div>
+                      <div className={`${styles.details} mt-2 mb-3`}>
+                        {ele.email_address}
+                      </div>
+                      <div className={`${styles.details} mt-2 mb-3`}>
+                        {ele.address} {ele.city},{ele.state} - {ele.pincode}
+                      </div>
+                      <div className={`${styles.details}`}>
+                        +91 {ele.mobile_number}
                       </div>
                     </div>
-                  </div>
-                  <div>{ele.first_name + " " + ele.last_name}</div>
-                  <div className="mt-2 mb-3">{ele.email_address}</div>
-                  <div className="mt-2 mb-3">
-                    {ele.address} {ele.city},{ele.state} - {ele.pincode}
-                  </div>
-                  <div>+91 {ele.mobile_number}</div>
-                </div>
-              ))}
-            <div>
-              <button
-                className="btn btn-primary"
-                onClick={() => setEnableAddress(true)}
-              >
-                Add Address
-              </button>
-            </div>
+                  ))}
+              </div>
+            </>
+          )}
+          <div className="mt-4">
+            <button
+              className="btn btn-primary p-2"
+              onClick={() => setEnableAddress(true)}
+            >
+              Add Address
+            </button>
           </div>
-        )}
+        </div>
       </div>
-      <ToastContainer />
     </>
   );
 };
