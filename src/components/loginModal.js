@@ -1,17 +1,17 @@
 "use client";
 import React, { useState, useEffect, useContext } from "react";
 import Modal from "react-bootstrap/Modal";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useSession, signIn, signOut } from "next-auth/react";
 import * as yup from "yup";
 import { loginSchema } from "@/components/validation";
 import { otpSchema } from "@/components/validation";
 import homeStyles from "@/app/home.module.css";
-// import "react-toastify/dist/ReactToastify.css";
+import "react-toastify/dist/ReactToastify.css";
 import Head from "next/head";
 import { AuthOtpContext } from "@/components/authContext";
-import Toastify from 'toastify-js';
-import 'toastify-js/src/toastify.css';
+import Toast from "react-bootstrap/Toast";
+import "bootstrap/dist/css/bootstrap.min.css";
 import Cookies from "js-cookie";
 
 const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
@@ -164,17 +164,6 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
         } else if (data.resp == false) {
           setLoginError(data.respMsg);
         }
-        Toastify({
-          text: "✅ You have logged in Successfully! 🎉",
-          duration: 2000,
-          newWindow: true,
-          close: true,
-          gravity: "top",
-          position: "right",
-          backgroundColor: "#47cf73",
-          stopOnFocus: true,
-          progressBar: true,
-        }).showToast();
       } catch (validationError) {
         if (validationError instanceof yup.ValidationError) {
           const errorMessage = validationError.errors[0];
@@ -348,7 +337,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
         </div>
       </Modal>
 
-      {/* <Toast
+      <Toast
         show={showA}
         onClose={() => {
           setIsLogged(true);
@@ -370,7 +359,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
             onClick={() => setShowA(false)}
           ></button>
         </Toast.Body>
-      </Toast> */}
+      </Toast>
     </div>
   );
 };
