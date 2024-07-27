@@ -399,28 +399,46 @@ function getProductDetails({ data }) {
           <>
             <div className={styles.pdp_SelectInfo}>
               <div className={styles.pdp_shortInfo}>
-                <h4 className={styles.pdp_DetailInfoTitle}>Select Weight</h4>
+                <div className={styles.WeightFlex}>
+                  <h4 className={styles.pdp_DetailInfoTitle}>Weight :</h4>
+                  <div className={styles["active-weight-show"]}>
+                    <ul>
+                      <li className={styles.showWeigthLi}>
+                        {activeWeight + "" + "Kg"}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div className={styles.ChangeWeightHover}>
+                  <div className={styles.ArrowTextWrap}>
+                    <h4 className={styles.pdp_DetailInfoTitle}>Change Weight</h4>
+                    <div className={styles.goldArrowWrap}>
+                      <img src="/downGoldArrow.png"></img>
+                    </div>
+                  </div>
+                  <div className={styles.flavourUlDivWrap}>
+                    <ul className={styles.flavourUlDiv}>
+                      <div className={styles.selectWeightBorder}>
+                        {generateWeightOptions(
+                          parseFloat(product.min),
+                          parseInt(product.max)
+                        )}
+                      </div>
+                    </ul>
+                  </div>
+                </div>
                 <div className={styles.pdp_shortInfo_Box}>
                   <ServingInfo />
                 </div>
               </div>
               <div className={`${styles.pdp_SelectFlavour} ${styles.pdp_SelectWeight}`}>
-                <div className={styles["active-weight-show"]}>
+                {/* <div className={styles["active-weight-show"]}>
                   <ul>
                     <li className={styles.showWeigthLi}>
                       {activeWeight + "KG"}
                     </li>
-                  </ul> 
-                </div>
-                <div>
-                  <ul className={styles.flavourUlDiv}>
-                    
-                    {generateWeightOptions(
-                      parseFloat(product.min),
-                      parseInt(product.max)
-                    )}
                   </ul>
-                </div>
+                </div> */}
               </div>
             </div>
 
