@@ -45,6 +45,7 @@ const page = ({ params }) => {
     return `${year}-${month}-${day}`;
   };
   const currentDate = new Date();
+
   const nextDate = new Date(currentDate);
   nextDate.setDate(currentDate.getDate() + 1);
   const [startDate, setStartDate] = useState(formatDateForInput(nextDate));
@@ -199,12 +200,6 @@ const page = ({ params }) => {
   };
 
   const validateOrder = () => {
-    if(orderDate == currentDate){
-      toast("Same day delivery is not possible.", {
-        autoClose: 3000,
-        closeButton: true,
-      });
-    }
     if (selectedOption === "delivery") {
       if (!selectedAddress) {
         toast("Please select a shipping address for delivery.", {
@@ -221,8 +216,8 @@ const page = ({ params }) => {
         });
         return false;
       }
-    } else if (time == "" ) {
-      toast("Please select order date and time.", {
+    } else if (time == "") {
+      toast("Please select time.", {
         autoClose: 3000,
         closeButton: true,
       });
@@ -230,7 +225,6 @@ const page = ({ params }) => {
     }
     return true;
   };
-
 
   const handlePlaceOrder = async () => {
     const isValidOrder = validateOrder();
@@ -362,9 +356,9 @@ const page = ({ params }) => {
           latitude: location?.latitude ? location?.latitude : "",
           longitude: location?.longitude ? location?.longitude : "",
         });
-        setTimeout(()=>{
-          setEnableAddress(false)
-        },2000)
+        setTimeout(() => {
+          setEnableAddress(false);
+        }, 2000);
       }
     } catch (validationError) {
       if (validationError instanceof yup.ValidationError) {
@@ -549,6 +543,7 @@ const page = ({ params }) => {
                                 className="form-control"
                                 value={startDate}
                                 onChange={(e) => setStartDate(e.target.value)}
+                                min={startDate}
                               />
                             </div>
                             {selectedOption == "pickup" && (
