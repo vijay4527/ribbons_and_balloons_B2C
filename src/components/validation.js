@@ -43,6 +43,13 @@ const validationSchema = yup.object().shape({
   pinCode: yup.string().required("Pin code is required"),
   country: yup.string().required("Country is required"),
   address: yup.string().required("Address is required"),
+  contact: yup
+    .string()
+    .matches(
+      /^[0-9]{10}$/,
+      "Contact number must be exactly 10 digits and contain only numbers"
+    )
+    .required("Contact number is required"),
 });
 
 const newsLetterSchema = yup.object().shape({
@@ -80,6 +87,22 @@ const locationSchema = yup.object().shape({
   name: yup.string().required("this field is required"),
 });
 
+const validateOrder = yup.object().shape({
+  selectedOption: yup.string().required("Please select an option."),
+  selectedAddress: yup.string().when("selectedOption", {
+    is: "delivery",
+    then: yup
+      .string()
+      .required("Please select a shipping address for delivery."),
+  }),
+  selectedFranchise: yup.string().when("selectedOption", {
+    is: "pickup",
+    then: yup.string().required("Please select a shop for pickup."),
+  }),
+  orderTime: yup.string().required("Please select an order time."),
+  orderDate: yup.string().required("Please select an order date."),
+});
+
 export {
   loginSchema,
   otpSchema,
@@ -87,5 +110,6 @@ export {
   validationSchema,
   newsLetterSchema,
   enquirySchema,
-  locationSchema
+  locationSchema,
+  validateOrder,
 };

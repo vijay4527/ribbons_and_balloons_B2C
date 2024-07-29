@@ -23,6 +23,7 @@ function getProductDetails({ data }) {
   const [index, setIndex] = useState(0);
   const [product, setProduct] = useState({});
   const [varietyDescription, setvarietyDescription] = useState("");
+  const [displayMore, setDisplayMore] = useState(false);
   // const [selectedProductType, setSelectedProductType] = useState("");
   // const [productPrice, setProductPrice] = useState(0);
   const [messageOnCake, setMessageOnCake] = useState("");
@@ -75,6 +76,7 @@ function getProductDetails({ data }) {
               setValues("0.5");
               updateValue("0.5");
               setActiveWeight("0.5");
+              setvarietyDescription(productData.productTypeData[0].description);
             }
             break;
           case 2:
@@ -83,6 +85,7 @@ function getProductDetails({ data }) {
               updateValue(productData.min);
               updateVariable(initialProductType.cost * 2 * productData.min);
               setActiveWeight(productData.min.toString());
+              setvarietyDescription(productData.productTypeData[0].description);
             }
             break;
           case 3:
@@ -131,7 +134,7 @@ function getProductDetails({ data }) {
 
   const handleProductTypeChange = (event) => {
     const selectedType = event.variety_id;
-    setvarietyDescription(event.description)
+    setvarietyDescription(event.description);
     updateVariety(selectedType);
     // setSelectedProductType(selectedType);
     const selectProduct = product.productTypeData.find(
@@ -243,6 +246,18 @@ function getProductDetails({ data }) {
     setMessageOnCake(e);
   };
 
+  const toggleDisplayMore = () => {
+    setDisplayMore((prev) => !prev);
+  };
+
+  const getTruncatedDescription = (description) => {
+    if (description) {
+      const maxLength = 150;
+      if (description.length <= maxLength) return description;
+      return description.slice(0, maxLength) + "...";
+    }
+  };
+
   if (product && Object.keys(product).length > 0) {
     return (
       <div className={styles.pdp_DetailAction}>
@@ -265,9 +280,22 @@ function getProductDetails({ data }) {
           <div className={styles.pdp_SelectMessage}>
             <ul className={styles.pdp_ProductDesc}>
               <li>
-                <span>{varietyDescription}</span>
+                <span
+                  className={
+                    displayMore
+                      ? styles.varietyDescription
+                      : styles.varietyDescriptionShort
+                  }
+                >
+                  {displayMore
+                    ? varietyDescription
+                    : getTruncatedDescription(varietyDescription)}
+                </span>{" "}
               </li>
             </ul>
+            <button className="btn btn-primary" onClick={toggleDisplayMore}>
+              {displayMore ? "Show Less" : "Show More"}
+            </button>{" "}
           </div>
         </div>
         {product.type_id == 1 && (
@@ -316,9 +344,7 @@ function getProductDetails({ data }) {
                 <h4 className={styles.pdp_DetailInfoTitle}>Select Weight</h4>
                 <div className={styles.pdp_SelectFlavour}>
                   <ul>
-                    <li className={styles.active}>
-                      {activeWeight}
-                    </li>
+                    <li className={styles.active}>{activeWeight}</li>
                   </ul>
                 </div>
                 <div className={`${styles.pdp_SelectFlavour}`}>
@@ -411,7 +437,9 @@ function getProductDetails({ data }) {
                 </div>
                 <div className={styles.ChangeWeightHover}>
                   <div className={styles.ArrowTextWrap}>
-                    <h4 className={styles.pdp_DetailInfoTitle}>Change Weight</h4>
+                    <h4 className={styles.pdp_DetailInfoTitle}>
+                      Change Weight
+                    </h4>
                     <div className={styles.goldArrowWrap}>
                       <img src="/downGoldArrow.png"></img>
                     </div>
@@ -431,7 +459,9 @@ function getProductDetails({ data }) {
                   <ServingInfo />
                 </div>
               </div>
-              <div className={`${styles.pdp_SelectFlavour} ${styles.pdp_SelectWeight}`}>
+              <div
+                className={`${styles.pdp_SelectFlavour} ${styles.pdp_SelectWeight}`}
+              >
                 {/* <div className={styles["active-weight-show"]}>
                   <ul>
                     <li className={styles.showWeigthLi}>

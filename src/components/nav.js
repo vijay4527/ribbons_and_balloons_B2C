@@ -55,24 +55,28 @@ const Nav = async () => {
               <div className="flip-container">
                 <div className="flipper">
                   <div className="front">
-                    <Image
-                      rel="preload"
-                      src="https://fama.b-cdn.net/RnB/logo%20rnb.webp"
-                      className="d-inline-block align-top"
-                      alt="React Bootstrap logo"
-                      height={78}
-                      width={141}
-                    />
+                    <Link href={`/${city}`}>
+                      <Image
+                        rel="preload"
+                        src="https://fama.b-cdn.net/RnB/logo%20rnb.webp"
+                        className="d-inline-block align-top"
+                        alt="React Bootstrap logo"
+                        height={78}
+                        width={141}
+                      />
+                    </Link>
                   </div>
                   <div className="back">
-                    <Image
-                      rel="preload"
-                      src="https://fama.b-cdn.net/RnB/golden_logo.webp"
-                      className="d-inline-block align-top"
-                      alt="React Bootstrap logo"
-                      height={88}
-                      width={150}
-                    />
+                    <Link href={`/${city}`}>
+                      <Image
+                        rel="preload"
+                        src="https://fama.b-cdn.net/RnB/golden_logo.webp"
+                        className="d-inline-block align-top"
+                        alt="React Bootstrap logo"
+                        height={88}
+                        width={150}
+                      />
+                    </Link>
                   </div>
                   <div className="clear"></div>
                 </div>

@@ -37,7 +37,7 @@ const page = ({ params }) => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [displayCancelButton, setDisplayCancelButton] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [time, setTime] = useState("00:00");
+  const [time, setTime] = useState("");
   const formatDateForInput = (date) => {
     const day = String(date.getDate()).padStart(2, "0");
     const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-indexed
@@ -199,6 +199,12 @@ const page = ({ params }) => {
   };
 
   const validateOrder = () => {
+    if(orderDate == currentDate){
+      toast("Same day delivery is not possible.", {
+        autoClose: 3000,
+        closeButton: true,
+      });
+    }
     if (selectedOption === "delivery") {
       if (!selectedAddress) {
         toast("Please select a shipping address for delivery.", {
@@ -215,9 +221,16 @@ const page = ({ params }) => {
         });
         return false;
       }
+    } else if (time == "" ) {
+      toast("Please select order date and time.", {
+        autoClose: 3000,
+        closeButton: true,
+      });
+      return false;
     }
     return true;
   };
+
 
   const handlePlaceOrder = async () => {
     const isValidOrder = validateOrder();
@@ -333,6 +346,7 @@ const page = ({ params }) => {
         toast("Your address has been saved", {
           autoClose: 3000,
           closeButton: true,
+          onClose: () => setEnableAddress(false),
         });
         GetAddress();
         setFormValues({
@@ -346,8 +360,11 @@ const page = ({ params }) => {
           pinCode: "",
           country: "",
           latitude: location?.latitude ? location?.latitude : "",
-          longitude: location?.longitude,
+          longitude: location?.longitude ? location?.longitude : "",
         });
+        setTimeout(()=>{
+          setEnableAddress(false)
+        },2000)
       }
     } catch (validationError) {
       if (validationError instanceof yup.ValidationError) {
@@ -425,70 +442,70 @@ const page = ({ params }) => {
   const [error, setError] = useState(null);
   const enableAddAddress = () => {
     setEnableAddress(true);
-    getLocation();
+    // getLocation();
   };
 
-  const getLocation = () => {
-    try {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          async (position) => {
-            try {
-              const responseData = await fetch(
-                `https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=AIzaSyBpti7QuC_QXwWE90MT0RkfMPlET1KbhS4&libraries=places`
-              );
-              const response = await responseData.json();
-              if (response?.results.length > 0) {
-                let city = "";
-                let state = "";
-                let zipCode = "";
-                let country = "";
-                const formattedAddress = response.results[0].formatted_address;
-                for (let component of response?.results[0].address_components) {
-                  if (component.types.includes("locality")) {
-                    city = component.long_name;
-                  } else if (
-                    component.types.includes("administrative_area_level_1")
-                  ) {
-                    state = component.long_name;
-                  } else if (component.types.includes("postal_code")) {
-                    zipCode = component.long_name;
-                  } else if (component.types.includes("country")) {
-                    country = component.long_name;
-                  }
-                }
-                const remainingAddress = formattedAddress
-                  .replace(`${city}, ${state} ${zipCode}, ${country}`, "")
-                  .trim();
-                setFormValues({
-                  ...formValues,
-                  city: city,
-                  state: state,
-                  country: country,
-                  address: remainingAddress,
-                  pinCode: zipCode,
-                });
-                setLocation({
-                  latitude: position.coords.latitude,
-                  longitude: position.coords.longitude,
-                });
-                setError(null);
-              } else {
-                setError("Unable to find address for this location");
-              }
-            } catch (error) {
-              setError("Error retrieving address");
-            }
-          },
-          (error) => {
-            setError("Unable to retrieve your location");
-          }
-        );
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getLocation = () => {
+  //   try {
+  //     if (navigator.geolocation) {
+  //       navigator.geolocation.getCurrentPosition(
+  //         async (position) => {
+  //           try {
+  //             const responseData = await fetch(
+  //               `https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=AIzaSyBpti7QuC_QXwWE90MT0RkfMPlET1KbhS4&libraries=places`
+  //             );
+  //             const response = await responseData.json();
+  //             if (response?.results.length > 0) {
+  //               let city = "";
+  //               let state = "";
+  //               let zipCode = "";
+  //               let country = "";
+  //               const formattedAddress = response.results[0].formatted_address;
+  //               for (let component of response?.results[0].address_components) {
+  //                 if (component.types.includes("locality")) {
+  //                   city = component.long_name;
+  //                 } else if (
+  //                   component.types.includes("administrative_area_level_1")
+  //                 ) {
+  //                   state = component.long_name;
+  //                 } else if (component.types.includes("postal_code")) {
+  //                   zipCode = component.long_name;
+  //                 } else if (component.types.includes("country")) {
+  //                   country = component.long_name;
+  //                 }
+  //               }
+  //               const remainingAddress = formattedAddress
+  //                 .replace(`${city}, ${state} ${zipCode}, ${country}`, "")
+  //                 .trim();
+  //               setFormValues({
+  //                 ...formValues,
+  //                 city: city,
+  //                 state: state,
+  //                 country: country,
+  //                 address: remainingAddress,
+  //                 pinCode: zipCode,
+  //               });
+  //               setLocation({
+  //                 latitude: position.coords.latitude,
+  //                 longitude: position.coords.longitude,
+  //               });
+  //               setError(null);
+  //             } else {
+  //               setError("Unable to find address for this location");
+  //             }
+  //           } catch (error) {
+  //             setError("Error retrieving address");
+  //           }
+  //         },
+  //         (error) => {
+  //           setError("Unable to retrieve your location");
+  //         }
+  //       );
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const closeModal = () => {
     setModalIsOpen(false);
@@ -511,7 +528,6 @@ const page = ({ params }) => {
         <div className={homeStyles["container"]}>
           <div className={styles.checkOutQctWrap}>
             <div className={styles.checkoutQctTitle}>Shipping & Payment</div>
-
             <div className={styles.checkoutQctBody}>
               <div className={styles.checkoutQctShippingWrap}>
                 <div className={styles.checkoutQctShipping}>
@@ -520,7 +536,6 @@ const page = ({ params }) => {
                       <h4 className={styles.checkoutQctShippingTitle}>
                         Select Date and Time
                       </h4>
-
                       <div className={styles.checkoutQctShippingContents}>
                         <div
                           className={`${styles.checkoutQctShippingContent} ${styles.active}`}
