@@ -9,11 +9,13 @@
 .checkOutQctWrap {
     padding: 1.6rem 0px 2.5rem;
 }
-.checkoutQctShippingWrap{
+
+.checkoutQctShippingWrap {
 
     margin-right: 2.6rem;
     width: calc(65% - 2.6rem);
 }
+
 .checkoutQctTitle {
     color: #fff;
     width: 100%;
@@ -107,7 +109,8 @@
     padding-bottom: 1.6rem;
     font-weight: 600;
     margin: 0;
-    color: #e9cc6d;;
+    color: #e9cc6d;
+    ;
 
 }
 
@@ -154,7 +157,7 @@
     display: flex;
     font-size: 14px;
     font-style: normal;
-    align-items: flex-start;
+    align-items: center;
     font-weight: normal;
     line-height: 20px;
     margin: 0;
@@ -189,14 +192,17 @@
     justify-content: inherit;
     padding: 0 1rem 0 1rem;
 }
-.couponBody{
+
+.couponBody {
     margin-top: 20px;
 }
-.couponItem{
+
+.couponItem {
     display: flex;
     align-items: center;
     border-top: 1px solid #ecedeb;
 }
+
 .pickUpFranchiseInput input {
     top: 0;
     left: 0;
@@ -385,35 +391,44 @@
     }
 }
 
-.giftBox{
+.giftBox {
     width: 60px !important;
     margin-right: 25px;
 }
 
-.modalBox{
+.modalBox {
     width: 100%;
 }
 
+.modal-content {
+    background: none !important;
+}
 
-.modalCartPriceBox{
+
+.modalCartPriceBox {
     background-color: var(--theme-seconary);
     color: #fff;
     padding: 1.6rem;
     font-family: var(--font-family);
-    border-radius: 10px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
-.modalCouponName{
+.modalBorder {
+    border: 1px solid #c19f5f;
+    padding: 1.2rem;
+}
+
+.modalCouponName {
     display: flex;
     justify-content: space-between;
 }
 
 
-.couponDetails{
+.couponDetails {
     margin-left: 20px !important;
 }
-.addCouponItem{
+
+.addCouponItem {
     margin: 0;
     width: 100%;
     display: flex;
@@ -422,18 +437,32 @@
     text-transform: capitalize !important;
 }
 
-.dateContiner{
+.dateContiner {
     display: flex;
     justify-content: space-between;
 }
 
-.dateDiv{
+.dateDiv {
     width: 100%;
     padding: 10px;
 }
 
 
-.dateDiv input,.dateDiv select{
+.dateDiv input,
+.dateDiv select {
     height: 4rem;
     font-size: 1.5rem;
+    width: 50% !important;
+}
+
+.dateDiv input {
+    background-color: #340f0f !important;
+    color: #c19f5f;
+    border: 1px solid #c19f5f;
+    background: linear-gradient(to right, rgb(35, 5, 5) 0%, rgb(34, 6, 6) 0%, #3e1313 60%, rgb(37, 6, 6) 100%, rgb(37, 7, 7) 100%);
+
+}
+
+.datePicker::-webkit-calendar-picker-indicator{
+    
 }

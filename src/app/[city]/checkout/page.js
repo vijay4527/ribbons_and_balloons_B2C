@@ -540,7 +540,7 @@ const page = ({ params }) => {
                               <input
                                 type="date"
                                 id="datePicker"
-                                className="form-control"
+                                className={`${styles.datePicker} form-control`}
                                 value={startDate}
                                 onChange={(e) => setStartDate(e.target.value)}
                                 min={startDate}
@@ -603,11 +603,10 @@ const page = ({ params }) => {
                       </ul>
                       <div className={styles.checkoutQctShippingContents}>
                         <div
-                          className={`${styles.checkoutQctShippingContent} ${
-                            selectedOption === "delivery"
+                          className={`${styles.checkoutQctShippingContent} ${selectedOption === "delivery"
                               ? `${styles.active}`
                               : ""
-                          }`}
+                            }`}
                         >
                           <div className={styles.newAddress}>
                             <h4
@@ -788,14 +787,12 @@ const page = ({ params }) => {
                                 userAddress.map((res) => (
                                   <label
                                     htmlFor={`Address${res.shipping_address_id}`}
-                                    className={`${
-                                      styles.pickUpSearchResultItem
-                                    } ${
-                                      selectedAddress ===
-                                      res.shipping_address_id
+                                    className={`${styles.pickUpSearchResultItem
+                                      } ${selectedAddress ===
+                                        res.shipping_address_id
                                         ? `${styles.active}`
                                         : ""
-                                    }`}
+                                      }`}
                                     key={res.shipping_address_id}
                                   >
                                     <div
@@ -871,11 +868,10 @@ const page = ({ params }) => {
                           </div>
                         </div>
                         <div
-                          className={`${styles.checkoutQctShippingContent} ${
-                            selectedOption === "pickup"
+                          className={`${styles.checkoutQctShippingContent} ${selectedOption === "pickup"
                               ? `${styles.active}`
                               : ""
-                          }`}
+                            }`}
                         >
                           <h4
                             className={styles.checkoutQctShippingContentTitle}
@@ -903,13 +899,11 @@ const page = ({ params }) => {
                                 franchise.map((res) => (
                                   <label
                                     htmlFor={`Franchise${res.store_id}`}
-                                    className={`${
-                                      styles.pickUpSearchResultItem
-                                    } ${
-                                      selectedFranchise === res.store_id
+                                    className={`${styles.pickUpSearchResultItem
+                                      } ${selectedFranchise === res.store_id
                                         ? `${styles.active}`
                                         : ""
-                                    }`}
+                                      }`}
                                     key={res.store_id}
                                   >
                                     <div
@@ -1047,100 +1041,101 @@ const page = ({ params }) => {
       >
         <div className={styles.modalBox}>
           <div className={styles.modalCartPriceBox}>
-            <div className={styles.cartOrderSummary}>
-              <h4>Add Coupons</h4>{" "}
-              <button className="btn btn-primary" onClick={closeModal}>
-                close
-              </button>
-            </div>
-            <div className={homeStyles["form_group"]}>
-              <input
-                type="text"
-                value={filter}
-                onChange={(e) => handleCouponChange(e.target.value)}
-                placeholder="Search Coupon if any"
-              />
-              <div className={styles.couponBody}>
-                {filteredCoupon.length > 0 &&
-                  filteredCoupon.map((res, index) => (
-                    <div className={styles.couponItem} key={res.coupon_id}>
-                      <label
-                        htmlFor={`Franchise${res.coupon_id}`}
-                        className={`${styles.pickUpSearchResultItem} ${
-                          selectedCoupon === res.coupon_id
-                            ? `${styles.active}`
-                            : ""
-                        }`}
-                      >
-                        <div className={styles.pickUpFranchiseInput}>
-                          <input
-                            id={`Franchise${res.coupon_id}`}
-                            className="form-check-input"
-                            type="radio"
-                            value="pickup"
-                            checked={selectedCoupon === res.coupon_id}
-                            onChange={() => {
-                              hanldeCoupon(res);
-                            }}
-                          />
-                          <div className={styles.pickUpFranchiseInputIcon}>
-                            <svg
-                              className={styles.roundedIcon}
-                              focusable="false"
-                              viewBox="0 0 24 24"
-                              aria-hidden="true"
-                            >
-                              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
-                            </svg>
-                            <svg
-                              className={styles.solidIcon}
-                              focusable="false"
-                              viewBox="0 0 24 24"
-                              aria-hidden="true"
-                            >
-                              <path d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"></path>
-                            </svg>
-                          </div>
-                        </div>
-                        <div
-                          className={`${styles.pickUpFranchiseDetails} ${styles.couponDetails}`}
-                        >
-                          <div className={styles.modalCouponName}>
-                            <h4>{res.coupon_name}</h4>
-                          </div>
-                          <span>
-                            shop for minimum {res.applicable_amt} and get
-                            discount upto {res.dist_max_amt}
-                          </span>
-                          {selectedCoupon === res.coupon_id &&
-                            displayCancelButton && (
-                              <div className={`${styles.pickUpFranchiseInfo}`}>
-                                <h6>{couponMessage}</h6>
-                              </div>
-                            )}
-                        </div>
-                      </label>
-
-                      {selectedCoupon === res.coupon_id &&
-                        displayCancelButton && (
-                          <button
-                            className="btn btn-primary"
-                            onClick={removeCoupon}
-                          >
-                            Remove
-                          </button>
-                        )}
-                    </div>
-                  ))}
-              </div>
-            </div>
-            {isBtnVisible && (
-              <div className="btnCoupon">
+            <div className={styles.modalBorder}>
+              <div className={styles.cartOrderSummary}>
+                <h4>Add Coupons</h4>{" "}
                 <button className="btn btn-primary" onClick={closeModal}>
-                  Add
+                  close
                 </button>
               </div>
-            )}
+              <div className={homeStyles["form_group"]}>
+                <input
+                  type="text"
+                  value={filter}
+                  onChange={(e) => handleCouponChange(e.target.value)}
+                  placeholder="Search Coupon if any"
+                />
+                <div className={styles.couponBody}>
+                  {filteredCoupon.length > 0 &&
+                    filteredCoupon.map((res, index) => (
+                      <div className={styles.couponItem} key={res.coupon_id}>
+                        <label
+                          htmlFor={`Franchise${res.coupon_id}`}
+                          className={`${styles.pickUpSearchResultItem} ${selectedCoupon === res.coupon_id
+                              ? `${styles.active}`
+                              : ""
+                            }`}
+                        >
+                          <div className={styles.pickUpFranchiseInput}>
+                            <input
+                              id={`Franchise${res.coupon_id}`}
+                              className="form-check-input"
+                              type="radio"
+                              value="pickup"
+                              checked={selectedCoupon === res.coupon_id}
+                              onChange={() => {
+                                hanldeCoupon(res);
+                              }}
+                            />
+                            <div className={styles.pickUpFranchiseInputIcon}>
+                              <svg
+                                className={styles.roundedIcon}
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                              >
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
+                              </svg>
+                              <svg
+                                className={styles.solidIcon}
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                              >
+                                <path d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"></path>
+                              </svg>
+                            </div>
+                          </div>
+                          <div
+                            className={`${styles.pickUpFranchiseDetails} ${styles.couponDetails}`}
+                          >
+                            <div className={styles.modalCouponName}>
+                              <h4>{res.coupon_name}</h4>
+                            </div>
+                            <span>
+                              shop for minimum {res.applicable_amt} and get
+                              discount upto {res.dist_max_amt}
+                            </span>
+                            {selectedCoupon === res.coupon_id &&
+                              displayCancelButton && (
+                                <div className={`${styles.pickUpFranchiseInfo}`}>
+                                  <h6>{couponMessage}</h6>
+                                </div>
+                              )}
+                          </div>
+                        </label>
+
+                        {selectedCoupon === res.coupon_id &&
+                          displayCancelButton && (
+                            <button
+                              className="btn btn-primary"
+                              onClick={removeCoupon}
+                            >
+                              Remove
+                            </button>
+                          )}
+                      </div>
+                    ))}
+                </div>
+              </div>
+              {isBtnVisible && (
+                <div className="btnCoupon">
+                  <button className="btn btn-primary" onClick={closeModal}>
+                    Add
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </Modal>

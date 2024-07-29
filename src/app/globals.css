@@ -142,17 +142,21 @@ img {
 .dropdown-menu-lg-end[data-bs-popper] {
   left: auto;
   right: 0;
+  padding: 1rem 1rem;
+
 }
 
 .dropdown-item.active,
 .dropdown-item:active,
 .dropdown-item:focus,
 .dropdown-item:hover {
-  color: var(--theme-btn-color);
+  color: #c19d56 !important;
   text-decoration: none;
-  background-color: var(--theme-btn-bg);
+  background: none !important;
 }
-
+.navAction a:hover {
+  color: #c19d56 !important;
+}
 .btn-primary {
   background-color: var(--theme-btn-bg) !important;
   color: var(--theme-btn-color) !important;
@@ -653,7 +657,10 @@ ul.selectLocationOption a {
 }
 
 .myProfileItems .dropdown-divider {
-  background-color: #ecedeb;
+  background-color: #c19d56;
+}
+.dropdown-gold-border {
+  border: 1px solid #c19d56;
 }
 
 .SvgIcons {
@@ -665,6 +672,12 @@ ul.selectLocationOption a {
 .navAction a:active,
 .navAction a.active {
   color: var(--text-color);
+  padding-top: 1rem;
+}
+.navAction a:last-child {
+  padding-bottom: 1rem;
+  padding-top: 0.7rem !important;
+  font-style: italic;
 }
 
 .cartCountNotification {
@@ -3658,3 +3671,6 @@ input[name="contact"] {
   margin-top: 20px;
 }
   
+.react-multi-carousel-dot-list {
+  display: none !important;
+}

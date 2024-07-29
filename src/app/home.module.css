@@ -347,7 +347,7 @@
 }
 .form_group input{
   width: 100%;
-    border: 1px solid #c8c9c6;
+    border: 1px solid #c19f5f ;
     display: block;
     outline: none;
     line-height: 1.5;
@@ -355,6 +355,8 @@
     height: 48px;
     padding: 13px 16px;
     font-size: 14px;
+    background-color: #301a0f !important ;
+    color: #c19f5f;
 }
 
 .loginModal{
