@@ -40,7 +40,7 @@ const page = ({ params }) => {
   const [time, setTime] = useState("");
   const formatDateForInput = (date) => {
     const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-indexed
+    const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
     return `${year}-${month}-${day}`;
   };
@@ -215,13 +215,13 @@ const page = ({ params }) => {
           closeButton: true,
         });
         return false;
+      } else if (time == "") {
+        toast("Please select time for pickup.", {
+          autoClose: 3000,
+          closeButton: true,
+        });
+        return false;
       }
-    } else if (time == "") {
-      toast("Please select time.", {
-        autoClose: 3000,
-        closeButton: true,
-      });
-      return false;
     }
     return true;
   };
