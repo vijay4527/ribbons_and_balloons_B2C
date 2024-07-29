@@ -47,17 +47,6 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         ></link>
-       
-        {/* <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
-        /> */}
-
-        {/* <link
-          rel="preload"
-          href="https://fama.b-cdn.net/RnB/Stripes.webp"
-          as="image"
-        /> */}
         <link rel="preconnect" href="https://static.cure.fit" />
         <link rel="preconnect" href="https://rnbapi.alphadigitall.com" />
         <link rel="preconnect" href="https://alphadigitall.com" />
@@ -69,7 +58,7 @@ export default function RootLayout({ children }) {
         <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&display=swap" rel="stylesheet" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet"></link>
       </head>
       <body className={inter.className}>

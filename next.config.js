@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    domains: ["images.pexels.com", "fama.b-cdn.net"],
+    domains: ["images.pexels.com","fama.b-cdn.net"],
   },
   env: {
     NEXTAUTH_SECRET: "asddgd",

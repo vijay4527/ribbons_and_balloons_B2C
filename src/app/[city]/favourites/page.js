@@ -31,7 +31,7 @@ const page = ({ params }) => {
           cart_id: cartId ? cartId : "",
           user_id: userObject ? userObject.user_id : "",
           city_name: city ? city : "",
-          type: "WL", 
+          type: "WL",
           coupon_id: "",
         };
 
@@ -42,7 +42,7 @@ const page = ({ params }) => {
           },
           body: JSON.stringify(obj),
         });
-        const response = await responseData.json()
+        const response = await responseData.json();
         if (response) {
           setCart(response.result);
           setGrandTotal(response.final_amount);
@@ -88,13 +88,13 @@ const page = ({ params }) => {
         });
       }
     } catch (error) {
-      console.error("Error storing cartId in session storage:", error) ;
+      console.error("Error storing cartId in session storage:", error);
     }
   };
 
   const removeFromCart = async (cpId, itemCost) => {
-    const responseData = await fetch(apiUrl+`CartMaster/RemoveCart/${cpId}`);
-    const response= await responseData.json()
+    const responseData = await fetch(apiUrl + `CartMaster/RemoveCart/${cpId}`);
+    const response = await responseData.json();
     if (response.resp == true) {
       var newPrice = grandTotal - itemCost;
       setGrandTotal(newPrice);
@@ -138,7 +138,12 @@ const page = ({ params }) => {
                           </div>
                           <div className={styles.cartBoxInfo}>
                             <h4>{item.product_name}</h4>
-                            <h4>Message on Cake : {item.msg_cake}</h4>
+                            {item.msg_cake ? (
+                              <h4>Message on Cake : {item.msg_cake}</h4>
+                            ) : (
+                              ""
+                            )}
+
                             <h5>
                               <span className={styles.cartBoxPrice}>
                                 ₹{item.cost}
