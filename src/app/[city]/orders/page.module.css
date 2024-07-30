@@ -103,6 +103,8 @@
 }
 .orderHistoryCard img{
   width: 130px;
+  height: 13rem;
+  object-fit: cover;
 }
 .orderHistoryCardInfo{
   margin-left: 1.6rem;

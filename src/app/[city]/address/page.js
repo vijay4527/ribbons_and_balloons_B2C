@@ -39,7 +39,7 @@ const page = ({ params }) => {
       if (userData.user_id) {
         const addressResponse = await fetch(
           process.env.API_URL +
-            `ShippingAddress/GetShippingAddressByUserId/${userData.user_id}`
+          `ShippingAddress/GetShippingAddressByUserId/${userData.user_id}`
         );
         const addressData = await addressResponse.json();
         if (addressData) {
@@ -452,9 +452,8 @@ const page = ({ params }) => {
         <div className={styles.displaySection}>
           <Link href={`/${params.city}/orders`}>
             <div
-              className={`${styles["shadow-md"]} ${
-                activeTab == "orders" ? "activeTab" : ""
-              }`}
+              className={`${styles["shadow-md"]} ${activeTab == "orders" ? "activeTab" : ""
+                }`}
               onClick={() => setActiveTab("orders")}
             >
               My Orders
@@ -462,9 +461,8 @@ const page = ({ params }) => {
           </Link>
           <Link href={`/${params.city}/address`}>
             <div
-              className={`${styles["shadow-md"]} ${
-                activeTab === "address" ? styles.activeTab : ""
-              }`}
+              className={`${styles["shadow-md"]} ${activeTab === "address" ? styles.activeTab : ""
+                }`}
               onClick={() => setActiveTab("address")}
             >
               Address Book
@@ -472,9 +470,8 @@ const page = ({ params }) => {
           </Link>
           <Link href={`/${params.city}/profile`}>
             <div
-              className={`${styles["shadow-md"]} ${
-                activeTab === "profile" ? styles.activeTab : ""
-              }`}
+              className={`${styles["shadow-md"]} ${activeTab === "profile" ? styles.activeTab : ""
+                }`}
               onClick={() => setActiveTab("profile")}
             >
               My Profile
@@ -641,14 +638,7 @@ const page = ({ params }) => {
                         <div></div>
                         <div className="d-flex justify-content-space-between">
                           <div className="ml-4">
-                            <img
-                              alt="edit address"
-                              src="https://bkmedia.bakingo.com/images/addressbook/edit.svg"
-                              className={styles.btnEdit}
-                              onClick={() => {
-                                getAddressById(ele.shipping_address_id);
-                              }}
-                            />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g data-name="Group 5772"><path fill="none" d="M0 0h24v24H0z" data-name="Rectangle 1323" /><g data-name="edit (4)"><g data-name="Group 5770"><path fill="#c19f5f" d="M19.739 6.646 17.17 4.077a1.55 1.55 0 0 0-2.19 0L4.896 14.161a.55.55 0 0 0-.146.259l-1.295 5.272a.553.553 0 0 0 .669.669l5.272-1.295a.55.55 0 0 0 .259-.146L19.739 8.836a1.55 1.55 0 0 0 0-2.19M4.746 19.07l.053-.215.162.162zm1.47-.361L5.107 17.6l.482-1.964 2.59 2.59zm3.048-.961-3.2-3.2 8.253-8.253 3.2 3.2zm9.693-9.693-.638.638-3.2-3.2.638-.638a.443.443 0 0 1 .627 0l2.573 2.568a.443.443 0 0 1 0 .632" data-name="Path 27163" /></g></g></g></svg>
                           </div>
                           <div className="ml-4">
                             <img

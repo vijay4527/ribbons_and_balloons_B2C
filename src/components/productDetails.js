@@ -78,6 +78,7 @@ function getProductDetails({ data }) {
               setValues("0.5");
               updateValue("0.5");
               setActiveWeight("0.5");
+              setvarietyDescription(productData.productTypeData[0].description);
               setFlavourName(productData.productTypeData[0].variety_name);
               setvarietyDescription(productData.productTypeData[0].description);
             }

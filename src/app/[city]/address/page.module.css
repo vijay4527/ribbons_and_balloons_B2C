@@ -1,5 +1,5 @@
 .addressTitle {
-  color: black;
+  color: #c19f5f;
 }
 .addressImageContainer {
   display: flex;
@@ -12,22 +12,25 @@
 }
 
 .details {
-  color: black;
+  color: #c19f5f;
 }
 
 .addressContainer {
-  padding: 2rem;
+  padding: 0 2rem ;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px;
   width: 45%;
-  border: 1px solid;
-  background-color: white;
+}
+.address {
+  background-color: #25130f;
+  font-weight: 700;
+  border: 1px solid #c19f5f;
 }
 
 .arrowIcon {
   font-size: 1.6rem;
 }
 .label {
-  color: black;
+  color: rgb(76, 22, 22) !important;
 }
 
 .userDetailSection {
@@ -35,7 +38,9 @@
   justify-content: space-between;
   padding: 20px 60px !important;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px;
-  background-color: white;
+  background: linear-gradient(to right, rgb(35, 5, 5) 0%, rgb(34, 6, 6) 0%, #3e1313 45%, rgb(37, 6, 6) 100%, rgb(37, 7, 7) 100%);
+  color: #c19f5f !important;
+  border: 1px solid #c19f5f;
 }
 .userDetailSection span {
   color: black;
@@ -43,7 +48,7 @@
 }
 .contactSection span {
   padding: 20px;
-  color: black;
+  color: #c19f5f;
   font-size: 1.4rem;
 }
 
@@ -57,21 +62,23 @@
 }
 
 .addressPage {
-  padding: 2rem 14rem;
+  padding: 4rem 14rem;
   display: flex;
   justify-content: center;
-  background-color: rgb(248, 248, 248);
+  background-color: #25130f;
+
 }
 
 .shadow-md {
-  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
   width: 30rem;
   display: flex;
   justify-content: center;
   padding: 2rem;
-  background-color: white;
+  background-color: #25130f;
   margin: 0 2rem 1rem 1rem;
   cursor: pointer;
+  color: #c19f5f !important;
+  border: 1px solid #c19f5f;
 }
 .activeTab {
   border-bottom: #301a0f 3px solid;

@@ -229,9 +229,8 @@ const navComponent = () => {
             />
           </div>
           <div
-            className={`selectLocationWrap ${
-              isLoactionActive ? "activeClass" : ""
-            }`}
+            className={`selectLocationWrap ${isLoactionActive ? "activeClass" : ""
+              }`}
           >
             <div className="selectLocationBody">
               <div className="selectLocationImg">
@@ -284,9 +283,8 @@ const navComponent = () => {
             </div>
           </div>
           <div
-            className={`backdropLoaction ${
-              isLoactionActive == true ? "activeClass" : ""
-            }`}
+            className={`backdropLoaction ${isLoactionActive == true ? "activeClass" : ""
+              }`}
             onClick={loactionToggle}
           ></div>
         </li>
@@ -306,15 +304,13 @@ const navComponent = () => {
             </span>
           </div>
           <div
-            className={`selectSearchItemWrap ${
-              isSearchActive ? "activeClass" : ""
-            }`}
+            className={`selectSearchItemWrap ${isSearchActive ? "activeClass" : ""
+              }`}
           >
             <div className="selectSearchBody">
               <div
-                className={`headerSearchIcon searchInput ${
-                  isSearchActive ? "activeClass" : ""
-                }`}
+                className={`headerSearchIcon searchInput ${isSearchActive ? "activeClass" : ""
+                  }`}
               ></div>
               <input
                 ref={inputRef}
@@ -413,9 +409,8 @@ const navComponent = () => {
             </div>
           </div>
           <div
-            className={`backdropSearchItem ${
-              isSearchActive ? "activeClass" : ""
-            }`}
+            className={`backdropSearchItem ${isSearchActive ? "activeClass" : ""
+              }`}
             onClick={toggleSearchActive}
           ></div>
         </li>
@@ -424,49 +419,53 @@ const navComponent = () => {
             <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
               Dropdown Button
             </Dropdown.Toggle>
-            <Dropdown.Menu align={{ lg: "end" }}>
-              {isLoggedIn == true && (
-                <>
-                  <Dropdown.Item>
-                    <Link
-                      className="drpItemProfile"
-                      href={`/${city}/profile`}
-                      aria-label="my account"
-                    >
-                      My Account
-                    </Link>
-                  </Dropdown.Item>
-                  <Dropdown.Item>
-                    <Link
-                      className="drpItemProfile"
-                      href={`/${city}/address`}
-                      aria-label="order history"
-                    >
-                      Your Address
-                    </Link>
-                  </Dropdown.Item>
-                  <Dropdown.Item>
-                    <Link
-                      className="drpItemProfile"
-                      href={`/${city}/orders`}
-                      aria-label="order history"
-                    >
-                      Order History
-                    </Link>
-                  </Dropdown.Item>
-                  <Dropdown.Divider />
-                </>
-              )}
-              {isLoggedIn == false ||
-                (isLoggedIn == null && (
-                  <Dropdown.Item onClick={() => setIsLoginModalOpen(true)}>
-                    Sign In
-                  </Dropdown.Item>
-                ))}
-              {isLoggedIn == true && (
-                <Dropdown.Item onClick={Logout}>Sign Out</Dropdown.Item>
-              )}
-            </Dropdown.Menu>
+            <div>
+              <Dropdown.Menu align={{ lg: "end" }}>
+                <div className="dropdown-gold-border">
+                  {isLoggedIn == true && (
+                    <>
+                      <Dropdown.Item>
+                        <Link
+                          className="drpItemProfile"
+                          href={`/${city}/profile`}
+                          aria-label="my account"
+                        >
+                          My Account
+                        </Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item>
+                        <Link
+                          className="drpItemProfile"
+                          href={`/${city}/address`}
+                          aria-label="order history"
+                        >
+                          Your Address
+                        </Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item>
+                        <Link
+                          className="drpItemProfile"
+                          href={`/${city}/orders`}
+                          aria-label="order history"
+                        >
+                          Order History
+                        </Link>
+                      </Dropdown.Item>
+                      <Dropdown.Divider />
+                    </>
+                  )}
+                  {isLoggedIn == false ||
+                    (isLoggedIn == null && (
+                      <Dropdown.Item onClick={() => setIsLoginModalOpen(true)}>
+                        Sign In
+                      </Dropdown.Item>
+                    ))}
+                  {isLoggedIn == true && (
+                    <Dropdown.Item onClick={Logout}>Sign Out</Dropdown.Item>
+                  )}
+                </div>
+              </Dropdown.Menu>
+            </div>
           </Dropdown>
         </li>
         <li>
