@@ -3300,9 +3300,10 @@ video {
 .show-more-btn {
   background: none !important;
   text-decoration: underline !important;
-  color: #c19d56 !important;
+  color: white !important;
   border: none !important;
   padding: 0 !important;
+  font-size: 1.4rem !important;
 }
 
 .carousel-item-padding-40-px {
@@ -3782,4 +3783,15 @@ input[name="contact"] {
 
 .react-multi-carousel-dot-list {
   display: none !important;
+}
+.ShowCaseSliderBody ul {
+  gap: 3rem !important;
+}
+.ShowCaseSliderBody .react-multiple-carousel__arrow {
+  background: none !important;
+  top: 24%;
+}
+.ShowCaseSliderBody .react-multiple-carousel__arrow::before {
+  color: #c19d56;
+  font-size: 3rem ;
 }

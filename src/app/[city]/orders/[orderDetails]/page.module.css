@@ -205,11 +205,11 @@
 }
 
 .cartShippingDetail {
-  flex-grow: 0;
-  max-width: 33.333333%;
-  flex-basis: 33.333333%;
-  border-right: 1px solid #c8c9c6;
-  display: none;
+  background-color: #25130f;
+  border: 1px solid #c19f5f;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
 }
 
 .home-container {

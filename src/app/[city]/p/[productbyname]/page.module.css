@@ -1391,3 +1391,6 @@
   justify-content: flex-start;
   gap: 1.5rem;
 }
+.react-multi-carousel-track {
+  gap: 3rem !important;
+}
