@@ -3030,7 +3030,9 @@ video {
   padding: 8rem 0;
   /* background-color: #25130f; */
   position: relative;
-  background-image: url("https://img.freepik.com/free-photo/front-view-cupcake-with-copy-space_23-2148769225.jpg?t=st=1713867673~exp=1713871273~hmac=4214f748b92a04819910289edc37ae3d559ad8836453d893f9900467829b4a28&w=996");
+  background-color: #522820;
+  border: 2px solid #25130f;
+  /* background-image: url("https://img.freepik.com/free-photo/front-view-cupcake-with-copy-space_23-2148769225.jpg?t=st=1713867673~exp=1713871273~hmac=4214f748b92a04819910289edc37ae3d559ad8836453d893f9900467829b4a28&w=996"); */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
