@@ -1,15 +1,13 @@
 "use client";
 import React from "react";
-import { useState, useEffect, useContext } from "react";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation"; // Import useRouter hook
+import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { AuthOtpContext } from "@/components/authContext";
 import { profileSchema } from "@/components/validation";
 import Cookies from "js-cookie";
 import * as yup from "yup";
-
+import TabComponent from "@/components/tab";
+import styles from "@/app/[city]/address/page.module.css";
 const page = () => {
   const [errors, setErrors] = useState({});
   const city = Cookies.get("city");
@@ -143,9 +141,34 @@ const page = () => {
   const hasErrors = Object.keys(errors).length > 0;
 
   return (
-    <>
-      <div className="container profile-container">
-        <div className="m-4 form-wrap">
+    <div>
+      <ToastContainer />
+      <div className={`container ${styles.userDetailSection}`}>
+        {user && (
+          <>
+            <div className={styles.contactSection}>
+              <span>
+                <i className="fa fa-user"></i>
+                {user.first_name}
+              </span>
+            </div>
+
+            <div className={styles.contactSection}>
+              <span>
+                <i className="fa fa-envelope"></i>
+                {user.email}
+              </span>
+              <span>
+                <i className="fa fa-phone"></i>
+                {user.mobile_number}
+              </span>
+            </div>
+          </>
+        )}
+      </div>
+      <div className={`container ${styles.addressPage}`}>
+        <TabComponent url={"profile"} city={userCity} />
+        <div className={`form-wrap ${styles.profileForm}`}>
           <div className={`row ${!hasErrors ? "mt-2" : ""}`}>
             <div className="col-lg-6">
               <label>First Name</label>
@@ -290,8 +313,7 @@ const page = () => {
           </div>
         </div>
       </div>
-      <ToastContainer />
-    </>
+    </div>
   );
 };
 
