@@ -300,7 +300,7 @@ function getProductDetails({ data }) {
                 </span>{" "}
               </li>
             </ul>
-            <button className="btn btn-primary" onClick={toggleDisplayMore}>
+            <button className="btn btn-primary show-more-btn" onClick={toggleDisplayMore}>
               {displayMore ? "Show Less" : "Show More"}
             </button>{" "}
           </div>

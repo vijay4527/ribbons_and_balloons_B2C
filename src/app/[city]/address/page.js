@@ -616,7 +616,7 @@ const page = ({ params }) => {
                 }}
               >
                 <button
-                  className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`}
+                  className={`${homeStyles["btn"]} ${homeStyles.AddAddressBtn} ${homeStyles["btn-primary"]}`}
                   onClick={saveShippingAddress}
                 >
                   {" "}
@@ -671,7 +671,7 @@ const page = ({ params }) => {
           )}
           <div className="mt-4">
             <button
-              className="btn btn-primary p-2"
+              className={homeStyles.AddAddressBtn}
               onClick={() => setEnableAddress(true)}
             >
               Add Address

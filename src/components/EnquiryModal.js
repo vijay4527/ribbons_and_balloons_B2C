@@ -86,7 +86,7 @@ function EnquiryModal() {
   return (
     <>
       <div className="enquiry_btn" onClick={handleShow}>
-        Enquiry Now
+        <span>Enquiry Now</span>
       </div>
       <Modal
         id="enquiry-modal-dialog"

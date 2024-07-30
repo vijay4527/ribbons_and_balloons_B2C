@@ -318,6 +318,7 @@
   background-color: #25130f;
   color: #c19d56;
 }
+
 .pdp_SelectMessage textarea:focus {
   border: none !important;
 }
@@ -553,15 +554,26 @@
 }
 
 .button::after {
-  content: '';
+  content: "";
   top: 0;
-  left: 10.3rem;
-  width: 11rem;
+  left: 30%;
+  width: 35%;
   height: 46px;
   position: absolute;
-  animation: slide 3s infinite;
+  animation: slide 2.5s infinite;
   background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(128, 186, 232, 0) 99%, rgba(125, 185, 232, 0) 100%);
 }
+@keyframes slide {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+
 
 .button:active {
   --scale: 0.95;
@@ -577,6 +589,8 @@
   line-height: 26px;
   transform: translateY(var(--span-y, 0));
   transition: transform 0.7s ease;
+  position: relative;
+  z-index: 1;
 }
 
 .button span:before,
@@ -1324,16 +1338,19 @@
   align-items: center;
   gap: 1rem;
 }
+
 .WeightFlex {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
+
 .active-weight-show ul {
   padding-left: 0 !important;
   list-style: none;
   margin-bottom: 0 !important;
 }
+
 .active-weight-show ul li {
   text-align: center;
   padding: 0.8rem;
@@ -1345,18 +1362,23 @@
   font-size: 2rem !important;
   font-weight: 600;
 }
+
 .pdp_SelectFlavourDropdown {
   position: relative;
 }
-.pdp_SelectInfoFlex:hover .flavourUlDivWrap2{
+
+.pdp_SelectInfoFlex:hover .flavourUlDivWrap2 {
   opacity: 1;
 }
+
 .pdp_SelectInfoFlex:hover .flavourUlDiv {
   display: block !important;
 }
+
 .flavourUlDivWrap2 {
   margin-top: 0 !important;
 }
+
 .pdp_SelectInfo2 {
   margin-bottom: 2px !important;
   display: flex !important;

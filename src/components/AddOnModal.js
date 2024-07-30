@@ -227,7 +227,7 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
         </div>
         <div className="text-center addon-bottom-btn-div">
           <Link href={`/${city}/cart`}>
-            <div className="btn btn-secondary mb-4 addon-bottom-btn">Skip</div>
+            <div className="btn btn-secondary mb-4 skip-btn addon-bottom-btn">Skip</div>
           </Link>{" "}
           <div
             className="btn btn-primary mb-4 continue-btn addon-bottom-btn"
