@@ -1269,6 +1269,7 @@
 
 .ChangeWeightHover {
   position: relative;
+  cursor: pointer;
 }
 
 .flavourUlDivWrap {

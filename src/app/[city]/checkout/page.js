@@ -51,6 +51,18 @@ const page = ({ params }) => {
   const [startDate, setStartDate] = useState(formatDateForInput(nextDate));
 
   const apiUrl = process.env.API_URL;
+
+  const handleDateChange = async (e) => {
+    const selectedDate = e;
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const tomorrowDate = await formatDateForInput(tomorrow);
+    if (selectedDate >= tomorrowDate) {
+      return true;
+    } else {
+      return false;
+    }
+  };
   const [formValues, setFormValues] = useState({
     firstName: "",
     lastName: "",
@@ -199,8 +211,15 @@ const page = ({ params }) => {
     }
   };
 
-  const validateOrder = () => {
-    if (selectedOption === "delivery") {
+  const validateOrder = async () => {
+    const isOrderDate = await handleDateChange(startDate);
+    if (!isOrderDate) {
+      toast("Please select a valid date.", {
+        autoClose: 3000,
+        closeButton: true,
+      });
+      return false;
+    } else if (selectedOption === "delivery") {
       if (!selectedAddress) {
         toast("Please select a shipping address for delivery.", {
           autoClose: 3000,
@@ -227,7 +246,7 @@ const page = ({ params }) => {
   };
 
   const handlePlaceOrder = async () => {
-    const isValidOrder = validateOrder();
+    const isValidOrder = await validateOrder();
     if (isValidOrder) {
       await createOrder();
     }
@@ -433,73 +452,11 @@ const page = ({ params }) => {
   };
 
   const [location, setLocation] = useState(null);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
   const enableAddAddress = () => {
     setEnableAddress(true);
     // getLocation();
   };
-
-  // const getLocation = () => {
-  //   try {
-  //     if (navigator.geolocation) {
-  //       navigator.geolocation.getCurrentPosition(
-  //         async (position) => {
-  //           try {
-  //             const responseData = await fetch(
-  //               `https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=AIzaSyBpti7QuC_QXwWE90MT0RkfMPlET1KbhS4&libraries=places`
-  //             );
-  //             const response = await responseData.json();
-  //             if (response?.results.length > 0) {
-  //               let city = "";
-  //               let state = "";
-  //               let zipCode = "";
-  //               let country = "";
-  //               const formattedAddress = response.results[0].formatted_address;
-  //               for (let component of response?.results[0].address_components) {
-  //                 if (component.types.includes("locality")) {
-  //                   city = component.long_name;
-  //                 } else if (
-  //                   component.types.includes("administrative_area_level_1")
-  //                 ) {
-  //                   state = component.long_name;
-  //                 } else if (component.types.includes("postal_code")) {
-  //                   zipCode = component.long_name;
-  //                 } else if (component.types.includes("country")) {
-  //                   country = component.long_name;
-  //                 }
-  //               }
-  //               const remainingAddress = formattedAddress
-  //                 .replace(`${city}, ${state} ${zipCode}, ${country}`, "")
-  //                 .trim();
-  //               setFormValues({
-  //                 ...formValues,
-  //                 city: city,
-  //                 state: state,
-  //                 country: country,
-  //                 address: remainingAddress,
-  //                 pinCode: zipCode,
-  //               });
-  //               setLocation({
-  //                 latitude: position.coords.latitude,
-  //                 longitude: position.coords.longitude,
-  //               });
-  //               setError(null);
-  //             } else {
-  //               setError("Unable to find address for this location");
-  //             }
-  //           } catch (error) {
-  //             setError("Error retrieving address");
-  //           }
-  //         },
-  //         (error) => {
-  //           setError("Unable to retrieve your location");
-  //         }
-  //       );
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   const closeModal = () => {
     setModalIsOpen(false);
@@ -539,11 +496,10 @@ const page = ({ params }) => {
                               <label>Select a date:</label>
                               <input
                                 type="date"
-                                id="datePicker"
+                                placeholder="DD/MM/YYYY"
                                 className={`${styles.datePicker} form-control`}
                                 value={startDate}
                                 onChange={(e) => setStartDate(e.target.value)}
-                                min={startDate}
                               />
                             </div>
                             {selectedOption == "pickup" && (
@@ -603,10 +559,11 @@ const page = ({ params }) => {
                       </ul>
                       <div className={styles.checkoutQctShippingContents}>
                         <div
-                          className={`${styles.checkoutQctShippingContent} ${selectedOption === "delivery"
+                          className={`${styles.checkoutQctShippingContent} ${
+                            selectedOption === "delivery"
                               ? `${styles.active}`
                               : ""
-                            }`}
+                          }`}
                         >
                           <div className={styles.newAddress}>
                             <h4
@@ -787,12 +744,14 @@ const page = ({ params }) => {
                                 userAddress.map((res) => (
                                   <label
                                     htmlFor={`Address${res.shipping_address_id}`}
-                                    className={`${styles.pickUpSearchResultItem
-                                      } ${selectedAddress ===
-                                        res.shipping_address_id
+                                    className={`${
+                                      styles.pickUpSearchResultItem
+                                    } ${
+                                      selectedAddress ===
+                                      res.shipping_address_id
                                         ? `${styles.active}`
                                         : ""
-                                      }`}
+                                    }`}
                                     key={res.shipping_address_id}
                                   >
                                     <div
@@ -868,10 +827,11 @@ const page = ({ params }) => {
                           </div>
                         </div>
                         <div
-                          className={`${styles.checkoutQctShippingContent} ${selectedOption === "pickup"
+                          className={`${styles.checkoutQctShippingContent} ${
+                            selectedOption === "pickup"
                               ? `${styles.active}`
                               : ""
-                            }`}
+                          }`}
                         >
                           <h4
                             className={styles.checkoutQctShippingContentTitle}
@@ -899,11 +859,13 @@ const page = ({ params }) => {
                                 franchise.map((res) => (
                                   <label
                                     htmlFor={`Franchise${res.store_id}`}
-                                    className={`${styles.pickUpSearchResultItem
-                                      } ${selectedFranchise === res.store_id
+                                    className={`${
+                                      styles.pickUpSearchResultItem
+                                    } ${
+                                      selectedFranchise === res.store_id
                                         ? `${styles.active}`
                                         : ""
-                                      }`}
+                                    }`}
                                     key={res.store_id}
                                   >
                                     <div
@@ -1061,10 +1023,11 @@ const page = ({ params }) => {
                       <div className={styles.couponItem} key={res.coupon_id}>
                         <label
                           htmlFor={`Franchise${res.coupon_id}`}
-                          className={`${styles.pickUpSearchResultItem} ${selectedCoupon === res.coupon_id
+                          className={`${styles.pickUpSearchResultItem} ${
+                            selectedCoupon === res.coupon_id
                               ? `${styles.active}`
                               : ""
-                            }`}
+                          }`}
                         >
                           <div className={styles.pickUpFranchiseInput}>
                             <input
@@ -1108,7 +1071,9 @@ const page = ({ params }) => {
                             </span>
                             {selectedCoupon === res.coupon_id &&
                               displayCancelButton && (
-                                <div className={`${styles.pickUpFranchiseInfo}`}>
+                                <div
+                                  className={`${styles.pickUpFranchiseInfo}`}
+                                >
                                   <h6>{couponMessage}</h6>
                                 </div>
                               )}
