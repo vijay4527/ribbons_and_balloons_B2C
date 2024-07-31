@@ -353,13 +353,17 @@
 .pdp_shortInfo_BoxItem {
   display: none;
   position: absolute;
-  z-index: 1;
+  z-index: 3;
   width: 26rem;
   right: 0;
   top: 100%;
   background-color: #25130f;
   border-radius: var(--border-radius);
   box-shadow: 0 0 0 rgb(0 0 0/10%), 0 0 0 0 rgb(255 255 255), 0.3em 0.3em 1em rgb(0 0 0/30%);
+  padding: 1rem;
+}
+.pdp_shortInfo_BoxItemBorder {
+  border: 1px solid #c19d56;
 }
 
 .pdp_shortInfo_Box:hover .pdp_shortInfo_BoxItem {
@@ -390,7 +394,7 @@
 }
 
 .pdp_shortInfo_BoxItem ul li:not(:last-child) {
-  border-bottom: 1px solid #c19d56 !important;
+  
 }
 
 .pdp_shortInfo_BoxItem ul li h4 {

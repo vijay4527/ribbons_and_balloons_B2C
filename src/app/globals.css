@@ -3189,10 +3189,26 @@ video {
 }
 
 .form-wrap {
-  background-color: #25130f;
+  background-image: url(https://st.depositphotos.com/1172692/4654/v/450/depositphotos_46542091-stock-illustration-seamless-vector-pattern-or-tile.jpg);
   padding: 3rem;
-  border: 2px solid #c19f5f;
+  
   border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.form-wrap div {
+  position: relative;
+}
+.form-wrap:before {
+  content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #00000096;
 }
 
 .profile-form {

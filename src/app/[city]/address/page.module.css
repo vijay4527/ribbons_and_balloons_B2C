@@ -8,7 +8,7 @@
 .address {
   width: 100%;
   border: 1px solid black;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .profileForm {
@@ -16,7 +16,8 @@
 }
 
 .details {
-  color: #c19f5f;
+  color: white;
+  font-weight: 300;
 }
 
 .addressContainer {
@@ -72,12 +73,33 @@
   color: black;
   text-decoration: none;
 }
+.displaySection {
+  position: relative;
+}
+.addressContainer {
+  position: relative;
+}
 
 .addressPage {
   padding: 4rem 14rem;
   display: flex;
   justify-content: center;
-  background-color: #25130f;
+  background-image: url(https://www.shutterstock.com/shutterstock/photos/238254937/display_1500/stock-vector-bread-seamless-pattern-with-bakery-products-light-contour-on-a-brown-background-238254937.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+.addressPage::before {
+  content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000b7;
 }
 
 .shadow-md {
@@ -90,9 +112,16 @@
   cursor: pointer;
   color: #c19f5f !important;
   border: 1px solid #c19f5f;
+  border-radius: 5px;
 }
 .activeTab {
-  border-bottom: #e9cc6d  4px solid;
+  position: relative;
+  color: #25130f !important;
+  z-index: 3;
+  background-image: url(https://img.freepik.com/premium-vector/gold-metal-backgrounds-metal-texture_508524-33.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  text-shadow: 0 2px 2px rgba(250, 227, 133, 1);
 }
 .inputContainer {
   display: flex;
