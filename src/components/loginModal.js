@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import Modal from "react-bootstrap/Modal";
 import { useSession, signIn, signOut } from "next-auth/react";
 import * as yup from "yup";
@@ -19,26 +19,27 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [mobile, setMobile] = useState("");
   const [showloginInput, setShowLoginInput] = useState(true);
-  // const [otp, setOTP] = useState(["", "", "", "", ""]);
-  // const length = otp.length;
   const [showOtpSection, setShowOtpSection] = useState(false);
   const [loginError, setLoginError] = useState("");
   const inputs = ["input1", "input2", "input3", "input4"];
   const cartId =
     typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
-  // const router = useRouter();
-  // const currentPath = router.asPath;
-  // const [hitApi, setHitApi] = useState(false);
   const { isLogged, setIsLogged } = useContext(AuthOtpContext);
   const [userObject, setUserObject] = useState({});
   const [timer, setTimer] = useState(30);
   const apiUrl = process.env.API_URL;
+  const mobileInputRef = useRef(null);
 
   const user =
     typeof window !== "undefined" ? sessionStorage.getItem("userData") : "";
   useEffect(() => {
     if (isOpen) {
       setModalIsOpen(true);
+      setTimeout(() => {
+        if (mobileInputRef.current) {
+          mobileInputRef.current.focus();
+        }
+      }, 0);
     }
   }, [isOpen]);
   useEffect(() => {
@@ -259,6 +260,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
                     value={mobile}
                     placeholder="Phone No"
                     onChange={(e) => setMobile(e.target.value)}
+                    ref={mobileInputRef}
                   />
                 </div>
                 {loginError && (
