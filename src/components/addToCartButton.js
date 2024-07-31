@@ -72,7 +72,7 @@ const addToCartButton = ({ data, city }) => {
         <button
           className={
             isLoading
-              ? `${styles.button} ${styles.loading}`
+              ? `${styles.button} ${styles.loading} ${styles.adToCartButton}`
               : `${styles.button}`
           }
           onClick={handleAddToCart}

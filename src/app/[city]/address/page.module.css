@@ -52,6 +52,7 @@
   );
   color: #c19f5f !important;
   border: 1px solid #c19f5f;
+  margin-top: 2rem;
 }
 .userDetailSection span {
   color: black;
@@ -150,4 +151,12 @@
     color: black;
     font-size: 1rem;
   }
+}
+.add-address-btn {
+  position: relative;
+  color: #25130f !important;
+  z-index: 3;
+  background-image: url(https://img.freepik.com/premium-vector/gold-metal-backgrounds-metal-texture_508524-33.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
 }

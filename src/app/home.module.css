@@ -17,37 +17,64 @@
   padding-right: 5rem;
   padding-left: 5rem;
 }
+
 @media screen and (max-width: 768px) {
   .container_fluid {
     padding-right: 1.5rem;
     padding-left: 1.5rem;
   }
 }
+
 @media (min-width: 576px) {
-  .container-sm, .container {
+
+  .container-sm,
+  .container {
     max-width: 540px;
   }
 }
+
 @media (min-width: 768px) {
-  .container-md, .container-sm, .container {
+
+  .container-md,
+  .container-sm,
+  .container {
     max-width: 720px;
   }
 }
+
 @media (min-width: 992px) {
-  .container-lg, .container-md, .container-sm, .container {
+
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container {
     max-width: 960px;
   }
 }
+
 @media (min-width: 1200px) {
-  .container-xl, .container-lg, .container-md, .container-sm, .container {
+
+  .container-xl,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container {
     max-width: 1140px;
   }
 }
+
 @media (min-width: 1400px) {
-  .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
+
+  .container-xxl,
+  .container-xl,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container {
     max-width: 1320px;
   }
 }
+
 /* start button */
 .btn {
   position: relative;
@@ -61,40 +88,51 @@
   padding: 5px;
   font-family: var(--font-family);
 }
+
 .btn.btn-primary::before {
   top: 0;
   left: 0;
   border-left: 1px solid var(--theme-primary);
   border-top: 1px solid var(--theme-primary);
 }
-.btn-primary::before, .btn-primary::after {
+
+.btn-primary::before,
+.btn-primary::after {
   position: absolute;
   content: "";
 }
-.btn.btn-primary:hover::before, 
+
+.btn.btn-primary:hover::before,
 .btn.btn-primary:hover::after {
   width: 99%;
   height: 98%;
 }
-.btn.btn-primary::before, .btn.btn-primary::after {
+
+.btn.btn-primary::before,
+.btn.btn-primary::after {
   width: 10%;
   height: 25%;
   transition: 0.35s;
 }
-.btn-primary::before, .btn-primary::after {
+
+.btn-primary::before,
+.btn-primary::after {
   background: transparent;
   z-index: 2;
 }
+
 .btn.btn-primary::after {
   bottom: 0;
   right: 0;
   border-right: 1px solid var(--theme-primary);
   border-bottom: 1px solid var(--theme-primary);
 }
+
 .btn-primary span {
   color: var(--theme-seconary);
   background-color: var(--theme-primary);
 }
+
 .btn span {
   position: relative;
   display: inline-block;
@@ -108,6 +146,7 @@
   padding: 10px 40px;
   transition: 0.3s;
 }
+
 /* btn btn-primary */
 .main {
   display: flex;
@@ -218,6 +257,7 @@
 .logo {
   position: relative;
 }
+
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   .card:hover {
@@ -289,11 +329,9 @@
     border-radius: var(--border-radius);
     border: none;
     border-bottom: 1px solid rgba(var(--callout-border-rgb), 0.25);
-    background: linear-gradient(
-      to bottom,
-      rgba(var(--background-start-rgb), 1),
-      rgba(var(--callout-rgb), 0.5)
-    );
+    background: linear-gradient(to bottom,
+        rgba(var(--background-start-rgb), 1),
+        rgba(var(--callout-rgb), 0.5));
     background-clip: padding-box;
     backdrop-filter: blur(24px);
   }
@@ -304,11 +342,9 @@
     inset: auto 0 0;
     padding: 2rem;
     height: 200px;
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      rgb(var(--background-end-rgb)) 40%
-    );
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        rgb(var(--background-end-rgb)) 40%);
     z-index: 1;
   }
 }
@@ -334,53 +370,57 @@
   from {
     transform: rotate(360deg);
   }
+
   to {
     transform: rotate(0deg);
   }
 }
 
-.form_group label{
+.form_group label {
   font-size: 1.6rem;
   font-style: normal;
   font-weight: normal;
   line-height: 20px;
 }
-.form_group input{
+
+.form_group input {
   width: 100%;
-    border: 1px solid #c19f5f ;
-    display: block;
-    outline: none;
-    line-height: 1.5;
-    border-radius: var(--border-radius);
-    height: 48px;
-    padding: 13px 16px;
-    font-size: 14px;
-    background-color: #301a0f !important ;
-    color: #c19f5f;
+  border: 1px solid #c19f5f;
+  display: block;
+  outline: none;
+  line-height: 1.5;
+  border-radius: var(--border-radius);
+  height: 48px;
+  padding: 13px 16px;
+  font-size: 14px;
+  background-color: #301a0f !important;
+  color: #c19f5f;
 }
 
-.loginModal{
+.loginModal {
   width: 60%;
-    margin: auto;
-    height: 100%;
-    color: #000;
-    font-family: var(--font-family);
+  margin: auto;
+  height: 100%;
+  color: #000;
+  font-family: var(--font-family);
 }
-.loginModalOverlay{
+
+.loginModalOverlay {
   position: fixed;
-    inset: 0px;
-    background-color: rgba(255, 255, 255, 0.75);
+  inset: 0px;
+  background-color: rgba(255, 255, 255, 0.75);
 }
-.loginModalWrap .ReactModal__Overlay{
+
+.loginModalWrap .ReactModal__Overlay {
   z-index: 50;
 }
 
-.couponsModal{
+.couponsModal {
   width: 60%;
-    margin: auto;
-    height: 100%;
-    color: #000;
-    font-family: var(--font-family);
+  margin: auto;
+  height: 100%;
+  color: #000;
+  font-family: var(--font-family);
 }
 
 .input {
@@ -391,6 +431,7 @@
   border-bottom: 1.5px solid #d2d2d2;
   margin: 0 10px;
 }
+
 .input:focus {
   border-bottom: 1.5px solid #00bfff;
   outline: 0;
@@ -401,15 +442,49 @@
 }
 
 .otp-input input:hover,
-.otp-input input:focus{
+.otp-input input:focus {
   border: 0 !important;
   border-bottom: 1px solid var(--theme-primary) !important;
 }
 
-.productsSearchModal .modal-content{
+.productsSearchModal .modal-content {
   padding: 10px;
 }
 
-.order-container {
-  
+.order-container {}
+
+.AddAddressBtn {
+  position: relative;
+  color: #25130f !important;
+  z-index: 3;
+  background-image: url(https://img.freepik.com/premium-vector/gold-metal-backgrounds-metal-texture_508524-33.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none !important;
+  border-radius: 3px;
+}
+
+.AddAddressBtn::after {
+  content: "";
+  top: 0;
+  left: 30%;
+  width: 35%;
+  height: 100%;
+  position: absolute;
+  animation: slide 3s infinite;
+  background: linear-gradient(to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.8) 50%,
+      rgba(128, 186, 232, 0) 99%,
+      rgba(125, 185, 232, 0) 100%);
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
 }
