@@ -1,18 +1,18 @@
 "use client";
 import React, { useState, useEffect, useContext } from "react";
 import Modal from "react-bootstrap/Modal";
-import { useRouter } from "next/navigation";
 import { useSession, signIn, signOut } from "next-auth/react";
 import * as yup from "yup";
 import { loginSchema } from "@/components/validation";
 import { otpSchema } from "@/components/validation";
 import homeStyles from "@/app/home.module.css";
-import "react-toastify/dist/ReactToastify.css";
 import Head from "next/head";
 import { AuthOtpContext } from "@/components/authContext";
-import Toast from "react-bootstrap/Toast";
-import "bootstrap/dist/css/bootstrap.min.css";
+// import Toast from "react-bootstrap/Toast";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import Cookies from "js-cookie";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
   const { data: session } = useSession();
@@ -129,9 +129,9 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
     });
   }
 
-  const [showA, setShowA] = useState(false);
+  // const [showA, setShowA] = useState(false);
 
-  const toggleShowA = () => setShowA(true);
+  // const toggleShowA = () => setShowA(true);
   const verifyOTP = async () => {
     const otpValue = inputs
       .map((id) => document.getElementById(id).value)
@@ -160,7 +160,16 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
           setLoginError("");
           sessionStorage.setItem("userData", JSON.stringify(data.respObj));
           sessionStorage.setItem("isLoggedIn", "true");
-          toggleShowA();
+          toast("You have logged in successfully", {
+            autoClose: 3000,
+            closeButton: true,
+            onClose: () => {
+              setIsLogged(true);
+              setShowOtpSection(false);
+              setModalIsOpen(false);
+              // setShowA(false);
+            },
+          });
         } else if (data.resp == false) {
           setLoginError(data.respMsg);
         }
@@ -176,7 +185,6 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
   };
 
   const googleLogin = async () => {
-    // setHitApi(true);
     signIn("google");
   };
   const handleOtpNotRecieved = async () => {
@@ -337,7 +345,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
         </div>
       </Modal>
 
-      <Toast
+      {/* <Toast
         show={showA}
         onClose={() => {
           setIsLogged(true);
@@ -359,7 +367,8 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
             onClick={() => setShowA(false)}
           ></button>
         </Toast.Body>
-      </Toast>
+      </Toast> */}
+      <ToastContainer />
     </div>
   );
 };
