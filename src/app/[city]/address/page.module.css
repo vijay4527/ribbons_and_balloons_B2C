@@ -11,13 +11,17 @@
   border-radius: 5px;
 }
 
+.profileForm {
+  width: 60rem !important;
+}
+
 .details {
   color: white;
   font-weight: 300;
 }
 
 .addressContainer {
-  padding: 0 2rem ;
+  padding: 0 2rem;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px;
   width: 45%;
 }
@@ -39,7 +43,14 @@
   justify-content: space-between;
   padding: 20px 60px !important;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px;
-  background: linear-gradient(to right, rgb(35, 5, 5) 0%, rgb(34, 6, 6) 0%, #3e1313 45%, rgb(37, 6, 6) 100%, rgb(37, 7, 7) 100%);
+  background: linear-gradient(
+    to right,
+    rgb(35, 5, 5) 0%,
+    rgb(34, 6, 6) 0%,
+    #3e1313 45%,
+    rgb(37, 6, 6) 100%,
+    rgb(37, 7, 7) 100%
+  );
   color: #c19f5f !important;
   border: 1px solid #c19f5f;
   margin-top: 2rem;
@@ -73,6 +84,7 @@
   padding: 4rem 14rem;
   display: flex;
   justify-content: center;
+  background-color: #25130f;
   background-image: url(https://www.shutterstock.com/shutterstock/photos/238254937/display_1500/stock-vector-bread-seamless-pattern-with-bakery-products-light-contour-on-a-brown-background-238254937.jpg);
   background-position: center;
   background-repeat: no-repeat;
@@ -117,12 +129,13 @@
   justify-content: space-around;
 }
 
-.btnDelete:hover,.btnEdit:hover{
+.btnDelete:hover,
+.btnEdit:hover {
   cursor: pointer;
 }
-.arrowIconContainer{
-   display: flex;
-   justify-content: end;
+.arrowIconContainer {
+  display: flex;
+  justify-content: end;
 }
 .arrowIconContainer i {
   color: black;

@@ -2,16 +2,15 @@
 import React, { useState, useEffect } from "react";
 import homeStyles from "@/app/home.module.css";
 import Form from "react-bootstrap/Form";
-import Link from "next/link";
 import * as yup from "yup";
 import { validationSchema } from "@/components/validation";
 import { ToastContainer, toast } from "react-toastify";
 import styles from "@/app/[city]/address/page.module.css";
 import Swal from "sweetalert2";
+import TabComponent from "@/components/tab"
 const page = ({ params }) => {
   const [address, setAddress] = useState([]);
   const [enableAddress, setEnableAddress] = useState(false);
-  const [activeTab, setActiveTab] = useState("address");
   const [errors, setErrors] = useState({});
   const [user, setUser] = useState(null);
   const [shippingAddressId, setShippingAddressId] = useState("");
@@ -449,35 +448,7 @@ const page = ({ params }) => {
 
       <ToastContainer />
       <div className={`container ${styles.addressPage}`}>
-        <div className={styles.displaySection}>
-          <Link href={`/${params.city}/orders`}>
-            <div
-              className={`${styles["shadow-md"]} ${activeTab == "orders" ? "activeTab" : ""
-                }`}
-              onClick={() => setActiveTab("orders")}
-            >
-              My Orders
-            </div>
-          </Link>
-          <Link href={`/${params.city}/address`}>
-            <div
-              className={`${styles["shadow-md"]} ${activeTab === "address" ? styles.activeTab : ""
-                }`}
-              onClick={() => setActiveTab("address")}
-            >
-              Address Book
-            </div>
-          </Link>
-          <Link href={`/${params.city}/profile`}>
-            <div
-              className={`${styles["shadow-md"]} ${activeTab === "profile" ? styles.activeTab : ""
-                }`}
-              onClick={() => setActiveTab("profile")}
-            >
-              My Profile
-            </div>
-          </Link>
-        </div>
+       <TabComponent url={"address"} city={params.city}/>
         <div className={styles.addressContainer}>
           {enableAddress && (
             <>

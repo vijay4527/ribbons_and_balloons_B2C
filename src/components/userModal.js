@@ -71,6 +71,15 @@ const userModal = ({ isOpen, closeModal, city }) => {
             setName("");
           },
         });
+      }else{
+        toast(data.respMsg, {
+          autoClose: 3000,
+          closeButton: true,
+          onClose: () => {
+            closeModal();
+            setName("");
+          },
+        });
       }
     } catch (err) {
       console.log(err);

@@ -80,6 +80,7 @@ function getProductDetails({ data }) {
               setActiveWeight("0.5");
               setvarietyDescription(productData.productTypeData[0].description);
               setFlavourName(productData.productTypeData[0].variety_name);
+              setvarietyDescription(productData.productTypeData[0].description);
             }
             break;
           case 2:
@@ -88,8 +89,8 @@ function getProductDetails({ data }) {
               updateValue(productData.min);
               updateVariable(initialProductType.cost * 2 * productData.min);
               setActiveWeight(productData.min.toString());
-              setvarietyDescription(productData.productTypeData[0].description);
               setFlavourName(productData.productTypeData[0].variety_name)
+              setvarietyDescription(productData.productTypeData[0].description);
             }
             break;
           case 3:
@@ -185,7 +186,7 @@ function getProductDetails({ data }) {
         // setUnit("KG");
         updateUnit("KG");
         // setProductPrice(product.productTypeData[0].cost * 2 - 10);
-        updateVariable(product.productTypeData[0].cost * 2 - 10);
+        updateVariable(product.productTypeData[0].cost * 2);
       }
     }
     if (product.type_id == 2) {
@@ -198,7 +199,7 @@ function getProductDetails({ data }) {
       setValues(weight);
       updateValue(weight);
       // setProductPrice(product.productTypeData[0].cost * weight - 10);
-      updateVariable(product.productTypeData[0].cost * 2 * weight - 10);
+      updateVariable(product.productTypeData[0].cost * 2 * weight);
     }
     if (product.type_id == 4) {
       setValues(weight);

@@ -196,7 +196,7 @@ const Page = ({ params }) => {
   const [orderInfo, setOrderInfo] = useState(null);
 
   const orderId = params.orderDetails;
-  const userObject = sessionStorage.getItem("userData");
+  const userObject = JSON.parse(sessionStorage.getItem("userData"));
 
   useEffect(() => {
     if (userObject) {

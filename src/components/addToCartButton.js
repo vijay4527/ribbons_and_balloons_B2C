@@ -3,17 +3,13 @@ import React from "react";
 import styles from "@/app/[city]/p/[productbyname]/page.module.css";
 import { useState, useEffect, useContext } from "react";
 import useSharedStore from "@/components/calculatedPrice";
-import { useRouter } from "next/navigation";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { AuthOtpContext } from "@/components/authContext";
 import AddOnModal from "@/components/AddOnModal";
-// import { cookies } from 'next/headers'
 import Cookies from "js-cookie";
+
 
 const addToCartButton = ({ data, city }) => {
   const { Variable, Variety, Unit, Value, Message } = useSharedStore();
-  const router = useRouter();
   const [user, setUser] = useState({});
   const [isLoading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -99,7 +95,7 @@ const addToCartButton = ({ data, city }) => {
           data={data}
         />
       )}
-      <ToastContainer />
+
     </div>
   );
 };

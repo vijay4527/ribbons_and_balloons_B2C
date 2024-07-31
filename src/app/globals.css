@@ -3813,3 +3813,7 @@ input[name="contact"] {
   color: #c19d56;
   font-size: 3rem ;
 }
+.show-more-btn:focus{
+  border: none !important;
+  box-shadow: none !important;
+}
