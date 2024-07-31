@@ -452,15 +452,15 @@
 .dateDiv select {
     height: 4rem;
     font-size: 1.5rem;
-    width: 50% !important;
-    background-color: #c19f5f !important;
+    width: 100% !important;
+    background-color: #e9cc6d !important;
     color: #25130f;
     border: 1px solid #25130f;
     text-shadow: 0 2px 2px rgba(250, 227, 133, 1);
 }
 
 .dateDiv input {
-    background-color: #c19f5f !important;
+    background-color: #e9cc6d !important;
     color: #25130f;
     border: 1px solid #25130f;
 

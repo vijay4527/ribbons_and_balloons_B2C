@@ -75,9 +75,11 @@
 }
 .displaySection {
   position: relative;
+  margin-top: 3rem;
 }
 .addressContainer {
   position: relative;
+  margin-top: 3rem;
 }
 
 .addressPage {
@@ -85,22 +87,40 @@
   display: flex;
   justify-content: center;
   background-color: #25130f;
-  background-image: url(https://www.shutterstock.com/shutterstock/photos/238254937/display_1500/stock-vector-bread-seamless-pattern-with-bakery-products-light-contour-on-a-brown-background-238254937.jpg);
+  /* background-image: url(https://w0.peakpx.com/wallpaper/280/444/HD-wallpaper-cream-chocolate-cake-food-brown-sweet-dessert.jpg);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
+  
   position: relative;
 }
 .addressPage::before {
-  content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #000000b7;
+  
+
+}
+.flowerImg {
+  width: 4rem;
+  height: 3rem;
+}
+.flowerImg img {
+  width: 100%;
+  height: 100%;
+}
+.borderImage {
+  display: flex;
+  align-items: center;
+
+}
+.flexBorder {
+  position: absolute;
+  top: 1rem;
+  width: 100%;
+  padding: 0 2rem;
+}
+.borderLine {
+  border: 1px solid #c19f5f;
+  height: 0.1rem;
+  width: 100%;
 }
 
 .shadow-md {

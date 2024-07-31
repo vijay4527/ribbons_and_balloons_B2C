@@ -448,7 +448,20 @@ const page = ({ params }) => {
 
       <ToastContainer />
       <div className={`container ${styles.addressPage}`}>
-       <TabComponent url={"address"} city={params.city}/>
+        <div className={styles.flexBorder}>
+          <div className={styles.borderImage}>
+            <div className={styles.flowerImg}>
+              <img src="/border-left.png"></img>
+            </div>
+            <div className={styles.borderLine}>
+
+            </div>
+            <div className={styles.flowerImg}>
+              <img src="/border-right.png"></img>
+            </div>
+          </div>
+        </div>
+        <TabComponent url={"address"} city={params.city} />
         <div className={styles.addressContainer}>
           {enableAddress && (
             <>
