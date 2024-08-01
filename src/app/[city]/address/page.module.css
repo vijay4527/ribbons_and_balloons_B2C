@@ -98,30 +98,7 @@
   
 
 }
-.flowerImg {
-  width: 4rem;
-  height: 3rem;
-}
-.flowerImg img {
-  width: 100%;
-  height: 100%;
-}
-.borderImage {
-  display: flex;
-  align-items: center;
 
-}
-.flexBorder {
-  position: absolute;
-  top: 1rem;
-  width: 100%;
-  padding: 0 2rem;
-}
-.borderLine {
-  border: 1px solid #c19f5f;
-  height: 0.1rem;
-  width: 100%;
-}
 
 .shadow-md {
   width: 30rem;

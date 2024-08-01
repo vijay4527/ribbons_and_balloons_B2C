@@ -7,7 +7,7 @@ import AppConfig from "@/AppConfig";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 import Cookies from "js-cookie";
-function CategoryComponent({ category, subcategoryName, data, categoryName ,City}) {
+function CategoryComponent({ category, subcategoryName, data, categoryName, City }) {
   const [minRange, setMinRange] = useState(0);
   const [maxRange, setMaxRange] = useState(0);
   const [selectedMinRange, setSelectedMinRange] = useState(0);
@@ -15,7 +15,7 @@ function CategoryComponent({ category, subcategoryName, data, categoryName ,City
   const [filteredData, setFilteredData] = useState(data);
   const [sortingType, setSortingType] = useState("Default sorting");
   const [sortingDirection, setSortingDirection] = useState("asc");
-  const city = Cookies.get("city") ?  Cookies.get("city") : City;
+  const city = Cookies.get("city") ? Cookies.get("city") : City;
   // useEffect(() => {
   //   let minCost = Number.MAX_VALUE;
   //   let maxCost = Number.MIN_VALUE;
@@ -212,6 +212,11 @@ function CategoryComponent({ category, subcategoryName, data, categoryName ,City
                                 src={`${AppConfig.cdn}products/${image[0]}`}
                                 alt="No image found"
                               />
+                              {/* <div className={styles.flowerBorderWrap}>
+                                  <div className={styles.flowerBorder}>
+                                    <img src="/full-golden-border.png"></img>
+                                  </div>
+                              </div> */}
                             </div>
 
                             <div className={`${styles["itemDesc"]}`}>
