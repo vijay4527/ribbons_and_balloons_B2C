@@ -2154,7 +2154,7 @@ ul.selectLocationOption a {
 
 video {
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -3184,9 +3184,9 @@ video {
   color: white !important;
 }
 
-.login-container input {
+/* .login-container input {
   color: white;
-}
+} */
 
 .form-wrap {
   background-image: url(https://st.depositphotos.com/1172692/4654/v/450/depositphotos_46542091-stock-illustration-seamless-vector-pattern-or-tile.jpg);

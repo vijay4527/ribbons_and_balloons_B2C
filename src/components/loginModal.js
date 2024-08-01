@@ -22,6 +22,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
   const [showOtpSection, setShowOtpSection] = useState(false);
   const [loginError, setLoginError] = useState("");
   const inputs = ["input1", "input2", "input3", "input4"];
+  const [otp, setOtp] = useState(["", "", "", ""]);
   const cartId =
     typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
   const { isLogged, setIsLogged } = useContext(AuthOtpContext);
@@ -29,6 +30,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
   const [timer, setTimer] = useState(30);
   const apiUrl = process.env.API_URL;
   const mobileInputRef = useRef(null);
+  const inputRefs = useRef([]);
 
   const user =
     typeof window !== "undefined" ? sessionStorage.getItem("userData") : "";
@@ -217,6 +219,38 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
     }
   }, [showOtpSection]);
 
+  const handleOtpKeyUp = (e, index) => {
+    const code = parseInt(e.target.value);
+    if (e.key == "Backspace" || e.key == "Delete") {
+      if (index > 0) {
+        inputRefs.current[index - 1]?.focus();
+      }
+    }
+    if (code >= 0 && code <= 9) {
+      if (index < inputs.length - 1) {
+        inputRefs.current[index + 1]?.focus();
+      }
+    } 
+  };
+
+  const handleOtpChange = (e, index) => {
+    const value = e.target.value.replace(/[^0-9]/g, "");
+    const newOtp = [...otp];
+    newOtp[index] = value;
+    setOtp(newOtp);
+
+    // Move focus to the next input
+    if (value && index < otp.length - 1) {
+      inputRefs.current[index + 1]?.focus();
+    }
+
+    // Move focus to the previous input if current is empty
+    if (!value && index > 0) {
+      setTimeout(() => {
+        inputRefs.current[index - 1]?.focus();
+      }, 0);
+    }
+  };
   return (
     <div>
       <Head>
@@ -305,13 +339,16 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
               <div className={`${homeStyles["form-group"]} text-center p-4 `}>
                 <label className="mb-4 mt-5 otp-label">Verify Your OTP</label>
                 <div className={`${homeStyles["otp-input"]} mb-4`}>
-                  {inputs.map((id) => (
+                  {inputs.map((id, index) => (
                     <input
                       className={`${homeStyles.input} otp-inputs`}
                       key={id}
                       id={id}
                       type="text"
                       maxLength="1"
+                      ref={(el) => (inputRefs.current[index] = el)}
+                      onChange={(e) => handleOtpChange(e, index)}
+                      onKeyUp={(e) => handleOtpKeyUp(e, index)}
                     />
                   ))}
                   {loginError && (

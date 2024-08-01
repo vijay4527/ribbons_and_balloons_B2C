@@ -10,8 +10,20 @@ const NavComponent = dynamic(() => import("@/components/navComponent"), {
 });
 import { cookies } from "next/headers";
 import { headers } from "next/headers";
-import { getCities } from "@/utils/commoncity";
 
+async function getCities() {
+  try {
+    const responseData = await fetch(
+      process.env.API_URL + "RNBCity/GetAllRNBCity",
+      { next: { revalidate: 180 } }
+    );
+    const response = await responseData.json();
+    return response;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+}
 const getCategories = async (api, city) => {
   try {
     const responseData = await fetch(api + "Category/GetAllCategories", {
