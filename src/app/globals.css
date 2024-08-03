@@ -143,7 +143,6 @@ img {
   left: auto;
   right: 0;
   padding: 1rem 1rem;
-
 }
 
 .dropdown-item.active,
@@ -227,7 +226,6 @@ img {
 }
 
 @-webkit-keyframes circle-dot {
-
   0%,
   80%,
   100% {
@@ -240,7 +238,6 @@ img {
 }
 
 @keyframes circle-dot {
-
   0%,
   80%,
   100% {
@@ -362,7 +359,8 @@ img {
   color: var(--theme-primary);
 }
 
-.selectLocation:hover img {}
+.selectLocation:hover img {
+}
 
 .selectSearchItem:hover .SvgIcons svg,
 .navAction ul li a:hover .SvgIcons svg {
@@ -411,7 +409,6 @@ img {
   color: white;
 }
 
-
 .selectLocationBody::-webkit-scrollbar {
   width: 0.5rem !important;
   /* Width of the scrollbar */
@@ -428,8 +425,6 @@ img {
   background-color: #c19d56 !important;
   /* Color of the thumb */
 }
-
-
 
 .selectLocationImg img {
   width: 89px;
@@ -566,7 +561,8 @@ ul.selectLocationOption a {
   font-size: 1.4rem;
 }
 
-.selectSearchContent {}
+.selectSearchContent {
+}
 
 .selectSearchListPopular h3 {
   width: 100%;
@@ -629,8 +625,8 @@ ul.selectLocationOption a {
 
 /* Style the draggable part of the scrollbar (thumb) */
 .selectSearchList::-webkit-scrollbar-thumb {
-  background-color: #c19d56
-    /* Color of the thumb */
+  background-color: #c19d56;
+  /* Color of the thumb */
 }
 
 .selectSearchListPopularText {
@@ -668,7 +664,8 @@ ul.selectLocationOption a {
   color: var(--theme-primary);
 }
 
-.myProfileItems {}
+.myProfileItems {
+}
 
 .myProfileItems .dropdown-menu {
   font-family: var(--font-family);
@@ -693,7 +690,8 @@ ul.selectLocationOption a {
   border: 1px solid #c19d56;
 }
 
-.SvgIcons {}
+.SvgIcons {
+}
 
 .navAction a,
 .navAction a:hover,
@@ -1080,7 +1078,8 @@ ul.selectLocationOption a {
     align-items: center;
   }
 
-  .subnav-content.active {}
+  .subnav-content.active {
+  }
 
   .category-title {
     padding: 0 0 0 15px;
@@ -1218,7 +1217,8 @@ ul.selectLocationOption a {
   margin-bottom: 5%;
 }
 
-.subnav .imgDiv {}
+.subnav .imgDiv {
+}
 
 .banner-body {
   display: grid;
@@ -1458,7 +1458,13 @@ ul.selectLocationOption a {
   height: 100%;
   position: absolute;
   animation: slide 2.5s infinite;
-  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(128, 186, 232, 0) 99%, rgba(125, 185, 232, 0) 100%);
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(128, 186, 232, 0) 99%,
+    rgba(125, 185, 232, 0) 100%
+  );
 }
 .enquiry_btn span {
   position: relative;
@@ -1822,8 +1828,8 @@ ul.selectLocationOption a {
   transition: color 0.2s ease-out;
 }
 
-.testimonialsBody .owl-nav .owl-next>span,
-.testimonialsBody .owl-nav .owl-prev>span {
+.testimonialsBody .owl-nav .owl-next > span,
+.testimonialsBody .owl-nav .owl-prev > span {
   position: relative;
   display: inline-block;
   vertical-align: middle;
@@ -2139,13 +2145,17 @@ ul.selectLocationOption a {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-image: linear-gradient(#000000,
-      rgba(25, 53, 93, 1) 90%,
-      rgba(25, 53, 93, 1));
+  background-image: linear-gradient(
+    #000000,
+    rgba(25, 53, 93, 1) 90%,
+    rgba(25, 53, 93, 1)
+  );
   background-image: url(https://fama.b-cdn.net/RnB/combg.png);
-  background-image: linear-gradient(#000000,
-      rgba(25, 53, 93, 1) 90%,
-      rgba(25, 53, 93, 1));
+  background-image: linear-gradient(
+    #000000,
+    rgba(25, 53, 93, 1) 90%,
+    rgba(25, 53, 93, 1)
+  );
   /* background-image: url(https://fama.b-cdn.net/RnB/combg.png); */
   background-position: center;
   background-repeat: no-repeat;
@@ -2165,8 +2175,10 @@ video {
   left: 0;
   right: 0;
   height: 150%;
-  background-image: radial-gradient(rgb(255 255 255 / 0%),
-      rgba(54, 90, 143, 0));
+  background-image: radial-gradient(
+    rgb(255 255 255 / 0%),
+    rgba(54, 90, 143, 0)
+  );
   transform: scale(1, 0.3);
 }
 
@@ -2177,9 +2189,11 @@ video {
   width: 100vh;
   height: 100%;
   overflow: hidden;
-  background-image: radial-gradient(ellipse closest-side at 50% 82%,
-      rgb(255 255 255 / 36%),
-      rgba(84, 120, 173, 0) 100%);
+  background-image: radial-gradient(
+    ellipse closest-side at 50% 82%,
+    rgb(255 255 255 / 36%),
+    rgba(84, 120, 173, 0) 100%
+  );
   animation: move_highlight 5s linear infinite;
 }
 
@@ -2191,10 +2205,12 @@ video {
   position: absolute;
   width: 40vh;
   height: 400vh;
-  background-image: radial-gradient(ellipse,
-      rgb(185 185 185 / 50%),
-      rgba(82, 116, 168, 0.2) 25%,
-      rgba(82, 116, 168, 0) 50%);
+  background-image: radial-gradient(
+    ellipse,
+    rgb(185 185 185 / 50%),
+    rgba(82, 116, 168, 0.2) 25%,
+    rgba(82, 116, 168, 0) 50%
+  );
   top: -220vh;
   left: 40%;
   transform: perspective(23vh) rotateX(30deg);
@@ -2212,9 +2228,11 @@ video {
   content: "";
   position: absolute;
   top: -50vh;
-  background-image: radial-gradient(ellipse closest-corner at 75% 75%,
-      rgb(124 130 139 / 20%),
-      rgba(55, 89, 138, 0));
+  background-image: radial-gradient(
+    ellipse closest-corner at 75% 75%,
+    rgb(124 130 139 / 20%),
+    rgba(55, 89, 138, 0)
+  );
   border-radius: 100%;
   width: 100vh;
   height: 100vh;
@@ -2430,7 +2448,8 @@ video {
   align-items: center;
 }
 
-.footerSocial ul li {}
+.footerSocial ul li {
+}
 
 .footerSocial ul li a {
   /* margin: 0px 25px 0px 0px; */
@@ -2481,7 +2500,8 @@ video {
 .range-slider {
   width: 100%;
   margin: auto;
-  background: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23555' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E") #333;
+  background: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23555' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E")
+    #333;
 }
 
 .range-slider .range-slider__range {
@@ -2544,11 +2564,13 @@ video {
   height: 100%;
   position: absolute;
   animation: slide 3s infinite;
-  background: linear-gradient(to right,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0.8) 50%,
-      rgba(128, 186, 232, 0) 99%,
-      rgba(125, 185, 232, 0) 100%);
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(128, 186, 232, 0) 99%,
+    rgba(125, 185, 232, 0) 100%
+  );
 }
 
 .form_control {
@@ -2605,14 +2627,16 @@ video {
 }
 
 .ShowCaseSliderTitle {
-  font-size: 24px;
+  /* font-size: 24px; */
   line-height: 1.33;
   color: #fff;
   margin-top: 1rem;
   font-weight: 600;
   margin-bottom: 30px;
   letter-spacing: 3.1px;
-  font-family: var(--font-family);
+  /* font-family: var(--font-family); */
+  font-family: math;
+  font-size: 3.1rem;
 }
 
 .drpItemProfile {
@@ -2770,41 +2794,53 @@ video {
   /* 
   CSS Gradient - complete browser support from http://www.colorzilla.com/gradient-editor/ 
   */
-  background: -moz-linear-gradient(90deg,
-      hsla(0, 0%, 100%, 0) 0,
-      hsl(0deg 0% 100% / 33%) 50%,
-      rgba(128, 186, 232, 0) 99%,
-      rgba(125, 185, 232, 0));
+  background: -moz-linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0) 0,
+    hsl(0deg 0% 100% / 33%) 50%,
+    rgba(128, 186, 232, 0) 99%,
+    rgba(125, 185, 232, 0)
+  );
   /* FF3.6+ */
-  background: -webkit-gradient(90deg,
-      hsla(0, 0%, 100%, 0) 0,
-      hsl(0deg 0% 100% / 33%) 50%,
-      rgba(128, 186, 232, 0) 99%,
-      rgba(125, 185, 232, 0));
+  background: -webkit-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0) 0,
+    hsl(0deg 0% 100% / 33%) 50%,
+    rgba(128, 186, 232, 0) 99%,
+    rgba(125, 185, 232, 0)
+  );
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(90deg,
-      hsla(0, 0%, 100%, 0) 0,
-      hsl(0deg 0% 100% / 33%) 50%,
-      rgba(128, 186, 232, 0) 99%,
-      rgba(125, 185, 232, 0));
+  background: -webkit-linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0) 0,
+    hsl(0deg 0% 100% / 33%) 50%,
+    rgba(128, 186, 232, 0) 99%,
+    rgba(125, 185, 232, 0)
+  );
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(90deg,
-      hsla(0, 0%, 100%, 0) 0,
-      hsl(0deg 0% 100% / 33%) 50%,
-      rgba(128, 186, 232, 0) 99%,
-      rgba(125, 185, 232, 0));
+  background: -o-linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0) 0,
+    hsl(0deg 0% 100% / 33%) 50%,
+    rgba(128, 186, 232, 0) 99%,
+    rgba(125, 185, 232, 0)
+  );
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(90deg,
-      hsla(0, 0%, 100%, 0) 0,
-      hsl(0deg 0% 100% / 33%) 50%,
-      rgba(128, 186, 232, 0) 99%,
-      rgba(125, 185, 232, 0));
+  background: -ms-linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0) 0,
+    hsl(0deg 0% 100% / 33%) 50%,
+    rgba(128, 186, 232, 0) 99%,
+    rgba(125, 185, 232, 0)
+  );
   /* IE10+ */
-  background: linear-gradient(90deg,
-      hsla(0, 0%, 100%, 0) 0,
-      hsl(0deg 0% 100% / 33%) 50%,
-      rgba(128, 186, 232, 0) 99%,
-      rgba(125, 185, 232, 0));
+  background: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0) 0,
+    hsl(0deg 0% 100% / 33%) 50%,
+    rgba(128, 186, 232, 0) 99%,
+    rgba(125, 185, 232, 0)
+  );
   /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#007db9e8', GradientType=1);
 }
@@ -2945,9 +2981,11 @@ video {
   width: calc(100% - 33.33%);
 }
 
-.addon-sub {}
+.addon-sub {
+}
 
-.addon-add {}
+.addon-add {
+}
 
 .addon-sub,
 .addon-add {
@@ -2956,7 +2994,8 @@ video {
 }
 
 .addon-sub svg,
-.addon-add svg {}
+.addon-add svg {
+}
 
 .add_icon_image {
   width: 2rem !important;
@@ -3191,7 +3230,7 @@ video {
 .form-wrap {
   background-image: url(https://st.depositphotos.com/1172692/4654/v/450/depositphotos_46542091-stock-illustration-seamless-vector-pattern-or-tile.jpg);
   padding: 3rem;
-  
+
   border-radius: 8px;
   position: relative;
   overflow: hidden;
@@ -3201,14 +3240,14 @@ video {
 }
 .form-wrap:before {
   content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #00000096;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #00000096;
 }
 
 .profile-form {
@@ -3304,11 +3343,13 @@ video {
   height: 100%;
   position: absolute;
   animation: slide 3s infinite;
-  background: linear-gradient(to right,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0.8) 50%,
-      rgba(128, 186, 232, 0) 99%,
-      rgba(125, 185, 232, 0) 100%);
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(128, 186, 232, 0) 99%,
+    rgba(125, 185, 232, 0) 100%
+  );
 }
 .skip-btn {
   background-color: #301a0f !important;
@@ -3658,11 +3699,9 @@ input[name="contact"] {
   color: #301a0f;
 }
 
-
 .error {
   border-color: red !important;
 }
-
 
 .subtitle {
   font-size: 16px;
@@ -3670,7 +3709,6 @@ input[name="contact"] {
   text-align: center;
   margin-bottom: 2rem;
 }
-
 
 /**
  * rome - Customizable date (and time) picker. Opt-in UI, no jQuery!
@@ -3684,8 +3722,7 @@ input[name="contact"] {
   background-color: #fff;
   padding: 10px;
   text-align: center;
-  box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .2);
-
+  box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.2);
 }
 
 .rd-container-attachment {
@@ -3728,12 +3765,12 @@ input[name="contact"] {
 
 .rd-back:before {
   display: block;
-  content: '\2190';
+  content: "\2190";
 }
 
 .rd-next:before {
   display: block;
-  content: '\2192';
+  content: "\2192";
 }
 
 .rd-day-body {
@@ -3811,9 +3848,9 @@ input[name="contact"] {
 }
 .ShowCaseSliderBody .react-multiple-carousel__arrow::before {
   color: #c19d56;
-  font-size: 3rem ;
+  font-size: 3rem;
 }
-.show-more-btn:focus{
+.show-more-btn:focus {
   border: none !important;
   box-shadow: none !important;
 }
