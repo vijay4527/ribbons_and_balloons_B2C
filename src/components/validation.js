@@ -40,7 +40,13 @@ const validationSchema = yup.object().shape({
     .required("Email is required"),
   city: yup.string().required("City is required"),
   state: yup.string().required("State is required"),
-  pinCode: yup.string().required("Pin code is required"),
+  pinCode: yup
+    .string()
+    .matches(
+      /^[0-9]{6}$/,
+      "Pin code must be exactly 6 digits and contain only numbers"
+    )
+    .required("Pin code is required"),
   country: yup.string().required("Country is required"),
   address: yup.string().required("Address is required"),
   contact: yup

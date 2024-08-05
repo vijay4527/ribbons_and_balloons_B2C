@@ -183,7 +183,9 @@ import homeStyles from "@/app/home.module.css";
 
 async function fetchOrderDetails(orderId, apiUrl) {
   try {
-    const response = await fetch(process.env.API_URL + "Order/GetOrderByOrderId/" + orderId);
+    const response = await fetch(
+      process.env.API_URL + "Order/GetOrderByOrderId/" + orderId
+    );
     const responseData = await response.json();
     return responseData;
   } catch (err) {
@@ -263,12 +265,16 @@ const Page = ({ params }) => {
                                         {product.unit === "PCS" ? (
                                           <span>Piece : {product.value}</span>
                                         ) : (
-                                          <span>
-                                            Message on Cake : {product.msg_cake}
-                                          </span>
-                                        )}{" "}
+                                          product.msg_cake && (
+                                            <span>
+                                              Message on Cake :{" "}
+                                              {product.msg_cake}
+                                            </span>
+                                          )
+                                        )}
                                       </span>
                                     </h4>
+
                                     <h5>
                                       <span className={styles.cartBoxPrice}>
                                         ₹ {product.price}
@@ -319,29 +325,38 @@ const Page = ({ params }) => {
                       : "Pick Up Details"}
                   </div>
                   <div className={styles.cartShippingInfo}>
-                    {orderInfo && (
-                      <h4 className={styles.cartShippingTitleName}>
-                        {orderInfo.full_name}
-                      </h4>
+                    {orderInfo && orderInfo.full_name && (
+                      <div className={styles.cartShippingNoDetail}>
+                        <p className={styles.cartShippingTitleAddress}>
+                          Name : {orderInfo.full_name}
+                        </p>
+                        {/* <h4 className={styles.cartShippingTitleName}>
+                        
+                        </h4> */}
+                      </div>
                     )}
                     {orderInfo && (
                       <>
-                        <p className={styles.cartShippingTitleAddress}>
-                          {orderInfo.shipping_address}
-                        </p>
+                        <div className={styles.cartShippingNoDetail}>
+                          <p className={styles.cartShippingTitleAddress}>
+                            Address : {orderInfo.shipping_address}
+                          </p>
+                        </div>
                         {orderInfo.created_on &&
                           typeof orderInfo.created_on === "string" && (
-                            <p className={styles.cartShippingTitleAddress}>
-                              {orderInfo.created_on.split("T")[0]}
-                            </p>
+                            <div className={styles.cartShippingNoDetail}>
+                              <p className={styles.cartShippingTitleAddress}>
+                                Order Date :{" "}
+                                {orderInfo.created_on.split("T")[0]}
+                              </p>
+                            </div>
                           )}
                       </>
                     )}
                   </div>
                   <div className={styles.cartShippingNoDetail}>
-                    <h4>Mobile Number</h4>
                     {orderInfo.mobile_number && (
-                      <p>{orderInfo.mobile_number}</p>
+                      <p>Mobile Number : {orderInfo.mobile_number}</p>
                     )}
                   </div>
                 </div>
