@@ -22,7 +22,7 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
   const apiUrl = process.env.API_URL;
 
   const cartId =
-    typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
+    typeof window !== "undefined" ? localStorage.getItem("cartId") : "";
   useEffect(() => {
     const userObject =
       typeof window !== "undefined"

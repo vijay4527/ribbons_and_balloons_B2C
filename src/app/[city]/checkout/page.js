@@ -93,7 +93,7 @@ const page = ({ params }) => {
   }, [isLogged, user?.user_id]);
 
   const cartId =
-    typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
+    typeof window !== "undefined" ? localStorage.getItem("cartId") : "";
   useEffect(() => {
     GetAllCart();
     GetAddress();
@@ -280,8 +280,8 @@ const page = ({ params }) => {
         const order = await orderData.json();
         if (order && order?.resp == true) {
           setProducts([]);
-          Cookies.remove("cartId");
-          sessionStorage.removeItem("cartId");
+          // Cookies.remove("cartId");
+          // localStorage.removeItem("cartId");
           const form = document.createElement("form");
           form.id = "nonseamless";
           form.method = "post";

@@ -14,7 +14,7 @@ const page = ({ params }) => {
   const [grandTotal, setGrandTotal] = useState(0);
   const apiUrl = process.env.API_URL;
   let cartId =
-    typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
+    typeof window !== "undefined" ? localStorage.getItem("cartId") : "";
   const userObject =
     typeof window !== "undefined"
       ? JSON.parse(sessionStorage.getItem("userData"))
@@ -77,7 +77,7 @@ const page = ({ params }) => {
       const response = await responseData.json();
       if (response.resp == true) {
         if (!cartId) {
-          sessionStorage.setItem("cartId", response.respObj.cart_id);
+          localStorage.setItem("cartId", response.respObj.cart_id);
         }
         toast("Product added to your cart", {
           autoClose: 3000,

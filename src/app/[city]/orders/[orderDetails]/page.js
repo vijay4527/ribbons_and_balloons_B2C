@@ -180,6 +180,7 @@ import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import styles from "@/app/[city]/orders/[orderDetails]/page.module.css";
 import homeStyles from "@/app/home.module.css";
+import { useSearchParams } from "next/navigation"; // Import useSearchParams
 
 async function fetchOrderDetails(orderId, apiUrl) {
   try {
@@ -199,7 +200,7 @@ const Page = ({ params }) => {
 
   const orderId = params.orderDetails;
   const userObject = JSON.parse(sessionStorage.getItem("userData"));
-
+  const searchParams = useSearchParams();
   useEffect(() => {
     if (userObject) {
       const fetchDetails = async () => {
@@ -210,6 +211,10 @@ const Page = ({ params }) => {
         setOrderInfo(order);
       };
       fetchDetails();
+      const isSearch = searchParams.get("redirect");
+      if (isSearch == "true") {
+        localStorage.removeItem("cartId");
+      }
     }
   }, [userObject?.user_id]);
 

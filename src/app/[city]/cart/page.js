@@ -39,7 +39,7 @@ const page = ({ params }) => {
   }, [session, isLogged, userInfo?.user_id]);
   let cartId = "";
   if (typeof window !== "undefined") {
-    cartId = sessionStorage.getItem("cartId") || Cookies.get("cartId") || "";
+    cartId = localStorage.getItem("cartId") || Cookies.get("cartId") || "";
   }
   useEffect(() => {
     GetAllCart();

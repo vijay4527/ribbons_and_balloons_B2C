@@ -120,72 +120,69 @@ const Nav = async () => {
                   <div className="subNavbar_body">
                     {categories &&
                       categories.length > 0 &&
-                      categories.map((category, index) => (
-                        <div className={`sub_nav `} key={index}>
-                          <div className="sub_navbtn">
-                            <Link
-                              href={`/${city}/l/${category.category_name.replaceAll(
-                                " ",
-                                "-"
-                              )}`}
-                              // onClick={toggleClass}
-                              prefetch={true}
-                            >
-                              <h4 className="category-title">
-                                {category.category_name}{" "}
-                              </h4>
-                            </Link>
-                          </div>
-                          <div className="MobileSub_navbtn sub_navbtn">
-                            <Link
-                              href={`/${city}/l/${category.category_name.replaceAll(
-                                " ",
-                                "-"
-                              )}`}
-                              prefetch={true}
-                            >
-                              {" "}
-                              <h4 className="category-title">
-                                {category.category_name}{" "}
-                              </h4>
-                            </Link>
-                            <span className="category-dropIcon">
-                              <i className="plus_Icon">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="16"
-                                  height="16"
-                                  fill="currentColor"
-                                  className="bi bi-plus"
-                                  viewBox="0 0 16 16"
-                                >
-                                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                                </svg>
-                              </i>
-                              <i className="mins_Icon">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="16"
-                                  height="16"
-                                  fill="currentColor"
-                                  className="bi bi-dash"
-                                  viewBox="0 0 16 16"
-                                >
-                                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
-                                </svg>
-                              </i>
-                            </span>
-                          </div>
-
-                          <div className="subnav-content">
-                            <div className="subnav-Body">
-                              <ul className="submenu-list">
-                                {category.json_sub_category &&
-                                  category.json_sub_category.length > 0 &&
-                                  category.json_sub_category.map(
-                                    (subcategory, index) => (
+                      categories.slice(0,12).map((category, index) =>
+                        category.json_sub_category &&
+                        category.json_sub_category.length > 0 ? (
+                          <div className={`sub_nav`} key={index}>
+                            <div className="sub_navbtn">
+                              <Link
+                                href={`/${city}/l/${category.category_name.replaceAll(
+                                  " ",
+                                  "-"
+                                )}`}
+                                prefetch={true}
+                              >
+                                <h4 className="category-title">
+                                  {category.category_name}{" "}
+                                </h4>
+                              </Link>
+                            </div>
+                            <div className="MobileSub_navbtn sub_navbtn">
+                              <Link
+                                href={`/${city}/l/${category.category_name.replaceAll(
+                                  " ",
+                                  "-"
+                                )}`}
+                                prefetch={true}
+                              >
+                                <h4 className="category-title">
+                                  {category.category_name}{" "}
+                                </h4>
+                              </Link>
+                              <span className="category-dropIcon">
+                                <i className="plus_Icon">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    fill="currentColor"
+                                    className="bi bi-plus"
+                                    viewBox="0 0 16 16"
+                                  >
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                  </svg>
+                                </i>
+                                <i className="mins_Icon">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    fill="currentColor"
+                                    className="bi bi-dash"
+                                    viewBox="0 0 16 16"
+                                  >
+                                    <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+                                  </svg>
+                                </i>
+                              </span>
+                            </div>
+                            <div className="subnav-content">
+                              <div className="subnav-Body">
+                                <ul className="submenu-list">
+                                  {category.json_sub_category.map(
+                                    (subcategory, subIndex) => (
                                       <li
-                                        key={index}
+                                        key={subIndex}
                                         className="category-sub-title"
                                       >
                                         <Link
@@ -207,11 +204,12 @@ const Nav = async () => {
                                       </li>
                                     )
                                   )}
-                              </ul>
+                                </ul>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
+                        ) : null
+                      )}
                     <div className={`sub_nav`}>
                       <div className={"sub_navbtn"}>
                         <Link href={`/${city}/blogs`} prefetch={true}>

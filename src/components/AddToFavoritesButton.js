@@ -14,7 +14,7 @@ export default function AddToFavoritesButton({ productData, city }) {
   const apiUrl = process.env.API_URL;
   const addToFavourite = async (data) => {
     const cartId =
-      typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
+      typeof window !== "undefined" ? localStorage.getItem("cartId") : "";
     const userObject =
       typeof window !== "undefined"
         ? JSON.parse(sessionStorage.getItem("userData"))
@@ -43,7 +43,7 @@ export default function AddToFavoritesButton({ productData, city }) {
       if (favouriteData.resp == true) {
         if (!cartId) {
           Cookies.set("cartId", favouriteData.respObj.cart_id);
-          sessionStorage.setItem("cartId", favouriteData.respObj.cart_id);
+          localStorage.setItem("cartId", favouriteData.respObj.cart_id);
         }
         // Toastify({
         //   text: "✅ Your Product added to Favourite! 🎉",

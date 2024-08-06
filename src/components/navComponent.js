@@ -69,10 +69,10 @@ const navComponent = () => {
     ) {
       sessionStorage.setItem("userData", JSON.stringify(session.userData));
       if (
-        !sessionStorage.getItem("cartId") &&
+        !localStorage.getItem("cartId") &&
         session.userData.cart_id !== null
       ) {
-        sessionStorage.setItem("cartId", session.userData.cart_id);
+        localStorage.setItem("cartId", session.userData.cart_id);
         Cookies.set("cartId", session.userData.cart_id);
       }
 
@@ -137,6 +137,7 @@ const navComponent = () => {
     sessionStorage.removeItem("userData");
     sessionStorage.removeItem("isLoggedIn");
     sessionStorage.removeItem("cartId");
+    localStorage.removeItem("cartId")
     Cookies.remove("cartId");
     signOut();
     // router.push("/"+ city)

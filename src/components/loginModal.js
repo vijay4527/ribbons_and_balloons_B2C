@@ -24,7 +24,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
   const inputs = ["input1", "input2", "input3", "input4"];
   const [otp, setOtp] = useState(["", "", "", ""]);
   const cartId =
-    typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
+    typeof window !== "undefined" ? localStorage.getItem("cartId") : "";
   const { isLogged, setIsLogged } = useContext(AuthOtpContext);
   const [userObject, setUserObject] = useState({});
   const [timer, setTimer] = useState(30);
@@ -84,9 +84,9 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
       const response = await responseData.json();
       if (response.resp === true) {
         sessionStorage.removeItem("userData");
-        if (response.respObj.cart_id && !sessionStorage.getItem("cartId")) {
+        if (response.respObj.cart_id && !localStorage.getItem("cartId")) {
           Cookies.set("cartId", response.respObj.cart_id);
-          sessionStorage.setItem("cartId", response.respObj.cart_id);
+          localStorage.setItem("cartId", response.respObj.cart_id);
         }
         setLoginError("");
         setUserObject(response.respObj);

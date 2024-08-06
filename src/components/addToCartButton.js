@@ -17,11 +17,11 @@ const addToCartButton = ({ data, city }) => {
   const apiUrl = process.env.API_URL;
 
   const cartId =
-    typeof window !== "undefined" ? sessionStorage.getItem("cartId") : "";
+    typeof window !== "undefined" ? localStorage.getItem("cartId") : "";
   useEffect(() => {
     const userObject =
       typeof window !== "undefined"
-        ? JSON.parse(sessionStorage.getItem("userData"))
+        ? JSON.parse(localStorage.getItem("userData"))
         : "";
     setUser(userObject);
   }, [isLogged]);
@@ -55,7 +55,7 @@ const addToCartButton = ({ data, city }) => {
       if (response.resp == true) {
         if (!cartId) {
           Cookies.set("cartId", response.respObj.cart_id);
-          sessionStorage.setItem("cartId", response.respObj.cart_id);
+          localStorage.setItem("cartId", response.respObj.cart_id);
         }
         setTimeout(() => {
           setOpenModal(true);
