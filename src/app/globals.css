@@ -3801,3 +3801,21 @@ input[name="contact"] {
   border: none !important;
   box-shadow: none !important;
 }
+.blog-container .card {
+  border: 1px solid #c19d56;
+}
+.blog-container {
+  margin-top: 1.5rem;
+}
+
+.blog-card {
+  background-color: #25130f !important;
+}
+.blog-card-content {
+  color: #c19d56;
+  font-style: italic;
+}
+.blog-detail-text {
+  color: #c19d56;
+  font-style: italic;
+}
