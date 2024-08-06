@@ -17,7 +17,7 @@ async function getBlogBySlug(slug) {
     }
   } catch (err) {
     console.log(err);
-    return null; 
+    return null;
   }
 }
 
@@ -25,20 +25,22 @@ const page = async ({ params }) => {
   const slug = params.slug.replaceAll("-", " ");
   const data = await getBlogBySlug(slug);
   return (
-    <div className="container">
+    <div className="container blog-container">
       {data ? (
         <div className="card">
-          <div className="card-body">
+          <div className="card-body blog-card">
             <div className="row">
               <div className="col-lg-6">
                 <img src={AppConfig.cdn + data.image} alt="" />
               </div>
-              <div className="col-lg-6">
-                <h4>Details</h4>
+              <div className="col-lg-6 d-flex align-items-center">
                 <div>
-                  <h4>Title</h4>
-                  <h6>{data.title}</h6>
-                  <span>{data.description}</span>
+                  <h4 className="blog-detail-text">Details</h4>
+                  <div className="blog-card-content">
+                    <h4>Title</h4>
+                    <h6>{data.title}</h6>
+                    <span>{data.description}</span>
+                  </div>
                 </div>
               </div>
             </div>

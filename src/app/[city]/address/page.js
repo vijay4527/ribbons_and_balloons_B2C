@@ -448,7 +448,8 @@ const page = ({ params }) => {
 
       <ToastContainer />
       <div className={`container ${styles.addressPage}`}>
-       <TabComponent url={"address"} city={params.city}/>
+
+        <TabComponent url={"address"} city={params.city} />
         <div className={styles.addressContainer}>
           {enableAddress && (
             <>
@@ -599,7 +600,14 @@ const page = ({ params }) => {
 
           {!enableAddress && (
             <>
-              <h4 className={`${styles.addressTitle} mb-4`}>Saved Address</h4>
+              <div className={homeStyles.AddAddressBtnDiv}>
+                <button
+                  className={homeStyles.AddAddressBtn}
+                  onClick={() => setEnableAddress(true)}
+                >
+                  Add Address
+                </button>
+              </div>
               <div className={`${styles.savedAddress}`}>
                 {address &&
                   address.length > 0 &&
@@ -633,14 +641,14 @@ const page = ({ params }) => {
               </div>
             </>
           )}
-          <div className="mt-4">
+          {/* <div className="mt-4">
             <button
               className={homeStyles.AddAddressBtn}
               onClick={() => setEnableAddress(true)}
             >
               Add Address
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

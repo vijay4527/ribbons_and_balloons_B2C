@@ -3228,7 +3228,6 @@ video {
 } */
 
 .form-wrap {
-  background-image: url(https://st.depositphotos.com/1172692/4654/v/450/depositphotos_46542091-stock-illustration-seamless-vector-pattern-or-tile.jpg);
   padding: 3rem;
 
   border-radius: 8px;
@@ -3254,7 +3253,6 @@ video {
   border: 2px solid #c19d56;
   padding: 3rem;
   border-radius: 8px;
-  background-color: #25130f;
 }
 
 .profile-container {
@@ -3853,4 +3851,22 @@ input[name="contact"] {
 .show-more-btn:focus {
   border: none !important;
   box-shadow: none !important;
+}
+.blog-container .card {
+  border: 1px solid #c19d56;
+}
+.blog-container {
+  margin-top: 1.5rem;
+}
+
+.blog-card {
+  background-color: #25130f !important;
+}
+.blog-card-content {
+  color: #c19d56;
+  font-style: italic;
+}
+.blog-detail-text {
+  color: #c19d56;
+  font-style: italic;
 }
