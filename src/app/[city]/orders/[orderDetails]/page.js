@@ -181,6 +181,7 @@ import Head from "next/head";
 import styles from "@/app/[city]/orders/[orderDetails]/page.module.css";
 import homeStyles from "@/app/home.module.css";
 import { useSearchParams } from "next/navigation"; // Import useSearchParams
+import Cookies from "js-cookie";
 
 async function fetchOrderDetails(orderId, apiUrl) {
   try {
@@ -214,6 +215,7 @@ const Page = ({ params }) => {
       const isSearch = searchParams.get("redirect");
       if (isSearch == "true") {
         localStorage.removeItem("cartId");
+        Cookies.remove("cartId");
       }
     }
   }, [userObject?.user_id]);
