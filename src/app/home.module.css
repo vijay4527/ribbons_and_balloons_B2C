@@ -433,6 +433,7 @@
   border: none;
   border-bottom: 1.5px solid #d2d2d2;
   margin: 0 10px;
+  color: white !important
 }
 
 .input:focus {
