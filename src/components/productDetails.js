@@ -725,7 +725,7 @@ function getProductDetails({ data }) {
                 <h4 className={styles.pdp_DetailInfoTitle}>Select Pieces</h4>
               </div>
               <div className={styles.pdp_SelectFlavour}>
-                <div className="input-group">
+                <div className="input-group pieces">
                   <span
                     className="input-group-text decrement"
                     style={{

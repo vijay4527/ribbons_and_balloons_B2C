@@ -3845,3 +3845,6 @@ input[name="contact"] {
   left: 49.99%;
   transform: translate(-50%, -50%) rotate(45deg);
 }
+.pieces input {
+  text-align: center;
+}
