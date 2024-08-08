@@ -420,6 +420,10 @@
 .pdp_shortInfo_Icon span svg g {
   stroke: var(--text-color);
 }
+.pdp_shortInfo3 {
+  align-items: baseline !important;
+  margin-bottom: 2rem;
+}
 
 .pdp_msgCount {
   margin: 0;
