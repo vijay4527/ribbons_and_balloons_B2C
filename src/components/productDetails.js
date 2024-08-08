@@ -128,6 +128,7 @@ function getProductDetails({ data }) {
               setSelectedProduct(productData.productTypeData[0]);
               setActiveFlavour(productData.productTypeData[0].variety_id);
               setvarietyDescription(productData.productTypeData[0].description);
+              setFlavourName(productData.productTypeData[0].variety_name)
             }
           default:
             break;
@@ -389,11 +390,11 @@ function getProductDetails({ data }) {
                     </ul>
                   </div>
                 </div>
-                
+
               </div>
             </div>
 
-        
+
           </>
         )}
         {product.type_id == 2 && (
@@ -468,51 +469,51 @@ function getProductDetails({ data }) {
                   <ServingInfo />
                 </div>
               </div>
-              
+
             </div>
             <div className={`${styles.pdp_shortInfo} ${styles.pdp_shortInfo2}`}>
-                <div className={styles.WeightFlex}>
-                  <h4 className={styles.pdp_DetailInfoTitle}>Flavour :</h4>
-                  <div className={styles["active-weight-show"]}>
-                    <ul>
-                      <li className={styles.showWeigthLi} >
-                        {FlavourName}
-                      </li>
-                    </ul>
-                  </div>
+              <div className={styles.WeightFlex}>
+                <h4 className={styles.pdp_DetailInfoTitle}>Flavour :</h4>
+                <div className={styles["active-weight-show"]}>
+                  <ul>
+                    <li className={styles.showWeigthLi} >
+                      {FlavourName}
+                    </li>
+                  </ul>
                 </div>
-                <div className={styles.ChangeWeightHover}>
-                  <div className={styles.ArrowTextWrap}>
-                    <h4 className={styles.pdp_DetailInfoTitle}>Change Flavour</h4>
-                    <div className={styles.goldArrowWrap}>
-                      <img src="/downGoldArrow.png"></img>
-                    </div>
-                  </div>
-                  <div className={styles.flavourUlDivWrap}>
-                    <ul className={styles.flavourUlDiv}>
-                      <div className={styles.selectWeightBorder}>
-                        {product.productTypeData ? (
-                          product.productTypeData.map((ele) => (
-                            <li
-                              className={
-                                activeFlavour == ele.variety_id ? styles.active : ""
-                              }
-                              key={ele.variety_id}
-                              value={ele.variety_id}
-                              onClick={() => handleProductTypeChange(ele)}
-                            >
-                              {ele.variety_name}
-                            </li>
-                          ))
-                        ) : (
-                          <li value="">No types available</li>
-                        )}
-                      </div>
-                    </ul>
-                  </div>
-                </div>
-                
               </div>
+              <div className={styles.ChangeWeightHover}>
+                <div className={styles.ArrowTextWrap}>
+                  <h4 className={styles.pdp_DetailInfoTitle}>Change Flavour</h4>
+                  <div className={styles.goldArrowWrap}>
+                    <img src="/downGoldArrow.png"></img>
+                  </div>
+                </div>
+                <div className={styles.flavourUlDivWrap}>
+                  <ul className={styles.flavourUlDiv}>
+                    <div className={styles.selectWeightBorder}>
+                      {product.productTypeData ? (
+                        product.productTypeData.map((ele) => (
+                          <li
+                            className={
+                              activeFlavour == ele.variety_id ? styles.active : ""
+                            }
+                            key={ele.variety_id}
+                            value={ele.variety_id}
+                            onClick={() => handleProductTypeChange(ele)}
+                          >
+                            {ele.variety_name}
+                          </li>
+                        ))
+                      ) : (
+                        <li value="">No types available</li>
+                      )}
+                    </div>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
 
             {/* <div className={styles.pdp_SelectInfo}>
               <div className={styles.pdp_shortInfo}>
@@ -660,7 +661,7 @@ function getProductDetails({ data }) {
                     </ul>
                   </div>
                 </div>
-                
+
               </div>
             </div>
             {/* <div className={styles.pdp_SelectInfoFlex}>
@@ -766,53 +767,100 @@ function getProductDetails({ data }) {
         {product.type_id == 6 && (
           <>
             <div className={styles.pdp_SelectInfo}>
-              <div className={styles.pdp_shortInfo}>
-                <h4 className={styles.pdp_DetailInfoTitle}>Select Pieces</h4>
-              </div>
-              <div className={styles.pdp_SelectFlavour}>
-                <div className="input-group">
-                  <span
-                    className="input-group-text decrement"
-                    style={{
-                      padding: "4px 10px 4px 10px",
-                      backgroundColor: "#51171d",
-                      borderRadius: "4px 0px 0px 4px",
-                      cursor: "pointer",
-                      color: "white",
-                    }}
-                    onClick={handleDecrementQuantity}
-                  >
-                    -
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control"
-                    max={20}
-                    min={1}
-                    style={{
-                      Width: "100px !important",
-                      textAlign: "center",
-                    }}
-                    value={values}
-                  />{" "}
-                  <span
-                    className="input-group-text"
-                    style={{
-                      padding: "4px 10px 4px 10px",
-                      backgroundColor: "#51171d",
-                      borderRadius: "0px 4px 4px 0px",
-                      cursor: "pointer",
-                      color: "white",
-                    }}
-                    onClick={handleIncrementQuantity}
-                  >
-                    +
-                  </span>
+              <div className={`${styles.pdp_shortInfo} ${styles.pdp_shortInfo3}`}>
+                <div>
+                  <div className={styles.pdp_shortInfo}>
+                    <h4 className={styles.pdp_DetailInfoTitle}>Select Pieces</h4>
+                  </div>
+                  <div className={styles.pdp_SelectFlavour}>
+                    <div className="input-group">
+                      <span
+                        className="input-group-text decrement"
+                        style={{
+                          padding: "4px 10px 4px 10px",
+                          backgroundColor: "#51171d",
+                          borderRadius: "4px 0px 0px 4px",
+                          cursor: "pointer",
+                          color: "white",
+                        }}
+                        onClick={handleDecrementQuantity}
+                      >
+                        -
+                      </span>
+                      <input
+                        type="text"
+                        className="form-control"
+                        max={20}
+                        min={1}
+                        style={{
+                          Width: "100px !important",
+                          textAlign: "center",
+                        }}
+                        value={values}
+                      />{" "}
+                      <span
+                        className="input-group-text"
+                        style={{
+                          padding: "4px 10px 4px 10px",
+                          backgroundColor: "#51171d",
+                          borderRadius: "0px 4px 4px 0px",
+                          cursor: "pointer",
+                          color: "white",
+                        }}
+                        onClick={handleIncrementQuantity}
+                      >
+                        +
+                      </span>
+                    </div>
+                  </div>
                 </div>
+                <div className={`${styles.pdp_shortInfo} ${styles.pdp_shortInfo2}`}>
+                <div className={styles.WeightFlex}>
+                  <h4 className={styles.pdp_DetailInfoTitle}>Flavour :</h4>
+                  <div className={styles["active-weight-show"]}>
+                    <ul>
+                      <li className={styles.showWeigthLi} >
+                        {FlavourName}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div className={styles.ChangeWeightHover}>
+                  <div className={styles.ArrowTextWrap}>
+                    <h4 className={styles.pdp_DetailInfoTitle}>Change Flavour</h4>
+                    <div className={styles.goldArrowWrap}>
+                      <img src="/downGoldArrow.png"></img>
+                    </div>
+                  </div>
+                  <div className={styles.flavourUlDivWrap}>
+                    <ul className={styles.flavourUlDiv}>
+                      <div className={styles.selectWeightBorder}>
+                        {product.productTypeData ? (
+                          product.productTypeData.map((ele) => (
+                            <li
+                              className={
+                                activeFlavour == ele.variety_id ? styles.active : ""
+                              }
+                              key={ele.variety_id}
+                              value={ele.variety_id}
+                              onClick={() => handleProductTypeChange(ele)}
+                            >
+                              {ele.variety_name}
+                            </li>
+                          ))
+                        ) : (
+                          <li value="">No types available</li>
+                        )}
+                      </div>
+                    </ul>
+                  </div>
+                </div>
+
+              </div>
               </div>
             </div>
 
-            <div className={styles.pdp_SelectInfo}>
+            {/* <div className={styles.pdp_SelectInfo}>
               <div className={styles.pdp_shortInfo}>
                 <h4 className={styles.pdp_DetailInfoTitle}>Select Flavour</h4>
               </div>
@@ -836,7 +884,7 @@ function getProductDetails({ data }) {
                   )}
                 </ul>
               </div>
-            </div>
+            </div> */}
           </>
         )}
 
