@@ -3838,8 +3838,8 @@ input[name="contact"] {
 .blog-div2::before {
   position: absolute;
   content: "";
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
   background-color: gold;
   top: 50%;
   left: 49.99%;
