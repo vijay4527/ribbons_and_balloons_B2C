@@ -30,10 +30,10 @@ const page = async ({ params }) => {
         <div className="card">
           <div className="card-body blog-card">
             <div className="row">
-              <div className="col-lg-6">
+              <div className="col-lg-6 blog-img">
                 <img src={AppConfig.cdn + data.image} alt="" />
               </div>
-              <div className="col-lg-6 d-flex align-items-center">
+              <div className="col-lg-6 d-flex align-items-center blog-div2">
                 <div>
                   <h4 className="blog-detail-text">Details</h4>
                   <div className="blog-card-content">
