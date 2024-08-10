@@ -98,7 +98,7 @@ const page = ({ params }) => {
     toast(
       (t) => (
         <div style={{ display: "flex", alignItems: "center" }}>
-          <span>Your Profile has been updated.</span>
+          <span>Your address has been saved.</span>
           <button
             onClick={() => {
               toast.dismiss(t.id);
