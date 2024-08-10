@@ -1,10 +1,8 @@
 "use client";
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-import homeStyles from "@/app/home.module.css";
 import { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import toast, { Toaster } from "react-hot-toast";
 
 const userModal = ({ isOpen, closeModal, city }) => {
   const [name, setName] = useState("");
@@ -27,9 +25,46 @@ const userModal = ({ isOpen, closeModal, city }) => {
     sessionStorage.setItem("userData", JSON.stringify(updatedUser));
   };
 
+  const notify = () =>
+    toast(
+      (t) => (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <span>Welcome {name}.</span>
+          <button
+            onClick={() => {
+              toast.dismiss(t.id);
+              closeModal();
+              setName("");
+            }}
+            style={{
+              marginLeft: "10px",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            <i className="fa fa-x" />
+          </button>
+        </div>
+      ),
+      {
+        duration: 3000,
+        style: {
+          marginRight: "20px",
+        },
+        icon: "✅",
+        position: "top-right",
+        progressBar: {
+          style: {
+            height: "4px",
+            backgroundColor: "#4caf50",
+          },
+        },
+      }
+    );
+
   const updateUserProfile = async () => {
     try {
-      console.log(userData);
       const obj = {
         user_id: userData ? userData?.user_id : "",
         first_name: name,
@@ -63,15 +98,19 @@ const userModal = ({ isOpen, closeModal, city }) => {
         const updatedUser = { ...userData, first_name: name, city: city };
         setUserData(updatedUser);
         updateSessionStorage(updatedUser);
-        toast("Your Profile has been updated", {
-          autoClose: 3000,
-          closeButton: true,
-          onClose: () => {
-            closeModal();
-            setName("");
-          },
-        });
-      }else{
+        notify();
+        // toast("Your Profile has been updated", {
+        //   autoClose: 3000,
+        //   closeButton: true,
+        //   onClose: () => {
+
+        //   },
+        // });
+        setTimeout(() => {
+          closeModal();
+          setName("");
+        }, 3000);
+      } else {
         toast(data.respMsg, {
           autoClose: 3000,
           closeButton: true,
@@ -144,7 +183,7 @@ const userModal = ({ isOpen, closeModal, city }) => {
             </div>
           </Modal.Body>
         </div>
-        <ToastContainer />
+        <Toaster />
       </Modal>
     </>
   );

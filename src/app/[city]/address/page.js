@@ -155,7 +155,6 @@ const page = ({ params }) => {
   const getAddressById = async (id) => {
     try {
       setShippingAddressId(id);
-      console.log("id : ", id);
       setEnableAddress(true);
       const addressData = await fetch(
         process.env.API_URL + "ShippingAddress/GetShippingAddressById/" + id

@@ -29,7 +29,6 @@ export default function Home() {
   const handleMapLocation = (data)=>{
     setIsSearchModalOpen(data.isChangePressed)
     setIsMapModalOpen(data.isChangePressed)
-    console.log("got the data",data)
   } 
 
   return (

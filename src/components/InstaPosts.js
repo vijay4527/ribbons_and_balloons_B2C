@@ -4,7 +4,6 @@ import Container from "react-bootstrap/Container";
 async function getInstaFeed() {
   try {
     const accessToken = process.env.INSTAGRAM_KEY;
-    console.log(accessToken);
     const fetchData = await fetch(
       `https://graph.instagram.com/me/media?fields=id,caption,media_url,media_type,timestamp&access_token=${accessToken}`
     );

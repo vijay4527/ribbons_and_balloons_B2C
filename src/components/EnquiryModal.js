@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import { ToastContainer, toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import * as yup from "yup";
 import { enquirySchema } from "@/components/validation";
 function EnquiryModal() {
@@ -27,6 +27,42 @@ function EnquiryModal() {
     email: "",
     message: "",
   });
+
+  const notify = () =>
+    toast(
+      (t) => (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <span>Your Enquiry has been sent.</span>
+          <button
+            onClick={() => {
+              toast.dismiss(t.id);
+            }}
+            style={{
+              marginLeft: "10px",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            <i className="fa fa-x" />
+          </button>
+        </div>
+      ),
+      {
+        duration: 3000,
+        style: {
+          marginRight: "20px",
+        },
+        icon: "✅",
+        position: "top-right",
+        progressBar: {
+          style: {
+            height: "4px",
+            backgroundColor: "#4caf50",
+          },
+        },
+      }
+    );
 
   const saveNewsLetter = async () => {
     try {
@@ -56,11 +92,16 @@ function EnquiryModal() {
       );
       const enquiryResponse = await enquiryData.json()
       if (enquiryResponse) {
-        toast("Your enquiry has been sent", {
-          autoClose: 3000,
-          closeButton: true,
-          onClose: handleClose,
-        });
+        notify()
+        setTimeout(()=>{
+          setEnquiryObj({
+            firstName: "",
+            lastName: "",
+            email: "",
+            message: "",
+          });
+          setShow(false)
+        },3000)
       }
     } catch (validationError) {
       if (validationError instanceof yup.ValidationError) {
@@ -247,7 +288,7 @@ function EnquiryModal() {
             </div>
           </Modal.Body>
         </div>
-        <ToastContainer />
+        <Toaster />
       </Modal>
     </>
   );

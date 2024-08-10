@@ -4,11 +4,9 @@ import Link from "next/link";
 import AppConfig from "@/AppConfig";
 import homeStyles from "@/app/home.module.css";
 import { AuthOtpContext } from "@/components/authContext";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
-import Toast from "react-bootstrap/Toast";
-import "bootstrap/dist/css/bootstrap.min.css";
+import toast, { Toaster } from "react-hot-toast";
+
 const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
   const [modalIsOpen, setModalIsOpen] = useState(isOpen);
   const [addOns, setAddOns] = useState([]);
@@ -16,11 +14,10 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
   const [quantities, setQuantities] = useState([]);
   const { isLogged } = useContext(AuthOtpContext);
   const [user, setUser] = useState(null);
-  const [displayToast, setDisplayToast] = useState(false);
-  // const [showCartButton, setShowCartbutton] = useState(false);
   const router = useRouter();
   const apiUrl = process.env.API_URL;
-
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastType, setToastType] = useState('success'); 
   const cartId =
     typeof window !== "undefined" ? localStorage.getItem("cartId") : "";
   useEffect(() => {
@@ -92,6 +89,41 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
       setQuantities(newQuantities);
     }
   };
+  const notify = () =>
+    toast(
+      (t) => (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <span>Product added to the cart.</span>
+          <button
+            onClick={() => {
+              toast.dismiss(t.id);
+            }}
+            style={{
+              marginLeft: "10px",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            <i className="fa fa-x" />
+          </button>
+        </div>
+      ),
+      {
+        duration: 3000,
+        style: {
+          marginRight: "20px",
+        },
+        icon: "✅",
+        position: "top-right",
+        progressBar: {
+          style: {
+            height: "4px",
+            backgroundColor: "#4caf50",
+          },
+        },
+      }
+    );
 
   const CreateAddOns = async (item, index) => {
     const obj = {
@@ -115,14 +147,8 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
     });
     const response = await responseData.json();
     if (response.resp == true) {
-      // if (!toast.isActive(item.addon_id.toString())) {
-      //   toast("Your product added to the cart", {
-      //     toastId: response.resp.cart_id,
-      //     autoClose: 3000,
-      //     closeButton: true,
-      //   });
-      // }
-      setDisplayToast(true);
+      notify();
+      
     }
   };
 
@@ -227,7 +253,9 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
         </div>
         <div className="text-center addon-bottom-btn-div">
           <Link href={`/${city}/cart`}>
-            <div className="btn btn-secondary mb-4 skip-btn addon-bottom-btn">Skip</div>
+            <div className="btn btn-secondary mb-4 skip-btn addon-bottom-btn">
+              Skip
+            </div>
           </Link>{" "}
           <div
             className="btn btn-primary mb-4 continue-btn addon-bottom-btn"
@@ -237,28 +265,7 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
           </div>
         </div>
       </Modal>
-      {/* <ToastContainer /> */}
-      <Toast
-        show={displayToast}
-     
-        autohide
-        delay={3000}
-        position="top-end"
-        progressbar="true"
-        style={{ borderRadius: "4px" }}
-      >
-        <Toast.Body className="LoginToaster">
-          <span role="img" aria-label="checkmark">
-            ☺
-          </span>{" "}
-          Your product add to the cart!
-          <button
-            type="button"
-            className="btn btn-sm btn-close"
-            onClick={() => setDisplayToast(false)}
-          ></button>
-        </Toast.Body>
-      </Toast>
+      <Toaster />      
     </>
   );
 };

@@ -8,11 +8,8 @@ import { otpSchema } from "@/components/validation";
 import homeStyles from "@/app/home.module.css";
 import Head from "next/head";
 import { AuthOtpContext } from "@/components/authContext";
-// import Toast from "react-bootstrap/Toast";
-// import "bootstrap/dist/css/bootstrap.min.css";
+import toast, { Toaster } from "react-hot-toast";
 import Cookies from "js-cookie";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
   const { data: session } = useSession();
@@ -132,9 +129,44 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
     });
   }
 
-  // const [showA, setShowA] = useState(false);
-
-  // const toggleShowA = () => setShowA(true);
+  const notify = () =>
+    toast(
+      (t) => (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <span>You have logged in successfully.</span>
+          <button
+            onClick={() => {
+              toast.dismiss(t.id);
+              setIsLogged(true);
+              setShowOtpSection(false);
+              setModalIsOpen(false);
+            }}
+            style={{
+              marginLeft: "10px",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            <i className="fa fa-x" />
+          </button>
+        </div>
+      ),
+      {
+        duration: 3000,
+        style: {
+          marginRight: "20px",
+        },
+        icon: "✅",
+        position: "top-right",
+        progressBar: {
+          style: {
+            height: "4px",
+            backgroundColor: "#4caf50",
+          },
+        },
+      }
+    );
   const verifyOTP = async () => {
     const otpValue = inputs
       .map((id) => document.getElementById(id).value)
@@ -163,16 +195,12 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
           setLoginError("");
           sessionStorage.setItem("userData", JSON.stringify(data.respObj));
           sessionStorage.setItem("isLoggedIn", "true");
-          toast("You have logged in successfully", {
-            autoClose: 3000,
-            closeButton: true,
-            onClose: () => {
-              setIsLogged(true);
-              setShowOtpSection(false);
-              setModalIsOpen(false);
-              // setShowA(false);
-            },
-          });
+          notify();
+          setTimeout(() => {
+            setIsLogged(true);
+            setShowOtpSection(false);
+            setModalIsOpen(false);
+          }, 3000);
         } else if (data.resp == false) {
           setLoginError(data.respMsg);
         }
@@ -230,7 +258,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
       if (index < inputs.length - 1) {
         inputRefs.current[index + 1]?.focus();
       }
-    } 
+    }
   };
 
   const handleOtpChange = (e, index) => {
@@ -238,13 +266,9 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
-
-    // Move focus to the next input
     if (value && index < otp.length - 1) {
       inputRefs.current[index + 1]?.focus();
     }
-
-    // Move focus to the previous input if current is empty
     if (!value && index > 0) {
       setTimeout(() => {
         inputRefs.current[index - 1]?.focus();
@@ -383,31 +407,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
           </div>
         </div>
       </Modal>
-
-      {/* <Toast
-        show={showA}
-        onClose={() => {
-          setIsLogged(true);
-          setShowOtpSection(false);
-          setModalIsOpen(false);
-          setShowA(false);
-        }}
-        autohide
-        delay={3000}
-        position="top-end"
-        progressbar="true"
-        style={{ borderRadius: "4px" }}
-      >
-        <Toast.Body className="LoginToaster">
-          You have logged In successfully!
-          <button
-            type="button"
-            className="btn btn-sm btn-close"
-            onClick={() => setShowA(false)}
-          ></button>
-        </Toast.Body>
-      </Toast> */}
-      <ToastContainer />
+      <Toaster position="top-right" reverseOrder={false} />;
     </div>
   );
 };
