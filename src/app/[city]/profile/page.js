@@ -1,18 +1,18 @@
 "use client";
 import React from "react";
 import { useState, useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { profileSchema } from "@/components/validation";
 import Cookies from "js-cookie";
 import * as yup from "yup";
 import TabComponent from "@/components/tab";
 import styles from "@/app/[city]/address/page.module.css";
+import toast, { Toaster } from "react-hot-toast";
+
 const page = () => {
   const [errors, setErrors] = useState({});
   const city = Cookies.get("city");
   const apiUrl = process.env.API_URL;
-
+ 
   const [userCity, setUserCity] = useState(city);
 
   const [formValues, setFormValues] = useState({
@@ -75,6 +75,42 @@ const page = () => {
     }
   };
 
+  const notify = () =>
+    toast(
+      (t) => (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <span>Your Profile has been updated.</span>
+          <button
+            onClick={() => {
+              toast.dismiss(t.id);
+            }}
+            style={{
+              marginLeft: "10px",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            <i className="fa fa-x" />
+          </button>
+        </div>
+      ),
+      {
+        duration: 3000,
+        style: {
+          marginRight: "20px",
+        },
+        icon: "✅",
+        position: "top-right",
+        progressBar: {
+          style: {
+            height: "4px",
+            backgroundColor: "#4caf50",
+          },
+        },
+      }
+    );
+
   const saveUserProfile = async () => {
     try {
       await profileSchema.validate(formValues, { abortEarly: false });
@@ -115,10 +151,8 @@ const page = () => {
           pinCode: "",
           country: "",
         });
-        toast("Your Profile has been updated", {
-          autoClose: 3000,
-          closeButton: true,
-        });
+        notify()
+       
       } else {
         toast.error(data.respMsg, {
           autoClose: 3000,
@@ -142,7 +176,7 @@ const page = () => {
 
   return (
     <div>
-      <ToastContainer />
+      <Toaster />
       <div className={`container ${styles.userDetailSection}`}>
         {user && (
           <>

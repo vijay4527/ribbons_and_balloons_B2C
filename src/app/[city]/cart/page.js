@@ -10,8 +10,6 @@ import AppConfig from "@/AppConfig";
 import Head from "next/head";
 import ServingInfo from "@/components/ServingInfo";
 import OrderSummary from "@/components/OrderSummary";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { AuthOtpContext } from "@/components/authContext";
 import Cookies from "js-cookie";
 

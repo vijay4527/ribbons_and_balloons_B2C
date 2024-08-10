@@ -5,8 +5,10 @@ import styles from "@/app/[city]/cart/page.module.css";
 import homeStyles from "@/app/home.module.css";
 import { useRouter } from "next/navigation";
 import AppConfig from "@/AppConfig";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import toast, { Toaster } from "react-hot-toast";
+
+// import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 const page = ({ params }) => {
   const [cart, setCart] = useState([]);
   const router = useRouter();
@@ -53,6 +55,43 @@ const page = ({ params }) => {
     }
   };
 
+  const notify = () =>
+    toast(
+      (t) => (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <span>Your Profile has been updated.</span>
+          <button
+            onClick={() => {
+              toast.dismiss(t.id);
+              router.push(`/${city}/cart`);
+            }}
+            style={{
+              marginLeft: "10px",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            <i className="fa fa-x" />
+          </button>
+        </div>
+      ),
+      {
+        duration: 3000,
+        style: {
+          marginRight: "20px",
+        },
+        icon: "✅",
+        position: "top-right",
+        progressBar: {
+          style: {
+            height: "4px",
+            backgroundColor: "#4caf50",
+          },
+        },
+      }
+    );
+
   const addToCart = async (item) => {
     try {
       const cartItem = {
@@ -79,13 +118,17 @@ const page = ({ params }) => {
         if (!cartId) {
           localStorage.setItem("cartId", response.respObj.cart_id);
         }
-        toast("Product added to your cart", {
-          autoClose: 3000,
-          closeButton: true,
-          onClose: () => {
-            router.push(`/${city}/cart`);
-          },
-        });
+        // toast("Product added to your cart", {
+        //   autoClose: 3000,
+        //   closeButton: true,
+        //   onClose: () => {
+        //     router.push(`/${city}/cart`);
+        //   },
+        // });
+        notify();
+        setTimeout(() => {
+          router.push(`/${city}/cart`);
+        }, 3000);
       }
     } catch (error) {
       console.error("Error storing cartId in session storage:", error);
@@ -186,7 +229,7 @@ const page = ({ params }) => {
         </div>
       </div>
 
-      <ToastContainer />
+      <Toaster />
     </div>
   );
 };

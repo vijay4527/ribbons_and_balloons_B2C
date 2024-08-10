@@ -5,8 +5,6 @@ import styles from "@/app/[city]/checkout/page.module.css";
 import homeStyles from "@/app/home.module.css";
 import Head from "next/head";
 import Form from "react-bootstrap/Form";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import * as yup from "yup";
 import ServingInfo from "@/components/ServingInfo";
