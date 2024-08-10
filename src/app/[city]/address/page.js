@@ -5,7 +5,9 @@ import Form from "react-bootstrap/Form";
 import * as yup from "yup";
 import { validationSchema } from "@/components/validation";
 // import { ToastContainer, toast } from "react-toastify";
-// import styles from "@/app/[city]/address/page.module.css";
+import toast, { Toaster } from "react-hot-toast";
+
+ import styles from "@/app/[city]/address/page.module.css";
 import Swal from "sweetalert2";
 import TabComponent from "@/components/tab";
 const page = ({ params }) => {
