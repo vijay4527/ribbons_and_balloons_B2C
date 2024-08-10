@@ -13,6 +13,7 @@ import { AuthOtpContext } from "@/components/authContext";
 import Cookies from "js-cookie";
 import { validationSchema } from "@/components/validation";
 import Modal from "react-bootstrap/Modal";
+import toast, { Toaster } from "react-hot-toast";
 
 const page = ({ params }) => {
   const [products, setProducts] = useState([]);
@@ -303,18 +304,21 @@ const page = ({ params }) => {
           toast("Something went wrong! Your Order has not been placed", {
             autoClose: 3000,
             closeButton: true,
+            position: "top-right",
           });
         }
       } else {
         toast("Please add product to your cart", {
           autoClose: 3000,
           closeButton: true,
+          position: "top-right",
         });
       }
     } catch (err) {
       toast("error while placing the order", {
         autoClose: 3000,
         closeButton: true,
+        position: "top-right",
       });
     }
   };
@@ -354,11 +358,12 @@ const page = ({ params }) => {
       );
       const data = await responseData.json();
       if (data.resp == true) {
-        toast("Your address has been saved", {
-          autoClose: 3000,
-          closeButton: true,
-          onClose: () => setEnableAddress(false),
-        });
+        // toast("Your address has been saved", {
+        //   autoClose: 3000,
+        //   closeButton: true,
+        //   onClose: () => setEnableAddress(false),
+        // });
+        notify();
         GetAddress();
         setFormValues({
           firstName: "",
@@ -415,6 +420,43 @@ const page = ({ params }) => {
     });
     setEnableAddress(false);
   };
+
+  const notify = () =>
+    toast(
+      (t) => (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <span>Address has been saved.</span>
+          <button
+            onClick={() => {
+              toast.dismiss(t.id);
+              setEnableAddress(false);
+            }}
+            style={{
+              marginLeft: "10px",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            <i className="fa fa-x" />
+          </button>
+        </div>
+      ),
+      {
+        duration: 3000,
+        style: {
+          marginRight: "20px",
+        },
+        icon: "✅",
+        position: "top-right",
+        progressBar: {
+          style: {
+            height: "4px",
+            backgroundColor: "#4caf50",
+          },
+        },
+      }
+    );
 
   const [filter, setFilter] = useState("");
   const handleCouponChange = (e) => {
@@ -1102,7 +1144,7 @@ const page = ({ params }) => {
           </div>
         </div>
       </Modal>
-      <ToastContainer />
+      <Toaster position="top-right" reverseOrder={false} />
     </>
   );
 };
