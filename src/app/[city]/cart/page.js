@@ -12,6 +12,7 @@ import ServingInfo from "@/components/ServingInfo";
 import OrderSummary from "@/components/OrderSummary";
 import { AuthOtpContext } from "@/components/authContext";
 import Cookies from "js-cookie";
+import toast, { Toaster } from "react-hot-toast";
 
 const page = ({ params }) => {
   const { data: session } = useSession();
@@ -230,7 +231,7 @@ const page = ({ params }) => {
             closeLoginModal={closeCityModal}
           />
         )}
-        <ToastContainer />
+        <Toaster />
       </div>
     </>
   );
