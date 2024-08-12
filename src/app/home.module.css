@@ -472,3 +472,7 @@
 .AddAddressBtnDiv {
   margin-bottom: 1rem;
 }
+
+.btnEdit,.btnDelete {
+  cursor: pointer;
+}

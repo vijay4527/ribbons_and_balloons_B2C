@@ -7,7 +7,7 @@ import { validationSchema } from "@/components/validation";
 // import { ToastContainer, toast } from "react-toastify";
 import toast, { Toaster } from "react-hot-toast";
 
- import styles from "@/app/[city]/address/page.module.css";
+import styles from "@/app/[city]/address/page.module.css";
 import Swal from "sweetalert2";
 import TabComponent from "@/components/tab";
 const page = ({ params }) => {
@@ -61,36 +61,19 @@ const page = ({ params }) => {
   };
 
   const deleteAddress = async (id) => {
-    const result = await Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    });
-
-    if (result.isConfirmed) {
-      try {
-        const resp = await fetch(
-          `${process.env.API_URL}ShippingAddress/DeleteShippingAddress/${id}`,
-          {
-            method: "POST",
-          }
-        );
-        const response = await resp.json();
-        if (response.resp === true) {
-          await GetAddress(user);
-          await Swal.fire({
-            title: "Deleted!",
-            text: "Your address has been deleted.",
-            icon: "success",
-          });
+    try {
+      const resp = await fetch(
+        `${process.env.API_URL}ShippingAddress/DeleteShippingAddress/${id}`,
+        {
+          method: "POST",
         }
-      } catch (err) {
-        console.log(err);
+      );
+      const response = await resp.json();
+      if (response.resp === true) {
+        await GetAddress(user);
       }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -159,11 +142,8 @@ const page = ({ params }) => {
       );
       const data = await responseData.json();
       if (data.resp == true) {
-        // toast("Your address has been saved", {
-        //   autoClose: 3000,
-        //   closeButton: true,
-        // });
-        notify()
+        
+        notify();
         GetAddress(user);
         setEnableAddress(false);
         setFormValues({
@@ -218,6 +198,55 @@ const page = ({ params }) => {
     }
   };
 
+  const confirmDelete = async (addressId) => {
+    toast(
+      (t) => (
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <span>Are you sure you want to delete this address?</span>
+          <div
+            style={{
+              marginTop: "10px",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <button
+              style={{
+                padding: "5px 10px",
+                backgroundColor: "#d33",
+                color: "#fff",
+                border: "none",
+                cursor: "pointer",
+              }}
+              onClick={async () => {
+                toast.dismiss(t.id);
+                await deleteAddress(addressId);
+              }}
+            >
+              Yes
+            </button>
+            <button
+              style={{
+                padding: "5px 10px",
+                backgroundColor: "#3085d6",
+                color: "#fff",
+                border: "none",
+                cursor: "pointer",
+              }}
+              onClick={() => toast.dismiss(t.id)}
+            >
+              No
+            </button>
+          </div>
+        </div>
+      ),
+      {
+        duration: 5000,
+        position: "top-right",
+      }
+    );
+  };
+
   return (
     <>
       <div className={`container ${styles.userDetailSection}`}>
@@ -243,248 +272,6 @@ const page = ({ params }) => {
           </>
         )}
       </div>
-
-      {/* <div className={`container  ${styles.addressSection}`}>
-        <div className="row">
-          <div className="col-lg-6"></div>
-          <div className="col-lg-6 p-4">
-            <div className={styles.addressSectionHeader}>
-              <div className={`mb-4 ${styles.saveAddressSetion}`}>
-                Saved Addresses
-              </div>
-
-              {enableAddress && (
-                <i
-                  className={`fa-solid fa-arrow-right ${styles.arrowIcon}`}
-                  onClick={() => setEnableAddress(!enableAddress)}
-                ></i>
-              )}
-            </div>
-
-            {enableAddress && (
-              <>
-                <div className="card p-5">
-                  <div className={styles.checkoutQctShippingForm}>
-                    <div className="row">
-                      <div className="col-lg-6">
-                        <div className={homeStyles["form_group"]}>
-                          <Form.Label>First Name</Form.Label>
-                          <Form.Control
-                            type="text"
-                            name="firstName"
-                            value={formValues.firstName}
-                            onChange={handleInputChange}
-                            placeholder="Enter first name"
-                            required
-                          />
-                          {errors.firstName && (
-                            <div className="text-danger">
-                              {errors.firstName}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-
-                      <div className="col-lg-6">
-                        <div className={homeStyles["form_group"]}>
-                          <Form.Label>Last Name</Form.Label>
-                          <Form.Control
-                            type="text"
-                            name="lastName"
-                            value={formValues.lastName}
-                            onChange={handleInputChange}
-                            placeholder="Enter last name"
-                            required
-                          />
-                          {errors.lastName && (
-                            <div className="text-danger">{errors.lastName}</div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="row mt-4">
-                      <div className="col-lg-6">
-                        <div className={homeStyles["form_group"]}>
-                          <Form.Label>Email</Form.Label>
-                          <Form.Control
-                            type="text"
-                            name="email"
-                            value={formValues.email}
-                            onChange={handleInputChange}
-                            placeholder="Enter email"
-                          />
-                          {errors.email && (
-                            <div className="text-danger">{errors.email}</div>
-                          )}
-                        </div>
-                      </div>
-
-                      <div className="col-lg-6">
-                        <div className={homeStyles["form_group"]}>
-                          <Form.Label>Contact</Form.Label>
-                          <Form.Control
-                            type="text"
-                            placeholder="+91"
-                            name="contact"
-                            value={formValues.contact}
-                            onChange={handleInputChange}
-                            required
-                          />
-                          {errors.contact && (
-                            <div className="text-danger"> {errors.contact}</div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="row mt-4">
-                      <div className="col-lg-6">
-                        <div className={homeStyles["form_group"]}>
-                          <Form.Label>Address</Form.Label>
-                          <Form.Control
-                            type="text"
-                            name="address"
-                            value={formValues.address}
-                            onChange={handleInputChange}
-                            required
-                          />
-                          {errors.address && (
-                            <div className="text-danger">{errors.address}</div>
-                          )}
-                        </div>
-                      </div>
-
-                      <div className="col-lg-6">
-                        <div className={homeStyles["form_group"]}>
-                          <Form.Label>Zip Code</Form.Label>
-                          <Form.Control
-                            type="text"
-                            name="pinCode"
-                            value={formValues.pinCode}
-                            onChange={handleInputChange}
-                            required
-                          />
-                          {errors.pinCode && (
-                            <div className="text-danger">{errors.pinCode}</div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="row mt-4">
-                      <div className="col-lg-6">
-                        <div className={homeStyles["form_group"]}>
-                          <Form.Label>City</Form.Label>
-                          <Form.Control
-                            type="text"
-                            name="city"
-                            value={formValues.city}
-                            onChange={handleInputChange}
-                            required
-                          />
-                          {errors.city && (
-                            <div className="text-danger">{errors.city}</div>
-                          )}
-                        </div>
-                      </div>
-
-                      <div className="col-lg-6">
-                        <div className={homeStyles["form_group"]}>
-                          <Form.Label>State</Form.Label>
-                          <Form.Control
-                            type="text"
-                            name="state"
-                            value={formValues.state}
-                            onChange={handleInputChange}
-                            required
-                          />
-                          {errors.state && (
-                            <div className="text-danger">{errors.state}</div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className={homeStyles["form_group"]}>
-                      <Form.Label>Country</Form.Label>
-                      <Form.Control
-                        type="text"
-                        name="country"
-                        value={formValues.country}
-                        onChange={handleInputChange}
-                        required
-                      />
-                      {errors.country && (
-                        <div className="text-danger">{errors.country}</div>
-                      )}
-                    </div>
-                  </div>
-                  <div
-                    className={`${styles.checkoutQctShippingAddress} `}
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      marginTop: "20px",
-                    }}
-                  >
-                    <button
-                      className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`}
-                      onClick={saveShippingAddress}
-                    >
-                      {" "}
-                      <span>ADD ADDRESS</span>
-                    </button>
-                  </div>
-                </div>
-              </>
-            )}
-
-            {!enableAddress && (
-              <div className={`${styles.addressContainer}`}>
-                {address &&
-                  address.length > 0 &&
-                  address.map((ele, index) => (
-                    <div className={`mb-3 p-4 ${styles.address}`} key={index}>
-                      <div className={styles.addressImageContainer}>
-                        <div className=""></div>
-                        <div className="d-flex">
-                          <div className="ml-4">
-                            <img
-                              alt="edit address"
-                              src="https://bkmedia.bakingo.com/images/addressbook/edit.svg"
-                            />
-                          </div>
-                          <div className="ml-4">
-                            <img
-                              alt="delete address"
-                              src="https://bkmedia.bakingo.com/images/addressbook/delete.svg"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div>{ele.first_name + " " + ele.last_name}</div>
-                      <div className="mt-2 mb-3">{ele.email_address}</div>
-                      <div className="mt-2 mb-3">
-                        {ele.address} {ele.city},{ele.state} - {ele.pincode}
-                      </div>
-                      <div>+91 {ele.mobile_number}</div>
-                    </div>
-                  ))}
-                <div>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => setEnableAddress(true)}
-                  >
-                    Add Address
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </div> */}
-
       <Toaster />
       <div className={`container ${styles.addressPage}`}>
         <TabComponent url={"address"} city={params.city} />
@@ -506,6 +293,8 @@ const page = ({ params }) => {
                   onChange={handleInputChange}
                   placeholder="Enter first name"
                   required
+                  autoComplete="off"
+
                 />
                 {errors.firstName && (
                   <div className="text-danger">{errors.firstName}</div>
@@ -520,6 +309,8 @@ const page = ({ params }) => {
                   onChange={handleInputChange}
                   placeholder="Enter last name"
                   required
+                  autoComplete="off"
+
                 />
                 {errors.lastName && (
                   <div className="text-danger">{errors.lastName}</div>
@@ -533,6 +324,8 @@ const page = ({ params }) => {
                   value={formValues.email}
                   onChange={handleInputChange}
                   placeholder="Enter email"
+                  autoComplete="off"
+
                 />
                 {errors.email && (
                   <div className="text-danger">{errors.email}</div>
@@ -547,6 +340,8 @@ const page = ({ params }) => {
                   value={formValues.contact}
                   onChange={handleInputChange}
                   required
+                  autoComplete="off"
+
                 />
                 {errors.contact && (
                   <div className="text-danger"> {errors.contact}</div>
@@ -560,6 +355,8 @@ const page = ({ params }) => {
                   value={formValues.address}
                   onChange={handleInputChange}
                   required
+                  autoComplete="off"
+
                 />
                 {errors.address && (
                   <div className="text-danger">{errors.address}</div>
@@ -573,6 +370,8 @@ const page = ({ params }) => {
                   value={formValues.pinCode}
                   onChange={handleInputChange}
                   required
+                  autoComplete="off"
+
                 />
                 {errors.pinCode && (
                   <div className="text-danger">{errors.pinCode}</div>
@@ -586,6 +385,8 @@ const page = ({ params }) => {
                   value={formValues.city}
                   onChange={handleInputChange}
                   required
+                  autoComplete="off"
+
                 />
                 {errors.city && (
                   <div className="text-danger">{errors.city}</div>
@@ -599,6 +400,8 @@ const page = ({ params }) => {
                   value={formValues.state}
                   onChange={handleInputChange}
                   required
+                  autoComplete="off"
+
                 />
                 {errors.state && (
                   <div className="text-danger">{errors.state}</div>
@@ -612,6 +415,8 @@ const page = ({ params }) => {
                   value={formValues.country}
                   onChange={handleInputChange}
                   required
+                  autoComplete="off"
+
                 />
                 {errors.country && (
                   <div className="text-danger">{errors.country}</div>
@@ -660,6 +465,10 @@ const page = ({ params }) => {
                               width="24"
                               height="24"
                               viewBox="0 0 24 24"
+                              className={homeStyles.btnEdit}
+                              onClick={() =>
+                                getAddressById(ele.shipping_address_id)
+                              }
                             >
                               <g data-name="Group 5772">
                                 <path
@@ -685,6 +494,10 @@ const page = ({ params }) => {
                               width="24"
                               height="24"
                               viewBox="0 0 24 24"
+                              className={homeStyles.btnDelete}
+                              onClick={() =>
+                                confirmDelete(ele.shipping_address_id)
+                              }
                             >
                               <g data-name="Group 5773">
                                 <path
@@ -733,14 +546,6 @@ const page = ({ params }) => {
               </div>
             </>
           )}
-          {/* <div className="mt-4">
-            <button
-              className={homeStyles.AddAddressBtn}
-              onClick={() => setEnableAddress(true)}
-            >
-              Add Address
-            </button>
-          </div> */}
         </div>
       </div>
     </>
