@@ -350,7 +350,7 @@ const page = ({ params }) => {
         apiUrl + "ShippingAddress/SaveShippingAddress",
         {
           method: "POST",
-          headers: {
+          headers: {  
             "Content-Type": "application/json",
           },
           body: JSON.stringify(obj),
