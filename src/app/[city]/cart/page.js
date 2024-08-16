@@ -92,7 +92,41 @@ const page = ({ params }) => {
     }
   };
 
-
+  const notify = (msg) =>
+    toast(
+      (t) => (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <span>{msg}</span>
+          <button
+            onClick={() => {
+              toast.dismiss(t.id);
+            }}
+            style={{
+              marginLeft: "10px",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            <i className="fa fa-x" />
+          </button>
+        </div>
+      ),
+      {
+        duration: 3000,
+        style: {
+          marginRight: "20px",
+        },
+        icon: "😅",
+        position: "top-right",
+        progressBar: {
+          style: {
+            height: "4px",
+            backgroundColor: "#4caf50",
+          },
+        },
+      }
+    );
 
   const handleProducts = () => {
     if (!isUserLoggedIn || !user) {
@@ -100,10 +134,11 @@ const page = ({ params }) => {
     } else if (user && cart.length > 0) {
       router.push(`/${city}/checkout`);
     } else if (cart.length === 0) {
-      toast(
-        "You have no products in your cart! Please select products before checkout",
-        { autoClose: 2000, closeButton: true }
-      );
+      // toast(
+      //   "You have no products in your cart! Please select products before checkout",
+      //   { autoClose: 2000, closeButton: true }
+      // );
+      notify("Please add products in your cart")
     }
   };
 
