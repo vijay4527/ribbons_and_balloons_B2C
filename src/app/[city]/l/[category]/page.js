@@ -5,7 +5,6 @@ import { cookies } from "next/headers";
 import { getCities } from "@/utils/commoncity";
 export async function generateMetadata({ params }) {
   const apiUrl = process.env.API_URL;
-
   const { data, category } = await getCategoryData(
     apiUrl,
     params.category,
@@ -14,10 +13,10 @@ export async function generateMetadata({ params }) {
   );
   if (data) {
     return {
-      title: params.subcategory ? data.sub_category_title : data.category_title,
+      title: params.subcategory ? data[0].sub_category_title : data[0].category_title,
       description: params.subcategory
-        ? data.sub_category_metadescription
-        : data.category_metadescription,
+        ? data[0].sub_category_metadescription
+        : data[0].category_metadescription,
       keywords: params.subcategory
         ? [data[0].sub_category_key]
         : [data[0].category_key],
