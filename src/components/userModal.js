@@ -12,7 +12,7 @@ const userModal = ({ isOpen, closeModal, city }) => {
     const fetchUser = async () => {
       const userObject =
         typeof window !== "undefined"
-          ? JSON.parse(sessionStorage.getItem("userData"))
+          ? JSON.parse(localStorage.getItem("userData"))
           : "";
       if (userObject) {
         setUserData(userObject);
@@ -22,7 +22,7 @@ const userModal = ({ isOpen, closeModal, city }) => {
   }, [userData?.user_id]);
 
   const updateSessionStorage = (updatedUser) => {
-    sessionStorage.setItem("userData", JSON.stringify(updatedUser));
+    localStorage.setItem("userData", JSON.stringify(updatedUser));
   };
 
   const notify = () =>

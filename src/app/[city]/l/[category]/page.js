@@ -14,9 +14,13 @@ export async function generateMetadata({ params }) {
   );
   if (data) {
     return {
-      title: params.category + " | Ribbons and balloons",
-      description:
-        "Welcome to AshGamewitted, your ultimate destination for immersive gaming and captivating anime content! Dive into a world where pixels meet passion, as we bring you the latest updates, reviews, and insights from the gaming and anime realms.",
+      title: params.subcategory ? data.sub_category_title : data.category_title,
+      description: params.subcategory
+        ? data.sub_category_metadescription
+        : data.category_metadescription,
+      keywords: params.subcategory
+        ? [data[0].sub_category_key]
+        : [data[0].category_key],
       openGraph: {
         images: [
           // {
@@ -51,7 +55,8 @@ async function getCategoryData(apiUrl, categoryName, subcategory, city) {
       }&city_name=${city}`;
     const responseData = await fetch(listingUrl, { next: { revalidate: 180 } });
     const categoryData = await fetch(
-      apiUrl + "Category/GetAllCategories?city_name=" + city,{ next: { revalidate: 180 },}
+      apiUrl + "Category/GetAllCategories?city_name=" + city,
+      { next: { revalidate: 180 } }
     );
 
     const response = await responseData.json();

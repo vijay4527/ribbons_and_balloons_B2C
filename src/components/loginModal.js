@@ -30,7 +30,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
   const inputRefs = useRef([]);
 
   const user =
-    typeof window !== "undefined" ? sessionStorage.getItem("userData") : "";
+    typeof window !== "undefined" ? localStorage.getItem("userData") : "";
   useEffect(() => {
     if (isOpen) {
       setModalIsOpen(true);
@@ -80,7 +80,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
       });
       const response = await responseData.json();
       if (response.resp === true) {
-        sessionStorage.removeItem("userData");
+        localStorage.removeItem("userData");
         if (response.respObj.cart_id && !localStorage.getItem("cartId")) {
           Cookies.set("cartId", response.respObj.cart_id);
           localStorage.setItem("cartId", response.respObj.cart_id);
@@ -193,8 +193,8 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
         const data = await responseData.json();
         if (data.resp == true) {
           setLoginError("");
-          sessionStorage.setItem("userData", JSON.stringify(data.respObj));
-          sessionStorage.setItem("isLoggedIn", "true");
+          localStorage.setItem("userData", JSON.stringify(data.respObj));
+          localStorage.setItem("isLoggedIn", "true");
           notify();
           setTimeout(() => {
             setIsLogged(true);

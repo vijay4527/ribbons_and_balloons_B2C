@@ -33,7 +33,7 @@ const page = () => {
     const fetchUser = async () => {
       const userObject =
         typeof window !== "undefined"
-          ? JSON.parse(sessionStorage.getItem("userData"))
+          ? JSON.parse(localStorage.getItem("userData"))
           : "";
       if (userObject) {
         setUser(userObject);

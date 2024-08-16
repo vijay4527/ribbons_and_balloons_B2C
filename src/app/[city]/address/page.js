@@ -18,7 +18,7 @@ const page = ({ params }) => {
   const [shippingAddressId, setShippingAddressId] = useState("");
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const userData = JSON.parse(sessionStorage.getItem("userData"));
+      const userData = JSON.parse(localStorage.getItem("userData"));
       setUser(userData);
       GetAddress(userData);
     }

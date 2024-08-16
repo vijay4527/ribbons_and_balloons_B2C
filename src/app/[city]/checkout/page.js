@@ -80,7 +80,7 @@ const page = ({ params }) => {
     const fetchUser = async () => {
       const userObject =
         typeof window !== "undefined"
-          ? JSON.parse(sessionStorage.getItem("userData"))
+          ? JSON.parse(localStorage.getItem("userData"))
           : "";
       if (userObject) {
         setUser(userObject);
@@ -350,7 +350,7 @@ const page = ({ params }) => {
         apiUrl + "ShippingAddress/SaveShippingAddress",
         {
           method: "POST",
-          headers: {  
+          headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(obj),
@@ -433,7 +433,7 @@ const page = ({ params }) => {
             }}
             style={{
               marginLeft: "10px",
-              background: "none", 
+              background: "none",
               border: "none",
               cursor: "pointer",
             }}
@@ -634,7 +634,6 @@ const page = ({ params }) => {
                                     placeholder="Enter first name"
                                     required
                                     autoComplete="off"
-
                                   />
                                   {errors.firstName && (
                                     <div className="text-danger">
@@ -652,7 +651,6 @@ const page = ({ params }) => {
                                     placeholder="Enter last name"
                                     required
                                     autoComplete="off"
-
                                   />
                                   {errors.lastName && (
                                     <div className="text-danger">
@@ -669,7 +667,6 @@ const page = ({ params }) => {
                                     onChange={handleInputChange}
                                     placeholder="Enter email"
                                     autoComplete="off"
-
                                   />
                                   {errors.email && (
                                     <div className="text-danger">
@@ -687,7 +684,6 @@ const page = ({ params }) => {
                                     onChange={handleInputChange}
                                     required
                                     autoComplete="off"
-
                                   />
                                   {errors.contact && (
                                     <div className="text-danger">
@@ -705,7 +701,6 @@ const page = ({ params }) => {
                                     onChange={handleInputChange}
                                     required
                                     autoComplete="off"
-
                                   />
                                   {errors.address && (
                                     <div className="text-danger">
@@ -722,7 +717,6 @@ const page = ({ params }) => {
                                     onChange={handleInputChange}
                                     required
                                     autoComplete="off"
-
                                   />
                                   {errors.pinCode && (
                                     <div className="text-danger">
@@ -739,7 +733,6 @@ const page = ({ params }) => {
                                     onChange={handleInputChange}
                                     required
                                     autoComplete="off"
-
                                   />
                                   {errors.city && (
                                     <div className="text-danger">
@@ -756,7 +749,6 @@ const page = ({ params }) => {
                                     onChange={handleInputChange}
                                     required
                                     autoComplete="off"
-
                                   />
                                   {errors.state && (
                                     <div className="text-danger">
@@ -773,7 +765,6 @@ const page = ({ params }) => {
                                     onChange={handleInputChange}
                                     required
                                     autoComplete="off"
-
                                   />
                                   {errors.country && (
                                     <div className="text-danger">
@@ -811,7 +802,7 @@ const page = ({ params }) => {
                                         : ""
                                     }`}
                                     key={res.shipping_address_id}
-                                  >   
+                                  >
                                     <div
                                       className={styles.pickUpFranchiseInput}
                                     >
@@ -942,7 +933,6 @@ const page = ({ params }) => {
                                           frachiseSelection(res);
                                         }}
                                         autoComplete="off"
-
                                       />
                                       <div
                                         className={
@@ -1067,9 +1057,10 @@ const page = ({ params }) => {
             <div className={styles.modalBorder}>
               <div className={styles.cartOrderSummary}>
                 <h4>Add Coupons</h4>{" "}
-                <button className="btn btn-primary" onClick={closeModal}>
+                {/* <button className="btn btn-primary" onClick={closeModal}>
                   close
-                </button>
+                </button> */}
+                <i className="fa-solid fa-x"  onClick={closeModal}></i>
               </div>
               <div className={homeStyles["form_group"]}>
                 <input
@@ -1078,7 +1069,6 @@ const page = ({ params }) => {
                   onChange={(e) => handleCouponChange(e.target.value)}
                   placeholder="Search Coupon if any"
                   autoComplete="off"
-
                 />
                 <div className={styles.couponBody}>
                   {filteredCoupon.length > 0 &&
@@ -1103,7 +1093,6 @@ const page = ({ params }) => {
                                 hanldeCoupon(res);
                               }}
                               autoComplete="off"
-
                             />
                             <div className={styles.pickUpFranchiseInputIcon}>
                               <svg
@@ -1147,24 +1136,29 @@ const page = ({ params }) => {
 
                         {selectedCoupon === res.coupon_id &&
                           displayCancelButton && (
-                            <button
-                              className="btn btn-primary"
+                            // <button
+                            //   className="btn btn-primary"
+                            //   onClick={removeCoupon}
+                            // >
+                            //   Remove
+                            // </button>
+                            <i
+                              className="fa-solid fa-x"
                               onClick={removeCoupon}
-                            >
-                              Remove
-                            </button>
+                            ></i>
                           )}
                       </div>
                     ))}
                 </div>
               </div>
-              {isBtnVisible && (
+              {/* {isBtnVisible && (
                 <div className="btnCoupon">
+                  <i className="fa-solid fa-x" onClick={closeModal}></i>
                   <button className="btn btn-primary" onClick={closeModal}>
                     Add
                   </button>
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </div>

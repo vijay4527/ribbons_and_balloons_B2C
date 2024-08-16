@@ -200,7 +200,7 @@ const Page = ({ params }) => {
   const [orderInfo, setOrderInfo] = useState(null);
 
   const orderId = params.orderDetails;
-  const userObject = JSON.parse(sessionStorage.getItem("userData"));
+  const userObject = JSON.parse(localStorage.getItem("userData"));
   const searchParams = useSearchParams();
   useEffect(() => {
     if (userObject) {

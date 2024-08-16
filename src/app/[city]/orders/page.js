@@ -12,7 +12,7 @@ const page = ({ params }) => {
 
   var userInfo =
     typeof window !== "undefined"
-      ? JSON.parse(sessionStorage.getItem("userData"))
+      ? JSON.parse(localStorage.getItem("userData"))
       : "";
   useEffect(() => {
     if (userInfo) {

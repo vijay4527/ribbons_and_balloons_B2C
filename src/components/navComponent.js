@@ -54,11 +54,11 @@ const navComponent = () => {
 
   const userObject =
     typeof window !== "undefined"
-      ? JSON.parse(sessionStorage.getItem("userData"))
+      ? JSON.parse(localStorage.getItem("userData"))
       : null;
 
   const loggedIn =
-    typeof window !== "undefined" ? sessionStorage.getItem("isLoggedIn") : "";
+    typeof window !== "undefined" ? localStorage.getItem("isLoggedIn") : "";
 
   useEffect(() => {
     if (session?.userData?.isLogin === false) {
@@ -67,7 +67,7 @@ const navComponent = () => {
       typeof window !== "undefined" &&
       session?.userData?.isLogin == true
     ) {
-      sessionStorage.setItem("userData", JSON.stringify(session.userData));
+      localStorage.setItem("userData", JSON.stringify(session.userData));
       if (
         !localStorage.getItem("cartId") &&
         session.userData.cart_id !== null
@@ -76,7 +76,7 @@ const navComponent = () => {
         Cookies.set("cartId", session.userData.cart_id);
       }
 
-      sessionStorage.setItem("isLoggedIn", true);
+      localStorage.setItem("isLoggedIn", true);
     }
   }, [session, isLoggedIn]);
   useEffect(() => {
@@ -95,8 +95,8 @@ const navComponent = () => {
 
   useEffect(() => {
     const handleStorageChange = () => {
-      const storedUserObject = JSON.parse(sessionStorage.getItem("userData"));
-      const storedIsLoggedIn = sessionStorage.getItem("isLoggedIn");
+      const storedUserObject = JSON.parse(localStorage.getItem("userData"));
+      const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
       if (storedUserObject || storedIsLoggedIn == true) {
         setIsLoggedIn(true);
       } else {
@@ -130,13 +130,13 @@ const navComponent = () => {
     }
     if (isSearchActive && inputRef.current) {
       inputRef.current.focus();
-    }
+    }    
   }, [isSearchActive, city]);
 
   const Logout = () => {
-    sessionStorage.removeItem("userData");
-    sessionStorage.removeItem("isLoggedIn");
-    sessionStorage.removeItem("cartId");
+    localStorage.removeItem("userData");
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("cartId");
     localStorage.removeItem("cartId")
     Cookies.remove("cartId");
     signOut();

@@ -23,7 +23,7 @@ const AddOnModal = ({ isOpen, onRequestClose, closeModal, city, data }) => {
   useEffect(() => {
     const userObject =
       typeof window !== "undefined"
-        ? JSON.parse(sessionStorage.getItem("userData"))
+        ? JSON.parse(localStorage.getItem("userData"))
         : "";
     setUser(userObject);
   }, [isLogged]);

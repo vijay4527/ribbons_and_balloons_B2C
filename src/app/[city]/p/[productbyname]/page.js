@@ -9,11 +9,10 @@ import ProductDetails from "@/components/productDetails";
 import ShowCaseSlider from "@/components/ShowCaseSlider";
 export async function generateMetadata({ params }) {
   const data = await GetProductData(params.productbyname, params.city);
-  if (data) {
+  if (data) {   
     return {
-      title: data.product_name,
-      description:
-        "Buy & Order Cakes Online and Send Cakes anywhere in Mumbai. Ribbons & Balloons is an Online Cakes Shop in Mumbai, we make your Occasions special for your friends, family and you. Order Best Quality cakes online and we deliver it on your doorsteps.",
+      title: data.title ? data.title : data.product_name,
+      description:data.metadescription ?data.metadescription : data.description ,
       openGraph: {
         images: [
           {
@@ -31,6 +30,7 @@ export async function generateMetadata({ params }) {
     };
   }
 }
+
 async function getCategoryData(category, city) {
   try {
     if (category) {

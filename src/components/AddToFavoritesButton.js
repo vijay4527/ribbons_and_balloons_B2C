@@ -49,7 +49,7 @@ export default function AddToFavoritesButton({ productData, city }) {
       typeof window !== "undefined" ? localStorage.getItem("cartId") : "";
     const userObject =
       typeof window !== "undefined"
-        ? JSON.parse(sessionStorage.getItem("userData"))
+        ? JSON.parse(localStorage.getItem("userData"))
         : ""
     try {
       var obj = {

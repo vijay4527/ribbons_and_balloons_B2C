@@ -24,12 +24,8 @@ function getProductDetails({ data }) {
   const [product, setProduct] = useState({});
   const [varietyDescription, setvarietyDescription] = useState("");
   const [displayMore, setDisplayMore] = useState(false);
-  // const [selectedProductType, setSelectedProductType] = useState("");
-  // const [productPrice, setProductPrice] = useState(0);
   const [messageOnCake, setMessageOnCake] = useState("");
-  // const [unit, setUnit] = useState("");
   const [values, setValues] = useState("");
-  // const [variety, setVariety] = useState("");
   const [quantity, setQuantity] = useState("");
   const [selectedProduct, setSelectedProduct] = useState({});
   const [activeFlavour, setActiveFlavour] = useState("");
@@ -64,16 +60,13 @@ function getProductDetails({ data }) {
         productData.productTypeData.length > 0
       ) {
         const initialProductType = productData.productTypeData[0];
-        // setSelectedProductType(initialProductType.variety_id);
         updateVariable(initialProductType.cost);
-        // setVariety(productData.productTypeData[0].variety_id);
         updateVariety(productData.productTypeData[0].variety_id);
         setQuantity(productData.min);
 
         switch (productData.type_id) {
           case 1:
             if (productData.type_id == 1) {
-              // setUnit("KG");
               updateUnit("KG");
               setValues("0.5");
               updateValue("0.5");
@@ -137,25 +130,20 @@ function getProductDetails({ data }) {
     }
   }, [data]);
 
-  // const [isLoading, setLoading] = useState(false);
-
   const handleProductTypeChange = (event) => {
     const selectedType = event.variety_id;
     setFlavourName(event.variety_name);
 
     setvarietyDescription(event.description);
     updateVariety(selectedType);
-    // setSelectedProductType(selectedType);
     const selectProduct = product.productTypeData.find(
       (productType) => productType.variety_id === selectedType
     );
     setSelectedProduct(selectProduct);
     setActiveFlavour(event);
-
     if (selectProduct) {
       if (product.type_id == 3) {
         updateVariable(selectProduct.cost);
-
         setActiveWeight(selectProduct.variety_name);
         if (selectProduct.variety_name == "Small") {
           updateUnit("S");
@@ -178,28 +166,23 @@ function getProductDetails({ data }) {
       if (weight == "0.5") {
         setValues("0.5");
         updateValue("0.5");
-        // setUnit("gram");
         updateUnit("gram");
         updateVariable(product.productTypeData[0].cost);
       } else {
         setValues("1");
         updateValue("1");
-        // setUnit("KG");
         updateUnit("KG");
-        // setProductPrice(product.productTypeData[0].cost * 2 - 10);
         updateVariable(product.productTypeData[0].cost * 2);
       }
     }
     if (product.type_id == 2) {
       setValues(weight);
       updateValue(weight);
-      // setProductPrice(product.productTypeData[0].cost * 2 * weight);
       updateVariable(product.productTypeData[0].cost * 2 * weight);
     }
     if (product.type_id == 3) {
       setValues(weight);
       updateValue(weight);
-      // setProductPrice(product.productTypeData[0].cost * weight - 10);
       updateVariable(product.productTypeData[0].cost * 2 * weight);
     }
     if (product.type_id == 4) {
@@ -231,7 +214,6 @@ function getProductDetails({ data }) {
         </li>
       );
     }
-
     return weightOptions;
   };
   const handleIncrementQuantity = () => {
@@ -283,33 +265,18 @@ function getProductDetails({ data }) {
           </div>
         </div>
         <div className={styles.pdp_SelectInfo}>
-          {/* <div className={styles.pdp_shortInfo}>
-            <h4 className={styles.pdp_DetailInfoTitle}>Flavour Description</h4>
-          </div> */}
           <div className={styles.pdp_SelectMessage}>
             <ul className={styles.pdp_ProductDesc}>
               <li>
                 <span
-                  className={
-                    displayMore
-                      ? styles.varietyDescription
-                      : styles.varietyDescriptionShort
-                  }
-                >
+                  className={displayMore? styles.varietyDescription: styles.varietyDescriptionShort}>
                   {displayMore
                     ? varietyDescription
                     : getTruncatedDescription(varietyDescription)}
                 </span>{" "}
               </li>
             </ul>
-            {varietyDescription && (
-              <button
-                className="btn btn-primary show-more-btn"
-                onClick={toggleDisplayMore}
-              >
-                {displayMore ? "Show Less" : "Show More"}
-              </button>
-            )}
+            {varietyDescription && (<button className="btn btn-primary show-more-btn" onClick={toggleDisplayMore}>{displayMore ? "Show Less" : "Show More"}</button>)}
           </div>
         </div>
         {product.type_id == 1 && (
@@ -320,17 +287,13 @@ function getProductDetails({ data }) {
                   <h4 className={styles.pdp_DetailInfoTitle}>Weight :</h4>
                   <div className={styles["active-weight-show"]}>
                     <ul>
-                      <li className={styles.showWeigthLi}>
-                        {activeWeight + "" + "Kg"}
-                      </li>
+                      <li className={styles.showWeigthLi}>{activeWeight + "" + "Kg"}</li>
                     </ul>
                   </div>
                 </div>
                 <div className={styles.ChangeWeightHover}>
                   <div className={styles.ArrowTextWrap}>
-                    <h4 className={styles.pdp_DetailInfoTitle}>
-                      Change Weight
-                    </h4>
+                    <h4 className={styles.pdp_DetailInfoTitle}>Change Weight</h4>
                     <div className={styles.goldArrowWrap}>
                       <img src="/downGoldArrow.png"></img>
                     </div>
@@ -338,16 +301,10 @@ function getProductDetails({ data }) {
                   <div className={styles.flavourUlDivWrap}>
                     <ul className={styles.flavourUlDiv}>
                       <div className={styles.selectWeightBorder}>
-                        <li
-                          className={activeWeight == "0.5" ? styles.active : ""}
-                          onClick={() => handleWeight("0.5", "Half Kg")}
-                        >
+                        <li className={activeWeight == "0.5" ? styles.active : ""} onClick={() => handleWeight("0.5", "Half Kg")}>
                           0.5 Kg
                         </li>
-                        <li
-                          className={activeWeight === "1" ? styles.active : ""}
-                          onClick={() => handleWeight("1", "1 Kg")}
-                        >
+                        <li className={activeWeight === "1" ? styles.active : ""} onClick={() => handleWeight("1", "1 Kg")} >
                           1 Kg
                         </li>
                       </div>
@@ -356,9 +313,7 @@ function getProductDetails({ data }) {
                 </div>
                 <ServingInfo />
               </div>
-              <div
-                className={`${styles.pdp_shortInfo} ${styles.pdp_shortInfo2}`}
-              >
+              <div className={`${styles.pdp_shortInfo} ${styles.pdp_shortInfo2}`} >
                 <div className={styles.WeightFlex}>
                   <h4 className={styles.pdp_DetailInfoTitle}>Flavour :</h4>
                   <div className={styles["active-weight-show"]}>
@@ -369,9 +324,7 @@ function getProductDetails({ data }) {
                 </div>
                 <div className={styles.ChangeWeightHover}>
                   <div className={styles.ArrowTextWrap}>
-                    <h4 className={styles.pdp_DetailInfoTitle}>
-                      Change Flavour
-                    </h4>
+                    <h4 className={styles.pdp_DetailInfoTitle}>Change Flavour</h4>
                     <div className={styles.goldArrowWrap}>
                       <img src="/downGoldArrow.png"></img>
                     </div>
@@ -381,22 +334,11 @@ function getProductDetails({ data }) {
                       <div className={styles.selectWeightBorder}>
                         {product.productTypeData ? (
                           product.productTypeData.map((ele) => (
-                            <li
-                              className={
-                                activeFlavour == ele.variety_id
-                                  ? styles.active
-                                  : ""
-                              }
-                              key={ele.variety_id}
-                              value={ele.variety_id}
-                              onClick={() => handleProductTypeChange(ele)}
-                            >
+                            <li className={ activeFlavour == ele.variety_id   ? styles.active   : "" } key={ele.variety_id} value={ele.variety_id} onClick={() => handleProductTypeChange(ele)} >
                               {ele.variety_name}
                             </li>
                           ))
-                        ) : (
-                          <li value="">No types available</li>
-                        )}
+                        ) : ( <li value="">No types available</li> )}
                       </div>
                     </ul>
                   </div>
@@ -408,58 +350,18 @@ function getProductDetails({ data }) {
         {product.type_id == 2 && (
           <>
             <div className={styles.pdp_SelectInfo}>
-              {/* <div className={styles.pdp_shortInfo}>
-                <h4 className={styles.pdp_DetailInfoTitle}>Select Weight</h4>
-                <div className={styles.pdp_SelectFlavour}>
-                  <ul>
-                    <li className={styles.active}>{activeWeight}</li>
-                  </ul>
-                </div>
-                <div className={`${styles.pdp_SelectFlavour}`}>
-                  <ul>
-                    <div className="">
-                      <div className="">
-                        <ul
-                          className=""
-                          style={{ maxWidth: "200px", maxHeight: "200px" }}
-                        >
-                          {generateWeightOptions(
-                            parseFloat(product.min),
-                            parseInt(product.max)
-                          )}
-                        </ul>
-                      </div>
-                    </div>
-                    <select
-                    className="form-control"
-                    name="drpWeight"
-                    onChange={(e) => handleWeight(e.target.value)}
-                  >
-                    {generateWeightOptions(
-                      parseFloat(product.min),
-                      parseInt(product.max)
-                    )}
-                  </select>
-                  </ul>
-                </div>
-                <ServingInfo />
-              </div> */}
               <div className={styles.pdp_shortInfo}>
                 <div className={styles.WeightFlex}>
                   <h4 className={styles.pdp_DetailInfoTitle}>Weight :</h4>
                   <div className={styles["active-weight-show"]}>
                     <ul>
-                      <li className={styles.showWeigthLi}>
-                        {activeWeight + "" + "Kg"}
-                      </li>
+                      <li className={styles.showWeigthLi}>{activeWeight + "" + "Kg"}</li>
                     </ul>
                   </div>
                 </div>
                 <div className={styles.ChangeWeightHover}>
                   <div className={styles.ArrowTextWrap}>
-                    <h4 className={styles.pdp_DetailInfoTitle}>
-                      Change Weight
-                    </h4>
+                    <h4 className={styles.pdp_DetailInfoTitle}>Change Weight</h4>
                     <div className={styles.goldArrowWrap}>
                       <img src="/downGoldArrow.png"></img>
                     </div>
@@ -467,10 +369,7 @@ function getProductDetails({ data }) {
                   <div className={styles.flavourUlDivWrap}>
                     <ul className={styles.flavourUlDiv}>
                       <div className={styles.selectWeightBorder}>
-                        {generateWeightOptions(
-                          parseFloat(product.min),
-                          parseInt(product.max)
-                        )}
+                        {generateWeightOptions(parseFloat(product.min),parseInt(product.max))}
                       </div>
                     </ul>
                   </div>
@@ -484,9 +383,7 @@ function getProductDetails({ data }) {
               <div className={styles.WeightFlex}>
                 <h4 className={styles.pdp_DetailInfoTitle}>Flavour :</h4>
                 <div className={styles["active-weight-show"]}>
-                  <ul>
-                    <li className={styles.showWeigthLi}>{FlavourName}</li>
-                  </ul>
+                  <ul> <li className={styles.showWeigthLi}>{FlavourName}</li></ul>
                 </div>
               </div>
               <div className={styles.ChangeWeightHover}>
@@ -501,16 +398,7 @@ function getProductDetails({ data }) {
                     <div className={styles.selectWeightBorder}>
                       {product.productTypeData ? (
                         product.productTypeData.map((ele) => (
-                          <li
-                            className={
-                              activeFlavour == ele.variety_id
-                                ? styles.active
-                                : ""
-                            }
-                            key={ele.variety_id}
-                            value={ele.variety_id}
-                            onClick={() => handleProductTypeChange(ele)}
-                          >
+                          <li className={   activeFlavour == ele.variety_id     ? styles.active     : "" } key={ele.variety_id} value={ele.variety_id} onClick={() => handleProductTypeChange(ele)} >
                             {ele.variety_name}
                           </li>
                         ))
@@ -522,19 +410,6 @@ function getProductDetails({ data }) {
                 </div>
               </div>
             </div>
-
-            {/* <div className={styles.pdp_SelectInfo}>
-              <div className={styles.pdp_shortInfo}>
-                <h4 className={styles.pdp_DetailInfoTitle}>Select Flavour</h4>
-              </div>
-              <div className={styles.pdp_SelectFlavour}>
-                <ul>
-                  <li className={styles.active}>
-                    {product.productTypeData[0].variety_name}
-                  </li>
-                </ul>
-              </div>
-            </div> */}
           </>
         )}
         {product.type_id == 3 && (
@@ -551,9 +426,7 @@ function getProductDetails({ data }) {
                 </div>
                 <div className={styles.ChangeWeightHover}>
                   <div className={styles.ArrowTextWrap}>
-                    <h4 className={styles.pdp_DetailInfoTitle}>
-                      Change Weight
-                    </h4>
+                    <h4 className={styles.pdp_DetailInfoTitle}>Change Weight</h4>
                     <div className={styles.goldArrowWrap}>
                       <img src="/downGoldArrow.png"></img>
                     </div>
@@ -563,15 +436,7 @@ function getProductDetails({ data }) {
                       <div className={styles.selectWeightBorder}>
                         {product.productTypeData ? (
                           product.productTypeData.map((ele) => (
-                            <li
-                              className={
-                                activeWeight == ele.variety_name
-                                  ? styles.active
-                                  : ""
-                              }
-                              key={ele.variety_id}
-                              onClick={() => handleProductTypeChange(ele)}
-                            >
+                            <li className={   activeWeight == ele.variety_name     ? styles.active     : "" } key={ele.variety_id} onClick={() => handleProductTypeChange(ele)} >
                               {`${ele.variety_name}`}
                             </li>
                           ))
@@ -598,29 +463,20 @@ function getProductDetails({ data }) {
                   <h4 className={styles.pdp_DetailInfoTitle}>Weight :</h4>
                   <div className={styles["active-weight-show"]}>
                     <ul>
-                      <li className={styles.showWeigthLi}>
-                        {activeWeight + "" + "Kg"}
-                      </li>
+                      <li className={styles.showWeigthLi}>{activeWeight + "" + "Kg"}</li>
                     </ul>
                   </div>
                 </div>
                 <div className={styles.ChangeWeightHover}>
                   <div className={styles.ArrowTextWrap}>
-                    <h4 className={styles.pdp_DetailInfoTitle}>
-                      Change Weight
-                    </h4>
+                    <h4 className={styles.pdp_DetailInfoTitle}>Change Weight</h4>
                     <div className={styles.goldArrowWrap}>
                       <img src="/downGoldArrow.png"></img>
                     </div>
                   </div>
                   <div className={styles.flavourUlDivWrap}>
                     <ul className={styles.flavourUlDiv}>
-                      <div className={styles.selectWeightBorder}>
-                        {generateWeightOptions(
-                          parseFloat(product.min),
-                          parseInt(product.max)
-                        )}
-                      </div>
+                      <div className={styles.selectWeightBorder}>{generateWeightOptions(  parseFloat(product.min),  parseInt(product.max))} </div>
                     </ul>
                   </div>
                 </div>
@@ -628,22 +484,16 @@ function getProductDetails({ data }) {
                   <ServingInfo />
                 </div>
               </div>
-              <div
-                className={`${styles.pdp_shortInfo} ${styles.pdp_shortInfo2}`}
-              >
+              <div className={`${styles.pdp_shortInfo} ${styles.pdp_shortInfo2}`} >
                 <div className={styles.WeightFlex}>
                   <h4 className={styles.pdp_DetailInfoTitle}>Flavour :</h4>
                   <div className={styles["active-weight-show"]}>
-                    <ul>
-                      <li className={styles.showWeigthLi}>{FlavourName}</li>
-                    </ul>
+                    <ul><li className={styles.showWeigthLi}>{FlavourName}</li></ul>
                   </div>
                 </div>
                 <div className={styles.ChangeWeightHover}>
                   <div className={styles.ArrowTextWrap}>
-                    <h4 className={styles.pdp_DetailInfoTitle}>
-                      Change Flavour
-                    </h4>
+                    <h4 className={styles.pdp_DetailInfoTitle}> Change Flavour </h4>
                     <div className={styles.goldArrowWrap}>
                       <img src="/downGoldArrow.png"></img>
                     </div>
@@ -653,18 +503,7 @@ function getProductDetails({ data }) {
                       <div className={styles.selectWeightBorder}>
                         {product.productTypeData ? (
                           product.productTypeData.map((ele) => (
-                            <li
-                              className={
-                                activeFlavour == ele.variety_id
-                                  ? styles.active
-                                  : ""
-                              }
-                              key={ele.variety_id}
-                              value={ele.variety_id}
-                              onClick={() => handleProductTypeChange(ele)}
-                            >
-                              {ele.variety_name}
-                            </li>
+                            <li className={activeFlavour == ele.variety_id? styles.active: "" } key={ele.variety_id} value={ele.variety_id} onClick={() => handleProductTypeChange(ele)} >{ele.variety_name}</li>
                           ))
                         ) : (
                           <li value="">No types available</li>
@@ -675,58 +514,6 @@ function getProductDetails({ data }) {
                 </div>
               </div>
             </div>
-            {/* <div className={styles.pdp_SelectInfoFlex}>
-              <div className={`${styles.pdp_shortInfo} ${styles.pdp_SelectInfo2}`}>
-                <h4 className={styles.pdp_DetailInfoTitle}>Select Flavour</h4>
-                <div className={styles.goldArrowWrap}>
-                  <img src="/downGoldArrow.png"></img>
-                </div>
-              </div>
-              <div className={styles.pdp_SelectFlavour}>
-                <ul>
-                  {product.productTypeData ? (
-                    product.productTypeData.map((ele) => (
-                      <li
-                        className={
-                          activeFlavour == ele.variety_id ? styles.active : ""
-                        }
-                        key={ele.variety_id}
-                        value={ele.variety_id}
-                        onClick={() => handleProductTypeChange(ele)}
-                      >
-                        {ele.variety_name}
-                      </li>
-                    ))
-                  ) : (
-                    <li value="">No types available</li>
-                  )}
-                </ul>
-              </div>
-              <div className={styles.pdp_SelectFlavourDropdown}>
-                <div className={`${styles.flavourUlDivWrap} ${styles.flavourUlDivWrap2}`}>
-                  <ul className={styles.flavourUlDiv}>
-                    <div className={styles.selectWeightBorder}>
-                      {product.productTypeData ? (
-                        product.productTypeData.map((ele) => (
-                          <li
-                            className={
-                              activeFlavour == ele.variety_id ? styles.active : ""
-                            }
-                            key={ele.variety_id}
-                            value={ele.variety_id}
-                            onClick={() => handleProductTypeChange(ele)}
-                          >
-                            {ele.variety_name}
-                          </li>
-                        ))
-                      ) : (
-                        <li value="">No types available</li>
-                      )}
-                    </div>
-                  </ul>
-                </div>
-              </div>
-            </div> */}
           </>
         )}
         {product.type_id == 5 && (
@@ -877,56 +664,19 @@ function getProductDetails({ data }) {
                 </div>
               </div>
             </div>
-
-            {/* <div className={styles.pdp_SelectInfo}>
-              <div className={styles.pdp_shortInfo}>
-                <h4 className={styles.pdp_DetailInfoTitle}>Select Flavour</h4>
-              </div>
-              <div className={styles.pdp_SelectFlavour}>
-                <ul>
-                  {product.productTypeData ? (
-                    product.productTypeData.map((ele) => (
-                      <li
-                        className={
-                          activeFlavour == ele.variety_id ? styles.active : ""
-                        }
-                        key={ele.variety_id}
-                        value={ele.variety_id}
-                        onClick={() => handleProductTypeChange(ele)}
-                      >
-                        {ele.variety_name}
-                      </li>
-                    ))
-                  ) : (
-                    <li value="">No types available</li>
-                  )}
-                </ul>
-              </div>
-            </div> */}
           </>
         )}
 
         {product.type_id !== 5 && product.type_id !== 6 && (
           <>
-            {/* <div className="d-flex">
-          <input type="checkbox" id="isChecked" onChange={ToggleChange}/>
-           <label htmlFor="" className="ml-4"> upload image</label>
-          </div> */}
             {product?.isUploadImage && (
               <div className={styles.pdp_SelectInfo}>
                 <div className={styles.pdp_shortInfo}>
                   <h4 className={styles.pdp_DetailInfoTitle}>Upload Image*</h4>
                 </div>
                 <div className={styles.pdp_SelectUploadImage}>
-                  <label
-                    htmlFor="FileUpload"
-                    className={styles.pdp_SelectUploadLabel}
-                  >
-                    <input
-                      type="file"
-                      id="FileUpload"
-                      className={styles.pdp_SelectUploadInput}
-                    />
+                  <label htmlFor="FileUpload" className={styles.pdp_SelectUploadLabel} >
+                    <input type="file" id="FileUpload" className={styles.pdp_SelectUploadInput} />
                     <div className={styles.image_uploading_content}>
                       <div className={styles.choose_file_circle}>
                         <span></span>
@@ -985,9 +735,7 @@ function getProductDetails({ data }) {
             </div>
           </>
         )}
-
         <div className={styles.underLineSeperator}></div>
-
         <div className={styles.fassalDiv}>
           <img
             src="https://media.bakingo.com/bakingo-ssr/static/media/Info-1.aa9d95cd.png"
