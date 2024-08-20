@@ -1119,7 +1119,7 @@ const page = ({ params }) => {
                             <div className={styles.modalCouponName}>
                               <h4>{res.coupon_name}</h4>
                             </div>
-                            <span>
+                            <span style={{fontSize:"1.3rem"}}>
                               shop for minimum {res.applicable_amt} and get
                               discount upto {res.dist_max_amt}
                             </span>

@@ -620,7 +620,7 @@ function getProductDetails({ data }) {
                   className={`${styles.pdp_shortInfo} ${styles.pdp_shortInfo2}`}
                 >
                   <div className={styles.WeightFlex}>
-                    <h4 className={styles.pdp_DetailInfoTitle}>Flavour :</h4>
+                    <h4 className={styles.pdp_DetailInfoTitle}>{product.productTypeData[0].variety_type=="Weight" ? "Weight": "Flavour"}  </h4>
                     <div className={styles["active-weight-show"]}>
                       <ul>
                         <li className={styles.showWeigthLi}>{FlavourName}</li>
@@ -630,7 +630,7 @@ function getProductDetails({ data }) {
                   <div className={styles.ChangeWeightHover}>
                     <div className={styles.ArrowTextWrap}>
                       <h4 className={styles.pdp_DetailInfoTitle}>
-                        Change Flavour
+                       {product.productTypeData[0].variety_type=="Weight" ? "Change Weight": "Change Flavour"} 
                       </h4>
                       <div className={styles.goldArrowWrap}>
                         <img src="/downGoldArrow.png"></img>

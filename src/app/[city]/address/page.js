@@ -4,11 +4,9 @@ import homeStyles from "@/app/home.module.css";
 import Form from "react-bootstrap/Form";
 import * as yup from "yup";
 import { validationSchema } from "@/components/validation";
-// import { ToastContainer, toast } from "react-toastify";
 import toast, { Toaster } from "react-hot-toast";
 
 import styles from "@/app/[city]/address/page.module.css";
-import Swal from "sweetalert2";
 import TabComponent from "@/components/tab";
 const page = ({ params }) => {
   const [address, setAddress] = useState([]);
@@ -36,7 +34,7 @@ const page = ({ params }) => {
   });
 
   const GetAddress = async (userData) => {
-    try {
+    try {1
       if (userData.user_id) {
         const addressResponse = await fetch(
           process.env.API_URL +
