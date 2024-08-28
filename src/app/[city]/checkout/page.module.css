@@ -429,12 +429,18 @@
 }
 
 .addCouponItem {
-    margin: 0;
+    margin: 1rem;
     width: 100%;
     display: flex;
     align-items: center;
     font-size: 1.8rem !important;
     text-transform: capitalize !important;
+    cursor: pointer;
+    justify-content: center;
+}
+
+.couponMessage{
+    color: #fa180e;
 }
 
 .dateContiner {

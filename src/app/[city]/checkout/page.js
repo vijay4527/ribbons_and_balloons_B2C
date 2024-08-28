@@ -44,11 +44,9 @@ const page = ({ params }) => {
     return `${year}-${month}-${day}`;
   };
   const currentDate = new Date();
-
   const nextDate = new Date(currentDate);
   nextDate.setDate(currentDate.getDate() + 1);
   const [startDate, setStartDate] = useState(formatDateForInput(nextDate));
-
   const apiUrl = process.env.API_URL;
 
   const handleDateChange = async (e) => {
@@ -1128,7 +1126,7 @@ const page = ({ params }) => {
                                 <div
                                   className={`${styles.pickUpFranchiseInfo}`}
                                 >
-                                  <h6>{couponMessage}</h6>
+                                  <h6 className={styles.couponMessage}>{couponMessage}</h6>
                                 </div>
                               )}
                           </div>

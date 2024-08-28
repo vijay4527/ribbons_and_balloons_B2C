@@ -16,7 +16,7 @@ export default function OrderSummary({
 
   useEffect(() => {
     setProducts(data);
-  }, [data]);
+  }, [data])
 
   return (
     <>
@@ -54,5 +54,5 @@ export default function OrderSummary({
         <h5>₹ {totalPrice}</h5>
       </div>
     </>
-  );
+  )
 }

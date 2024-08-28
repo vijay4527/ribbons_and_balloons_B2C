@@ -36,7 +36,7 @@ const page = ({ params }) => {
       setUser(userInfo);
     }
   }, [session, isLogged, userInfo?.user_id]);
-  let cartId = "";
+  let cartId = ""
   if (typeof window !== "undefined") {
     cartId = localStorage.getItem("cartId");
   }
@@ -74,10 +74,10 @@ const page = ({ params }) => {
 
   const removeFromCart = async (cpId, itemCost) => {
     const responseData = await fetch(apiUrl + `CartMaster/RemoveCart/${cpId}`);
-    const response = await responseData.json();
+    const response = await responseData.json()
     if (response?.resp == true) {
-      var newPrice = grandTotal - itemCost;
-      setGrandTotal(newPrice);
+      var newPrice = grandTotal - itemCost
+      setGrandTotal(newPrice)
       // if (cart.length == 1) {
       //   try {
       //     setCart([]);
@@ -88,7 +88,7 @@ const page = ({ params }) => {
       //     console.error("Error removing cartId from session storage:", error);
       //   }
       // }
-      GetAllCart();
+      GetAllCart()
     }
   };
 
@@ -99,7 +99,7 @@ const page = ({ params }) => {
           <span>{msg}</span>
           <button
             onClick={() => {
-              toast.dismiss(t.id);
+              toast.dismiss(t.id)
             }}
             style={{
               marginLeft: "10px",
@@ -269,7 +269,7 @@ const page = ({ params }) => {
         <Toaster />
       </div>
     </>
-  );
-};
+  )
+}
 
-export default page;
+export default page

@@ -211,7 +211,7 @@ export default function Footer() {
                         </Link>
                       </li>
                       <li>
-                        <Link href={`/${city}`} aria-label="Store Location">
+                        <Link href={`/${city}/stores`} aria-label="Store Location">
                           Store Location
                         </Link>
                       </li>
