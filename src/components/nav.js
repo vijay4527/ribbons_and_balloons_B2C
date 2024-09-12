@@ -24,6 +24,7 @@ async function getCities() {
     return null;
   }
 }
+
 const getCategories = async (api, city) => {
   try {
     const responseData = await fetch(api + "Category/GetAllCategories", {
@@ -40,6 +41,9 @@ const getCategories = async (api, city) => {
 };
 
 const Nav = async () => {
+  // const [isNavbarOpen, setIsNavbarOpen] = useState(false);
+  // const toggleNavbar = () => setIsNavbarOpen(!isNavbarOpen);
+
   const apiUrl = process.env.API_URL;
   const nextCookies = cookies();
   const cityObj = await nextCookies.get("city");
@@ -58,6 +62,7 @@ const Nav = async () => {
   }
 
   const city = isCity ? cookiecity : Cityname;
+
   return (
     <div className="navbarDiv">
       <Container>
@@ -102,16 +107,23 @@ const Nav = async () => {
                 className="navbar-toggler toggleButton"
                 type="button"
                 aria-label="button"
+                // onClick={toggleNavbar}
               >
                 <span className="navbar-toggler-icon"></span>
               </button>
-              <div className={`Navbar_content navbar-collapse collapse `}>
+              <div
+                className={`Navbar_content navbar-collapse collapse`}
+              >
+                {/* className={`Navbar_content navbar-collapse collapse ${
+                  isNavbarOpen ? "show" : ""
+                }`} */}
                 <div className="navbar_MobileClose">
                   <span>Close</span>
                   <button
                     className="navbar-toggler toggleButton"
                     type="button"
                     aria-label="closeButton"
+                    // onClick={toggleNavbar}
                   >
                     <span className="navbar-toggler-icon"></span>{" "}
                   </button>
@@ -120,7 +132,7 @@ const Nav = async () => {
                   <div className="subNavbar_body">
                     {categories &&
                       categories.length > 0 &&
-                      categories.slice(0,12).map((category, index) =>
+                      categories.slice(0, 12).map((category, index) =>
                         category.json_sub_category &&
                         category.json_sub_category.length > 0 ? (
                           <div className={`sub_nav`} key={index}>

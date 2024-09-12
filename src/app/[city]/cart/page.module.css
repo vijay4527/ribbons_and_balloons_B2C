@@ -232,3 +232,10 @@
     transform: translateX(100%);
   }
 }
+
+@media screen and (max-width: 768px) {
+    
+  .cartPriceAmt li h4{
+    margin-right: 2rem;
+}
+}
