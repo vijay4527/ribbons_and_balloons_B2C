@@ -1112,6 +1112,7 @@ ul.selectLocationOption a {
   .sub_nav:hover .subnav-content {
     display: block;
     background-color: #fff;
+    height: auto !important;
   }
 
   .sub_nav:hover .subnav-content .category-sub-title {
@@ -1124,7 +1125,7 @@ ul.selectLocationOption a {
   }
 
   .sub_nav:hover .subnav-content .category-sub-title a {
-    color: #000;
+    color: #fff;
   }
 
   .sub_navbtn {
