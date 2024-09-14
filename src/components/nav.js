@@ -109,7 +109,9 @@ const Nav = async () => {
                 aria-label="button"
                 // onClick={toggleNavbar}
               >
-                <span className="navbar-toggler-icon"></span>
+                <span className="navbar-toggler-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" fill="none" viewBox="0 0 20 18"><path fill="#1C2120" d="M1.389 0h12.778c.767 0 1.389.603 1.389 1.347s-.622 1.347-1.39 1.347H1.39C.622 2.694 0 2.09 0 1.347S.622 0 1.389 0M1.389 7.542H18.61c.767 0 1.389.603 1.389 1.347s-.622 1.347-1.389 1.347H1.39C.622 10.236 0 9.633 0 8.889s.622-1.347 1.389-1.347M1.389 15.084h12.778c.767 0 1.389.603 1.389 1.347s-.622 1.347-1.39 1.347H1.39C.622 17.778 0 17.175 0 16.43s.622-1.347 1.389-1.347"/></svg>
+                </span>
               </button>
               <div
                 className={`Navbar_content navbar-collapse collapse`}

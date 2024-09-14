@@ -378,8 +378,8 @@ img {
   transition: all 100ms ease;
 }
 
-.selectLocationWrap.activeClass,
-.selectSearchItemWrap.activeClass {
+.selectLocationWrap.show,
+.selectSearchItemWrap.show {
   display: block;
   border-radius: 10px;
   overflow: hidden;
@@ -527,8 +527,8 @@ ul.selectLocationOption a {
   transition: opacity 0.15s linear;
 }
 
-.backdropLoaction.activeClass,
-.backdropSearchItem.activeClass {
+.backdropLoaction.show,
+.backdropSearchItem.show {
   display: block;
   opacity: 0.6;
 }
@@ -542,7 +542,8 @@ ul.selectLocationOption a {
   background-position: 50%;
   cursor: pointer;
   position: absolute;
-  top: 9px;
+  top: 50%;
+  transform: translate(0%, -50%);
 }
 
 .selectSearchBody {
@@ -759,7 +760,12 @@ ul.selectLocationOption a {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
-
+.subNavbar_wrapper .navbar-toggler-icon {
+  background-image: unset !important;
+}
+.subNavbar_wrapper .navbar-toggler-icon svg path{
+  fill: #ffffff;
+}
 .Brands_navbody,
 .subNavbar_body {
   height: 46px;
@@ -985,6 +991,9 @@ ul.selectLocationOption a {
 }
 
 @media screen and (max-width: 768px) {
+  .navAction ul li {
+    margin-left: 10px;
+  }
   .category-title {
     color: var(--body-bg-color);
   }
@@ -1014,12 +1023,14 @@ ul.selectLocationOption a {
 
   .subNavbar_wrapper .navbar-toggler.toggleButton {
     position: absolute;
-    top: -55px;
-    left: 15px;
+    top: -50px;
+    left: 0;
     padding: 0;
     border: 0;
     font-size: 20px;
     color: var(--text-color);
+    height: 100%;
+        transform: translate(0%, 50%);
   }
 
   .navbar_MobileClose .navbar-toggler:before {
@@ -1208,6 +1219,20 @@ ul.selectLocationOption a {
     padding-bottom: 0px;
     font-size: 17px;
   }
+
+  .flipper {
+    height: 55px;
+  }
+  .flip-container {
+    width: 95px;
+    margin-left: 35px;
+  }
+  .front, .back{
+    height: 100%;
+  }
+  .navbar_logo .navbar {
+    justify-content: flex-start;
+  }
 }
 
 .subnav-img img {
@@ -1294,9 +1319,9 @@ ul.selectLocationOption a {
   position: relative;
 }
 @media screen and (max-width: 768px) {
-  .navbarDiv {
+  /* .navbarDiv {
     padding: 1rem 0;
-  }
+  } */
   .banner-wrap {
     padding: 0px;
   }
@@ -3955,4 +3980,88 @@ input[name="contact"] {
 .blog-detail-text {
   color: #c19d56;
   font-style: italic;
+}
+
+
+/*  */
+.offcanvasHeader{
+  display: none;
+}
+@media screen and (max-width: 767px) {
+  .offcanvasWrap.show {
+    display: block;
+    position: fixed;
+    top: 40%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 0;
+    background-color: #fff;
+  }
+  .offcanvasWrap.show .offcanvasHeader{
+    display: flex !important;
+    align-items: center;
+    height: 56px;
+    padding: 0 15px;
+    background-color: var(--theme-seconary);
+    color: #fff;
+    width: 100%;
+    grid-gap: 15px;
+    min-height: 56px;
+  }
+  .selectSearchBody {
+    padding: 15px;
+  }
+  .selectSearchBody input {
+    width: 100%;
+  }
+  .selectSearchListPopular h3{
+    display: none;
+  }
+  .selectSearchListPopularText {
+    color: #000;
+  }
+  .offcanvasCloseHeaderButton {
+    width: 34px!important;
+    height: 34px!important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 50%;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    color: #000!important;
+    background-color: #fff!important
+  }
+  .offcanvasCloseHeaderButton svg path {
+    fill: #000;
+  }
+  .offcanvasBody{
+    background-color: #ffffff;
+  }
+  .offcanvasWrap.selectLocationWrap {
+    background-color: var(--theme-seconary);
+  }
+  .selectSearchList {
+    max-height: calc(100vh - 56vh);
+  }
+  .selectSearchList a{
+    padding: 0px !important;
+  }
+  .selectSearchList h2{
+    color: #000;
+  }
+  .selectLocationBody {
+    height: calc(100vh - 46.5vh);
+    width: 100%;
+    background-color: transparent;
+  }
+  /* .selectLocationImg,
+  .selectLocationBody h3,
+  .selectLocationBody p{
+    display: none;
+  } */
 }

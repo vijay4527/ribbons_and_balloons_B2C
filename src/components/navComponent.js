@@ -130,14 +130,14 @@ const navComponent = () => {
     }
     if (isSearchActive && inputRef.current) {
       inputRef.current.focus();
-    }    
+    }
   }, [isSearchActive, city]);
 
   const Logout = () => {
     localStorage.removeItem("userData");
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("cartId");
-    localStorage.removeItem("cartId")
+    localStorage.removeItem("cartId");
     Cookies.remove("cartId");
     signOut();
     // router.push("/"+ city)
@@ -230,10 +230,28 @@ const navComponent = () => {
             />
           </div>
           <div
-            className={`selectLocationWrap ${isLoactionActive ? "activeClass" : ""
-              }`}
+            className={`offcanvasWrap selectLocationWrap ${isLoactionActive ? "show" : ""}`}
           >
-            <div className="selectLocationBody">
+            <div className="offcanvasHeader">
+              <button
+                className="offcanvasCloseHeaderButton"
+                onClick={loactionToggle}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="20px"
+                  width="20px"
+                >
+                  <path
+                    fill="#fff"
+                    d="M5.414 11H21a1 1 0 110 2H5.414l7.293 7.293a1 1 0 01-1.414 1.414l-9-9a1 1 0 010-1.414l9-9a1 1 0 111.414 1.414L5.414 11z"
+                  ></path>
+                </svg>
+              </button>
+              <div className="offcanvasHeaderTitle">Select Cities</div>
+            </div>
+            <div className="offcanvasBody selectLocationBody">
               <div className="selectLocationImg">
                 {hoveredCity == "pune" && (
                   <img
@@ -284,8 +302,9 @@ const navComponent = () => {
             </div>
           </div>
           <div
-            className={`backdropLoaction ${isLoactionActive == true ? "activeClass" : ""
-              }`}
+            className={`backdropLoaction ${
+              isLoactionActive == true ? "show" : ""
+            }`}
             onClick={loactionToggle}
           ></div>
         </li>
@@ -305,113 +324,137 @@ const navComponent = () => {
             </span>
           </div>
           <div
-            className={`selectSearchItemWrap ${isSearchActive ? "activeClass" : ""
-              }`}
+            className={`offcanvasWrap selectSearchItemWrap ${
+              isSearchActive ? "show" : ""
+            }`}
           >
-            <div className="selectSearchBody">
-              <div
-                className={`headerSearchIcon searchInput ${isSearchActive ? "activeClass" : ""
-                  }`}
-              ></div>
-              <input
-                ref={inputRef}
-                type="search"
-                id="inputSearch"
-                placeholder="Search for cakes, occasion, flavor and more"
-                value={searchValue}
-                className="form-control"
-                onChange={(e) => handleKeyPress(e.target.value)}
-              />
+            <div className="offcanvasHeader">
+              <button
+                className="offcanvasCloseHeaderButton"
+                onClick={toggleSearchActive}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="20px"
+                  width="20px"
+                >
+                  <path
+                    fill="#fff"
+                    d="M5.414 11H21a1 1 0 110 2H5.414l7.293 7.293a1 1 0 01-1.414 1.414l-9-9a1 1 0 010-1.414l9-9a1 1 0 111.414 1.414L5.414 11z"
+                  ></path>
+                </svg>
+              </button>
+              <div className="offcanvasHeaderTitle">Popular Searches</div>
             </div>
-            <div className="selectSearchContent">
-              <div className="selectSearchListPopular">
-                <h3>Popular Searches</h3>
-                {isPopularSearchVisible && (
-                  <ul>
-                    <li>
-                      <span onClick={() => handleKeyPress("Cakes")}>
-                        <span className="selectSearchListPopularIcon">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            fill="none"
-                            viewBox="0 0 18 18"
-                          >
-                            <path
-                              stroke="#888"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeOpacity=".7"
-                              strokeWidth="1.2"
-                              d="m15.75 5.25-6 6-3-3-4.5 4.5m13.5-7.5h-4.5m4.5 0v4.5"
-                            />
-                          </svg>
-                        </span>
-                        <span className="selectSearchListPopularText">
-                          Cake
-                        </span>
-                      </span>
-                    </li>
-                    <li>
-                      <span onClick={() => handleKeyPress("Savoury")}>
-                        <span className="selectSearchListPopularIcon">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            fill="none"
-                            viewBox="0 0 18 18"
-                          >
-                            <path
-                              stroke="#888"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeOpacity=".7"
-                              strokeWidth="1.2"
-                              d="m15.75 5.25-6 6-3-3-4.5 4.5m13.5-7.5h-4.5m4.5 0v4.5"
-                            />
-                          </svg>
-                        </span>
-                        <span className="selectSearchListPopularText">
-                          Savoury
-                        </span>
-                      </span>
-                    </li>
-                  </ul>
-                )}
+            <div className="offcanvasBody">
+              <div className="selectSearchBody">
+                <div
+                  className={`headerSearchIcon searchInput ${
+                    isSearchActive ? "show" : ""
+                  }`}
+                ></div>
+                <input
+                  ref={inputRef}
+                  type="search"
+                  id="inputSearch"
+                  placeholder="Search for cakes, occasion, flavor and more"
+                  value={searchValue}
+                  className="form-control"
+                  onChange={(e) => handleKeyPress(e.target.value)}
+                />
               </div>
-              <div className="selectSearchList">
-                {filteredProduct &&
-                  filteredProduct.length > 0 &&
-                  filteredProduct.map((item) => {
-                    const productName = item.product_name.split(" ").join("-");
-                    var image = item.product_image.split(",");
-                    return (
-                      <Link
-                        className="searchResultContainer"
-                        href={`/${city}/p/${productName}`}
-                        passHref
-                        key={item.id}
-                        onClick={() => handleProductClick(productName)}
-                      >
-                        <img
-                          src={`${AppConfig.cdn}products/${image[0]}`}
-                          alt={productName}
-                        />
-                        <div className="searchItemInfo">
-                          <h3>Sinful Collections</h3>
-                          <h2>{item.product_name}</h2>
-                        </div>
-                      </Link>
-                    );
-                  })}
+              <div className="selectSearchContent">
+                <div className="selectSearchListPopular">
+                  <h3>Popular Searches</h3>
+                  {isPopularSearchVisible && (
+                    <ul>
+                      <li>
+                        <span onClick={() => handleKeyPress("Cakes")}>
+                          <span className="selectSearchListPopularIcon">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="18"
+                              height="18"
+                              fill="none"
+                              viewBox="0 0 18 18"
+                            >
+                              <path
+                                stroke="#888"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeOpacity=".7"
+                                strokeWidth="1.2"
+                                d="m15.75 5.25-6 6-3-3-4.5 4.5m13.5-7.5h-4.5m4.5 0v4.5"
+                              />
+                            </svg>
+                          </span>
+                          <span className="selectSearchListPopularText">
+                            Cake
+                          </span>
+                        </span>
+                      </li>
+                      <li>
+                        <span onClick={() => handleKeyPress("Savoury")}>
+                          <span className="selectSearchListPopularIcon">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="18"
+                              height="18"
+                              fill="none"
+                              viewBox="0 0 18 18"
+                            >
+                              <path
+                                stroke="#888"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeOpacity=".7"
+                                strokeWidth="1.2"
+                                d="m15.75 5.25-6 6-3-3-4.5 4.5m13.5-7.5h-4.5m4.5 0v4.5"
+                              />
+                            </svg>
+                          </span>
+                          <span className="selectSearchListPopularText">
+                            Savoury
+                          </span>
+                        </span>
+                      </li>
+                    </ul>
+                  )}
+                </div>
+                <div className="selectSearchList">
+                  {filteredProduct &&
+                    filteredProduct.length > 0 &&
+                    filteredProduct.map((item) => {
+                      const productName = item.product_name
+                        .split(" ")
+                        .join("-");
+                      var image = item.product_image.split(",");
+                      return (
+                        <Link
+                          className="searchResultContainer"
+                          href={`/${city}/p/${productName}`}
+                          passHref
+                          key={item.id}
+                          onClick={() => handleProductClick(productName)}
+                        >
+                          <img
+                            src={`${AppConfig.cdn}products/${image[0]}`}
+                            alt={productName}
+                          />
+                          <div className="searchItemInfo">
+                            <h3>Sinful Collections</h3>
+                            <h2>{item.product_name}</h2>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                </div>
               </div>
             </div>
           </div>
           <div
-            className={`backdropSearchItem ${isSearchActive ? "activeClass" : ""
-              }`}
+            className={`backdropSearchItem ${isSearchActive ? "show" : ""}`}
             onClick={toggleSearchActive}
           ></div>
         </li>
