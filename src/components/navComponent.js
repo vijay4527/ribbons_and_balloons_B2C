@@ -353,74 +353,16 @@ const navComponent = () => {
                   className={`headerSearchIcon searchInput ${
                     isSearchActive ? "show" : ""
                   }`}
-              ></div>
-              <input
-                ref={inputRef}
-                type="search"
-                id="inputSearch"
-                placeholder="Search for cakes, occasion, flavor and more"
-                value={searchValue}
-                className="form-control"
-                onChange={(e) => handleKeyPress(e.target.value)}
-              />
-            </div>
-            <div className="selectSearchContent">
-              <div className="selectSearchListPopular">
-                <h3>Popular Searches</h3>
-                {isPopularSearchVisible && (
-                  <ul>
-                    <li>
-                      <span onClick={() => handleKeyPress("Cakes")}>
-                        <span className="selectSearchListPopularIcon">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            fill="none"
-                            viewBox="0 0 18 18"
-                          >
-                            <path
-                              stroke="#888"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeOpacity=".7"
-                              strokeWidth="1.2"
-                              d="m15.75 5.25-6 6-3-3-4.5 4.5m13.5-7.5h-4.5m4.5 0v4.5"
-                            />
-                          </svg>
-                        </span>
-                        <span className="selectSearchListPopularText">
-                          Cake
-                        </span>
-                      </span>
-                    </li>
-                    <li>
-                      <span onClick={() => handleKeyPress("Savoury")}>
-                        <span className="selectSearchListPopularIcon">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            fill="none"
-                            viewBox="0 0 18 18"
-                          >
-                            <path
-                              stroke="#888"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeOpacity=".7"
-                              strokeWidth="1.2"
-                              d="m15.75 5.25-6 6-3-3-4.5 4.5m13.5-7.5h-4.5m4.5 0v4.5"
-                            />
-                          </svg>
-                        </span>
-                        <span className="selectSearchListPopularText">
-                          Savoury
-                        </span>
-                      </span>
-                    </li>
-                  </ul>
-                )}
+                ></div>
+                <input
+                  ref={inputRef}
+                  type="search"
+                  id="inputSearch"
+                  placeholder="Search for cakes, occasion, flavor and more"
+                  value={searchValue}
+                  className="form-control"
+                  onChange={(e) => handleKeyPress(e.target.value)}
+                />
               </div>
               <div className="selectSearchList">
                 {filteredProduct &&
