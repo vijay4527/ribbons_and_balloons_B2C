@@ -476,3 +476,28 @@
 .datePicker::-webkit-calendar-picker-indicator{
     
 }
+
+@media screen and (max-width: 768px) {
+    .checkoutQctBody {
+        flex-wrap: wrap;
+    }
+    .checkoutQctShippingWrap {
+        width: 100%;
+        margin: 0;
+    }
+    .checkoutQctOrderSummary {
+        width: 100%;
+        margin: 0;
+    }    
+    .cartPriceAmt li h4{
+        margin-right: 2rem;
+    }
+    .checkoutQctShippingTabs{
+        padding: 5px;
+    }
+    .checkoutQctShippingTabs li {
+        height: 100%;
+    }
+    .checkoutQctShippingTabs li.active {
+    }
+}

@@ -738,6 +738,14 @@
   row-gap: 6rem;
 }
 
+@media screen and (max-width: 768px) {
+  .plpTiles {
+    row-gap: 4rem;
+  }
+  .plpPageMain {
+    padding-bottom: 3rem;
+  }
+}
 .plpFilterAction {
   margin-bottom: 35px;
 }
@@ -1020,6 +1028,11 @@
 
 .showCaseCarouselContainer {
   padding-bottom: 60px;
+}
+@media screen and (max-width: 768px) {
+  .showCaseCarouselContainer {
+    padding-bottom: 0px;
+  }
 }
 
 /* .flowerBorderWrap {

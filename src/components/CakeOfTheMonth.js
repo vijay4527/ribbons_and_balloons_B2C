@@ -17,6 +17,9 @@ const CakeOfTheMonth = ({city,data}) => {
     </div>
     <Link href={`/${data[0]?.redirect_url }`} aria-label="cake of the month">
     <div className="cakeOfMonthBody">
+      <div className='MobileWrapper'>
+        <img src={`${imageUrl}`} />
+      </div>
       <div className="wrapper">
         {/* <video
           muted

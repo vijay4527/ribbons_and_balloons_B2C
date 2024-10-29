@@ -379,8 +379,8 @@ img {
   transition: all 100ms ease;
 }
 
-.selectLocationWrap.activeClass,
-.selectSearchItemWrap.activeClass {
+.selectLocationWrap.show,
+.selectSearchItemWrap.show {
   display: block;
   border-radius: 10px;
   overflow: hidden;
@@ -528,8 +528,8 @@ ul.selectLocationOption a {
   transition: opacity 0.15s linear;
 }
 
-.backdropLoaction.activeClass,
-.backdropSearchItem.activeClass {
+.backdropLoaction.show,
+.backdropSearchItem.show {
   display: block;
   opacity: 0.6;
 }
@@ -543,7 +543,8 @@ ul.selectLocationOption a {
   background-position: 50%;
   cursor: pointer;
   position: absolute;
-  top: 9px;
+  top: 50%;
+  transform: translate(0%, -50%);
 }
 
 .selectSearchBody {
@@ -760,7 +761,12 @@ ul.selectLocationOption a {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
-
+.subNavbar_wrapper .navbar-toggler-icon {
+  background-image: unset !important;
+}
+.subNavbar_wrapper .navbar-toggler-icon svg path{
+  fill: #ffffff;
+}
 .Brands_navbody,
 .subNavbar_body {
   /* height: 46px; */
@@ -991,6 +997,9 @@ ul.selectLocationOption a {
 }
 
 @media screen and (max-width: 768px) {
+  .navAction ul li {
+    margin-left: 10px;
+  }
   .category-title {
     color: var(--body-bg-color);
   }
@@ -1020,12 +1029,14 @@ ul.selectLocationOption a {
 
   .subNavbar_wrapper .navbar-toggler.toggleButton {
     position: absolute;
-    top: -55px;
-    left: 15px;
+    top: -50px;
+    left: 0;
     padding: 0;
     border: 0;
     font-size: 20px;
     color: var(--text-color);
+    height: 100%;
+        transform: translate(0%, 50%);
   }
 
   .navbar_MobileClose .navbar-toggler:before {
@@ -1118,6 +1129,7 @@ ul.selectLocationOption a {
   .sub_nav:hover .subnav-content {
     display: block;
     background-color: #fff;
+    height: auto !important;
   }
 
   .sub_nav:hover .subnav-content .category-sub-title {
@@ -1130,7 +1142,7 @@ ul.selectLocationOption a {
   }
 
   .sub_nav:hover .subnav-content .category-sub-title a {
-    color: #000;
+    color: #fff;
   }
 
   .sub_navbtn {
@@ -1212,6 +1224,20 @@ ul.selectLocationOption a {
     padding: 20px;
     padding-bottom: 0px;
     font-size: 17px;
+  }
+
+  .flipper {
+    height: 55px;
+  }
+  .flip-container {
+    width: 95px;
+    margin-left: 35px;
+  }
+  .front, .back{
+    height: 100%;
+  }
+  .navbar_logo .navbar {
+    justify-content: flex-start;
   }
 }
 
@@ -1298,7 +1324,35 @@ ul.selectLocationOption a {
   background-size: 100%;
   position: relative;
 }
-
+@media screen and (max-width: 768px) {
+  /* .navbarDiv {
+    padding: 1rem 0;
+  } */
+  .banner-wrap {
+    padding: 0px;
+  }
+  .banner-wrap .carousel-item img {
+    width: 100%;
+    height: 245px;
+  }
+  .banner-wrap .container-fluid{
+    padding: 0px;
+  }
+  .banner-wrap .carousel-indicators {
+    bottom: 10px;
+  } 
+  .banner-wrap .carousel-indicators button{
+    height: 20px;
+    width: 20px;
+    border-radius: 50px;
+    background-color: var(--theme-seconary);
+    border: 1px solid var(--theme-primary);
+    margin-left: 5px;
+  }
+  .banner-body {
+    display: none;
+  }
+}
 .itemNewLunch {
   display: block;
   overflow: hidden;
@@ -1450,12 +1504,17 @@ ul.selectLocationOption a {
   font-family: var(--font-family);
   border: 0;
   cursor: pointer;
-  z-index: 0;
+  z-index: 1;
   background-image: url(https://img.freepik.com/premium-vector/gold-metal-backgrounds-metal-texture_508524-33.jpg);
   background-position: center;
   background-repeat: no-repeat;
 }
-
+@media screen and (max-width: 768px) {
+  .enquiry_btn {
+    top: unset;
+    bottom: 180px;
+  }
+}
 .enquiry_btn::after {
   content: "";
   top: 0;
@@ -1604,7 +1663,14 @@ ul.selectLocationOption a {
   background-size: 100%;
   /* Fallback for browsers that don't support gradients */
 }
-
+@media screen and (max-width: 768px) {
+  .testimonialsWrap {
+    padding: 0px;
+  }
+  .mediaCollabWrap {
+    padding: 3rem 0px;
+  }
+}
 .headerTitle {
   text-align: center;
 }
@@ -1685,7 +1751,7 @@ ul.selectLocationOption a {
   color: #ffffff;
   -ms-word-wrap: break-word;
   word-wrap: break-word;
-  font-size: 3.5rem;
+  font-size: 1.6rem;
   line-height: 3.5rem;
   margin-bottom: 0px;
   font-style: normal;
@@ -2129,7 +2195,11 @@ ul.selectLocationOption a {
   transition: background 0s !important;
   background-size: 100%;
 }
-
+@media screen and (max-width: 768px) {
+  .cakeOfMonthWrap {
+    padding-top: 3rem;
+  }
+}
 .cakeOfMonthBody {
   width: 100%;
   height: 100%;
@@ -2167,7 +2237,17 @@ ul.selectLocationOption a {
   background-repeat: no-repeat;
   background-size: contain;
 }
-
+.MobileWrapper{
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .wrapper {
+    display: none;
+  }
+  .MobileWrapper{
+    display: block;
+  }
+}
 video {
   width: 100%;
   height: 100%;
@@ -2309,7 +2389,14 @@ video {
   position: relative;
   margin-top: 150px;
 }
-
+@media screen and (max-width: 768px) {
+  .footerWap {
+    margin-top: 3rem;
+  }
+  .footerLinks{
+    padding-bottom: 3rem;
+  }
+}
 .footerbg {
   /* background-color: #0b0a0b; */
 
@@ -2659,7 +2746,6 @@ video {
 .modal-img-div {
   width: 35rem;
 }
-
 .modal-flex-div {
   display: flex;
   justify-content: center;
@@ -2676,7 +2762,23 @@ video {
     margin: 1.75rem auto;
   }
 }
-
+@media screen and (max-width: 768px) {
+  .modal-flex-div {
+    display: block;
+  }
+  .modal-img-div {
+    display: none;
+  }
+  .enquiryBody {
+    flex: unset;
+  }
+  .enquiryLinks {
+    display: block;
+  }
+  .enquiryLinks a{
+    margin-top: 10px;
+  }
+}
 .headerTitle-Enquiry {
   background-color: #301a0f;
   border: none;
@@ -3083,7 +3185,16 @@ video {
   background-size: cover;
   background-attachment: fixed;
 }
-
+@media screen and (max-width: 768px) {
+  .testimonial-container {
+    padding: 3rem 0;
+  }
+  .addon-description {
+    flex-wrap: nowrap;
+    overflow: hidden;
+    overflow-x: auto;
+  }
+}
 .testimonial-container::before {
   content: "";
   position: absolute;
@@ -3917,4 +4028,88 @@ input[name="contact"] {
 .main-con {
   padding-left: 4rem !important;
   padding-right: 4rem !important;
+}
+
+
+/*  */
+.offcanvasHeader{
+  display: none;
+}
+@media screen and (max-width: 767px) {
+  .offcanvasWrap.show {
+    display: block;
+    position: fixed;
+    top: 40%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 0;
+    background-color: #fff;
+  }
+  .offcanvasWrap.show .offcanvasHeader{
+    display: flex !important;
+    align-items: center;
+    height: 56px;
+    padding: 0 15px;
+    background-color: var(--theme-seconary);
+    color: #fff;
+    width: 100%;
+    grid-gap: 15px;
+    min-height: 56px;
+  }
+  .selectSearchBody {
+    padding: 15px;
+  }
+  .selectSearchBody input {
+    width: 100%;
+  }
+  .selectSearchListPopular h3{
+    display: none;
+  }
+  .selectSearchListPopularText {
+    color: #000;
+  }
+  .offcanvasCloseHeaderButton {
+    width: 34px!important;
+    height: 34px!important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 50%;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    color: #000!important;
+    background-color: #fff!important
+  }
+  .offcanvasCloseHeaderButton svg path {
+    fill: #000;
+  }
+  .offcanvasBody{
+    background-color: #ffffff;
+  }
+  .offcanvasWrap.selectLocationWrap {
+    background-color: var(--theme-seconary);
+  }
+  .selectSearchList {
+    max-height: calc(100vh - 56vh);
+  }
+  .selectSearchList a{
+    padding: 0px !important;
+  }
+  .selectSearchList h2{
+    color: #000;
+  }
+  .selectLocationBody {
+    height: calc(100vh - 46.5vh);
+    width: 100%;
+    background-color: transparent;
+  }
+  /* .selectLocationImg,
+  .selectLocationBody h3,
+  .selectLocationBody p{
+    display: none;
+  } */
 }

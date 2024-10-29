@@ -130,14 +130,14 @@ const navComponent = () => {
     }
     if (isSearchActive && inputRef.current) {
       inputRef.current.focus();
-    }    
+    }
   }, [isSearchActive, city]);
 
   const Logout = () => {
     localStorage.removeItem("userData");
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("cartId");
-    localStorage.removeItem("cartId")
+    localStorage.removeItem("cartId");
     Cookies.remove("cartId");
     signOut();
     // router.push("/"+ city)
@@ -230,10 +230,28 @@ const navComponent = () => {
             />
           </div>
           <div
-            className={`selectLocationWrap ${isLoactionActive ? "activeClass" : ""
-              }`}
+            className={`offcanvasWrap selectLocationWrap ${isLoactionActive ? "show" : ""}`}
           >
-            <div className="selectLocationBody">
+            <div className="offcanvasHeader">
+              <button
+                className="offcanvasCloseHeaderButton"
+                onClick={loactionToggle}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="20px"
+                  width="20px"
+                >
+                  <path
+                    fill="#fff"
+                    d="M5.414 11H21a1 1 0 110 2H5.414l7.293 7.293a1 1 0 01-1.414 1.414l-9-9a1 1 0 010-1.414l9-9a1 1 0 111.414 1.414L5.414 11z"
+                  ></path>
+                </svg>
+              </button>
+              <div className="offcanvasHeaderTitle">Select Cities</div>
+            </div>
+            <div className="offcanvasBody selectLocationBody">
               <div className="selectLocationImg">
                 {hoveredCity == "pune" && (
                   <img
@@ -284,8 +302,9 @@ const navComponent = () => {
             </div>
           </div>
           <div
-            className={`backdropLoaction ${isLoactionActive == true ? "activeClass" : ""
-              }`}
+            className={`backdropLoaction ${
+              isLoactionActive == true ? "show" : ""
+            }`}
             onClick={loactionToggle}
           ></div>
         </li>
@@ -305,12 +324,34 @@ const navComponent = () => {
             </span>
           </div>
           <div
-            className={`selectSearchItemWrap ${isSearchActive ? "activeClass" : ""
-              }`}
+            className={`offcanvasWrap selectSearchItemWrap ${
+              isSearchActive ? "show" : ""
+            }`}
           >
-            <div className="selectSearchBody">
-              <div
-                className={`headerSearchIcon searchInput ${isSearchActive ? "activeClass" : ""
+            <div className="offcanvasHeader">
+              <button
+                className="offcanvasCloseHeaderButton"
+                onClick={toggleSearchActive}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="20px"
+                  width="20px"
+                >
+                  <path
+                    fill="#fff"
+                    d="M5.414 11H21a1 1 0 110 2H5.414l7.293 7.293a1 1 0 01-1.414 1.414l-9-9a1 1 0 010-1.414l9-9a1 1 0 111.414 1.414L5.414 11z"
+                  ></path>
+                </svg>
+              </button>
+              <div className="offcanvasHeaderTitle">Popular Searches</div>
+            </div>
+            <div className="offcanvasBody">
+              <div className="selectSearchBody">
+                <div
+                  className={`headerSearchIcon searchInput ${
+                    isSearchActive ? "show" : ""
                   }`}
               ></div>
               <input
@@ -409,8 +450,7 @@ const navComponent = () => {
             </div>
           </div>
           <div
-            className={`backdropSearchItem ${isSearchActive ? "activeClass" : ""
-              }`}
+            className={`backdropSearchItem ${isSearchActive ? "show" : ""}`}
             onClick={toggleSearchActive}
           ></div>
         </li>
