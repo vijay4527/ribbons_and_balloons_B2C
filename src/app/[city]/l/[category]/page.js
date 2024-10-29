@@ -11,7 +11,7 @@ export async function generateMetadata({ params }) {
     params.subcategory,
     params.city
   );
-  if (data) {
+  if (data && data.length > 0) {
     return {
       title: params.subcategory ? data[0].sub_category_title : data[0].category_title,
       description: params.subcategory

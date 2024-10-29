@@ -1,6 +1,24 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
+async function getLongToken() {
+  try {
+    const accessToken = process.env.INSTAGRAM_KEY;
+    
+    const liveLongToken = await fetch(`https://graph.instagram.com/access_token
+ ?grant_type=ig_exchange_token
+ &client_secret=a48e75c2da6b188408469129f74ed035
+ &access_token=${accessToken}`);
+    if (liveLongToken) {
+      const token = await liveLongToken.json();
 
+      if (token.error) {
+        console.log(token);
+      }
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
 async function getInstaFeed() {
   try {
     const accessToken = process.env.INSTAGRAM_KEY;
@@ -26,6 +44,7 @@ async function getInstaFeed() {
 const InstaPosts = async () => {
   const { filteredVideo, filteredImage } = await getInstaFeed();
   // const data = await getInstaFeed();
+  const getToken = await getLongToken();
   return (
     <div className="advInstaWrap">
       <Container fluid>
@@ -257,212 +276,213 @@ const InstaPosts = async () => {
         </div>
       </Container>
     </div>
-  //   <div className="advInstaWrap">
-  //   <Container fluid>
-  //     <div className="headerTitle">
-  //       <h2>INSTAGRAM</h2>
-  //       <div className="testimonialUnderLine">
-  //         <div className="testimonialUnder">
-  //           <div className="underLine"></div>
-  //           <div className="shapLine"></div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //     <div className="advInstaBody">
-  //       <div className="advInstaContent2">
-  //         <div className="advInstaContentBox">
-  //           <div className="advInstaContentBoxImg">
-  //             <img
-  //               src="https://fama.b-cdn.net/RnB/post1.webp"
-  //               alt="No image found"
-  //               rel="preload"
-  //             />
-  //           </div>
-  //           <div className="advInstaContentBoxHover">
-  //             <div className="advInstaContentBoxTrap">
-  //               <div className="advInstaContentBoxborder">
-  //                 <div className="advInstaContentInfo">
-  //                   <img src="" alt="No image found" rel="preload" />
-  //                   <h3>Calisson</h3>
-  //                   <p>$15</p>
-  //                 </div>
-  //               </div>
-  //             </div>
-  //           </div>
-  //         </div>
-  //         <div className="advInstaContentBox">
-  //           <div className="advInstaContentBoxImg">
-  //             <img
-  //               src="https://fama.b-cdn.net/RnB/post3.webp"
-  //               alt="No image found"
-  //               rel="preload"
-  //             />
-  //           </div>
-  //           <div className="advInstaContentBoxHover">
-  //             <div className="advInstaContentBoxTrap">
-  //               <div className="advInstaContentBoxborder">
-  //                 <div className="advInstaContentInfo">
-  //                   <img src="" alt="No image found" rel="preload" />
-  //                   <h3>Calisson</h3>
-  //                   <p>$15</p>
-  //                 </div>
-  //               </div>
-  //             </div>
-  //           </div>
-  //         </div>
-  //         <div className="advInstaContentBox">
-  //           <div className="advInstaContentBoxImg">
-  //             <img
-  //               src="https://fama.b-cdn.net/RnB/post2.webp"
-  //               alt="No image found"
-  //               rel="preload"
-  //             />
-  //           </div>
-  //           <div className="advInstaContentBoxHover">
-  //             <div className="advInstaContentBoxTrap">
-  //               <div className="advInstaContentBoxborder">
-  //                 <div className="advInstaContentInfo">
-  //                   <img src="" alt="No image found" rel="preload" />
-  //                   <h3>Calisson</h3>
-  //                   <p>$15</p>
-  //                 </div>
-  //               </div>
-  //             </div>
-  //           </div>
-  //         </div>
-  //         <div className="advInstaContentBox">
-  //           <div className="advInstaContentBoxImg">
-  //             <img
-  //               src="https://fama.b-cdn.net/RnB/post4.webp"
-  //               alt="No image found"
-  //               rel="preload"
-  //             />
-  //           </div>
-  //           <div className="advInstaContentBoxHover">
-  //             <div className="advInstaContentBoxTrap">
-  //               <div className="advInstaContentBoxborder">
-  //                 <div className="advInstaContentInfo">
-  //                   <img src="" alt="No image found" rel="preload" />
-  //                   <h3>Calisson</h3>
-  //                   <p>$15</p>
-  //                 </div>
-  //               </div>
-  //             </div>
-  //           </div>
-  //         </div>
-  //       </div>
 
-  //       <div className="advInstaContent">
-  //         <div className="advInstaContentBox">
-  //           <div className="advInstaContentBoxImg">
-  //             <img
-  //               src="https://fama.b-cdn.net/RnB/post5.webp"
-  //               alt="No image found"
-  //               rel="preload"
-  //             />
-  //           </div>
-  //           <div className="advInstaContentBoxHover">
-  //             <div className="advInstaContentBoxTrap">
-  //               <div className="advInstaContentBoxborder">
-  //                 <div className="advInstaContentInfo">
-  //                   <img src="" alt="No image found" />
-  //                   <h3>Calisson</h3>
-  //                   <p>$15</p>
-  //                 </div>
-  //               </div>
-  //             </div>
-  //           </div>
-  //         </div>
-  //       </div>
+    //   <div className="advInstaWrap">
+    //   <Container fluid>
+    //     <div className="headerTitle">
+    //       <h2>INSTAGRAM</h2>
+    //       <div className="testimonialUnderLine">
+    //         <div className="testimonialUnder">
+    //           <div className="underLine"></div>
+    //           <div className="shapLine"></div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //     <div className="advInstaBody">
+    //       <div className="advInstaContent2">
+    //         <div className="advInstaContentBox">
+    //           <div className="advInstaContentBoxImg">
+    //             <img
+    //               src="https://fama.b-cdn.net/RnB/post1.webp"
+    //               alt="No image found"
+    //               rel="preload"
+    //             />
+    //           </div>
+    //           <div className="advInstaContentBoxHover">
+    //             <div className="advInstaContentBoxTrap">
+    //               <div className="advInstaContentBoxborder">
+    //                 <div className="advInstaContentInfo">
+    //                   <img src="" alt="No image found" rel="preload" />
+    //                   <h3>Calisson</h3>
+    //                   <p>$15</p>
+    //                 </div>
+    //               </div>
+    //             </div>
+    //           </div>
+    //         </div>
+    //         <div className="advInstaContentBox">
+    //           <div className="advInstaContentBoxImg">
+    //             <img
+    //               src="https://fama.b-cdn.net/RnB/post3.webp"
+    //               alt="No image found"
+    //               rel="preload"
+    //             />
+    //           </div>
+    //           <div className="advInstaContentBoxHover">
+    //             <div className="advInstaContentBoxTrap">
+    //               <div className="advInstaContentBoxborder">
+    //                 <div className="advInstaContentInfo">
+    //                   <img src="" alt="No image found" rel="preload" />
+    //                   <h3>Calisson</h3>
+    //                   <p>$15</p>
+    //                 </div>
+    //               </div>
+    //             </div>
+    //           </div>
+    //         </div>
+    //         <div className="advInstaContentBox">
+    //           <div className="advInstaContentBoxImg">
+    //             <img
+    //               src="https://fama.b-cdn.net/RnB/post2.webp"
+    //               alt="No image found"
+    //               rel="preload"
+    //             />
+    //           </div>
+    //           <div className="advInstaContentBoxHover">
+    //             <div className="advInstaContentBoxTrap">
+    //               <div className="advInstaContentBoxborder">
+    //                 <div className="advInstaContentInfo">
+    //                   <img src="" alt="No image found" rel="preload" />
+    //                   <h3>Calisson</h3>
+    //                   <p>$15</p>
+    //                 </div>
+    //               </div>
+    //             </div>
+    //           </div>
+    //         </div>
+    //         <div className="advInstaContentBox">
+    //           <div className="advInstaContentBoxImg">
+    //             <img
+    //               src="https://fama.b-cdn.net/RnB/post4.webp"
+    //               alt="No image found"
+    //               rel="preload"
+    //             />
+    //           </div>
+    //           <div className="advInstaContentBoxHover">
+    //             <div className="advInstaContentBoxTrap">
+    //               <div className="advInstaContentBoxborder">
+    //                 <div className="advInstaContentInfo">
+    //                   <img src="" alt="No image found" rel="preload" />
+    //                   <h3>Calisson</h3>
+    //                   <p>$15</p>
+    //                 </div>
+    //               </div>
+    //             </div>
+    //           </div>
+    //         </div>
+    //       </div>
 
-  //       <div className="advInstaContent2">
-  //         <div className="advInstaContentBox">
-  //           <div className="advInstaContentBoxImg">
-  //             <img
-  //               src="https://fama.b-cdn.net/RnB/post1.webp"
-  //               alt="No image found"
-  //               rel="preload"
-  //             />
-  //           </div>
-  //           <div className="advInstaContentBoxHover">
-  //             <div className="advInstaContentBoxTrap">
-  //               <div className="advInstaContentBoxborder">
-  //                 <div className="advInstaContentInfo">
-  //                   <img src="" alt="No image found" rel="preload" />
-  //                   <h3>Calisson</h3>
-  //                   <p>$15</p>
-  //                 </div>
-  //               </div>
-  //             </div>
-  //           </div>
-  //         </div>
-  //         <div className="advInstaContentBox">
-  //           <div className="advInstaContentBoxImg">
-  //             <img
-  //               src="https://fama.b-cdn.net/RnB/post3.webp"
-  //               alt="No image found"
-  //               rel="preload"
-  //             />
-  //           </div>
-  //           <div className="advInstaContentBoxHover">
-  //             <div className="advInstaContentBoxTrap">
-  //               <div className="advInstaContentBoxborder">
-  //                 <div className="advInstaContentInfo">
-  //                   <img src="" alt="No image found" />
-  //                   <h3>Calisson</h3>
-  //                   <p>$15</p>
-  //                 </div>
-  //               </div>
-  //             </div>
-  //           </div>
-  //         </div>
-  //         <div className="advInstaContentBox">
-  //           <div className="advInstaContentBoxImg">
-  //             <img
-  //               src="https://fama.b-cdn.net/RnB/post2.webp"
-  //               alt="No image found"
-  //               rel="preload"
-  //             />
-  //           </div>
-  //           <div className="advInstaContentBoxHover">
-  //             <div className="advInstaContentBoxTrap">
-  //               <div className="advInstaContentBoxborder">
-  //                 <div className="advInstaContentInfo">
-  //                   <img src="" alt="No image found" rel="preload" />
-  //                   <h3>Calisson</h3>
-  //                   <p>$15</p>
-  //                 </div>
-  //               </div>
-  //             </div>
-  //           </div>
-  //         </div>
-  //         <div className="advInstaContentBox">
-  //           <div className="advInstaContentBoxImg">
-  //             <img
-  //               rel="preload"
-  //               src="https://fama.b-cdn.net/RnB/post4.webp"
-  //               alt="No image found"
-  //             />
-  //           </div>
-  //           <div className="advInstaContentBoxHover">
-  //             <div className="advInstaContentBoxTrap">
-  //               <div className="advInstaContentBoxborder">
-  //                 <div className="advInstaContentInfo">
-  //                   <img src="" alt="No image found" rel="preload" />
-  //                   <h3>Calisson</h3>
-  //                   <p>$15</p>
-  //                 </div>
-  //               </div>
-  //             </div>
-  //           </div>
-  //         </div>
-  //       </div>
-  //       {/* <div className='advInstaContent3'>
-  //       <div className=''><h3>Where there is cake, there is hope. And there is always cake.</h3></div>
-  //     </div> */}
-  //     </div>
-  //   </Container>
-  // </div>
+    //       <div className="advInstaContent">
+    //         <div className="advInstaContentBox">
+    //           <div className="advInstaContentBoxImg">
+    //             <img
+    //               src="https://fama.b-cdn.net/RnB/post5.webp"
+    //               alt="No image found"
+    //               rel="preload"
+    //             />
+    //           </div>
+    //           <div className="advInstaContentBoxHover">
+    //             <div className="advInstaContentBoxTrap">
+    //               <div className="advInstaContentBoxborder">
+    //                 <div className="advInstaContentInfo">
+    //                   <img src="" alt="No image found" />
+    //                   <h3>Calisson</h3>
+    //                   <p>$15</p>
+    //                 </div>
+    //               </div>
+    //             </div>
+    //           </div>
+    //         </div>
+    //       </div>
+
+    //       <div className="advInstaContent2">
+    //         <div className="advInstaContentBox">
+    //           <div className="advInstaContentBoxImg">
+    //             <img
+    //               src="https://fama.b-cdn.net/RnB/post1.webp"
+    //               alt="No image found"
+    //               rel="preload"
+    //             />
+    //           </div>
+    //           <div className="advInstaContentBoxHover">
+    //             <div className="advInstaContentBoxTrap">
+    //               <div className="advInstaContentBoxborder">
+    //                 <div className="advInstaContentInfo">
+    //                   <img src="" alt="No image found" rel="preload" />
+    //                   <h3>Calisson</h3>
+    //                   <p>$15</p>
+    //                 </div>
+    //               </div>
+    //             </div>
+    //           </div>
+    //         </div>
+    //         <div className="advInstaContentBox">
+    //           <div className="advInstaContentBoxImg">
+    //             <img
+    //               src="https://fama.b-cdn.net/RnB/post3.webp"
+    //               alt="No image found"
+    //               rel="preload"
+    //             />
+    //           </div>
+    //           <div className="advInstaContentBoxHover">
+    //             <div className="advInstaContentBoxTrap">
+    //               <div className="advInstaContentBoxborder">
+    //                 <div className="advInstaContentInfo">
+    //                   <img src="" alt="No image found" />
+    //                   <h3>Calisson</h3>
+    //                   <p>$15</p>
+    //                 </div>
+    //               </div>
+    //             </div>
+    //           </div>
+    //         </div>
+    //         <div className="advInstaContentBox">
+    //           <div className="advInstaContentBoxImg">
+    //             <img
+    //               src="https://fama.b-cdn.net/RnB/post2.webp"
+    //               alt="No image found"
+    //               rel="preload"
+    //             />
+    //           </div>
+    //           <div className="advInstaContentBoxHover">
+    //             <div className="advInstaContentBoxTrap">
+    //               <div className="advInstaContentBoxborder">
+    //                 <div className="advInstaContentInfo">
+    //                   <img src="" alt="No image found" rel="preload" />
+    //                   <h3>Calisson</h3>
+    //                   <p>$15</p>
+    //                 </div>
+    //               </div>
+    //             </div>
+    //           </div>
+    //         </div>
+    //         <div className="advInstaContentBox">
+    //           <div className="advInstaContentBoxImg">
+    //             <img
+    //               rel="preload"
+    //               src="https://fama.b-cdn.net/RnB/post4.webp"
+    //               alt="No image found"
+    //             />
+    //           </div>
+    //           <div className="advInstaContentBoxHover">
+    //             <div className="advInstaContentBoxTrap">
+    //               <div className="advInstaContentBoxborder">
+    //                 <div className="advInstaContentInfo">
+    //                   <img src="" alt="No image found" rel="preload" />
+    //                   <h3>Calisson</h3>
+    //                   <p>$15</p>
+    //                 </div>
+    //               </div>
+    //             </div>
+    //           </div>
+    //         </div>
+    //       </div>
+    //       {/* <div className='advInstaContent3'>
+    //       <div className=''><h3>Where there is cake, there is hope. And there is always cake.</h3></div>
+    //     </div> */}
+    //     </div>
+    //   </Container>
+    // </div>
   );
 };
 

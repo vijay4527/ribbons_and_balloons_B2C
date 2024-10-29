@@ -385,8 +385,7 @@ const navComponent = () => {
                 {filteredProduct &&
                   filteredProduct.length > 0 &&
                   filteredProduct.map((item) => {
-                    const productName = item.product_name.split(" ").join("-");
-                    var image = item.product_image.split(",");
+                    var image = item.product_image.split(",")
                     return (
                       <Link
                         className="searchResultContainer"
@@ -404,7 +403,7 @@ const navComponent = () => {
                           <h2>{item.product_name}</h2>
                         </div>
                       </Link>
-                    );
+                    )
                   })}
               </div>
             </div>
@@ -527,7 +526,7 @@ const navComponent = () => {
         ></UserModal>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default navComponent;
+export default navComponent

@@ -166,11 +166,11 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
           },
         },
       }
-    );
+    )
   const verifyOTP = async () => {
     const otpValue = inputs
       .map((id) => document.getElementById(id).value)
-      .join("");
+      .join("")
 
     if (userObject) {
       try {
@@ -407,7 +407,7 @@ const LoginModal = ({ isOpen, onRequestClose, closeLoginModal }) => {
           </div>
         </div>
       </Modal>
-      <Toaster position="top-right" reverseOrder={false} />;
+      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 };
