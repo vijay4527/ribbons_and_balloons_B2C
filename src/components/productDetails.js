@@ -128,7 +128,7 @@ function getProductDetails({ data }) {
         }
       }
     }
-  }, [data]);
+  }, [data,varietyDescription]);
 
   const handleProductTypeChange = (event) => {
     const selectedType = event.variety_id;
